@@ -1,0 +1,31 @@
+;; Emacs-W3 HTTP cookies file
+;; Automatically generated file!!! DO NOT EDIT!!!
+
+(setq url-cookie-storage
+ '((".google.com"
+  [url-cookie "1P_JAR" "2018-09-28-01" "Sun, 28-Oct-2018 01:03:19 GMT" "/" ".google.com" nil]
+  [url-cookie "NID" "139=dM0g4VZSG7SwJxGVP7mUepR5qq2B-RJIQMTnqp2qQ2J64qW9le0el6L6B3nS3_AcgF12qlxrxl-BGhIPNzVgNuB9c7QjwU_jLMEnQ3cQ9o1mVulEC67B8NE-eZWD8hry2BzbfpMM4MVS5HSyix6MpsuwgI048cacrkaCFISYdbo2xMNverzTdfQMdqwRrbrfSjDHJR0rLI-gVYXNtIE" "Sat, 30-Mar-2019 01:03:19 GMT" "/" ".google.com" nil]
+  [url-cookie "CGIC" "IgMqLyo" "Fri, 29-Mar-2019 15:57:21 GMT" "/complete/search" ".google.com" nil]
+  [url-cookie "CGIC" "IgMqLyo" "Fri, 29-Mar-2019 15:57:21 GMT" "/search" ".google.com" nil]
+  [url-cookie "SID" "iQa8okZlCavfZesnzFXmTdttXs9iLJVDA78JatuIlURH3XRLIt4HPDLJ_SHhGv9C_3gMdA." "Sun, 27-Sep-2020 01:03:18 GMT" "/" ".google.com" nil]
+  [url-cookie "HSID" "A-54KBwLkoB2sA1JZ" "Sun, 27-Sep-2020 01:03:18 GMT" "/" ".google.com" nil]
+  [url-cookie "APISID" "OZsXT0dD04Bh34C-/Av14P0DFwhZ1cP6qQ" "Sun, 27-Sep-2020 01:03:18 GMT" "/" ".google.com" nil]
+  [url-cookie "SIDCC" "AGIhQKSztzCYTLHz1L0BLTrtgeS7c5Xv-ezug4ulFLXczb_X7I0V5xeE2uiEYB6ZKjPbbh_cbA" "Thu, 27-Dec-2018 01:09:35 GMT" "/" ".google.com" nil]))
+)
+(setq url-cookie-secure-storage
+ '((".google.com"
+  [url-cookie "SSID" "ANotKqt52qbnPo82a" "Sun, 27-Sep-2020 01:03:18 GMT" "/" ".google.com" t]
+  [url-cookie "SAPISID" "b7KpnkC_tAgtbBnq/AQT1CGrZfRUJq-inM" "Sun, 27-Sep-2020 01:03:18 GMT" "/" ".google.com" t])
+ ("mail.google.com"
+  [url-cookie "OSID" "iQa8oswNgzXh-leqhkohFbkJQvzy2Y9E23XmNW4s50X1HffyL1gNIM5kgB9bS6Ul3WrIxQ." "Sun, 27-Sep-2020 01:03:24 GMT" "/" "mail.google.com" t]
+  [url-cookie "COMPASS" "gmail=CoUBAAlriVd_yDiu4oSGoknwjUckSbBYJGL3LiPzdSt713VSeKKsdZ0ogG6okcmHi5aO_7X9F9jmd0n05rrBu1VMKNh2j96ZlQ8Rt3Kk8-eNfDZtWMczRKPvShnrpEoa3JDkgP4rUK0162EqXlRE9Sq8M97wWAKLCMs_bUR5Dxya1fXzGl5NSBCcmLbdBRqOAQAJa4lXuLy29YgZfiYNvFnwKeLQ-r2dv7N1oC8rli3RkjvcSw5qxQYZ5b_r7B1zGBJPWdxW9oGOHSFVPilzv1dexixGCdHE57h1IqG7cyVn_9sEJKp1mXOhvBP9s_qWMNWBgYwVze5vHm91P7aEC5WFFShGva6kjtih0Xm9dncVV3-8X30vDNwjDo3Dh8s" "Mon, 08-Oct-2018 01:03:28 GMT" "/mail/u/0" "mail.google.com" t])
+ ("accounts.google.com"
+  [url-cookie "GAPS" "1:6MqYxOSfIfp_4dr8q6nsKqYBYG-btmg_6B0jTXByLaJ4sAXOYglRI8FU9mBHctybpHDuptAWPDp1LQdfPYaSRR7GZtAE5Q:l7vhnHkjicme2455" "Sun, 27-Sep-2020 01:03:24 GMT" "/" "accounts.google.com" t]
+  [url-cookie "LSID" "o.mail.google.com:iQa8oiwkd8TeRzcGwj73Ey88E4hsqehMH2l1YFI-d5sGlkOFPZTDh37lT9lIA4HnqpnhAw." "Sun, 27-Sep-2020 01:03:24 GMT" "/" "accounts.google.com" t]
+  [url-cookie "ACCOUNT_CHOOSER" "AFx_qI6a290TTTqYnqjSRq_DWWXwprrev4KXFY2elBNws3uuOVrR8xvfB1Gxr6NcswlIslYtyV4XSGjyDuCsGv6YdY5-JRuMyBjAnx1gVQHPU8M5kzPNZYjy-fyVt5OzrjuBbK0ub_EA" "Sun, 27-Sep-2020 01:03:18 GMT" "/" "accounts.google.com" t]))
+)
+
+;; Local Variables:
+;; version-control: never
+;; no-byte-compile: t
+;; End:
