@@ -1,0 +1,9 @@
+ls
+aliases
+alias
+la
+ls
+ls -la
+vim .zshrc 
+gpg
+exit
