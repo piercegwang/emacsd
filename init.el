@@ -34,7 +34,7 @@
 ;;evil mode
 (add-to-list 'load-path "~/.emacs.d/site-lisp/evil")
 (require 'evil)
-(evil-mode 1)
+;;(evil-mode t)
 
 ;; Chinese Fonts
 (if (and (fboundp 'daemonp) (daemonp))
@@ -114,7 +114,7 @@
 (put 'downcase-region 'disabled nil)
 
 ;; In case future me wants to change bash version
-(setq shell-file-name "/bin/bash")
+(setq shell-file-name "/bin/zsh")
 (put 'scroll-left 'disabled nil)
 
 
