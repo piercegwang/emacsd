@@ -16,7 +16,7 @@
    (list "~/Dropbox/org/school.org" "~/Dropbox/org/todo.org" "~/Dropbox/org/violin.org"))
  '(org-modules
    (quote
-    (org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-w3m org-drill)))
+    (org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-w3m org-drill org-learn)))
  '(package-selected-packages
    (quote
     (exec-path-from-shell smart-mode-line-powerline-theme smart-mode-line latex auctex evil-visual-mark-mode))))
@@ -34,7 +34,7 @@
 ;;evil mode
 (add-to-list 'load-path "~/.emacs.d/site-lisp/evil")
 (require 'evil)
-;;(evil-mode t)
+(evil-mode t)
 
 ;; Chinese Fonts
 (if (and (fboundp 'daemonp) (daemonp))
@@ -65,6 +65,10 @@
                 (lambda () (interactive) (find-file (concat org-directory "/violin.org"))))
 (global-set-key (kbd "C-c m") 
                 (lambda () (interactive) (find-file (concat org-directory "/notes/emacs/emacs_notes.org"))))
+
+;; org-drill
+(add-to-list 'load-path "~/.emacs.d/custom_load/")
+(require 'org-drill)
 
 ;; org-capture-templates
 
