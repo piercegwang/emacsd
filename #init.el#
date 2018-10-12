@@ -11,51 +11,12 @@
  '(custom-safe-themes
    (quote
     ("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
- '(default-input-method "TeX")
  '(epg-gpg-program "/usr/local/bin/gpg")
  '(org-agenda-files
    (list "~/Dropbox/org/school.org" "~/Dropbox/org/todo.org" "~/Dropbox/org/violin.org"))
  '(org-modules
    (quote
     (org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-w3m org-drill org-learn)))
- '(org-structure-template-alist
-   (quote
-    (("s" "#+BEGIN_SRC ?
-
-#+END_SRC")
-     ("e" "#+BEGIN_EXAMPLE
-?
-#+END_EXAMPLE")
-     ("q" "#+BEGIN_QUOTE
-?
-#+END_QUOTE")
-     ("v" "#+BEGIN_VERSE
-?
-#+END_VERSE")
-     ("V" "#+BEGIN_VERBATIM
-?
-#+END_VERBATIM")
-     ("c" "#+BEGIN_CENTER
-?
-#+END_CENTER")
-     ("C" "#+BEGIN_COMMENT
-?
-#+END_COMMENT")
-     ("l" "#+BEGIN_EXPORT latex
-?
-#+END_EXPORT")
-     ("L" "#+LaTeX: ")
-     ("h" "#+BEGIN_EXPORT html
-?
-#+END_EXPORT")
-     ("H" "#+HTML: ")
-     ("a" "#+BEGIN_EXPORT ascii
-?
-#+END_EXPORT")
-     ("A" "#+ASCII: ")
-     ("i" "#+INDEX: ?")
-     ("I" "#+INCLUDE: %file ?")
-     ("la" "$?$"))))
  '(package-selected-packages
    (quote
     (exec-path-from-shell smart-mode-line-powerline-theme smart-mode-line latex auctex evil-visual-mark-mode))))
@@ -108,6 +69,7 @@
 ;; org-drill
 (add-to-list 'load-path "~/.emacs.d/custom_load/")
 (require 'org-drill)
+
 ;; org-capture-templates
 
 (setq org-capture-templates
@@ -160,4 +122,6 @@
 (put 'scroll-left 'disabled nil)
 
 ;; Kbd Macros
+(fset 'convertlatex
+   [?V ?: ?s ?/ ?\( ?/ ?\\ ?\\ ?l ?e ?f ?t ?\( ?/ ?g return ?V ?: ?s ?/ ?\) ?/ ?\\ ?\\ ?r ?i ?g ?h ?t ?\) ?/ ?g return ?V ?: ?s ?/ ?s ?i ?n ?/ ?\\ ?\\ ?s ?i ?n ?/ ?g return ?V ?: ?s ?/ ?c ?o ?s ?/ ?\\ ?\\ ?c ?o ?s ?/ ?g return ?V ?: ?s ?/ ?\\ ?/ left left ?\[ ?a ?- ?z ?A ?- ?Z ?0 ?- ?0 backspace ?9 ?\\ ?\\ ?\] ?* right right ?/ backspace left right ?/ ?g backspace ?/ ?g left left left ?\[ ?a ?- ?z ?A ?- ?Z ?9 backspace ?0 ?- ?9 ?\\ ?\\ ?\] left ?\\ backspace backspace ?\\ right ?* right ?\\ ?1 backspace backspace left left left right right ?\) backspace ?\\ ?\) left left left left left left left left left left left left left left left left ?\\ ?\( left left left left left right ?\\ ?\) left left left left left left left left left left left left left left left left ?\\ ?\( right right right right right right right right right right right right right right right right right right right right right right right right right right right right right right right right right right right right right ?\\ ?1 backspace backspace ?\{ ?\\ ?1 ?\} ?\{ ?\\ ?2 ?\} left left left left left left left left ?\\ ?f backspace ?d ?f ?r ?a ?c return])
 
