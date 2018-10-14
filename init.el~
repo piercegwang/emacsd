@@ -54,8 +54,7 @@
 #+END_EXPORT")
      ("A" "#+ASCII: ")
      ("i" "#+INDEX: ?")
-     ("I" "#+INCLUDE: %file ?")
-     ("la" "$?$"))))
+     ("I" "#+INCLUDE: %file ?"))))
  '(package-selected-packages
    (quote
     (exec-path-from-shell smart-mode-line-powerline-theme smart-mode-line latex auctex evil-visual-mark-mode))))
@@ -68,7 +67,7 @@
 (require 'package)
 ;;Install melpa
 (add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+             '("melpa-stable" . "https://stable.melpa.org/packages/"))
 (package-initialize)
 ;;evil mode
 (add-to-list 'load-path "~/.emacs.d/site-lisp/evil")
@@ -104,6 +103,8 @@
                 (lambda () (interactive) (find-file (concat org-directory "/violin.org"))))
 (global-set-key (kbd "C-c m") 
                 (lambda () (interactive) (find-file (concat org-directory "/notes/emacs/emacs_notes.org"))))
+(global-set-key (kbd "C-c k") 
+                (lambda () (interactive) (find-file (concat org-directory "/links.org"))))
 
 ;; org-drill
 (add-to-list 'load-path "~/.emacs.d/custom_load/")
