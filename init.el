@@ -57,7 +57,7 @@
      ("I" "#+INCLUDE: %file ?"))))
  '(package-selected-packages
    (quote
-    (exec-path-from-shell smart-mode-line-powerline-theme smart-mode-line latex auctex evil-visual-mark-mode))))
+    (elpy exec-path-from-shell smart-mode-line-powerline-theme smart-mode-line latex auctex evil-visual-mark-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -67,7 +67,7 @@
 (require 'package)
 ;;Install melpa
 (add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+             '("melpa-stable" . "https://stable.melpa.org/packages/"))
 (package-initialize)
 ;;evil mode
 (add-to-list 'load-path "~/.emacs.d/site-lisp/evil")
@@ -82,6 +82,9 @@
                   (set-fontset-font "fontset-default"
                                     'chinese-gbk "WenQuanYi Micro Hei Mono 14"))))
   (set-fontset-font "fontset-default" 'chinese-gbk "WenQuanYi Micro Hei Mono 14"))
+
+;; elpy
+(elpy-enable)
 
 ;; Org Configuration
 (require 'org)
@@ -103,6 +106,8 @@
                 (lambda () (interactive) (find-file (concat org-directory "/violin.org"))))
 (global-set-key (kbd "C-c m") 
                 (lambda () (interactive) (find-file (concat org-directory "/notes/emacs/emacs_notes.org"))))
+(global-set-key (kbd "C-c k") 
+                (lambda () (interactive) (find-file (concat org-directory "/links.org"))))
 
 ;; org-drill
 (add-to-list 'load-path "~/.emacs.d/custom_load/")
