@@ -13,6 +13,9 @@
     ("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
  '(default-input-method "TeX")
  '(epg-gpg-program "/usr/local/bin/gpg")
+ '(erc-modules
+   (quote
+    (autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands notifications readonly ring stamp track)))
  '(org-agenda-files
    (list "~/Dropbox/org/school.org" "~/Dropbox/org/todo.org" "~/Dropbox/org/violin.org"))
  '(org-modules
@@ -164,4 +167,13 @@
 (put 'scroll-left 'disabled nil)
 
 ;; Kbd Macros
+(fset 'setupworkspace
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ("aao23iooopo" 0 "%d")) arg)))
+(global-set-key (kbd "C-x C-k 1") 'setupworkspace)
 
+;; Run Emacs as Daemon
+(server-start)
+
+;; ERC
+(setq erc-log-channels-directory "~/logs/")
+(setq erc-save-buffer-on-part t)
