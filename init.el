@@ -15,7 +15,7 @@
  '(epg-gpg-program "/usr/local/bin/gpg")
  '(erc-modules
    (quote
-    (autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands notifications readonly ring stamp track)))
+    (autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands readonly ring stamp track)))
  '(org-agenda-files
    (list "~/Dropbox/org/school.org" "~/Dropbox/org/todo.org" "~/Dropbox/org/violin.org"))
  '(org-modules
@@ -170,6 +170,29 @@
 (fset 'setupworkspace
    (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ("aao23iooopo" 0 "%d")) arg)))
 (global-set-key (kbd "C-x C-k 1") 'setupworkspace)
+
+;;(fset 'biofigure
+;;   [?a ?# ?+ ?C ?A ?P ?T ?I ?O ?N ?: ?  ?\C-x ?Q return return tab ?\[ ?\[ ?f ?i ?l ?e ?: ?. ?. ?/ ?W ?e ?e ?k ?  ?\C-x ?Q return ?/ ?\C-x ?Q return ?. ?p ?n ?g ?\] ?\]])
+;;(global-set-key (kbd "C-c W") 'my-macro)
+
+(fset 'OB010FigureSave
+   [?# ?+ ?C ?A ?P ?T ?I ?O ?N ?: ?  ?\C-x ?Q return return tab ?\[ ?\[ ?f ?i ?l ?e ?: ?. ?. ?/ ?W ?e ?e ?k ?  ?\C-x ?Q return ?/ ?\C-x ?Q return ?. ?p ?n ?g ?\] ?\] return ?G ?o ?o ?g ?l ?e ?  ?D ?r ?i ?v ?e ?/ ?O ?H ?S ?/ ?1 ?0 ?t ?h ?  ?G ?r ?a ?d ?e ?/ ?S ?e ?m ?e ?s ?t ?e ?r ?  ?1 ?/ ?O ?B ?0 ?1 ?0 ?/ ?W ?e ?e ?k ?  ?\C-x ?Q return ?/ ?\C-x ?Q return ?. ?p ?n ?g escape ?V ?d ?\C-x ?\C-f ?\C-  ?\C-a ?\C-f ?\C-f backspace ?S ?c ?r ?e ?e ?n ?s ?h ?o ?t ?s return ?s ?\M-< ?/ ?S ?c ?r ?e ?e ?n ?  ?S ?h ?o ?t return ?R ?\C-  ?\C-a ?\C-f ?\C-f backspace ?\s-v backspace return ?\C-x ?k return])
+(global-set-key (kbd "C-c W") 'OB010FigureSave)
+
+(defun my-macro-query (arg)
+  "Prompt for input using minibuffer during kbd macro execution.
+With prefix argument, allows you to select what prompt string to use.
+If the input is non-empty, it is inserted at point."
+  (interactive "P")
+  (let* ((query (lambda () (kbd-macro-query t)))
+         (prompt (if arg (read-from-minibuffer "PROMPT: ") "Input: "))
+         (input (unwind-protect
+                    (progn
+                      (add-hook 'minibuffer-setup-hook query)
+                      (read-from-minibuffer prompt))
+                  (remove-hook 'minibuffer-setup-hook query))))
+    (unless (string= "" input) (insert input))))
+(global-set-key "\C-xQ" 'my-macro-query)
 
 ;; Run Emacs as Daemon
 (server-start)
