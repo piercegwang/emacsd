@@ -111,6 +111,7 @@
                 (lambda () (interactive) (find-file (concat org-directory "/notes/emacs/emacs_notes.org"))))
 (global-set-key (kbd "C-c k") 
                 (lambda () (interactive) (find-file (concat org-directory "/links.org"))))
+(setq org-agenda-overriding-columns-format "%28ITEM %TODO %SCHEDULED %DEADLINE %TAGS")
 
 ;; org-drill
 (add-to-list 'load-path "~/.emacs.d/custom_load/")
@@ -141,6 +142,20 @@
 ;; Visual line mode (for text wrapping)
 (global-visual-line-mode t)
 (global-linum-mode t)
+
+;;; Scrolling.
+;; Good speed and allow scrolling through large images (pixel-scroll).
+;; Note: Scroll lags when point must be moved but increasing the number
+;;       of lines that point moves in pixel-scroll.el ruins large image
+;;       scrolling. So unfortunately I think we'll just have to live with
+;;       this.
+(setq pixel-scroll-mode nil)
+;;(setq pixel-dead-time 0) ; Never go back to the old scrolling behaviour.
+;;(setq pixel-resolution-fine-flag t) ; Scroll by number of pixels instead of lines (t = frame-char-height pixels).
+;;(setq mouse-wheel-scroll-amount '(1)) ; Distance in pixel-resolution to scroll each mouse wheel event.
+;;(setq mouse-wheel-progressive-speed nil) ; Progressive speed is too fast for me.
+;;(setq fast-but-imprecise-scrolling t) ; No (less) lag while scrolling lots.
+;;(setq jit-lock-defer-time 0) ; Just don't even fontify if we're still catching up on user input.
 
 ;; Include Texbin in PATH
 ;;(setq exec-path (append exec-path '("/Library/TeX/texbin")) )

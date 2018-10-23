@@ -7,3 +7,16 @@ ls -la
 vim .zshrc 
 gpg
 exit
+ls
+cd
+cd Dropbox/org/
+cd charlotte/
+ls
+open charlotte.html 
+cd 
+cd Documents/Projects/cryptography/fractionatedMorse/
+cd src/
+python fracMorse.py
+exit
+ls
+exit
