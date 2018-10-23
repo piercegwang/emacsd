@@ -20,3 +20,5 @@ python fracMorse.py
 exit
 ls
 exit
+git log
+exit
