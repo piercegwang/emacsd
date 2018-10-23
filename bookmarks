@@ -5,6 +5,6 @@
 (("org-capture-last-stored"
  (filename . "~/Dropbox/org/links.org")
  (front-context-string . "* TOREAD [[https")
- (rear-context-string . "| USEFUL TOREAD\n")
- (position . 29))
+ (rear-context-string . "D | USEFUL READ\n")
+ (position . 34))
 )
