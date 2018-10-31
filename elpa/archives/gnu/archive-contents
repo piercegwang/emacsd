@@ -121,10 +121,10 @@
 	  ((:url . "https://github.com/Malabarba/beacon")
 	   (:keywords "convenience"))])
  (brief .
-	[(5 85)
-	 nil "Brief Editor Emulator" single
-	 ((:url . "http://elpa.gnu.org/packages/brief.html")
-	  (:keywords "brief" "emulations" "crisp"))])
+	[(5 87)
+	 nil "Brief Editor Emulator (Brief Mode)" tar
+	 ((:keywords "brief" "emulations" "crisp")
+	  (:url . "http://elpa.gnu.org/packages/brief.html"))])
  (bug-hunter .
 	     [(1 3 1)
 	      ((seq
@@ -236,7 +236,7 @@
 		((:url . "http://elpa.gnu.org/packages/counsel-ebdb.html")
 		 (:keywords))])
  (crisp .
-	[(1 3 4)
+	[(1 3 5)
 	 nil "CRiSP/Brief Emacs emulator" single
 	 ((:url . "http://elpa.gnu.org/packages/crisp.html")
 	  (:keywords "emulations" "brief" "crisp"))])
@@ -270,9 +270,9 @@
 		((:url . "http://elpa.gnu.org/packages/dbus-codegen.html")
 		 (:keywords "comm" "dbus" "convenience"))])
  (debbugs .
-	  [(0 15)
+	  [(0 16)
 	   ((soap-client
-	     (3 1 1))
+	     (3 1 5))
 	    (cl-lib
 	     (0 5)))
 	   "SOAP library to access debbugs servers" tar
@@ -545,10 +545,9 @@
 	 ((:keywords "games" "processes")
 	  (:url . "http://www.gnuvola.org/software/gnugo/"))])
  (gnus-mock .
-	    [(0 1 1)
-	     nil "Mock Gnus installation for testing" single
-	     ((:url . "http://elpa.gnu.org/packages/gnus-mock.html")
-	      (:keywords))])
+	    [(0 1 2)
+	     nil "Mock Gnus installation for testing" tar
+	     ((:url . "http://elpa.gnu.org/packages/gnus-mock.html"))])
  (heap .
        [(0 5)
 	nil "Heap (a.k.a. priority queue) data structure" single
@@ -1059,7 +1058,7 @@
 	    ((:url . "http://elpa.gnu.org/packages/sml-mode.html")
 	     (:keywords "sml"))])
  (soap-client .
-	      [(3 1 4)
+	      [(3 1 5)
 	       ((cl-lib
 		 (0 6 1)))
 	       "Access SOAP web services" tar
@@ -1085,12 +1084,19 @@
 	   ((:url . "https://github.com/Malabarba/spinner.el")
 	    (:keywords "processes" "mode-line"))])
  (sql-indent .
-	     [(1 2)
+	     [(1 3)
 	      ((cl-lib
 		(0 5)))
 	      "Support for indenting code in SQL files." tar
 	      ((:keywords "languages" "sql")
 	       (:url . "http://elpa.gnu.org/packages/sql-indent.html"))])
+ (ssh-deploy .
+	     [(2 0)
+	      ((emacs
+		(24)))
+	      "Deployment via TRAMP, global or per directory." tar
+	      ((:keywords "tools" "convenience")
+	       (:url . "https://github.com/cjohansson/emacs-ssh-deploy"))])
  (stream .
 	 [(2 2 4)
 	  ((emacs

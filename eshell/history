@@ -22,3 +22,5 @@ ls
 exit
 git log
 exit
+ls
+./a.out

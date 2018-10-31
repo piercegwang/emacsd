@@ -1,0 +1,26 @@
+HTTP/1.1 200 OK
+Content-Encoding: gzip
+Content-Type: image/svg+xml
+Date: Thu, 25 Oct 2018 17:25:57 GMT
+Etag: "5b8-578ffd3d42be9+gzip"
+Last-Modified: Wed, 24 Oct 2018 21:04:09 GMT
+Server: ECS (sjc/4E31)
+Vary: Accept-Encoding
+X-Cache: HIT
+Content-Length: 677
+
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <defs>
+        <linearGradient id="grad2" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style="stop-color:rgb(38,86,103);stop-opacity:1" />
+          <stop offset="100%" style="stop-color:rgb(15,56,80);stop-opacity:1" />
+        </linearGradient>
+      </defs>
+    <g id="Button_DoubleArrow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon/Button/DoubleArrow" transform="translate(0.000000, -2.000000)" fill="#cbe1ea">
+            <path class="outline" d="M10,20 C14.418278,20 18,16.418278 18,12 C18,7.581722 14.418278,4 10,4 C5.581722,4 2,7.581722 2,12 C2,16.418278 5.581722,20 10,20 Z M10,22 C4.4771525,22 0,17.5228475 0,12 C0,6.4771525 4.4771525,2 10,2 C15.5228475,2 20,6.4771525 20,12 C20,17.5228475 15.5228475,22 10,22 Z" id="Oval-2" fill-rule="nonzero" fill="url(#grad2)"></path>
+            <path class="logo" d="M14.5324998,12.5078125 L11.6340623,16.046875 L9.92312479,15.1171875 L12.0949998,12.3984375 L9.92312479,9.6796875 L11.6340623,8.75 L14.5324998,12.3046875 L14.5324998,12.5078125 Z M10.5793748,12.5078125 L7.68093729,16.046875 L5.96999979,15.1171875 L8.14187479,12.3984375 L5.96999979,9.6796875 L7.68093729,8.75 L10.5793748,12.3046875 L10.5793748,12.5078125 Z" id="»"></path>
+        </g>
+    </g>
+</svg>
