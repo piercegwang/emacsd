@@ -95,8 +95,7 @@
 (setq org-agenda-files (list "~/Dropbox/org/school.org"
 			     "~/Dropbox/org/todo.org"
 			     "~/Dropbox/org/violin.org"))
-(setq org-todo-keywords
-      '((sequence "TODO" "IN-PROGRESS" "DONE")))
+      '((sequence "TODO" "IN-PROGRESS" "DONE"))
 (setq org-default-notes-file (concat org-directory "/todo.org"))
 (define-key global-map "\C-cc" 'org-capture)
 (global-set-key (kbd "C-c o") 
@@ -145,8 +144,11 @@
 (global-set-key "\C-cb" 'org-switchb)
 
 ;; Visual line mode (for text wrapping)
-(global-visual-line-mode t)
+;;(global-visual-line-mode nil)
+(visual-line-mode nil)
 (global-linum-mode t)
+;;(toggle-truncate-lines)
+(set-default 'truncate-lines t)
 
 ;; Include Texbin in PATH
 ;;(setq exec-path (append exec-path '("/Library/TeX/texbin")) )
@@ -174,6 +176,7 @@
 
 ;; Increment Numbers
 (defun increment-number-at-point ()
+  "Increments numbers at cursor"
   (interactive)
   (skip-chars-backward "0-9")
   (or (looking-at "[0-9]+")
