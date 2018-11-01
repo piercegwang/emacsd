@@ -15,7 +15,7 @@
  '(epg-gpg-program "/usr/local/bin/gpg")
  '(erc-modules
    (quote
-    (autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands notifications readonly ring stamp track)))
+    (autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands readonly ring stamp track)))
  '(org-agenda-files
    (list "~/Dropbox/org/school.org" "~/Dropbox/org/todo.org" "~/Dropbox/org/violin.org"))
  '(org-modules
@@ -111,6 +111,7 @@
                 (lambda () (interactive) (find-file (concat org-directory "/notes/emacs/emacs_notes.org"))))
 (global-set-key (kbd "C-c k") 
                 (lambda () (interactive) (find-file (concat org-directory "/links.org"))))
+(setq org-agenda-overriding-columns-format "%28ITEM %TODO %SCHEDULED %DEADLINE %TAGS")
 
 ;; org-drill
 (add-to-list 'load-path "~/.emacs.d/custom_load/")
@@ -123,6 +124,11 @@
         "* TODO %?")
    ("L" "Link" entry (file "~/Dropbox/org/links.org")
         "* TOREAD %?[[%:link][%:description]] %U\n" :prepend t)))
+
+;; cdlatex
+(load "~/.emacs.d/custom_load/cdlatex.el")
+(define-key org-cdlatex-mode-map (kbd "C-c M-d") 'cdlatex-dollar)
+(define-key cdlatex-mode-map (kbd "C-c M-d") 'cdlatex-dollar)
 
 ;; Setting default frame settings
 (add-to-list 'default-frame-alist '(height . 46))
@@ -166,10 +172,54 @@
 (setq shell-file-name "/bin/zsh")
 (put 'scroll-left 'disabled nil)
 
+;; Increment Numbers
+(defun increment-number-at-point ()
+  (interactive)
+  (skip-chars-backward "0-9")
+  (or (looking-at "[0-9]+")
+      (error "No number at point"))
+  (replace-match (number-to-string (1+ (string-to-number (match-string 0))))))
+(global-set-key (kbd "C-; C-=") 'increment-number-at-point)
+
 ;; Kbd Macros
 (fset 'setupworkspace
    (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ("aao23iooopo" 0 "%d")) arg)))
 (global-set-key (kbd "C-x C-k 1") 'setupworkspace)
 
+(defun insertdirectory () (interactive) (insert default-directory))
+
+(fset 'OHSFigureSave
+   [?# ?+ ?C ?A ?P ?T ?I ?O ?N ?: ?  ?\C-x ?Q return return tab ?\[ ?\[ ?f ?i ?l ?e ?: ?. ?/ ?W ?e ?e ?k ?  ?\C-x ?Q return ?/ ?\C-x ?Q return ?_ ?\C-u ?\M-! ?d ?a ?t ?e ?  ?+ ?% ?H ?% ?M ?% ?S return escape ?e ?a ?. ?p ?n ?g escape ?v ?B ?F ?/ ?l ?y escape ?A ?\] ?\] return escape ?p ?0 ?i ?\M-x ?i ?n ?s ?e ?r ?t ?d ?i ?r ?e ?c ?t ?o ?r ?y return escape ?V ?d ?i ?\C-x ?\C-f ?\C-  ?\C-a backspace ?/ ?U ?s ?e ?r ?s ?/ ?p ?i ?e ?r ?c ?e ?w ?a ?n ?g ?/ ?S ?c ?r ?e ?e ?n ?s ?h ?o ?t ?s return ?s ?\M-< ?/ ?S ?c ?r ?e ?e ?n ?  ?S ?h ?o ?t return ?R ?\C-  ?\C-a backspace ?\s-v backspace return ?\C-x ?k return])
+(global-set-key (kbd "<f9>") 'OHSFigureSave)
+
+(fset 'importChineseFlashcards
+   [return ?\C-p ?* ?* ?  ?I ?t ?e ?m ?\C-c ?\C-c ?d ?r ?i ?l ?l return ?\C-n ?\C-a ?\C-z ?f ?= ?x ?x ?\C-z ?\C-k ?\C-n ?\C-a return return ?\C-p ?* ?* ?  ?A ?n ?s ?w ?e ?r ?\C-a ?* ?\C-n ?\C-a ?\C-y ?\; ?  ?\C-a ?\C-n ?\C-n])
+(global-set-key (kbd "<f6>") 'importChineseFlashcards)
+
+(defun my-macro-query (arg)
+  "Prompt for input using minibuffer during kbd macro execution.
+With prefix argument, allows you to select what prompt string to use.
+If the input is non-empty, it is inserted at point."
+  (interactive "P")
+  (let* ((query (lambda () (kbd-macro-query t)))
+         (prompt (if arg (read-from-minibuffer "PROMPT: ") "Input: "))
+         (input (unwind-protect
+                    (progn
+                      (add-hook 'minibuffer-setup-hook query)
+                      (read-from-minibuffer prompt))
+                  (remove-hook 'minibuffer-setup-hook query))))
+    (unless (string= "" input) (insert input))))
+(global-set-key "\C-xQ" 'my-macro-query)
+
 ;; Run Emacs as Daemon
 (server-start)
+
+;; ERC
+(setq erc-log-channels-directory "~/logs/")
+(setq erc-save-buffer-on-part t)
+
+;; Trying to get rid of title bar
+(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+(add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; assuming you are using a dark theme
+;;(setq ns-use-proxy-icon nil)
+;;(setq frame-title-format nil)
