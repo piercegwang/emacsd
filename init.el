@@ -1,15 +1,6 @@
 ;; init.el by Pierce Wang
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; include paths / dirs
-(add-to-list 'load-path "~/.emacs.d/custom_load/")
-(setq init-dir "~/.emacs.d/init_files/")
-(load (concat init-dir "custom.el"))
-;;; exec-path-from-shell-initialize
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; packages
 (require 'package)
 (setq package-archives
@@ -19,11 +10,21 @@
 (package-initialize)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; include paths / dirs
+(add-to-list 'load-path "~/.emacs.d/custom_load/")
+(setq init-dir "~/.emacs.d/init_files/")
+(add-to-list 'load-path (expand-file-name "init_files" user-emacs-directory))
+(setq custom-file (concat init-dir "custom.el"))
+(load custom-file)
+;;; exec-path-from-shell-initialize
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; evil mode
 (add-to-list 'load-path "~/.emacs.d/site-lisp/evil")
 (require 'evil)
 (evil-mode t)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Fonts
@@ -38,63 +39,20 @@
 (set-face-attribute 'variable-pitch
                      nil
                      :family "Source Code Pro")
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; elpy
 (elpy-enable)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Org Configuration
-(require 'org)
-(setq org-directory "~/Dropbox/org/")
-(setq org-agenda-files (list "~/Dropbox/org/school.org"
-			     "~/Dropbox/org/todo.org"
-			     "~/Dropbox/org/violin.org"))
-(setq org-todo-keywords
-      '((sequence "TODO" "IN-PROGRESS" "DONE")))
-'((sequence "TODO" "IN-PROGRESS" "DONE"))
-(setq org-default-notes-file (concat org-directory "/todo.org"))
-(define-key global-map "\C-cc" 'org-capture)
-(global-set-key (kbd "C-c o") 
-                (lambda () (interactive) (find-file (concat org-directory "/school.org"))))
-(global-set-key (kbd "C-c p") 
-                (lambda () (interactive) (find-file "~/Google Drive/OHS/10th Grade/Semester 1/")))
-(global-set-key (kbd "C-c i") 
-                (lambda () (interactive) (find-file (concat org-directory "/todo.org"))))
-(global-set-key (kbd "C-c v") 
-                (lambda () (interactive) (find-file (concat org-directory "/violin.org"))))
-(global-set-key (kbd "C-c m") 
-                (lambda () (interactive) (find-file (concat org-directory "/notes/emacs/emacs_notes.org"))))
-(global-set-key (kbd "C-c k") 
-                (lambda () (interactive) (find-file (concat org-directory "/links.org"))))
-(setq org-agenda-overriding-columns-format "%28ITEM %TODO %SCHEDULED %DEADLINE %TAGS")
-
-;;; Quick Capture
-(setq org-capture-templates
- '(("t" "Todo" entry (file+headline "~/Dropbox/org/todo.org" "Tasks")
-        "* TODO %?")
-   ("L" "Link" entry (file "~/Dropbox/org/links.org")
-    "* TOREAD %?[[%:link][%:description]] %U\n" :prepend t)))
-
-;;; org-drill
-(require 'org-drill)
-
-;;; Agenda key (C-c a) and other settings
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cc" 'org-capture)
-(global-set-key "\C-cb" 'org-switchb)
-
-;;; org-format-latex-options
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.4))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'init-org)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; cdlatex
 (load "~/.emacs.d/custom_load/cdlatex.el")
 (define-key org-cdlatex-mode-map (kbd "C-c M-d") 'cdlatex-dollar)
 (define-key cdlatex-mode-map (kbd "C-c M-d") 'cdlatex-dollar)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Visuals
@@ -126,7 +84,6 @@
 (epa-file-enable)
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; General Tweaks
@@ -135,6 +92,20 @@
 (setq shell-file-name "/bin/zsh")
 (put 'scroll-left 'disabled nil)
 
+;;; default major mode
+(setq-default major-mode 'org-mode)
+
+;;; Email
+(setq user-mail-address "pierce.g.wang@gmail.com")
+
+;;;
+(setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
+  backup-by-copying t    ; Don't delink hardlinks
+  version-control t      ; Use version numbers on backups
+  delete-old-versions t  ; Automatically delete excess backups
+  kept-new-versions 20   ; how many of the newest versions to keep
+  kept-old-versions 5    ; and how many of the old
+  )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom Functions
 
@@ -150,7 +121,8 @@
 
 (defun insertdirectory ()
   "Insert current directory for macro use"
-  (interactive) (insert default-directory))
+  (interactive)
+  (insert default-directory))
 
 (defun my-macro-query (arg)
   "Prompt for input using minibuffer during kbd macro execution.
@@ -197,8 +169,6 @@ If the input is non-empty, it is inserted at point."
     (windmove-down)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Keyboard Macros
 (fset 'setupworkspace
    (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ("aao23iooopo" 0 "%d")) arg)))
@@ -211,18 +181,15 @@ If the input is non-empty, it is inserted at point."
 (fset 'importChineseFlashcards
    [return ?\C-p ?* ?* ?  ?I ?t ?e ?m ?\C-c ?\C-c ?d ?r ?i ?l ?l return ?\C-n ?\C-a ?\C-z ?f ?= ?x ?x ?\C-z ?\C-k ?\C-n ?\C-a return return ?\C-p ?* ?* ?  ?A ?n ?s ?w ?e ?r ?\C-a ?* ?\C-n ?\C-a ?\C-y ?\; ?  ?\C-a ?\C-n ?\C-n])
 (global-set-key (kbd "<f6>") 'importChineseFlashcards)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Run Emacs as Daemon
 (server-start)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ERC
 (setq erc-log-channels-directory "~/logs/")
 (setq erc-save-buffer-on-part t)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Keybinds
@@ -240,4 +207,14 @@ If the input is non-empty, it is inserted at point."
 
 ;;; Visual Line Mode
 (global-set-key (kbd "H-v") 'visual-line-mode)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Artist-mode
+(add-hook 'artist-mode-hook
+    (lambda ()
+      (local-set-key (kbd "<f1>") 'org-mode)
+      (local-set-key (kbd "<f2>") 'artist-select-op-pen-line) ; f2 = pen mode
+      (local-set-key (kbd "<f3>") 'artist-select-op-line)     ; f3 = line
+      (local-set-key (kbd "<f4>") 'artist-select-op-square)   ; f4 = rectangle
+      (local-set-key (kbd "<f5>") 'artist-select-op-ellipse)  ; f5 = ellipse
+      ))
