@@ -60,7 +60,13 @@
      ("I" "#+INCLUDE: %file ?"))))
  '(package-selected-packages
    (quote
-    (elpy exec-path-from-shell smart-mode-line-powerline-theme smart-mode-line latex auctex evil-visual-mark-mode))))
+    (elpy exec-path-from-shell smart-mode-line-powerline-theme smart-mode-line latex auctex evil-visual-mark-mode)))
+ '(safe-local-variable-values
+   (quote
+    ((eval face-remap-add-relative
+	   (quote default)
+	   :family "Arial"))))
+ '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -95,8 +101,7 @@
 (setq org-agenda-files (list "~/Dropbox/org/school.org"
 			     "~/Dropbox/org/todo.org"
 			     "~/Dropbox/org/violin.org"))
-(setq org-todo-keywords
-      '((sequence "TODO" "IN-PROGRESS" "DONE")))
+      '((sequence "TODO" "IN-PROGRESS" "DONE"))
 (setq org-default-notes-file (concat org-directory "/todo.org"))
 (define-key global-map "\C-cc" 'org-capture)
 (global-set-key (kbd "C-c o") 
@@ -147,6 +152,7 @@
 ;; Visual line mode (for text wrapping)
 (global-visual-line-mode t)
 (global-linum-mode t)
+(set-default 'truncate-lines t)
 
 ;; Include Texbin in PATH
 ;;(setq exec-path (append exec-path '("/Library/TeX/texbin")) )
@@ -174,6 +180,7 @@
 
 ;; Increment Numbers
 (defun increment-number-at-point ()
+  "Increments numbers at cursor"
   (interactive)
   (skip-chars-backward "0-9")
   (or (looking-at "[0-9]+")
@@ -213,7 +220,6 @@ If the input is non-empty, it is inserted at point."
 
 ;; Run Emacs as Daemon
 (server-start)
-
 ;; ERC
 (setq erc-log-channels-directory "~/logs/")
 (setq erc-save-buffer-on-part t)
@@ -223,3 +229,10 @@ If the input is non-empty, it is inserted at point."
 (add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; assuming you are using a dark theme
 ;;(setq ns-use-proxy-icon nil)
 ;;(setq frame-title-format nil)
+(put 'dired-find-alternate-file 'disabled nil)
+
+;; Set keys only for Mac OSX
+(when (eq system-type 'darwin)
+    (setq mac-option-modifier 'meta)
+    (setq mac-control-modifier 'control)
+    (setq ns-function-modifier 'hyper))
