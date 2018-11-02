@@ -60,7 +60,13 @@
      ("I" "#+INCLUDE: %file ?"))))
  '(package-selected-packages
    (quote
-    (elpy exec-path-from-shell smart-mode-line-powerline-theme smart-mode-line latex auctex evil-visual-mark-mode))))
+    (elpy exec-path-from-shell smart-mode-line-powerline-theme smart-mode-line latex auctex evil-visual-mark-mode)))
+ '(safe-local-variable-values
+   (quote
+    ((eval face-remap-add-relative
+	   (quote default)
+	   :family "Arial"))))
+ '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -95,7 +101,9 @@
 (setq org-agenda-files (list "~/Dropbox/org/school.org"
 			     "~/Dropbox/org/todo.org"
 			     "~/Dropbox/org/violin.org"))
-      '((sequence "TODO" "IN-PROGRESS" "DONE"))
+(setq org-todo-keywords
+      '((sequence "TODO" "IN-PROGRESS" "DONE")))
+'((sequence "TODO" "IN-PROGRESS" "DONE"))
 (setq org-default-notes-file (concat org-directory "/todo.org"))
 (define-key global-map "\C-cc" 'org-capture)
 (global-set-key (kbd "C-c o") 
@@ -144,10 +152,8 @@
 (global-set-key "\C-cb" 'org-switchb)
 
 ;; Visual line mode (for text wrapping)
-;;(global-visual-line-mode nil)
-(visual-line-mode nil)
+(global-visual-line-mode t)
 (global-linum-mode t)
-;;(toggle-truncate-lines)
 (set-default 'truncate-lines t)
 
 ;; Include Texbin in PATH
@@ -216,7 +222,6 @@ If the input is non-empty, it is inserted at point."
 
 ;; Run Emacs as Daemon
 (server-start)
-
 ;; ERC
 (setq erc-log-channels-directory "~/logs/")
 (setq erc-save-buffer-on-part t)
@@ -227,3 +232,45 @@ If the input is non-empty, it is inserted at point."
 ;;(setq ns-use-proxy-icon nil)
 ;;(setq frame-title-format nil)
 (put 'dired-find-alternate-file 'disabled nil)
+
+;; Set keys only for Mac OSX
+(when (eq system-type 'darwin)
+    (setq mac-option-modifier 'meta)
+    (setq mac-control-modifier 'control)
+    (setq ns-function-modifier 'hyper))
+
+;; Moving Windows with Hyper (Fn)
+(defun hyper-window-left (count)
+  "Move the cursor to new COUNT-th window left of the current one."
+  :repeat nil
+  (interactive "p")
+  (dotimes (i count)
+    (windmove-left)))
+(global-set-key (kbd "H-h") 'hyper-window-left)
+
+(defun hyper-window-right (count)
+  "Move the cursor to new COUNT-th window right of the current one."
+  :repeat nil
+  (interactive "p")
+  (dotimes (i count)
+    (windmove-right)))
+(global-set-key (kbd "H-l") 'hyper-window-right)
+
+(defun hyper-window-up (count)
+  "Move the cursor to new COUNT-th window above the current one."
+  :repeat nil
+  (interactive "p")
+  (dotimes (i (or count 1))
+    (windmove-up)))
+(global-set-key (kbd "H-k") 'hyper-window-up)
+
+(defun hyper-window-down (count)
+  "Move the cursor to new COUNT-th window below the current one."
+  :repeat nil
+  (interactive "p")
+  (dotimes (i (or count 1))
+    (windmove-down)))
+(global-set-key (kbd "H-j") 'hyper-window-down)
+
+;; Keybinds
+(global-set-key (kbd "H-v") 'visual-line-mode)
