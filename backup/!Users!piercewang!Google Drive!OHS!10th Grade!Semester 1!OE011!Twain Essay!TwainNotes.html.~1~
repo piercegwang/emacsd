@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2018-10-30 Tue 10:39 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Draft</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Pierce Wang" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Draft</h1>
+<blockquote>
+<p>
+Huckleberry Finn, the protagonist in Mark Twain’s novel, <i>Huckleberry Finn</i>, is a young boy of around fourteen years of age. Throughout the novel, Huck Finn has many adventures and travels over very long distances. Through these adventures, he experiences things that were taboo for the time and would be even more taboo nowadays. When Huck meets Buck, they instantly get along well. In fact, he fits in very well with the Grangerford family as a whole. However, tragedy soon strikes as the family’s fued finally takes its toll on Buck. With a gun fight comes Buck’s parting from the plane of existance. Huck, meanwhile, has been watching from a tree above and is devastated to see Buck hurt. In another instance, we simply hear Jim talking about his family as if he were talking directly to us. After this story is told by Jim, we move on to the next chapter without a word from Huck. His silence at this moment shows his indecision and influences our interpretation of the novel to be much more than that of a simple story. Rather, we are encouraged to perceive it as a story that shows the brutality of the world from a young boy in society’s point of view.
+</p>
+
+<p>
+In the first instance, we see Huck witness the death of his friend, Buck. Buck is the closest thing to a brother Huck has. In addition, Buck’s family is the closest thing Huck has to a normal family. Though they are cautious at first, they take him in willingly and kindly. Since they meet, Huck and Buck share cloths and converse extremely comfortably. Thus, Buck’s death comes as a huge shock for Huck as Huck openly admits that recounting the whole story would "make him sick again." (134) In most other places in this novel, we are shown a fearless and free Huck Finn. However, in this moment he admits he is "afraid to come down" from the tree and is "down-hearted" because of his view of the situation. Dealing with death is something that is hard for everyone. Death and murder is something that Huck is accustomed to the idea of. However, much of the "casual" death that he experiences is simply imagination. For example, at the beginning of the novel in Tom Sawyer’s gang of sorts, they supposedly rob and murder people. However, they obviously do not really rob and murder anyone. They simply pretend and make believe. In all other instances of death we see in Huck Finn, it is either someone who has abused and unfairly treated him (Huck’s father) or someone who he does not have any relationship with (the burglars on the boat). Thus, the circumstance is not one to warrant great emotional grief. In this case, however, Buck is someone who has, in Huck’s words, been "mighty good to [Huck]." (134) This passage, and the simplicity of the language shows a side of the novel that contains the innocents and immaturity of Huck and that personality as it fits into the society of that time.
+</p>
+
+<p>
+Twain writes this novel so that the audience could see through Huck’s point of view the prejudices based in society and the moral problems which are posed by them. Throughout the novel, Jim becomes quite a close friend for Huck. While Huck still regards Jim as a nigger, Jim becomes much more to Huck. When Jim and Huck get separated by the fog, Jim becomes genuinely worried about Huck. However, once they reunite, Huck decides to play a trick on Jim: "'En all you wuz thinkin 'bout wuz how you could make a fool uv ole Jim wid a lie.' &#x2026; that was enough. It made me feel so mean I could almost kissed <i>his</i> foot get him to take it back." (95) Huck at this moment feels remorse for playing the trick on Jim and eventually does apologize. Thus, when Jim feels homesick and tells Huck of his family at home, Huck can't help but start thinking of Jim as a human being rather than just a nigger or just a tool. During this story, Huck stays completely silent. Even after, Huck never comments on the story. As is known, Huck has never had a proper family. Thus, hearing of Jim’s family is not something that Huck would be accustomed to. Perhaps because of this, Huck lacks the experience and wisdom to articulate his own response to this and leaves it as is. Through this, we see another pointer to the idea that despite Huck’s abnormal comfort with death and the general morbid, he is still simply a kid lacking a family and is thus incapable of completely understanding Jim’s situation. During this story, Huck stays completely silent. Even after, Huck never comments on the story. As is known, Huck has never had a proper family. Thus, hearing of Jim’s family is not something that Huck would be accustomed to. Perhaps because of this, Huck lacks the experience and wisdom to articulate his own response to this and leaves it as is. Through this, we see another pointer to the idea that despite Huck’s abnormal comfort with death and the general morbid, he is still simply a kid lacking a family and is thus incapable of completely understanding Jim’s situation.
+</p>
+
+<p>
+If we are to interpret lack of speech on Huck’s part as simply a lack of experience, then the story that Jim tells is left to the audience to interpret. Twain, through this passage, is almost directly communicating with the audience and communicating his pain and remorse in hitting his daughter. Jim communicates that he has a family just like the white folks. This is extremely hard to comprehend especially for Huck as it leads him ultimately to the moral dilemma of the freeing of Jim. As the audience, we see the moral dilemma that Huck is in from a spectator’s perspective and would be able to point out that Huck is doing the morally right thing. Of course this is not the case from Huck’s point of view and he has decidedly deemed himself wrong and immoral according to the morals and rules of right and wrong that society has taught him. Thus, Twain is aiming to make Huck’s moral dilemma apparent for the audience so that the readers would be more inclined to ponder the moral dilemma in their own life. This argument is further justified with Twain’s comment at the very beginning of the book "threatening" the reader not to "find a motive &#x2026; find a moral &#x2026; find a plot" or he/she will be shot. By writing this note, he encourages the reader to search for these things in the story and search for a meaning. Debatably, the most important of which being the moral.
+</p>
+</blockquote>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2018-10-29 Mon 00:00</p>
+<p class="author">Author: Pierce Wang</p>
+<p class="date">Created: 2018-10-30 Tue 10:39</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
