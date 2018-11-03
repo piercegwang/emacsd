@@ -16,7 +16,7 @@
 (global-set-key (kbd "C-c o") 
                 (lambda () (interactive) (find-file (concat org-directory "/school.org"))))
 (global-set-key (kbd "C-c p") 
-                (lambda () (interactive) (find-file "~/Google Drive/OHS/10th Grade/Semester 1/")))
+                (lambda () (interactive) (dired "~/Google Drive/OHS/10th Grade/Semester 1/")))
 (global-set-key (kbd "C-c i") 
                 (lambda () (interactive) (find-file (concat org-directory "/todo.org"))))
 (global-set-key (kbd "C-c v") 

@@ -70,13 +70,13 @@
 (load-theme 'tango-dark t)
 (setq sml/theme 'powerline)
 (sml/setup)
+(add-to-list 'sml/replacer-regexp-list '("^~/Google Drive/OHS/\\([0-9]\\{2\\}\\)th Grade/Semester [0-9]/\\([0-9A-Z]*\\)/" ":\\2:"))
 
 ;; Make title bar dark
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 (add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; assuming you are using a dark theme
 ;;(setq ns-use-proxy-icon nil)
 ;;(setq frame-title-format nil)
-;;(put 'dired-find-alternate-file 'disabled nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; GPG
@@ -106,6 +106,10 @@
   kept-new-versions 20   ; how many of the newest versions to keep
   kept-old-versions 5    ; and how many of the old
   )
+
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom Functions
 
@@ -184,7 +188,10 @@ If the input is non-empty, it is inserted at point."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Run Emacs as Daemon
-(server-start)
+;;(if 'server-process
+;;    (server-start))
+(load "server")
+(unless (server-running-p) (server-start))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ERC
@@ -198,6 +205,11 @@ If the input is non-empty, it is inserted at point."
     (setq mac-option-modifier 'meta)
     (setq mac-control-modifier 'control)
     (setq ns-function-modifier 'hyper))
+
+(load-file "~/.passwords.el")
+
+;;; ERC Keybinds
+(global-set-key (kbd "H-M-e") '(erc :server "irc.freenode.net" :port 6667 :nick "pgwang" :password passwords_ERC))
 
 ;;; Moving Windows with Hyper (Fn)
 (global-set-key (kbd "H-h") 'hyper-window-left)
@@ -218,3 +230,4 @@ If the input is non-empty, it is inserted at point."
       (local-set-key (kbd "<f4>") 'artist-select-op-square)   ; f4 = rectangle
       (local-set-key (kbd "<f5>") 'artist-select-op-ellipse)  ; f5 = ellipse
       ))
+(put 'dired-find-alternate-file 'disabled nil)
