@@ -19,26 +19,18 @@
 ;;; exec-path-from-shell-initialize
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
+(load-file "~/.passwords.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; evil mode
 (add-to-list 'load-path "~/.emacs.d/site-lisp/evil")
 (require 'evil)
 (evil-mode t)
+(add-hook 'dired-mode-hook #'evil-emacs-state)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Fonts
-(if (and (fboundp 'daemonp) (daemonp))
-    (add-hook 'after-make-frame-functions
-              (lambda (frame)
-                (with-selected-frame frame
-                  (set-fontset-font "fontset-default"
-                                    'chinese-gbk "WenQuanYi Micro Hei Mono 14"))))
-  (set-fontset-font "fontset-default" 'chinese-gbk "WenQuanYi Micro Hei Mono 14"))
-(set-default-font "Source Code Pro")
-(set-face-attribute 'variable-pitch
-                     nil
-                     :family "Source Code Pro")
+(require 'init-fonts)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; elpy
@@ -206,10 +198,9 @@ If the input is non-empty, it is inserted at point."
     (setq mac-control-modifier 'control)
     (setq ns-function-modifier 'hyper))
 
-(load-file "~/.passwords.el")
-
 ;;; ERC Keybinds
-(global-set-key (kbd "H-M-e") '(erc :server "irc.freenode.net" :port 6667 :nick "pgwang" :password passwords_ERC))
+(global-set-key (kbd "H-M-e") (lambda () (interactive) (erc :server "irc.freenode.net" :port 6667 :nick "pgwang" :password passwords_ERC)))
+                              
 
 ;;; Moving Windows with Hyper (Fn)
 (global-set-key (kbd "H-h") 'hyper-window-left)
