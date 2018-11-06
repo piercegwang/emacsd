@@ -1,0 +1,34 @@
+Meiosis practice with ascospores (15 points) The life cycle of the fungus Sordaria fimicola begins in the haploid state. After two different types of strains combine, they develop a diploid nucleus. As the life cycle continues, the diploid nucleus undergoes meiosis (2 cell divisions, remember?) followed by mitosis (a trick the fungi do to make more mileage out of the mating). This produces eight haploid ascospores which are stored in a sac called an ascus. The spores line up in a way that shows these cell divisions. After the spores have matured, the sac  will burst, allowing the ascospores to be released. These spores are haploid and thus begin the life cycle again. Sordaria fimicola is often used to observe crossing over because the wild type strain has black ascospores and the mutant type has tan ascospores. When a combination of the two strains go through meiosis, the location of the ascospores will directly show if crossing over has occurred. The below pictures shows a fruiting body with ascoscpores developing within an ascus.
+
+[[file:./data/lifecycl.gif]]
+
+When crossing over has not occurred (parental type), asci will be arranged as follows, with 4+4 black and tan:
+
+[[file:./data/sordaria non-crossover.gif]]
+
+When crossing over has occurred, the asci will look like this: (2,2,2,2), (2,4,2) etc
+
+[[file:./data/sordaria crossover.gif]]
+
+The above just shows single crossovers- what might happen if there are two? Typically, we look at recombination between two genes. In this particular case, we are looking at recombination between the centromere (most visible in the recombinant tan chromosome after meiosis I) and the gene locus for tan/black. In other words, black and tan are two alleles that map to the same place. We can figure out how many map units this place is by calculating the % of recombinants and dividing by 2 (because even within each ascus that shows recombination, half the spores are parental and half are recombinant [on average]). Check out this video if you are confused: https://www.youtube.com/watch?v=gXUxH1aFRp0
+
+    Using the image below, count the number of recombinant asci and divide by the total number of asci.
+    Divide this number by 2 to get the number of map units between the centromere and the gene locus.
+
+[[file:./data/Sordaria picture.jpg]]
+
+    (25 points) Whiptail lizards (species Aspidoscelis uniparens) have unusual reproduction. They are parthenogenetic (“virgin birth”), in that all of the individuals of the species are female. Fertilization by males is not needed for birth of new individuals! Instead, these lizards produce triploid eggs (3n), which can develop without sperm. (Some more background: it is thought that this extra dose of chromosomes came about during two successive hydridization events. The first was between two species with both males and females (A. inornata [mother]) and A. burti [father]). This produced a diploid parthenogenetic species that then backcrossed to A. inornata to produce the triploid A. inornata.) These lizards double their chromosomes before meiosis, and allow crossing over to occur among sister chromatids.
+
+Also cool: even though copulation does not occur, ovulation is triggered by female-female courtship and pseudocopulation rituals that resemble the behavior of closely related species with males and females. For further reading (recommended, not required), check: http://www.scientificamerican.com/article/asexual-lizards/ (Links to an external site.)Links to an external site. (easy) or http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2840635/ (Links to an external site.)Links to an external site. (more challenging). For the questions below, be sure, as always, to provide ample explanation!
+
+a) (5 points) Describe at least one drawback to asexual reproduction (generally, not just this system).
+
+b) (5 points) Describe at least one benefit of asexual reproduction (generally, not just this system).
+
+c) (10 points) As described above, uniparens undergoes an extra doubling of its chromosomes before entering meiosis, resulting in twelve copies of each chromosome (!)(3nx2x2=12n). With this in mind, compare meiosis in A. uniparens with the typical meiosis described in class. Consider at least one feature that is the same, and one features that is different. How does this difference affect genetic diversity?
+
+d) (5 points) How might the double hybrid origin and triploid status affect genetic diversity here?
+
+ 
+
+    (10 points) Some species of animals, like some water fleas (Daphnia pulex), are able to alternate parthenogenesis with sexual reproduction. In natural populations, parthenogenesis is the common mode of reproduction, and parthenogenetic offspring are all female. However, in response to certain environmental conditions, male offspring are also produced parthenogenetically, and sexual reproduction occurs. Speculate on what types of conditions might trigger this form of reproduction, and why this might be “the best of both worlds”.

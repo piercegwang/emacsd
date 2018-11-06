@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2018-10-29 Mon 23:43 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Week 10</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Pierce Wang" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Week 10</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgfdc5f9c">1. OB010.10.L1 - Meiosis</a>
+<ul>
+<li><a href="#org0887578">1.1. Overview</a></li>
+<li><a href="#org17db032">1.2. In this lecture&#x2026;</a></li>
+<li><a href="#orgc367b1f">1.3. Overview of Meiosis</a></li>
+<li><a href="#orga98cddf">1.4. Meiosis Generates Genetic Diversity</a></li>
+<li><a href="#org8975d90">1.5. The Stages of Meiosis</a></li>
+<li><a href="#orgd9e153f">1.6. Prophase I</a></li>
+<li><a href="#org01c3287">1.7. The Rest of Meiosis I</a></li>
+<li><a href="#orga0bc79a">1.8. Meiosis II</a></li>
+<li><a href="#org0c37519">1.9. Comparing Mitosis and Meiosis</a></li>
+<li><a href="#org2116235">1.10. Origins of Genetic Diversity</a></li>
+<li><a href="#org65426ed">1.11. Take Home Message</a></li>
+</ul>
+</li>
+<li><a href="#org8f96d8e">2. OB010.10.L2 - Genetic Diversity</a>
+<ul>
+<li><a href="#orga2d3328">2.1. In this lecture&#x2026;</a></li>
+<li><a href="#org80cfa8a">2.2. Continuity and Change</a></li>
+<li><a href="#org504908e">2.3. Life Cycles</a></li>
+<li><a href="#org3fdda02">2.4. Asexual Reproduction</a></li>
+<li><a href="#org20f4d28">2.5. Sexual Reproduction</a></li>
+<li><a href="#org9182b87">2.6. Sexual Reproduction and Chromosome Number</a></li>
+<li><a href="#org8a8166d">2.7. The Human Karyotype</a></li>
+<li><a href="#org89bf92f">2.8. Take Home Message</a></li>
+</ul>
+</li>
+<li><a href="#org8059462">3. W10D1</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgfdc5f9c" class="outline-2">
+<h2 id="orgfdc5f9c"><span class="section-number-2">1</span> OB010.10.L1 - Meiosis</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org0887578" class="outline-3">
+<h3 id="org0887578"><span class="section-number-3">1.1</span> Overview</h3>
+<div class="outline-text-3" id="text-1-1">
+
+<div class="figure">
+<p><img src="./Week 10/meiosis_overview_203638.png" alt="meiosis_overview_203638.png" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Meiosis Overview</p>
+</div>
+<ul class="org-ul">
+<li>Meiosis</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org17db032" class="outline-3">
+<h3 id="org17db032"><span class="section-number-3">1.2</span> In this lecture&#x2026;</h3>
+<div class="outline-text-3" id="text-1-2">
+<ul class="org-ul">
+<li>Genetic Diversity in a Sexual Reproduction Life Cycle</li>
+<li>Stages of Meiosis</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgc367b1f" class="outline-3">
+<h3 id="orgc367b1f"><span class="section-number-3">1.3</span> Overview of Meiosis</h3>
+<div class="outline-text-3" id="text-1-3">
+<ul class="org-ul">
+<li>A reduction division
+<ul class="org-ul">
+<li>Number of chromosomes is halved</li>
+</ul></li>
+<li>Results in 4 cells that are not genetically identical</li>
+</ul>
+
+<div class="figure">
+<p><img src="./Week 10/labeled_meiosis_204036.png" alt="labeled_meiosis_204036.png" />
+</p>
+<p><span class="figure-number">Figure 2: </span>Labeled Overview of Meiosis</p>
+</div>
+<ul class="org-ul">
+<li>Sister chromatids</li>
+<li>Haploid cells with unreplicated chromosomes</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orga98cddf" class="outline-3">
+<h3 id="orga98cddf"><span class="section-number-3">1.4</span> Meiosis Generates Genetic Diversity</h3>
+<div class="outline-text-3" id="text-1-4">
+
+<div class="figure">
+<p><img src="./Week 10/meiosisgeneticdiversity_205048.png" alt="meiosisgeneticdiversity_205048.png" />
+</p>
+<p><span class="figure-number">Figure 3: </span>Meiosis Generates Genetic Diversity</p>
+</div>
+<ul class="org-ul">
+<li>23 chromosomes =&gt; tons of different combinations</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org8975d90" class="outline-3">
+<h3 id="org8975d90"><span class="section-number-3">1.5</span> The Stages of Meiosis</h3>
+<div class="outline-text-3" id="text-1-5">
+<ul class="org-ul">
+<li>Meiosis I and Meiosis II are each made of
+<ul class="org-ul">
+<li>Prophase</li>
+<li>Metaphase</li>
+<li>Anaphase</li>
+<li>Telophase</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgd9e153f" class="outline-3">
+<h3 id="orgd9e153f"><span class="section-number-3">1.6</span> Prophase I</h3>
+<div class="outline-text-3" id="text-1-6">
+<ul class="org-ul">
+<li>Homologous chromosomes find each other
+<ul class="org-ul">
+<li>Different from Mitosis, Mitosis, spindle</li>
+<li>Perfectly aligned together, cut DNA, switch arms</li>
+</ul></li>
+<li>Crossing over occurs</li>
+</ul>
+
+<div class="figure">
+<p><img src="./Week 10/prophaseI_205800.png" alt="prophaseI_205800.png" />
+</p>
+<p><span class="figure-number">Figure 4: </span>Prophase I</p>
+</div>
+<ul class="org-ul">
+<li>The most important phase in meiosis</li>
+<li>Spending the most time in prophase I</li>
+</ul>
+
+<div class="figure">
+<p><img src="./Week 10/crossing_over_210640.png" alt="crossing_over_210640.png" />
+</p>
+<p><span class="figure-number">Figure 5: </span>Crossing Over</p>
+</div>
+<ul class="org-ul">
+<li>Electron micrograph of a tetrad undergoing the crossing over (on the right of this figure)</li>
+<li>Non-sister chromatids are going to cross over</li>
+<li>Greater genetic diversity in the daughter cells</li>
+<li>crossing over occurs at a random spot on the chromosome
+<ul class="org-ul">
+<li>Chromosomes are cut at the exact same place as their partners are</li>
+<li>The cuts are not always at the same place (though the pairs always match)</li>
+</ul></li>
+<li>in humans, crossing over happens 1-3 spots per chromosome</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org01c3287" class="outline-3">
+<h3 id="org01c3287"><span class="section-number-3">1.7</span> The Rest of Meiosis I</h3>
+<div class="outline-text-3" id="text-1-7">
+
+<div class="figure">
+<p><img src="./Week 10/restofmeiosis_211107.png" alt="restofmeiosis_211107.png" />
+</p>
+<p><span class="figure-number">Figure 6: </span>The Rest of Meiosis</p>
+</div>
+<ul class="org-ul">
+<li>Metaphase</li>
+<li>homologous chromosomes are going to attatch to the spindle</li>
+<li>one homologus chromosome is going to attatch to the north pole, south pole (not sister chromatids like mitosis)</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orga0bc79a" class="outline-3">
+<h3 id="orga0bc79a"><span class="section-number-3">1.8</span> Meiosis II</h3>
+<div class="outline-text-3" id="text-1-8">
+
+<div class="figure">
+<p><img src="./Week 10/meiosisII_211309.png" alt="meiosisII_211309.png" />
+</p>
+<p><span class="figure-number">Figure 7: </span>Meiosis II</p>
+</div>
+<ul class="org-ul">
+<li>Prophase II</li>
+<li>Metaphase II</li>
+<li>Anaphase II</li>
+<li>Telophase II and cytokinesis</li>
+<li>Separating <b>sister</b> chromatids</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org0c37519" class="outline-3">
+<h3 id="org0c37519"><span class="section-number-3">1.9</span> Comparing Mitosis and Meiosis</h3>
+<div class="outline-text-3" id="text-1-9">
+<ul class="org-ul">
+<li>Cells are <i>haploid</i> after Meiosis I</li>
+</ul>
+
+<div class="figure">
+<p><img src="./Week 10/comparingmm_211505.png" alt="comparingmm_211505.png" />
+</p>
+<p><span class="figure-number">Figure 8: </span>Comparing Mitosis and Meiosis</p>
+</div>
+<ul class="org-ul">
+<li>Difference in Metaphase and Metaphase I (sister chromatids, homologous chromosomes)</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org2116235" class="outline-3">
+<h3 id="org2116235"><span class="section-number-3">1.10</span> Origins of Genetic Diversity</h3>
+<div class="outline-text-3" id="text-1-10">
+<ul class="org-ul">
+<li>Mutation</li>
+<li>Sexual Reproduction Only
+<ul class="org-ul">
+<li>Independent Assortment of Chromosomes
+<ul class="org-ul">
+<li>Approximately 8 million ways of splitting 23 maternal and 23 paternal chromosomes during Meiosis I</li>
+</ul></li>
+<li>Crossing Over
+<ul class="org-ul">
+<li>Produces recombinant chromosomes (tons of ways you can mix up the maternal and paternal chromosomes)</li>
+</ul></li>
+<li>Random Fertilization
+<ul class="org-ul">
+<li>8+ million cobinations * 2 (1 egg, 1 sperm)</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org65426ed" class="outline-3">
+<h3 id="org65426ed"><span class="section-number-3">1.11</span> Take Home Message</h3>
+<div class="outline-text-3" id="text-1-11">
+<ul class="org-ul">
+<li>Meiosis is a type of cell division that halves the number of chromosomes and produces cells that are not identical</li>
+<li>In Meiosis I, homologous chromosomes are separated producing haploid daughter cells</li>
+<li>Meiosis II, sister chromatids separate</li>
+<li>Genetic Diversity
+<ul class="org-ul">
+<li>Independent Assortment of Chromosomes</li>
+<li>Crossing Over</li>
+<li>Mutations and Random Fertalization</li>
+</ul></li>
+<li>Campbell Biology Text - Chapter 13</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org8f96d8e" class="outline-2">
+<h2 id="org8f96d8e"><span class="section-number-2">2</span> OB010.10.L2 - Genetic Diversity</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orga2d3328" class="outline-3">
+<h3 id="orga2d3328"><span class="section-number-3">2.1</span> In this lecture&#x2026;</h3>
+<div class="outline-text-3" id="text-2-1">
+<ul class="org-ul">
+<li>2 key processes to propagation of a species
+<ul class="org-ul">
+<li>Reproduction</li>
+<li>Generation of genetic diversity</li>
+</ul></li>
+<li>Modes of reproduction</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org80cfa8a" class="outline-3">
+<h3 id="org80cfa8a"><span class="section-number-3">2.2</span> Continuity and Change</h3>
+<div class="outline-text-3" id="text-2-2">
+<ul class="org-ul">
+<li>Like produces like. (Reproduction)
+<ul class="org-ul">
+<li>Offspring are the same species and share their parents' characteristics</li>
+<li>On a gross scale</li>
+<li>Producing more of a species</li>
+</ul></li>
+<li>Variation
+<ul class="org-ul">
+<li>Offspring are not exact duplicates of their parents</li>
+<li>Genetic diversity is important for the health of a species
+<ul class="org-ul">
+<li>Royalty only breeding into royalty</li>
+<li>Led to bad health, inherited diseases</li>
+</ul></li>
+</ul></li>
+<li>these two things ^ are the most important things in keeping a species alive</li>
+<li>Genetics is the study of heredity and hereditary variation</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org504908e" class="outline-3">
+<h3 id="org504908e"><span class="section-number-3">2.3</span> Life Cycles</h3>
+<div class="outline-text-3" id="text-2-3">
+<ul class="org-ul">
+<li>All life cycles require a process for reproduction, and a process to inroduce genetic diversity</li>
+<li>Asexual reproduction
+<ul class="org-ul">
+<li>Does not introduce genetic diversity</li>
+<li>Produces exact copies - "clones"</li>
+<li>Most unicellular organisms and some multicellular</li>
+</ul></li>
+<li>Sexual reproduction
+<ul class="org-ul">
+<li>"Mom and dad"</li>
+<li>Some unicellular and most multicellular organisms</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org3fdda02" class="outline-3">
+<h3 id="org3fdda02"><span class="section-number-3">2.4</span> Asexual Reproduction</h3>
+<div class="outline-text-3" id="text-2-4">
+<ul class="org-ul">
+<li>One parent produces offspring by mitosis</li>
+</ul>
+
+<div class="figure">
+<p><img src="./Week 10/asexualreproduction_213321.png" alt="asexualreproduction_213321.png" />
+</p>
+<p><span class="figure-number">Figure 9: </span>Asexual Reproduction</p>
+</div>
+<ul class="org-ul">
+<li>Binary Fission
+<ul class="org-ul">
+<li>Process of cell division</li>
+</ul></li>
+<li>Budding
+<ul class="org-ul">
+<li>A hydra, multicellular organism that can reproduce by budding</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org20f4d28" class="outline-3">
+<h3 id="org20f4d28"><span class="section-number-3">2.5</span> Sexual Reproduction</h3>
+<div class="outline-text-3" id="text-2-5">
+<ul class="org-ul">
+<li>Accomplish 2 processes at once!
+<ul class="org-ul">
+<li>Reproduction</li>
+<li>Generate genetic diversity</li>
+</ul></li>
+<li>2 parents</li>
+<li>One cell from each parent combine together (fuse).
+<ul class="org-ul">
+<li>But wait&#x2026; Wouldn't that double the number of chromosomes?</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org9182b87" class="outline-3">
+<h3 id="org9182b87"><span class="section-number-3">2.6</span> Sexual Reproduction and Chromosome Number</h3>
+<div class="outline-text-3" id="text-2-6">
+<ul class="org-ul">
+<li>Parents need to half the amount of DNA in a special set of cells to prepare for reproduction
+<ul class="org-ul">
+<li>Meiosis - special cell division that cuts the number of chromosomes in half</li>
+<li>Produces gametes (sperm and egg)</li>
+</ul></li>
+</ul>
+
+<div class="figure">
+<p><img src="./Week 10/sexualreproduction_chromosomenumber_213703.png" alt="sexualreproduction_chromosomenumber_213703.png" />
+</p>
+<p><span class="figure-number">Figure 10: </span>Sexual Reproduction and Chromosome Number</p>
+</div>
+<ul class="org-ul">
+<li>Gametes are haploid
+<dl class="org-dl">
+<dt>haploid</dt><dd>One set of chromosomes</dd>
+</dl></li>
+<li>All other cells (somatic cells) are diploid
+<dl class="org-dl">
+<dt>diploid</dt><dd>two sets of chromosomes</dd>
+</dl></li>
+<li>Humans have 2 sets of 23 chromosomes, 2 sets of identical chromosomes</li>
+<li>A gamete from each parent fuse together (fertilization) to produce a zygote with the full complement of chromosomes</li>
+<li>Zygote divides mitotically to produce the adult</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org8a8166d" class="outline-3">
+<h3 id="org8a8166d"><span class="section-number-3">2.7</span> The Human Karyotype</h3>
+<div class="outline-text-3" id="text-2-7">
+<ul class="org-ul">
+<li>Ordered display of chromosomes</li>
+<li>Chromosomes are visible for karyotyping during mitosis</li>
+</ul>
+
+<div class="figure">
+<p><img src="./Week 10/humankaryotype_214009.png" alt="humankaryotype_214009.png" />
+</p>
+<p><span class="figure-number">Figure 11: </span>The Human Karyotype</p>
+</div>
+<ul class="org-ul">
+<li>2 full sets of chromosomes
+<ul class="org-ul">
+<li>one from mom</li>
+<li>one from dad</li>
+</ul></li>
+<li>Each set is 23 chromosomes
+<ul class="org-ul">
+<li>22 autosomes (same in all sexes)</li>
+<li>1 sex chromosome
+<ul class="org-ul">
+<li>XX = female</li>
+<li>XY = male</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<div class="figure">
+<p><img src="./Week 10/describingchromosomes_215720.png" alt="describingchromosomes_215720.png" />
+</p>
+<p><span class="figure-number">Figure 12: </span>Describing Chromosomes</p>
+</div>
+
+<div class="figure">
+<p><img src="./Week 10/variations_sexual_lifecycle_215856.png" alt="variations_sexual_lifecycle_215856.png" />
+</p>
+<p><span class="figure-number">Figure 13: </span>Variations of the Sexual Life Cycle</p>
+</div>
+<ul class="org-ul">
+<li>n, 2n; haploid, diploid</li>
+<li>Plants and fungis sometimes switch back and forth between generations</li>
+<li>Meiosis and fertilization always alternate</li>
+<li>Diploid and haploid cells can do mitosis</li>
+<li>Only diploid cells can do meiosis</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org89bf92f" class="outline-3">
+<h3 id="org89bf92f"><span class="section-number-3">2.8</span> Take Home Message</h3>
+<div class="outline-text-3" id="text-2-8">
+<ul class="org-ul">
+<li>Sexual vs. Asexual reproduction
+<ul class="org-ul">
+<li>Both forms can be varied</li>
+</ul></li>
+<li>Meiosis and fertilization</li>
+<li>Haploid vs. diploid</li>
+<li>Somatic cells vs. gametes</li>
+<li>Autosomes vs. sex chromosomes</li>
+<li>Humans have two copies of every gene due to sexual reproduction</li>
+<li>Campbell's Biology text - Chapter 13</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8059462" class="outline-2">
+<h2 id="org8059462"><span class="section-number-2">3</span> W10D1</h2>
+<div class="outline-text-2" id="text-3">
+<ul class="org-ul">
+<li>FRQ5</li>
+<li><p>
+Step one of Meiosis in Aspiposcelis Uniparens
+</p>
+
+<div class="figure">
+<p><img src="./Week 10/coolmeiosis_123400.png" alt="coolmeiosis_123400.png" />
+</p>
+<p><span class="figure-number">Figure 14: </span>Meiosis in Aspiposcelis Uniparens</p>
+</div></li>
+</ul>
+
+<div class="figure">
+<p><img src="./Week 10/closerloock_prophaseI_131202.png" alt="closerloock_prophaseI_131202.png" />
+</p>
+<p><span class="figure-number">Figure 15: </span>A Closer Look at Crossing Over in Prophase I</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Pierce Wang</p>
+<p class="date">Created: 2018-10-29 Mon 23:43</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
