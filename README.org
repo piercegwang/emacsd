@@ -8,5 +8,7 @@ This set of configuration files is made for Mac OSX 10.14. It is very much subje
    - Removed title bar
 
 ** Version Control
+*** TODO Version 2.1
+    - [ ] Get Magit
 *** Version 2.0
     - [X] Current, made README

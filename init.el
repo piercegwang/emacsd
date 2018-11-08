@@ -229,3 +229,8 @@ If the input is non-empty, it is inserted at point."
 (setq calendar-latitude 37.550201)
 (setq calendar-longitude -121.980827)
 (setq calendar-location-name "Fremont, CA")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Magit
+(require 'magit)
+(global-set-key (kbd "C-x g") 'magit-status)
