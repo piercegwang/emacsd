@@ -1,0 +1,12 @@
+* My current ~/.emacs.d directory
+
+This set of configuration files is made for Mac OSX 10.14. It is very much subject to change and will likely have a few bugs. This is also private as of now, so I'm not sure if anyone will see this.
+
+** Features
+   - I use evil-mode
+   - Chinese fonts
+   - Removed title bar
+
+** Version Control
+*** Version 2.0
+    - [X] Current, made README
