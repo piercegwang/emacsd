@@ -60,7 +60,7 @@
      ("I" "#+INCLUDE: %file ?"))))
  '(package-selected-packages
    (quote
-    (elpy exec-path-from-shell smart-mode-line-powerline-theme smart-mode-line latex auctex evil-visual-mark-mode)))
+    (magit elpy exec-path-from-shell smart-mode-line-powerline-theme smart-mode-line latex auctex evil-visual-mark-mode)))
  '(safe-local-variable-values
    (quote
     ((eval face-remap-add-relative
