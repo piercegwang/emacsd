@@ -1,0 +1,56 @@
+% Created 2018-11-13 Tue 00:22
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Pierce Wang}
+\date{\textit{<2018-11-13 Tue>}}
+\title{Wk12RQ.PierceWang}
+\hypersetup{
+ pdfauthor={Pierce Wang},
+ pdftitle={Wk12RQ.PierceWang},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 26.1 (Org mode 9.1.9)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+\section{Poem}
+\label{sec:orgbf00bae}
+The Pitcher
+Robert Francis (1953)-Text Book, 89-90
+
+His art is eccentricity, his aim
+How not to hit the mark he seems to aim at,
+
+His passion how to avoid the obvious,
+His technique how to vary the avoidance.
+
+The others throw to be comprehended. He
+Throws to be a moment misunderstood.
+
+Yet not too much. Not errant, arrant, wild,
+But every seeming aberration willed.
+
+Not to, yet still, still to communicate
+Making the batter understand too late.
+
+\section{Response}
+\label{sec:org6ffe278}
+In this poem, the vehicle is the pitcher, and the tenor being the idea of deception and careful manipulation of something to deceive yet still complete an action. The poem emphasizes the control that a baseball pitcher must exercise in order to fool the batter yet not miss the mark. This control is shown to be a controlled aberration. The control of the pitcher is most relevant in this metaphor. The tenor however, is the idea of this fantastic control that people can have over anything. The moment of deception where the pitcher "throws to be a moment misunderstood" represents the absolute control over the object. Francis mentions that others do not have the same skill as this metaphorical pitcher he is describing. Rather, others may "throw to be comprehended." They communicate very straight forwardly. However, this pitcher plays with his skill, and uses it to his advantage to, not provide absolute chaos, but a controlled "abberation." The vehicle in this case could perhaps be referring to multiple tenors in the sense that it is referring to a specific family of tenors. Because the tenor is about complete control, it refers to any skill that requires this. However, one specific tenor that it might be more intentionally referring to is the idea of language. The second to last line enforces this in the word "communicate" and could perhaps refer to the idea of communicating something to a reader, yet still keeping the meaning hidden and harder to get to. This is especially important in interpreting this poem because it is about control, and thus the control of language. In the control of language, it is essential to be a master of willed aberration. To be able to control the reader's perception simply through a collection of letters and words is extremely important and is something that the author in any text "aims at" in their works.
+\end{document}

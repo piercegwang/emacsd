@@ -234,3 +234,7 @@ If the input is non-empty, it is inserted at point."
 ;; Magit
 (require 'magit)
 (global-set-key (kbd "C-x g") 'magit-status)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Diary configuration
+(setq diary-file "~/.emacs.d/diary.gpg")
