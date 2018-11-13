@@ -1,0 +1,113 @@
+% Created 2018-11-11 Sun 20:44
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Pierce Wang}
+\date{\textit{<2018-11-11 Sun>}}
+\title{附加作业 Additional Exercises 14-2 (1)}
+\hypersetup{
+ pdfauthor={Pierce Wang},
+ pdftitle={附加作业 Additional Exercises 14-2 (1)},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 26.1 (Org mode 9.1.9)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+\section{Listening 3/C. Open the exercise on the webapp, listen to the  audio file, then answer these questions in English based on the speaker’s message to her dog-sitter.}
+\label{sec:org3473602}
+\begin{itemize}
+\item Does the speaker already know the dog-sitter? How do you know?
+\begin{itemize}
+\item One could speculate both ways, so it's really hard to tell. If I had to choose, I would say the speaker knows the dog-sitter as they are going to get coffee when the speaker gets back from her trip.
+\end{itemize}
+\item What specific instructions does the speaker give to the dog-sitter? List them in detail.
+\begin{itemize}
+\item The dog wakes up at 6am
+\item if it's not raining, walk the dog at the park for half an hour
+\item if it's raining, then the dog can watch tv at home for half an hour
+\item then give him some breakfast to eat, some water to drink
+\begin{itemize}
+\item don't forget he can only drink water
+\item He can't drink even a bit of other drinks
+\end{itemize}
+\item if he's hungry at noon, give him some fruit to eat
+\end{itemize}
+\item If you were the dog-sitter, would you have any questions for the owner? Ask at least one.
+\begin{itemize}
+\item What do I give 小白 for dinner?
+\end{itemize}
+\item Has the dog-sitter ever met the dog? How do you know?
+\begin{itemize}
+\item No, because otherwise the owner would already know if the dog-sitter likes 小白 or not.
+\end{itemize}
+\item Would you dog-sit for the speaker if you were asked? Why or why not?
+\begin{itemize}
+\item No, because letting a dog watch TV is not at all healthy!
+\end{itemize}
+\end{itemize}
+
+\section{Reading 5/E. Read this passage, then answer the questions in English. (Interpretive)}
+\label{sec:org4787b9d}
+
+这是我的狗，他的毛 (máo) (hair, fur) 是白色的，我叫他小白。因为我属狗，所以我爸爸妈妈送小白给我做生日礼物。他长得很可爱，脸大大的，嘴小小的，鼻子不高。我常常带他到公园去玩。他跟我一样，也喜欢吃肉、喝饮料、不喜欢运动，每天晚上也睡九个钟头的觉。你看，这是小白的照片，他正在笑呢！
+
+\begin{itemize}
+\item What is the dog’s name? Who gave him that name, and why?
+\begin{itemize}
+\item The dog's name is 小白. He was given that name because he's white.
+\end{itemize}
+\item What are four things that we know about the dog's appearance ?
+\begin{itemize}
+\item He's grown very cute. His face is big, mouth is very small, and his nose not very big.
+\end{itemize}
+\item Why did the narrator’s parents give her a dog as a birthday gift?
+\begin{itemize}
+\item Because the narrator is born of the dog.
+\end{itemize}
+\item What does the passage tell you about the narrator?
+\begin{itemize}
+\item The narrator likes eating meat, like drinking (hopefully juice), doesn't like exercising, and sleeps 9 hours a night, and is very much a dog person.
+\end{itemize}
+\end{itemize}
+
+
+
+\section{Grammar and Writing 5/E. Answer these questions using}
+\label{sec:org7409c3d}
+
+S + (VO) + V + (了) + duration of time  or
+
+S+ V + (了) + duration of time + (的 + object)
+
+\begin{enumerate}
+\item a. 你平常每天做功课做多长时间？b. 昨天呢？
+\begin{enumerate}
+\item 我做两个钟头的功课。我昨天一天都在音乐学校做音乐的东西。
+\end{enumerate}
+\item a. 你平常吃晚饭吃多长时间？b. 昨天呢？
+\begin{enumerate}
+\item 我吃半个钟头的晚饭。我昨天吃了一个钟头的晚饭。
+\end{enumerate}
+\item a. 你平常洗澡洗多长时间？b. 昨天呢？
+\begin{enumerate}
+\item 我洗十分钟的洗澡。昨天洗了七分钟的澡。
+\end{enumerate}
+\end{enumerate}
+\end{document}
