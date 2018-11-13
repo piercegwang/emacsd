@@ -46,5 +46,9 @@
 ;;; org-format-latex-options
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.4))
 
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)))
+
 (provide 'init-org)
 ;; init-org.el ends here
