@@ -1,3 +1,6 @@
 site-lisp/
 diary
 diary~
+backups/
+history
+network-security.data
