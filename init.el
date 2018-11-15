@@ -46,6 +46,9 @@
 (define-key org-cdlatex-mode-map (kbd "C-c M-d") 'cdlatex-dollar)
 (define-key cdlatex-mode-map (kbd "C-c M-d") 'cdlatex-dollar)
 
+(setq TeX-engine 'xetex)
+(setq latex-run-command "xetex")
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Visuals
 ;;; Frame
@@ -222,7 +225,6 @@ If the input is non-empty, it is inserted at point."
       (local-set-key (kbd "<f4>") 'artist-select-op-square)   ; f4 = rectangle
       (local-set-key (kbd "<f5>") 'artist-select-op-ellipse)  ; f5 = ellipse
       ))
-(put 'dired-find-alternate-file 'disabled nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Calendar Mode
@@ -238,3 +240,4 @@ If the input is non-empty, it is inserted at point."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Diary configuration
 (setq diary-file "~/.emacs.d/diary.gpg")
+(put 'dired-find-alternate-file 'disabled nil)
