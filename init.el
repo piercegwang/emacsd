@@ -202,6 +202,9 @@ If the input is non-empty, it is inserted at point."
     (setq mac-control-modifier 'control)
     (setq ns-function-modifier 'hyper))
 
+(when (eq system-type 'gnu/linux)
+  (setq x-hyper-keysym 'hyper))
+
 ;;; ERC Keybinds
 (global-set-key (kbd "H-M-e") (lambda () (interactive) (erc :server "irc.freenode.net" :port 6667 :nick "pgwang" :password passwords_ERC)))
                               
