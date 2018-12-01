@@ -1,0 +1,955 @@
+* Week 5
+** W5D1 <2018-09-24 Mon>
+   - Rules thus far:
+     - Derivative of a constant is 0
+       - $\frac{d}{dx}[c] = 0$
+     - Derivative of a sum of two functions
+       - $(f+g)' = f'+g'$
+     - Derivative of a differnece of two functions
+       - $(f-g)' = f'-g'$
+     - Derivative of a constant times a function
+       - $(cf)' = cf'$
+     - Power Rules
+       - $\frac{d}{dx}[x^r]=rx^{(r-1)}$
+     - Product Rule
+       - $\frac{d}{dx}[f(x)g(x)]=f'(x)g(x)+f(x)g'(x)$
+       - Example: $\frac{d}{dx}[x^2sinx]=(2x)(sinx)+(x^2)(cos(x))$
+     - Quotient Rule:
+       - $f(x)=\frac{u(x)}{v(x)}$
+       - $f'(x)=\frac{u'(x)v(x)-u(x)v'(x)}{[v(x)]^2}$
+   - Higher Order Derivatives:
+     - $\frac{d^2y}{dx^2}$
+** W5D2 <2018-09-26 Wed>
+   - When two curves intersect at right angles, then the slopes of the tangent lines are perpendicular
+     - The derivatives of those functions at that point are also negative reciprocals of each other
+   - Future applications we can appreciate now
+     - Find a non-zero function $f(x)$ such that $2xf(x) = -x^2 f'(x)$
+     - Possible Paths
+       - Take the derivative of both sides:
+	 - $2xf'(x) + \frac{d}{dx}[2x]f(x)=\frac{d}{dx}[-x^2]f'(x)-x^2*(d/dx)[f'(x)]$
+       - $\lim_{x\to0} \frac{sin(x)}{x} = 1$
+       - $\lim_{x\to0} \frac{cos(x)-1}{x} = 0$
+   - Derivatives of trig functions
+     - $\frac{d}{dx}$
+     - $sin'(x) = cos(x)$
+     - $cos'(x) = -sin(x)$
+     - $tan'(x) = sec^2(x)$
+     - $sec'(x) = sec(x)tan(x)$
+     - $csc'(x) = -csc(x)cot(x)$
+     - $cot'(x) = -csc^2(x)$
+* Week 6
+** Ch. 2.7 Lecture 1
+   - An implicitly defined function is one where x and y are given on both sides (not just y = blah blah x)
+** W6D1 <2018-10-01 Mon>
+   - Differentiability
+   - For a function $f$ to be differentiable at a point $c$, $f$ has to be continuous at point $c$ and $\lim_{h\to0}\frac{f(c+h)-f(c)}{h}$
+   - This Condition fails if
+     - $f$ is discontinuous at $c$
+     - there is a corner at $c$
+       - A corner such as $x=0$ in $f(x) = |x|$
+     - the limit grows without bound
+   - $xsin(\frac{1}{x})$ will always be between $-|x|$ and $|x|$ because $sin()$ will always be between 1 and -1.
+     - Therefore, $-|x| \leq xsin(\frac{1}{x}) \leq |x|$
+   - The Chain Rule
+     - If g is differentable at x and f is differentiable at g(x), then the composite function $F=f \circ g$ defined by $F(x) = f(g(x))$ is differentiable at $x$ and $F'$ is given by the product
+       - $F'(x) = f'(g(x)) \cdot g'(x)$
+     - In Leibniz notation, if $y=f(u)$ and $u=g(x)$ are both differentiable functions, then
+       - $\frac{dy}{dx}=\frac{dy}{du}\frac{du}{dx}$
+   :SCRATCHWORK:
+   _Example 1._
+   $f(x)=3x^4, g(x)=2sqrt(x) \\$
+   $g'(f(x))*f'(x) \\$
+   $1(3x^4)^{-1/2}*12x^3$
+   
+   Derivative without the chain rule:
+   $2sqrt(3x^4) \\$
+   $2x^2sqrt(3) \\$
+   $g(f(x))' =4xsqrt(3) \\$
+   
+   _Example 2._
+   Given the following table of values:
+   | x | f(x) | f'(x) | g(x) | g'(x) |
+   | 3 |    5 |    -2 |    5 |     7 |
+   | 5 |    3 |    -1 |   12 |     4 |
+   
+   Find F'(3) where F(x) = f(g(x)), and
+
+   $f'(g(x)) \cdot g'(x) = f'(5) \cdot g'(3) = -1 \cdot 7 \\
+   -1 \cdot 7 = -7$
+
+   Find G'(3) where G(x) = g(f(x))
+
+   $g'(f(x)) \cdot f'(x) = g'(5) \cdot f'(x) = 4 \cdot -2 \\
+   4 \cdot -2 = -8$
+   
+   :END:
+** W6D2 <2018-10-03 Wed>
+   - Implicit Differentiation
+     - Treat $y$ as if it were a function of $x$, with derivative $\frac{dy}{dx}$
+     - Any expression involving $x$ and $y$ may be differentiated with respect to $x$, being sure to remember sum, quotient, product, chain rules, etc.
+     - Differentiate both sides of the equation with respect to $x$
+     - Solve for $\frac{dy}{dx}$
+     - If we plug in a specific point P(x,y) on the graph, we will get the slope of the tangent line at P.
+     - 
+   :SCRATCHWORK:
+   =Chain Rule Practice=
+   
+   $u'(1) = f'(g(1)) = f'(3) * g'(1) = -\frac{1}{4} \cdot -3 = \frac{3}{4}$
+   
+   =Implicit Differentiation=
+   $xy=\cos(x) \\
+   y=\frac{\cos(x)}{x} \\
+   \frac{dy}{dx}=\frac{-\sin(x)-1(\cos(x))}{x^2}$
+
+   Example 3.
+   $-(y'+1)\sin(y+x)=xy'+y$
+   $-(y'+1)=\frac{xy'+y}{sin(y+x)}$
+   $y'+1=-\frac{xy'+y}{sin(y+x)}$
+   $-(y'+1)sin(y+x)-xy'=y$
+   $y'=-\dfrac{\sin\left(y+x\right)+y}{\sin\left(y+x\right)+x}$
+   
+   Breakouts
+   $3x^3+4x^2y-xy^2+2y^3=4 \\
+   = 9x^2+8x \cdot 1 - 1\cdot2y + 6y^2 = 0$
+   $= 9x^2 + 8x - 2y' + 6y'^2 = 0
+   Notes Pod:
+Example 4.
+d/dx(3x^3)+d/dx(4x^2y)-d/dx(xy^2)+d/dx(2y^3)=d/dx(4)
+
+
+= 3 * 3x^2 + 4(d/dx(y) * x^2 + y * d/dx(x^2)) - (d/dx(y^2)*x+y^2 * d/dx(x)) + 2 * 3y^2 * d/dx(y) = 0
+
+= 9x^2+4(y'x^2+2xy)-2y * d/dx(y) * x + 6y^2y'-y^2=0
+= 9x^2+4(y'x^2+2xy)-2yxy' + 6y^2y'-y^2=0
+= 9x^2 + 4y'x^2 + 8xy - 2yxy' + 6y^2y' - y^2=0
+= 9x^2 + 8xy - y^2 = -4y'x^2 +2yxy' - 6y^2y'
+= 9x^2 + 8xy - y^2 = y'(-4x^2 +2yx - 6y^2)
+= (9x^2 + 8xy - y^2)/(-4x^2 + 2yx - 6y^2) = y'
+
+Plug in (-1,1)
+(9(-1)^2 + 8(-1)(1) - (1)^2)/(-4(-1)^2 + 2(1)(-1) - 6(1)^2) = 0/-12
+
+Example 5.
+d/dx(x^(2/3)+y^(2/3)) = d/dx(4)
+d/dx[x^(2/3)] + d/dx[y^(2/3)] = 0
+(2/3)x^(-1/3) + (2/3)*y^(-1/3)*d/dx[y] = 0
+2/(3x^(1/3)) + (2d/dx(y))/(3y^(1/3)) = 0
+2/
+* Week 7
+** W7D1 [2018-10-08 Mon]
+:SCRATCHWORK:
+$f(x) = \sqrt[4]{x} \\$
+
+$\lim_{x\to5} \frac{2^x-32}{x-5} \\$
+$f(x) = 2^x \\$
+Finding derivative of f(x) at 5
+
+:END:
+*** How to write the derivative of a function in terms of limits
+$f'(a) = \lim_{h\to0} \frac{f(a+b) - f(a)}{h} = lim_{x\toa} \frac{f(x)-f(a)}{x-a}$
+*** Related Rates
+#+BEGIN_QUOTE
+Suppose a painter is standing on a *13 foot ladder*. The ladder slips at the base and the painter starts falling at a constant velocity of 2 feet per second. How fast is ht ebottom of hte ladder moving away from the wall when the painter is 12 feet off the ground?
+#+END_QUOTE
+
+Let x = the distance from the bottom of the ladder to the wall \\
+h = the height of the painter
+
+Given: $\frac{dh}{dt} = -2\frac{ft}{s} \\$
+Find: $\frac{dx}{dt} \\$
+
+$x^2 + h^2 = 13^2 \\
+\frac{d}{dt}(x^2+h^2)=\frac{d}{dt}(13^2) \\
+= 2x\frac{dx}{dt} + 2h\frac{dh}{dt} = 0 \\
+= 2(5)\frac{dx}{dt} + 2(12)(-2) = 0 \\
+= 10\frac{dx}{dt} - 48 \\
+\frac{dx}{dt} = 48/10 = 4.8 \\$
+The ladder is moving away from the wall at a rate of 4.8 ft/sec.
+
+Solving for x:
+$x^2+h^2=13^2 \\
+x^2+144=169 \\
+x^2=25 \\
+x=5$
+** W7D2 [2018-10-10 Wed]
+*** Topics on the midterm
+    - Anything from chapters 1, 2 and appendices B, C, D and E.
+    - About 10 multiple choice questions, 10-12 short answer questions, 2 hours.
+    - Calculater ALLOWED, but not needed, and for short answer questions, you must show work [not just a numerical answer without any explanation].
+    - Main Topic Divisions [not that each necessarily has its own question] are
+      - Precalculus [especially functions]
+      - Limits
+	- COmputing limits, especially of fractions where numerator and denominator both go to 0
+	- Limits at infinity
+	- Continuity (and the intermediate value theorem)
+	- Limits involving trig functions
+      - Derivatives
+	- DEFINITION - limit of difference quotient
+	- Interpretations, simple applications - instantaneous rate of change, slope of tangent line
+	- Computing - differentiation rules, all of them, but ... chain rule in particularl!
+	- Implicit differentiation
+	- Related Rates
+	- Linear Approximation
+*** Linear Approximation
+In general, the tangent line to a curve gives a very good approximation to the curve as long as you don't go "too far." When x is near a, we have:
+
+$f(x) ~ f(a) + f'(a)(x-a)$
+
+This is called linear approximation or tangent line approximation of f at a
+
+to approximate f(x), we look for a point a "nearby" where both f(a) and f'(a) are easy to compute
+
+-----
+**** Example 1.
+
+$f(x)=\dfrac{1}{\sqrt[3]{1+x}}$
+
+$f(0)+f'(0)(0.1-0)$
+
+$1 - \frac{1}{3}(x-0)$
+
+$1-\dfrac{1}{3}x$
+
+$1-\frac{1}{3}0.1$
+
+$̣\dfrac{29}{30}$
+
+**** Example 2
+$f(x) = cos\left(\dfrac{\pi}{3}\right)$
+cos(pi/4) + f'(pi/4)(x - pi/4 )
+cos(pi/4) - sin(pi/4)(x - pi/4 )
+sqrt(2)/2 - sqrt(2)/2 * (x - pi/4)
+sqrt(2)/2 - sqrt(2)/2 * (pi/3-pi/4)
+
+*** Differentials
+    - The ideas behind linear approximation are sometimes formulted in terminology and notation of differentials
+    - Let $y=f(x)$ then
+      - $dy=
+* Week 8
+** W8D1
+** Problem 1
+Problem 1.
+V = (πr^2h)/3
+Volume of a cone^ 
+
+Given:
+dV/dt = 5
+
+dV/dt = d/dt((πr^2h)/3)
+dV/dt = π/3 * d/dt((r^2h))
+dV/dt = π/3 * ((2r * dr/dt * h) + (r^2 * dh/dt))
+5 = pi/3 * ((2*4 * dr/dt * 8) + (16 * dh/dt)) 
+5 = pi/3 * ((64 * dr/dt) + (16 * dh/dt))
+5 = pi/3 * ((32 * dh/dt) + (16 * dh/dt))
+5 = pi/3 * (48 * dh/dt)
+5 = 48pi/3 * dh/dt
+5/16pi = dh/dt
+
+The rate of the change of depth is 5/16pi ft/min
+
+r/h = 10/20 = 1/2
+r = h/2
+
+radius  = 4
+
+h = 2r => dh/dt = 2 dr/dt
+then substitute
+
+Problem 2.
+tan(11pi/40)
+f(x) = tan(x)
+a = pi/4
+y = f(a) + f'(a)(x-a)
+y = f(pi/4) + f'(pi/4)(x-pi/4)
+y = 1 + 2 (1pi/40)
+y = 1 + pi/20
+
+Problem 3.
+
+dy/dt = 1
+y = (1 + x^3)^1/2
+(x, y) = (2, 3)
+
+find: dx/dt
+
+dy/dt = dx/dt * 3x^2/2 * 1/sqrt(1 + x^3)
+1 = dx/dt * 6 * 1/3
+1 = 2 dx/dt
+dx/dt = 1/2
+
+
+Problem 4.
+
+look at highest degree terms
+top: 32x^5
+bottom: 3x^5
+=> 32/3
+
+
+Problem 5.
+
+A = s^2
+dA = 2s ds
+dA = 24 * 1/20 = 6/5
+Area is 144 ft^2 with error of +- 1.2 ft
+
+
+Problem 6.
+given:
+dx/dt = -1
+dy/dt = -5
+point: (5, 12)
+slope 5
+
+distance formula: d^2 = (x1 - x0)^2 + (y1 - y0)^2
+d^2 = x^2 + y^2
+2d * dd/dt = 2 dx/dt * x + 2 dy/dt (y - 12)
+d * dd/dt = dx/dt (x - 5) + dy/dt (y - 12)
+d = 13 because of pythagorean triple (5, 12, 13)
+
+13 * dd/dt = -(x - 5) - 5(y - 12)
+13 * dd/dt = 5 + 60 = 65
+dd/dt = 65/13
+dd/dt = 5
+
+
+Problem 7.
+
+A = pi * r^2
+dA/dt = pi * 2r * dr/dt
+dA/dt = 180pi ft^2/s
+** Ch. 3.1 Lecture 1
+   - Definitions
+     - Increasing :: $f$ is /increasing/ on the interval if $f(x_1) < f(x_2)$ whenever $x_1 < x_2$
+     - Decreasing :: $f$ is /decreasing/ on the interval if $f(x_1) > f(x_2)$ whenever $x_1 < x_2$
+     - Constant :: $f$ is /constant/ on the interval if $f(x_1) = f(x_2)$ for all points x_1 and x_2
+   - Theorem: Let f be a function that is continuous on a closed interval [a,b] and differentiable on the open interval (a,b)
+     1. If f'(x) > 0 for every value of x in (a,b), then f is increasing on [a,b]
+     2. If f'(x) < 0  for every value of x in (a,b), then f is decreasing on [a,b]
+     3. If f'(x) = 0 for every value of x = (a,b), then f is constant on [a,b]
+   - To find where a function is increasing or decreasing:
+     - Take the derivative of the function
+     - Think about where the signs could change
+       - i.e. when f'(x) = 0 or when f'(x) is undefined
+     - write sign chart
+** Ch. 3.1 Lecture 2
+   - Definitions
+     - If /f/ is differentiable on an open interval, then /f/ is said to be /concave up/ on the open interval if /f'/ is increasing on that interval, and /f/ is said to /concave down/ on the open interval if /f'/ is decreasing on that interval
+     - A function is increasing if its derivative is positive
+     - /f'/ is inc when /f''/ > 0
+     - /f'/ is dec when /f''/ < 0
+     - If /f/ is continuous on an open interval containing a value x_0, and if f changes concavity at the point (x_0, f(x_0)), then we say that f has an inflection at x_0, and we call the point (x_0, f(x_0)) on the graph of f an /inflection point/ of f
+   - Theorem
+     - Let /f/ be twice differentiable on an open interval
+       1. If f''(x)>0 for every value of x in the open interval, then f is concave up on that interval
+       2. If f''(x)<0 for every value of x in the open interval, then f is concave down in that interval
+** Ch. 3.1 Lecture 2
+   - More examples
+   - Find when
+     - f'' > 0, concave up
+     - f'' < 0 concave down
+     - f'' changes sign
+       - f'' = 0
+	 - Numerator is equal to 0
+       - f'' is undefined
+	 - When denominator is 0
+** Ch. 3.1 Lecture 4
+   - To solve problems "Find (a) the intervals on which f is increasing, (b) the intervals on which f is decreasing, (c) the open intervals on which f is concave up, (d) the open intervals on which f is concave down, and (e) the x-coordinates of all inflection points" Given f(x)
+     1. Find first derivative of function
+     2. Simplify
+     3. Find 0's/undefined points of f'
+     4. Evaluate and find signs of the intervals between those points
+	1. When evaluating, can evaluate any value that satisfies the equation (e.g. x < 2)
+	2. These are the indicators of changes in increasing/decreasing points in the function
+	3. Table example
+	|                                       | -3(x^2-3x+1) |
+	|---------------------------------------+--------------|
+	| x < (3 - sqrt(5))/2                   | - * +        |
+	| (3 - sqrt(5))/2 < x < (3 - sqrt(5))/2 | - * -        |
+	| x > (3 - sqrt(5))/2                   | - * +        |
+     5. Find second derivative of function
+     6. Simplify
+     7. Find 0's/undefined points of f''
+     8. Evaluate and find signs of the intervals between those points
+	1. These are the indicators of concavity throughout the function
+** W8D2
+   - Relative maxima or minima of my function
+   - Understanding how to find the optimal values of a function
+   - Linear Approximation to a function at a point *is* the equation of the tangent line at that point
+   - tangent line: $y-y_0 = \dfrac{dy}{dx}_{(x,y)=(x_0,y_0)} (x-x_0)$
+   - L.L.A. (Local Linear Approximation): $y = y_0 + \dfrac{dy}{dx}_{(x,y)=(x_0,y_0)} (x-x_0)$
+   - Definition (looks back at lectures)
+   - Theorem
+   - f'' tells us whether f' is increasing or decreasing (concave up or concave down)
+   - 
+:SCRATCHWORK:
+(a)
+9x^2+16y^2=5625
+
+9d/dx(x^2) + 16d/dx(y^2) = 5625
+18x + 32yy' = 0
+32yy' = -18x
+y' = (-9x)/(16y)
+
+(b)
+y-18 = ((-9*7)/(16*18))*(x-7)
+y = -7/32 x + 625/32
+y = -7/32 * 7 + 625/32
+
+-----
+
+f(x) = 3x^4 - 4x^3 - 12x^2 + 5
+f'(x) = 12x^3 - 12x^2 - 24x
+f'(x) = 12x(x^2-x-2)
+= 12x(x-2)(x+1)
+
+f'(x) = 0
+
+x = 0, 2, -1
+
+|            | 12x(x-2)(x+1) |
+|------------+---------------|
+| x<-1       | -             |
+| -1 < x < 0 | +             |
+| 0 < x < 2  | -             |
+| x > 2      | +             |
+
+Must be careful about assuming that when x crosses 0, the sign changes
+
+-----
+f'(x) = (x+1)^2(x-3)^5(x-6)^4
+
+f'(x) = 0 when x = -1, 3, 6
+|            | f'(x) |
+|------------+-------|
+| x < -1     | -     |
+| -1 < x < 3 | -     |
+| 3 < x < 6  | +     |
+| x > 6      | +     |
+
+-----
+
+f(x) = cos(x)
+f''(x) = -cos(x)
+concave up => f''(x) > 0
+cos(x) = 0
+x = pi/2 + npi = pi/2 (2n+1)
+
+-----
+
+(0,1) U (6,8), decreasing
+
+concave upward, downward => f''(x)
+upward: (0,2) U (3,5) U (7,9)
+downward: (2,3) U (5,7)
+points of inflection: x = 2, 3, 5, 7
+
+-----
+Interpreting graphs
+Inflection points
+f(x) - look for the changes in the concavity
+f'(x) - look for changes in slope
+f''(x) - look for changes in sign
+
+:END:
+* Week 9
+** Ch. 3.2 Lecture 1
+   - Definitions
+     - A function $f$ is said to have a /relative maximum at x_0/ if there is an open inerval containing x_0 on which $f(x_0)$ is the largest value, that is, $f(x_0) \geg f(x)$ for all x in the interval. Similarly, $f$ is said to have a /relative minimum at x_0/ if there is an open interval containing x_0 on which $f(x_0) is the smallest value, that is, $f(x_0) \leq f(x)$ for all x in the interval. If /f/ has either a relative maximum or a relative minimum at x_0, then /f/ is said to have a relative extremum at x_0.
+   - Theorem
+     - Suppose that /f/ is a function defined on an open interval containing the point x_0. If /f/ has a relative extremum at x=x_0, then x=x_0 is a critical point of /f/: that is, either f'(x_0) = 0 or f is not differentiable at x_0
+       - aka: only possible places to have a relative max or min is at a point where f'(x_0) = 0 or f isn't differentiable
+** W9D1
+   - Starting with sketching a function based on given information about the limits and domain of that function
+:CLASSWORK:
+2, 0, 1; relative maxima: 0, relative minima: 2; 1 is undefined
+:END:
+** W9D2
+   - No concavity in straight lines
+   - The point at x = 0 on the graph $f(x) = 5x^{2/3} + x^{5/3}$ is called a cusp.
+     #+CAPTION: Vertical Tangents vs Cusps
+     [[file:./Week 9/verticalt_cusps_092459.png]]
+   - Extreme Value Theorem
+     - A continuous function f(x) on a closed interval [a,b] *ALWAYS* attains a global (absolute) maximum and a global (absolute) minimum.
+     - Any global extrema msut be at one of three types of points:
+       - An endpoint of the interval (either a or b)
+       - at a point where f(x) is not differentiable
+       - at a point where f'(x) = 0 (i.e. a stationary point)
+       - Extreme value theorem is not saying you can't have a global extrema if these two conditions are met, it's just saying that it's guaranteed to have them if these conditions are met
+       - Only talks about guaranteeing 
+     - What happens if we don't have continuity?
+       - Vertical asymptote
+*** Finding the absolute extrema of f(x)
+     1. Find any critical points on the open interval
+	1. Make sure that the critical points are in the interval
+     2. Plug in the critical points and the end points to find the greatest/least values
+   - 
+:SCRATCHWORK:
+Example 7
+
+x-intercepts: (0, 0),  (-5, 0)
+y-intercept: (0, 0)
+
+no asymptotes (vertical or horizontal)
+
+Sign chart for f(x):
+x < -5 => negative
+-5 < x < 0 => positive
+x > 0 => positive
+
+f'(x) = 10/3 * x ^ (-1/3) + 5/3 * x ^ (2/3)
+
+Critical points for f'(x) = 0 or f'(x) DNE
+x = 0 because of fraction in denominator
+x = -2 is when f'(x) = 0
+
+Sign chart for f'(x):
+x < -2 => positive
+-2 < x < 0 => negative
+x > 0 => positive
+
+Inflection points
+0, 1
+
+:END:
+* Week 10
+** Ch. 3.5 Lecture 1
+   - General Strategy
+     - Identify the quantity to be maximized or minimized and express it as a funciton of the relevant parameter
+       - Often a diagram is helpful in this
+       - Be sure you know the domain! it's easiest if it can eb a closed itnerval, but that's not always possible
+     - Apply techniques of calculus to find the relevant extrema
+     - Once you have found the absolute maximum or minium, be sure to interpret your result correclty and answer the question that was asked! Were you asked for the maximum or minimum value itself, or were you asked for he value the parameter should be to achieve that extreme value?
+   - Steps
+     1) Examine Problem
+     2) Come up with an equation that represents the value to be maximized/minimized with relation to one variable
+     3) Take first derivative of the function
+     4) Find when the derivative equation = 0 which will be local extrema
+*** Scratchwork                                                    :noexport:
+:SCRATCHWORK:
+Let y = number of workers
+x = hours
+Cost = 5yx + 8y + 10x
+900 = 5xy
+y = 900/(5x)
+
+Cost = 5(900/(5x))x + 8(900/5x) + 10x
+Cost = 900 + 1440/x + 10x
+dCost/dx = -1440x^{-2} + 10
+dCost/dx = -1440/x^2 +10
+x = 12
+y = 180/12
+y = 15
+900 + 1440/12 + 10*12
+:END:
+** Ch. 3.5 Lecture 2
+   - Same thing as previous lecture, more examples
+   - Draw diagrams
+** W10D1
+   - If a continuous function of a single variable has exactly one relative extremum on an interval, then that relative extremum is an absolute extremum on that interval.
+   - *cusp* : example: f(x) = x^{2/3} when x = 0
+   - Applied Problems
+     - No new calculus
+   - 
+*** Scratchwork                                                    :noexport:
+:SCRATCHWORK:
+f(x) = x^(2/3)
+f'(x) = 2/3x^(-1/3)
+f'(x) = 2/3x^(1/3)
+f''(x) = -2/9x^(-4/3)
+-----
+Applied Problems
+Let x = number of trees
+Let y = apple output
+y = (800-10x)*x
+a=(800-10t)t
+y = (800-10(x-50))*x
+y = (800 - 10x + 500)x
+y = 800x - 10x^2 + 500x
+y = 1300x - 10x^2
+y = 
+
+Let t = # trees over t
+Let a = apple output
+a = (800-10t)(50+t)
+a = 300t - 10t^2 + 40000
+a'(t) = 300 - 20t
+a'(t) = 20(15-t)
+      15
+-------|-------
+    +      - 
+
+-----
+Example 3.
+Cylidrical can to hold 1.5 liters (1500 cc) liquid
+least amount of material
+
+V = pir^2h
+SA = 2pir(h+r)
+
+V = 1.5
+:END:
+:NOTESPOOD:
+Surface area of a cylinder
+V = pir^2h
+SA = 2pir(h+r)
+SA = 2pirh + 2pir^2
+
+V = 1.5 liters
+h = V/pir^2
+
+A(r) = 2 pi r (1.5/(pi r^2)) + 2pir^2
+A(r) = 3/r + 2pir^2
+A(r) = 3r^{-1} + 2pir^2
+A'(r) = -3r^{-2} + 4pir
+A'(r) = -3/r^2 + 4pir
+
+
+A(r) = 2pi r (V/pir^2) + 2pir^2
+A(r) = 2V/r + 2pir^2
+
+dA/dr = -2vr^-2+4pir = r(-2vr^-3+4pi) = 0
+r(-2vr^-3+4pi) = 0 
+4pi=2vr^-3
+r=(2pi/v)^(-1/3)
+
+Example 4.
+S^2 = (x-4)^2 + (y)^2
+S^2 = (x-4)^2 + x
+S = sqrt(x^2 -7x + 16)
+dS/dx = 1/2(x^2 - 7x + 16)^(-1/2) * (2x - 7)
+(2x-7) = 0
+x = 7/2
+(3.5, sqrt(3.5))
+635.34814322
+:END:
+* Week 11
+** W11D1
+   - Rectilinear motion
+     - The method of an object moving in a straight line
+     - Position is a funciton of time
+     - Its PATH is along a straight line
+     - It could move back and forth along the line
+     - Examples:
+       - A ball thrown up in the air on a straight line
+   - Terminology
+     - Position function s(t)
+     - Displacement = *change* in position = s(t_{2}) - s(t_{1})
+     - Average velocity = $\frac{s(t_2)-s(t_1)}{t_2-t_1}$
+     - (Instantaneous) Velocity v(t) = s'(t) describes how fast and in what direction the particle is moving
+     - Speed = |v(t)| describes only how fast the particle is moving
+     - Accerlation a(t) = v'(t) = s''(t)
+   - Physical interpretation of sign (+/-) of derivatives
+     - Direction of motion
+       - If v(t) > 0, the object is moving to the right on the position-axis
+       - If v(t) < 0, the object is moving to the left on the position-axis
+       - If v(t) = 0, the object is paused
+     - *Speeding up* and *Slowing down*
+       - The object *speeds up* when the velocity is positive and increasing (v(t) and a(t) are both positive) and also when the velocity is negative and and decreasing (v(t) and a(t) are both negative). In other words, *the velocity and acceleration have the same sign.* (The object is pushed in the same direction it is moving.)
+       - The object *slows down* when v(t) and a(t) have opposite signs.
+       - The object is moving at *constant velocity* if a(t) = 0
+   - and for a(t)... then -4.9t^2 + cx + d maybe?
+   - Position of an object in freefall = s(t) = -4.9t^2 + v_0t + s_0
+     - a(t) = -9.8
+     - v(t) = -9.8t+v_0
+     - s(t) = -4.9t^2 + v_0t + s_0
+   - to get a graph of the *speed*, take derivative of abs(v(t))
+*** Scratchwork
+:SCRATCH:
+$s(t) = \frac{t^3}{3} - 2t^2 + 3t$
+
+$v(t) = s'(t) \\
+v(t) = t^2 - 4t + 3 \\
+v(t) = (t-3)(t-1)$
+
+$a(t) = v'(t) \\
+a(t) = 2t - 4 \\
+a(t) = 2(t-2)$
+** W11 D2
+   - Rolle's Theorem
+     - Let $f$ be a function that satisfies the following three hypothesis:
+       - f is continuous on the closed interval [a,b]
+       - f is differentiable on the open interval (a,b)
+       - f(a) = f(b)
+       - then there is a number c in (a,b) such that f'(x) = 0
+     - at some point, the instantaneous velocity of the object = the total velocity of the object
+     - Sketch of proof:
+       - f(x) is continuous on [a,b], so the Extreme Value of Theorem implies the existence of extrema
+       - Where do we expect the extrema to be located?
+       - How does that apply when f(a) = f(b)?
+	 - horizontal line
+     - Remarks
+       - Make sure:
+	 - State f(x) is continuous on [a,b] and differentiable on (a,b)
+	 - Show that f(a) = f(b)
+	 - State that there exists at least one x = c in (a,b) such that f'(x) = 0
+       - Notes:
+	 - only guarnantees the existance of at least one point
+	 - does not tell how to find it, or how many
+     - Consequences:
+       - Root finding
+	 - Rolle's Theorem can be used to prove the existance of roots because it implies that the derivative of any polynomial must have roots in between the roots of the original polynomial
+       - 
+   - Mean Value Theorem (MVT)
+     - Let f be a function that satisfies the following hypothesis
+       - f is continuous ont eh closed interval [a,b]
+       - f is differentiable on the open interval (a,b)
+       - Then there is a number (a,b) such that
+       - 1: f'(c) = $\frac{f(b) - f(a)}{b-a}$
+       - 2: $f(b) - f(a) = f'(c)(b-a)$
+	 - f'(c)(b-a) is the change over t
+     - Consequences
+       - look at lecture
+   - Slight modification of due dates
+   - 
+*** Scratchwork
+:SCRATCHWORK:
+Show that 6x^5 - 4x + 1 = 0 has at least one solution in the interval (0,1)
+f(0) = 1
+f(1) = 3
+
+MVT
+f(x) = x^3 - 3x + 2
+continuous and differentiable because it's a polynomial
+f'(x) = 3x^2 - 3
+f'(c) = 1
+c^2 = 4/3
+c = +- 2/sqrt(3)
+
+Applications of MVT
+some function f(t) that gives the temperature of the object
+f(t_start) = 1500
+f(t_later) = 390
+
+Example 6.
+t_0 = 0
+t_final = 135
+t is in minutes
+t_c = the point at which the bicyclists are moving at the same speed
+
+Example 7.
+f(x) continuous function
+f(1) = 12
+f'(x) <= 2
+
+f(10) - f(1)
+------------ <= 2
+   10 - 1
+
+f(10) - 12
+---------- <= 2
+     9
+
+30 - 12
+------- <= 2
+   9
+
+f(10) <= 30
+:END:
+* Week 12
+** Ch. 4.1 Lecture 1
+*** Notes
+    - Area
+      - Polygons, Circles, Some shapes formed by intersections of polygons and circles
+      - Calculate area of weird shapes using trapezoids
+    - The Area Problem
+      - Find area of any function
+    - Insight 1
+      - /limits/ can help us find the area under curves by making even better approximations with straight lines, 4.4 has more details
+    - Riemann Sums
+      - Sum of rectangles or shapes under a parabola curve
+    - Insight 2
+      - Connection between derivatives (anti-derivatives) and area
+      - If /f/ is a continuous function and A(x) is a function that expresses the area under the graph of f over the interval [a,x], then A is a differentiable function and A'(x) = f(x)
+      - will see in section 4.5
+      - finding the area under the graph of a function is very strongly connected to finding its /anti/-derivative
+*** Cues
+    - Areas using limits
+    - Riemann Sums
+*** Summary
+    - An overview of areas in a different light using Calculus
+    - Riemann Sums
+** Ch. 4.2 Lecture 1
+*** Notes
+    - Antiderivatives / Indefinite Integrals definition and notation
+      - Starting with a function /f/, with independent variable x we seek to find a function F whose derivative (with respect to x) is f.
+      - If such a function F exists, it is called an antiderivative of /f/
+      - [can restrict domain to an interval, etc]
+      - $\int f(x) dx$
+	- "the indefinite integral of f with respect to x"
+	- means to find the set of *all* antiderivatives of f
+	- Meanings
+	  - $\int$ :: integral sign
+	  - $f(x)$ :: integrand
+	- x is called the variable of integration
+    - indefinite integral represents an entire family of functions (one antiderivative for ach value of the constant C)
+    - C == constant of integration
+    - Rules of Differentiation
+      - First Basic Rule
+	- $\int x^n dx = \frac{x^{n+1}}{n+1} + C$ if $n \neq -1$
+      - Linear Combination Rules
+	- $\int (f \pm g) dx = \int fdx \pm \int gdx$
+	- $\int kf(x)dx = k\int f(x)dx$ (k constant)
+*** Cues
+    - indefinite integrals
+    - antiderivatives
+*** Summary
+    - Indefinite Integrals and Antiderivatives
+    - Finding antiderivatives intuitively
+    - Families of functions defined by assigning different values of C
+      - C is the constant of integration
+    - Rules of integration
+      - Basic Rule (x^n)
+      - Linear Combination rules
+** Ch. 4.2 Lecture 2
+*** Notes
+    - Variable of integration doesn't have to be x, of course
+    - Difference between differentation and antidifferentiation
+      - Uniqueness
+	- +C, family of functions
+      - Computational
+      - Existance of closed-form solutions
+      - Every differentiation rule has a corresponding antidifferentiation rule
+    - Differential Equations Boundary conditions
+      - Only case we have to deal with for now:
+	- $\frac{dy}{dx} = f(x)$
+      - seek a solution, that is $y = F(x)$ where $\frac{dy}{dx} = f(x)$
+      - with the function, we can solve for the constant
+    - Look at time [[https://youtu.be/PRqXbc6rqrM?t=716][Lecture]] and understand problem
+*** Cues
+    - Applied more, more definition
+    - Time 
+*** Summary
+    - Differences between differentation and antidifferentiation
+    - Boundary conditions
+** W12D1
+*** Notes
+    - Problem on the past midterm
+      - $\lim_{x \to \inf}[x^2] = \inf$ does not exist
+    - Finding area between some function and the x axis
+    - Approximating the Area Under the Graph of a function
+    - Width: $\delta x = \frac{b-a}{n}$ (n rect.)
+      - interval of [a,b]
+    - Riemann sum approximations
+      - left endpoint, the height of the rectangle is equal to the height of the function at the left side of the rectangle
+      - midpoint, the height of the rectangle is equal to the mid of the function
+      - right endpoint, the right of the rectangle is same as function
+      - If the function is increasing on [a,b]:
+	- left endpoint under, right endpoint over
+      - If function decreasing on [a,b]
+	- left will be over, right will be under
+      - If concave down, then midpoint will be a little bit over
+    - Antidifferentation / Indefinite integral
+      - function F is called an *antiderivative* of a function /f/ if F'(x) = f(x)
+	- indefinite integral
+	- $\int f(x) dx = F(x) + C$ means $F'(x) = f(x)$
+	- where F(x) is an antiderivative of f(x)
+      - 
+:SCRATCHWORK:
+(1/2)*(2*(0)^2 + 2*(1/2)^2 + 2*(1)^2 + 2*(3/2)^2)
+3.5
+
+(1/2)*(2*(1/2)^2 + 2*(1)^2 + 2*(3/2)^2 + 2*(2)^2)
+7.5
+
+(3/5)x^5 + C
+
+$\frac{dy}{dx} = \sqrt[8]{x}, y(1) = 4 \\
+x^{1/8} \\
+(8/9)x^{\frac{9}{8}} + C \\
+C = 28/9$
+:END:
+*** Cues
+*** Summary
+** W12D2
+*** Notes
+    - Integration by Substitution
+      - If u = g(x) is a differentiable function whose range is an interval I and f is continuous on I, then
+	- $\int f((x))g'(x)dx = \int f(u)du$
+      - Choose a part of the integrand to call u such that the rest of the integrand is the derivativ eof u with respect to x (or only off by a constant factor)
+      - Typically, let u be what is in the parenthesis, under a radical, or the trig function being raised to a power
+      - Look for a way to identify part of the integrand as some du
+      - solve the derivative
+    - Integration by Substitution with a Change of Variable
+    - Summation notation
+      - properties of summation
+      - Sum of sum is the sum of sums
+      - constants
+      - split one sum up
+      - shifts
+      - sum of products is *not* the same as product of sums
+      - Common series, review formulas for arithmetic and geometric series
+    - Riemann Sums with Summation
+      - $\sum_{i = 1}^{2} 1 * (f(0+i*1)$
+      - where 1 is the width calculated by (b-a)/n
+:SCRATCHWORK:
+Evaluate $\int (3x+4)^5dx$
+let $u = 3x+4$
+$du = 3dx$
+$\int u^5 \cdot \frac{du}{3}$
+
+Evaluate $\int x\sqrt{x^2+6}dx$
+let $u = x^2+6$
+$du = 2xdx$
+$\int \frac{1}{2}\sqrt{u}du$
+
+Evaluate $\int \sin^3x \cosx dx$
+$\sin(x) = u \\
+\frac{du}{dx}=\cosx dx \\
+\int u^3 cosx \frac{du}{dx}$
+$\frac{u^4}{4} = \frac{\sin^4(x)}{4}$
+
+$\int x \sqrt{x+6} dx$
+$u = x+6$
+$du = dx$
+replace x with $u-6$
+$=\int (u-6) \cdot u^{\frac{1}{2}} \cdot du$
+$\int u^{\frac{3}{2}}-6u^{\frac{1}{2}}du$
+Look at screenshot
+
+$\int (x+2) \sqrt{1-x}dx$
+u = 1-x
+du = -dx
+x+2 can be substituted with (-u+3)
+\int(x+2)sqrt(1-x)dx
+\int(3-u)sqrt(u)(-du)
+\int(3u^1/2 - u^3/2) (-du)
+-2
+:END:
+* Week 13
+** Lecture 4.4.4 Area under curve
+*** Notes
+    - More detail oriented version of riemann sums
+    - Definition of Area under a curve
+    - $\delta x = \frac{b-a}{n}$
+    - $x_i = a + i \delta x, i = 0, 1, 2, ..., n$
+    - Let c_i be any point on the ith interval
+    - $A_n = \sum_{k-1}^n f(c_i) \delta x$ is an approximation of the area under the curve f
+      - (dependent on the choice of c_i terms)
+    - can define $A = \lim_{n \to \inf} A_n$
+** Ch. 4.5 Lecture 1
+*** Notes
+    - Definite Integral
+      - Net signed area
+    - 
+** W13D1
+*** Notes
+    - Signed area
+      - If the function f takes on both positive and negative values, we will treat the area under the x-axis as negative area
+    - Integrable function
+      - a function f is said to be integrable on a finite closed integral [a, b] if the limit
+	- $\lim_{max \delta x_{k} \to 0} \sum_{k=1}^n f(x_{k}^{*} \delta x_k$
+    - Properties
+      - If f is integrable on a closed interval containing the three points a, b, and c, then
+	- $\int_a^b f(x) dx = \int_a^c f(x) dx + \int_c^b f(x) dx$
+      - If f is integrable on [a, b] and f(x) $\geq$ for all x in [a,b], then
+	- $\int_a^b f(x)dx \geq 0$
+      - If f and g are integrable on [a, b] and f(x) $\geq$ g(x) for all x in [a, b], then
+	- $\int_a^b f(x) dx \geq \int_a^b g(x) dx$
+*** Scratch
+:SCRATCHWORK:
+1) 3
+2) 2
+3) 5
+4) 1
+:END:

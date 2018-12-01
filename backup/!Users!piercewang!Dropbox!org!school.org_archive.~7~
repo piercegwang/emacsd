@@ -1,0 +1,1708 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file /Users/piercewang/org/school.org
+
+
+* DONE [#4] Prep for W5D2                                        :@CLASSPREP:
+  DEADLINE: <2018-09-25 Tue 10:30>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-09-24 Mon 21:37
+  :ARCHIVE_FILE: ~/org/school.org
+  :ARCHIVE_OLPATH: _*OCH12*_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+  - 预习/复习 Prepare/Review 中秋节
+
+Archived entries from file /Users/piercewang/org/school.org
+
+
+* DONE [#1] Writing center appointment                             :@WRITING:
+  SCHEDULED: <2018-09-24 Mon 18:00>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-09-24 Mon 21:38
+  :ARCHIVE_FILE: ~/org/school.org
+  :ARCHIVE_OLPATH: _*O011*_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#1] Wk 5: Draft, second essay                              :@WRITING:
+  SCHEDULED: <2018-09-24 Mon 15:00> DEADLINE: <2018-09-25 Tue 09:45>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-09-24 Mon 22:11
+  :ARCHIVE_FILE: ~/org/school.org
+  :ARCHIVE_OLPATH: _*O011*_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-09-24 Mon 17:27]--[2018-09-24 Mon 17:59] =>  0:32
+  CLOCK: [2018-09-24 Mon 15:02]--[2018-09-24 Mon 17:20] =>  1:58
+  CLOCK: [2018-09-24 Mon 13:48]--[2018-09-24 Mon 13:48] =>  0:00
+  :END:
+  - Writing center appointment scheduled for scheduled date
+
+* DONE [#3] WP 2.2-2.3                                                :@PSET:
+  DEADLINE: <2018-09-25 Tue 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-09-25 Tue 10:56
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _*OM4BC*_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-09-25 Tue 08:43]--[2018-09-25 Tue 09:52] =>  1:09
+  :END:
+  - Remember quotient rule
+  - Possible rule:
+    - d/dx(a*sqrt(x)) = a/(2sqrt(x))
+  - Scratch work:
+    - y'''
+      1) x^-7+x^7
+      2) -7x^-8+7x^6
+      3) 56x^-9+42x^5
+      4) 504x^-10+210x^4
+    - f'''(5)
+      - 2x^2-5
+      - 4x
+      - 4
+      - 0
+    - d^2y/dx^2
+      - 6x^5-7x^2
+      - 30x^4-14x
+      - 120x^3-14
+
+
+* DONE [#3] Prep for W5D2
+  SCHEDULED: <2018-09-25 Tue 21:30>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-09-25 Tue 22:19
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _*OB010*_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-09-25 Tue 21:57]--[2018-09-25 Tue 22:19] =>  0:22
+  :END:
+
+* DONE [#1] Class Prep W5D2                                      :@CLASSPREP:
+  SCHEDULED: <2018-09-25 Tue 22:45>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-09-25 Tue 23:55
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _*OHSC0*_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#4] Quiz Week 5                                               :@QUIZ:
+  DEADLINE: <2018-09-26 Wed 12:15>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-09-26 Wed 15:05
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _*OB010*_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#4] WP 2.4                                                    :@PSET:
+  DEADLINE: <2018-09-27 Thu 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-09-27 Thu 00:11
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _*OM4BC*_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE Go to quiz review session [[https://pcadobeconnect.stanford.edu/r7lnfybhbe6/][Link to AC]]
+  SCHEDULED: <2018-09-27 Thu 12:45>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-09-27 Thu 19:15
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _*OHSC0*_/Unit 2 Quiz
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: @QUIZ
+  :END:
+
+* DONE [#3] 预习 Prepare 12-2                                    :@CLASSPREP:
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-09-27 Thu 22:56
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _*OCH12*_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#3] Unit 2 Quiz                                               :@QUIZ:
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-09-27 Thu 22:58
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _*OHSC0*_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+** DONE Go to quiz review session [[https://pcadobeconnect.stanford.edu/r7lnfybhbe6/][Link to AC]]
+   SCHEDULED: <2018-09-27 Thu 12:45>
+
+* DONE [#3] Unit 2 Quiz                                               :@QUIZ:
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-09-27 Thu 22:58
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _*OHSC0*_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+** DONE Go to quiz review session [[https://pcadobeconnect.stanford.edu/r7lnfybhbe6/][Link to AC]]
+   SCHEDULED: <2018-09-27 Thu 12:45>
+
+* DONE [#2] Wk 5: Second Essay                                     :@WRITING:
+  SCHEDULED: <2018-09-27 Thu 09:15> DEADLINE: <2018-09-28 Fri 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-09-29 Sat 16:44
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OE011 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+  :CLASSNOTES92518:
+  - Thesis is going to have to have something to do with identity or a sense of self (Blake or Brent)
+  - Why is brent staples writing this at all? These are all part of a larger document
+  - With Brent Staples, if we ask why is he doing this and what does that have to do with his sense of identity?
+  - Must be something of a redeeming himself for
+  - How does he feel with regard to Blake?
+    - Anger frustration, grief, remorse, guilt, what has his failing to get his brother out of the street life
+  - Why has he done it like that
+  - Why does he invoke the image of Blake as a baby faced toddler
+  - How does it bother Brent?
+  - We use Gaughman as a tool because he gives us a useful way of thinking about social interactions
+  - Breakouts (Peer Tutor review)
+    - When quoting, blend into the sentence more
+    - Citing
+  :END:
+  - [[https://docs.google.com/document/d/1iZ8qVRO7qhHkXK6DnpQfGA3NVbWdnwPhj42KvzLqiaY/edit][Link to GDoc]]
+
+* DONE [#2] WA-3: Derivatives Intro                                :@WRITING:
+  DEADLINE: <2018-09-28 Fri 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-09-29 Sat 16:44
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OM4BC \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#4] 网上练习本 WebApp 12-2                               :@CLASSPREP:
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-09-30 Sun 11:27
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: TODO
+  :END:
+
+* DONE [#4] 口语练习 Speaking 12-2                               :@CLASSPREP:
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-09-30 Sun 11:28
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* TODO [#3] 毛写 Handwriting 12-2                                :@CLASSPREP:
+  DEADLINE: <2018-10-01 Mon 10:30>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-09-30 Sun 13:48
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: TODO
+  :END:
+
+* DONE [#3] 毛写 Handwriting 12-2                                :@CLASSPREP:
+  DEADLINE: <2018-10-01 Mon 10:30>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-09-30 Sun 13:49
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#3] 写故事 Writing 12-2 Story                            :@CLASSPREP:
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-09-30 Sun 21:34
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+  - 0:43:25 
+
+* DONE [#3] 毛写 Handwriting 12-2                                :@CLASSPREP:
+  DEADLINE: <2018-10-01 Mon 10:30>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-09-30 Sun 21:34
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#3] Aditional Exercises 12-2                             :@CLASSPREP:
+  DEADLINE: <2018-10-01 Mon 10:30>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-09-30 Sun 21:34
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#3] September Activity Log
+  DEADLINE: <2018-09-30 Sun 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-09-30 Sun 21:52
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OHSPE \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#1] Lab 2: Fermentation and Cellular Respiration               :@LAB:
+  DEADLINE: <2018-09-30 Sun 18:00>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-01 Mon 00:09
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OB010 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#1] WA 1                                                   :@WRITING:
+  DEADLINE: <2018-10-01 Mon 23:59>
+  :PROPERTIES:
+  :Effort:   2:30
+  :ARCHIVE_TIME: 2018-10-01 Mon 23:29
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OHSC0 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-10-01 Mon 21:22]--[2018-10-01 Mon 23:10] =>  1:48
+  CLOCK: [2018-10-01 Mon 14:42]--[2018-10-01 Mon 16:01] =>  1:19
+  :END:
+
+* DONE [#1] Wk 6 RQ                                              :@CLASSPREP:
+  DEADLINE: <2018-10-02 Tue 09:45>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-02 Tue 00:22
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OE011 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#1] Paradoxes Pres with Audrey
+  SCHEDULED: <2018-10-02 Tue 12:45>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-02 Tue 22:32
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OHSC0 \* \_/*PARADOXES PRESENTATION*
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#3] WP 2.5                                                    :@PSET:
+  DEADLINE: <2018-10-02 Tue 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-02 Tue 22:32
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OM4BC \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#3] WP 2.5                                                    :@PSET:
+  DEADLINE: <2018-10-02 Tue 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-02 Tue 23:29
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OM4BC \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#5] Ask Mom to Get Spinach
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-03 Wed 20:38
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OB010 \* \_/Lab 3: Photosynthesis
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: @LAB
+  :END:
+
+* DONE [#1] *PARADOXES PRESENTATION*
+  DEADLINE: <2018-10-02 Tue 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-03 Wed 20:38
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OHSC0 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#3] WP 2.6 Chain Rule                                         :@PSET:
+  DEADLINE: <2018-10-04 Thu 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-03 Wed 20:42
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OM4BC \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#4] 口语练习 Speaking 13-1 (2)                           :@CLASSPREP:
+  DEADLINE: <2018-10-05 Fri 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-03 Wed 20:45
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#4] 口语练习 Speaking 13-1 (2)                           :@CLASSPREP:
+  SCHEDULED: <2018-10-03 Wed 23:59> DEADLINE: <2018-10-05 Fri 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-03 Wed 23:59
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#4] 口语练习 Speaking 13-1                               :@CLASSPREP:
+  SCHEDULED: <2018-10-03 Wed 23:59> DEADLINE: <2018-10-05 Fri 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-03 Wed 23:59
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#4] 手写 Handwriting 11-2 Story Rewrite                  :@CLASSPREP:
+  DEADLINE: <2018-10-05 Fri 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-04 Thu 00:00
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#3] 小考：第十二课 Quiz 12-1, 12-2 (Remotely Proctored)       :@QUIZ:
+  DEADLINE: <2018-10-04 Thu 23:59>  
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-05 Fri 09:40
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OCH12\ \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#5] Lab 3: Photosynthesis                                      :@LAB:
+  SCHEDULED: <2018-10-05 Fri 13:00> DEADLINE: <2018-10-07 Sun 18:00>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-08 Mon 08:20
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OB010 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#2] 网上练习本 WebApp 13-1                               :@CLASSPREP:
+  DEADLINE: <2018-10-08 Mon 10:30>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-08 Mon 08:21
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OCH12\ \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#2] 手写 Handwriting 13-1
+  DEADLINE: <2018-10-08 Mon 10:30>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-08 Mon 08:21
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OCH12\ \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#2] 附加作业 Additional Exercises 13-1
+  DEADLINE: <2018-10-08 Mon 10:30>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-08 Mon 08:21
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OCH12\ \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#5] Wk 7 RQ
+  DEADLINE: <2018-10-09 Tue 09:45>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-08 Mon 23:38
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OE011 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-10-08 Mon 22:18]--[2018-10-08 Mon 23:32] =>  1:14
+  :END:
+
+* DONE [#2] WA-4: Derivatives Computations
+  DEADLINE: <2018-10-08 Mon 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-08 Mon 23:38
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OM4BC \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-10-08 Mon 19:22]--[2018-10-08 Mon 21:55] =>  2:33
+  :END:
+
+* DONE [#5] 预习: 你吃过吗？ Prepare 13-2
+  DEADLINE: <2018-10-09 Tue 10:30>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-08 Mon 23:53
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OCH12\ \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#5] WP 2.7 Implicit Differentiation
+  DEADLINE: <2018-10-09 Tue 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-09 Tue 22:09
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OM4BC \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#2] 预习 :双十节 Double 10
+  DEADLINE: <2018-10-10 Wed 10:30>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-09 Tue 22:09
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#1] AP Biology Practice Midterm
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-11 Thu 11:29
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OB010 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-10-11 Thu 11:28]--[2018-10-11 Thu 11:29] =>  0:01
+  CLOCK: [2018-10-10 Wed 18:10]--[2018-10-10 Wed 22:22] =>  4:12
+  :END:
+
+* DONE [#1] AP Biology Practice Midterm
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-11 Thu 16:59
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OB010 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-10-11 Thu 11:29]--[2018-10-11 Thu 16:59] =>  5:30
+  :END:
+
+* DONE [#3] WP 2.8 Related Rates
+  DEADLINE: <2018-10-11 Thu 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-11 Thu 23:52
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OM4BC \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#2] 手写 Handwriting 13-2
+  DEADLINE: <2018-10-12 Fri 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-12 Fri 23:29
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-10-12 Fri 22:30]--[2018-10-12 Fri 22:52] =>  0:22
+  :END:
+
+* DONE [#4] 口语练习 Speaking 13-2
+  DEADLINE: <2018-10-12 Fri 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-12 Fri 23:29
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#4] 口语练习 Speaking 13-2 (2)
+  DEADLINE: <2018-10-12 Fri 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-12 Fri 23:29
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#3] WP 2.9 Lin Appx - Diff
+  DEADLINE: <2018-10-12 Fri 23:45>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-12 Fri 23:29
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OM4BC \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#2] Unit 3 Quiz
+  DEADLINE: <2018-10-12 Fri 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-12 Fri 23:29
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ OHSC0 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#1] 手写 Handwriting 12-2 Story
+  DEADLINE: <2018-10-15 Mon 10:30>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-13 Sat 22:19
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-10-13 Sat 21:33]--[2018-10-13 Sat 22:18] =>  0:45
+  :END:
+
+* DONE [#1] 网上练习本 WebApp 13-2
+  DEADLINE: <2018-10-15 Mon 10:30>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-14 Sun 00:01
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-10-13 Sat 22:38]--[2018-10-14 Sun 00:01] =>  1:23
+  :END:
+
+* DONE [#1] 附加作业 Additional Exercises 13-2
+  DEADLINE: <2018-10-15 Mon 10:30>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-14 Sun 11:11
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* DONE [#1] Reading Notes
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-14 Sun 16:44
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OB010 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+  - [X] Lectures
+  - [ ] Book
+
+* DONE [#1] Lindberg Aristotle (62-67)                             :@READING:
+  DEADLINE: <2018-10-14 Sun 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-14 Sun 17:45
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OHSC0 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-10-14 Sun 17:00]--[2018-10-14 Sun 17:45] =>  0:45
+  :END:
+
+* DONE [#1] [[https://pcadobeconnect.stanford.edu/p6zbi8739bn][Aristotle's Biology Lecture]]                            :@READING:
+  DEADLINE: <2018-10-14 Sun 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-14 Sun 20:42
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OHSC0 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-10-14 Sun 17:51]--[2018-10-14 Sun 18:07] =>  0:16
+  :END:
+
+* DONE [#1] Harré Ch.1 ‘Aristotle: The embryology of a chick’      :@READING:
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-14 Sun 20:42
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OHSC0 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-10-14 Sun 18:31]--[2018-10-14 Sun 19:00] =>  0:29
+  CLOCK: [2018-10-14 Sun 18:09]--[2018-10-14 Sun 18:16] =>  0:07
+  :END:
+  DEADLINE: <2018-10-14 Sun 23:59>
+
+* DONE [#3] New Ambassadors Training                               :@MEETING:
+  SCHEDULED: <2018-10-15 Mon 16:00-17:00>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-15 Mon 18:23
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ Ambassador Duties \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#3] Read Huck Finn 
+  DEADLINE: <2018-10-15 Mon 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-16 Tue 00:54
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OE011 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* DONE [#3] Wk 8.1 RQ                                              :@WRITING:
+  SCHEDULED: <2018-10-15 Mon 22:00> DEADLINE: <2018-10-16 Tue 09:45>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-16 Tue 00:54
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OE011 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* DONE [#1] WA5                                                       :@PSET:
+  DEADLINE: <2018-10-15 Mon 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-16 Tue 00:55
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OM4BC \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-10-15 Mon 21:10]--[2018-10-15 Mon 22:41] =>  1:31
+  :END:
+
+* DONE [#1] WA 2                                                   :@WRITING:
+  DEADLINE: <2018-10-15 Mon 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-16 Tue 00:55
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OHSC0 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-10-15 Mon 18:23]--[2018-10-15 Mon 21:10] =>  2:47
+  :END:
+
+* DONE [#3] 预习 Prepare TT 1,2,7                                :@CLASSPREP:
+  DEADLINE: <2018-10-16 Tue 10:30>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-16 Tue 00:55
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* DONE [#4] [[https://pcadobeconnect.stanford.edu/p4oq7id6rkg][On Generation]]                                          :@READING:
+  DEADLINE: <2018-10-16 Tue 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-17 Wed 00:35
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OHSC0 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* DONE [#3] Math Lectures
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-17 Wed 00:35
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OM4BC \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* DONE [#5] Week 8 Quiz                                               :@QUIZ:
+  DEADLINE: <2018-10-18 Thu 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-17 Wed 23:36
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OB010 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* DONE [#4] Wk 8.2 RQ (no submission)                            :@CLASSPREP:
+  DEADLINE: <2018-10-18 Thu 09:45>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-17 Wed 23:36
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OE011 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* DONE [#4] 小考：生词 Quiz 13 Vocab * (Remotely Proctored)           :@QUIZ:
+  DEADLINE: <2018-10-17 Wed 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-17 Wed 23:36
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* DONE [#4] 小考：生词 Quiz 13 Vocab * (Remotely Proctored)           :@QUIZ:
+  DEADLINE: <2018-10-18 Thu 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-18 Thu 12:16
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* DONE 1:1 with Tanner Strong                                      :@MEETING:
+  SCHEDULED: <2018-10-18 Thu 12:30>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-18 Thu 20:18
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ Other Duties \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+  - [[https://stanford.zoom.us/j/816215513][Zoom Link]]
+** DONE Goals for this year:                                          :@PREP:
+   SCHEDULED: <2018-10-18 Thu 11:00>
+
+* DONE [#5] FRQ3                                                   :@WRITING:
+  DEADLINE: <2018-10-21 Sun 18:00>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-22 Mon 09:05
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OB010 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-10-21 Sun 09:24]--[2018-10-21 Sun 14:40] =>  5:16
+  :END:
+
+* DONE [#4] WP 3.1                                                    :@PSET:
+  DEADLINE: <2018-10-23 Tue 11:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-22 Mon 09:05
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OM4BC \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* DONE [#4] 小考：第十三课 Quiz 13-1, 13-2 *                          :@QUIZ:
+  DEADLINE: <2018-10-18 Thu 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-22 Mon 09:05
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* DONE [#4] 拔苗助长/守株待兔                                         :@QUIZ:
+  DEADLINE: <2018-10-19 Fri 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-22 Mon 09:05
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* DONE [#5] 井底之蛙！                                                :@QUIZ:
+  DEADLINE: <2018-10-22 Mon 10:30>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-22 Mon 09:05
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* DONE [#5] 多 + adj. （”井底之蛙“）                                  :@QUIZ:
+  DEADLINE: <2018-10-22 Mon 10:30>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-22 Mon 09:05
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+
+* DONE [#2] 后来 What Happened After - draft                       :@WRITING:
+  DEADLINE: <2018-10-24 Wed 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-24 Wed 19:25
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* DONE [#5] Week 9 Quiz
+  SCHEDULED: <2018-10-24 Wed 13:30>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-24 Wed 23:50
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OB010 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* DONE [#4] Wk 9 RQ                                                :@WRITING:
+  SCHEDULED: <2018-10-22 Mon 23:00> DEADLINE: <2018-10-23 Tue 09:45>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-24 Wed 23:50
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OE011 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* DONE [#3] Wk 9: Pre-draft, Twain essay                           :@WRITING:
+  DEADLINE: <2018-10-25 Thu 09:45>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-24 Wed 23:50
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OE011 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* DONE [#2] Midterm Listening Fall 2018 * (Remotely Proctored)
+  DEADLINE: <2018-10-24 Wed 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-24 Wed 23:51
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* DONE [#2] Midterm Speaking 2018 *
+  DEADLINE: <2018-10-24 Wed 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-24 Wed 23:51
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* DONE [#4] Unit 4 Quiz                                               :@QUIZ:
+  DEADLINE: <2018-10-26 Fri 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-27 Sat 15:55
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OHSC0 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* DONE [#4] WP 3.2-3.3                                                :@PSET:
+  DEADLINE: <2018-10-25 Thu 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-27 Sat 15:55
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OM4BC \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* DONE [#4] WA-6: Analysis of Functions                               :@PSET:
+  DEADLINE: <2018-10-26 Fri 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-27 Sat 15:55
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OM4BC \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* DONE [#3] Midterm Exam Corrections                                 :@SMALL:
+  DEADLINE: <2018-10-26 Fri 18:00>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-27 Sat 15:55
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OB010 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* DONE [#4] Lloyd Ch.8 Aristotle (ONLY 115-24)                     :@READING:
+  DEADLINE: <2018-10-16 Tue 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-28 Sun 17:35
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OHSC0 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* DONE [#4] FRQ4                                                   :@WRITING:
+  DEADLINE: <2018-10-28 Sun 18:00>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-28 Sun 17:37
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OB010 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* Midterm Schedule
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-28 Sun 17:47
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_CATEGORY: school
+  :END:
+** Midterms [3/3]
+*** DONE AP Bio
+    SCHEDULED: <2018-10-11 Thu 13:30>
+*** DONE BC Calc
+    SCHEDULED: <2018-10-22 Mon 15:00>
+*** DONE Written Chinese
+    SCHEDULED: <2018-10-25 Thu 13:30>
+** Table
+| Course Name                        | Date                  | Duration |
+|------------------------------------+-----------------------+----------|
+| Modes of Writing and Argumentation | None                  |          |
+| History of Science and Philosophy  | None                  |          |
+| AP Biology                         | 10/11 Thu - 10/14 Sun | 2 hrs    |
+| Chinese II                         | 10/25 Thu - 10/28 Sun | 2 hrs    |
+| Calculus BC                        | 10/19 Fri - 10/23 Tue | 2 hrs    |
+
+* DONE [#1] Week 10 Readings D1
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-28 Sun 20:32
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OHSC0 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-10-28 Sun 18:46]--[2018-10-28 Sun 19:29] =>  0:43
+  CLOCK: [2018-10-28 Sun 17:59]--[2018-10-28 Sun 18:45] =>  0:46
+  :END:
+** read Lloyd Ch.7 ‘Fourth-Century Astronomy’
+** watch the first 1.25min of [[https://www.youtube.com/watch?v=hhikvgDVcGY][Eudoxan animation]] (more animations and helpful breakdown in the optional reading!)
+** watch [[https://www.youtube.com/watch?v=k9HFxom0NvY][Basics of Observational Astronomy]] (12:33).
+
+* DONE [#2] Wk 10: Draft, Twain essay                              :@WRITING:
+  DEADLINE: <2018-10-30 Tue 09:45>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-29 Mon 23:35
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OE011 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-10-29 Mon 20:04]--[2018-10-29 Mon 23:34] =>  3:30
+  :END:
+  - [[https://spcs.instructure.com/courses/3075/assignments/29541][Draft of Huck Finn Essay]]
+** DONE Re-read Huck Finn Noting specific places
+   :LOGBOOK:
+   CLOCK: [2018-10-29 Mon 15:52]--[2018-10-29 Mon 20:04] =>  4:12
+   :END:
+** DONE Write Thesis
+** DONE Write Draft
+
+* DONE [#1] Wk 10 Readings                                         :@READING:
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-29 Mon 23:35
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OB010 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* DONE [#2] 3.5  [[https://spcs.instructure.com/courses/3217/pages/lectures-chapter-3-part-2-3-dot-4-3-dot-6][(3 lectures)]]
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-29 Mon 23:36
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OM4BC \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* DONE [#1] Week 10 Quiz
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-29 Mon 23:47
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OB010 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+
+* DONE [#1] Peer review for Huck Finn Essay                        :@MEETING:
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-30 Tue 19:10
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OE011 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OE011
+  :END:
+
+* DONE [#1] Write-In                                               :@MEETING:
+  SCHEDULED: <2018-10-30 Tue 17:00>-<2018-10-30 Tue 19:00>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-30 Tue 19:10
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OE011 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OE011
+  :END:
+  - [[https://pcadobeconnect.stanford.edu/r7ab3s9cxb8/][AC Link]]
+
+* DONE [#1] WP 3.4                                                    :@PSET:
+  DEADLINE: <2018-10-30 Tue 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-30 Tue 21:32
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OM4BC \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OM4BC
+  :END:
+
+* Oct 18 Food Presentation
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-30 Tue 21:33
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ Chinese Club \* \_
+  :ARCHIVE_CATEGORY: school
+  :END:
+
+* DONE [#4] Week 10 Readings D2 (PTC's)
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-31 Wed 00:00
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OHSC0 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OHSC0
+  :END:
+** read overview of [[https://spcs.instructure.com/courses/3136/files/357300/download?wrap=1][Ancient Chinese and Islamic astronomy]]
+
+* DONE October Activity Log
+  DEADLINE: <2018-10-31 Wed 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-31 Wed 23:29
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OHSPE \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OHSPE
+  :END:
+
+* DONE [#5] October Discussion
+  DEADLINE: <2018-10-31 Wed 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-10-31 Wed 23:29
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OHSPE \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OHSPE
+  :END:
+
+* DONE [#4] 网上练习本 WebApp 14-1                                   :@SMALL:
+  DEADLINE: <2018-11-02 Fri 10:30>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-03 Sat 19:58
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OCH12
+  :END:
+
+* DONE [#4] 口语练习 Speaking 14-1                                   :@SMALL:
+  DEADLINE: <2018-11-02 Fri 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-03 Sat 19:58
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OCH12
+  :END:
+
+* DONE [#4] WA 3                                                   :@WRITING:
+  DEADLINE: <2018-11-01 Thu 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-03 Sat 19:58
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OHSC0 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OHSC0
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-10-31 Wed 17:44]--[2018-10-31 Wed 22:08] =>  4:24
+  :END:
+
+* DONE Doodle Poll
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-03 Sat 19:58
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ Ambassador Duties \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :END:
+
+* DONE [#5] Review Week 9 Quiz and learn from mistakes
+  SCHEDULED: <2018-10-24 Wed 23:30>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-03 Sat 19:58
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OB010 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OB010
+  :END:
+
+* DONE [#1] Twain Essay Wk. 10                                     :@WRITING:
+  DEADLINE: <2018-11-02 Fri 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-03 Sat 19:58
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OE011 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OE011
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-11-02 Fri 20:57]--[2018-11-02 Fri 23:28] =>  2:31
+  CLOCK: [2018-11-02 Fri 18:45]--[2018-11-02 Fri 18:48] =>  0:03
+  CLOCK: [2018-11-02 Fri 17:50]--[2018-11-02 Fri 18:44] =>  0:54
+  CLOCK: [2018-11-02 Fri 16:44]--[2018-11-02 Fri 17:31] =>  0:47
+  :END:
+
+* Office Hours
+  SCHEDULED: <2018-11-01 Thu 13:45>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-03 Sat 19:59
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OE011 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_ITAGS: class OE011
+  :END:
+
+* Office Hours
+  SCHEDULED: <2018-11-02 Fri 11:45>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-03 Sat 19:59
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OE011 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_ITAGS: class OE011
+  :END:
+
+* DONE [#5] WP 3.6                                                     :pset:
+  DEADLINE: <2018-11-08 Thu 11:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-07 Wed 23:35
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OM4BC \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OM4BC
+  :END:
+
+* DONE [#4] Week 11 Quiz                                               :quiz:
+  SCHEDULED: <2018-11-07 Wed 13:30> DEADLINE: <2018-11-09 Fri 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-07 Wed 23:38
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OB010 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OB010
+  :END:
+
+* DONE EOD - Second Half of Semester 1                         :presentation:
+  DEADLINE: <2018-11-05 Mon 12:15>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-07 Wed 23:38
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OB010 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OB010
+  :END:
+  :SCHEDULE:
+  | Week | Meeting  | Meeting 2 | Date Of Meeting 1 |
+  |------+----------+-----------+-------------------|
+  |    8 |          |           | [2018-10-15 Mon]  |
+  |    9 |          |           | [2018-10-22 Mon]  |
+  |   10 | Meredith |           | [2018-10-29 Mon]  |
+  |   11 | Pierce   | Mona      | [2018-11-05 Mon]  |
+  |   12 | Emma     | Aiden     | [2018-11-12 Mon]  |
+  |   13 | Gabbi    |           | [2018-11-19 Mon]  |
+  |   14 |          |           | [2018-11-26 Mon]  |
+  |   15 |          |           | [2018-12-03 Mon]  |
+  :END:
+
+* DONE [#5] WP 3.5                                                     :pset:
+  DEADLINE: <2018-11-06 Tue 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-07 Wed 23:38
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OM4BC \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OM4BC
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-11-06 Tue 22:29]--[2018-11-06 Tue 23:03] =>  0:34
+  CLOCK: [2018-11-06 Tue 18:28]--[2018-11-06 Tue 20:54] =>  2:26
+  CLOCK: [2018-11-06 Tue 16:54]--[2018-11-06 Tue 17:15] =>  0:21
+  :END:
+
+* DONE [#5] 后来 What Happened After-final                          :writing:
+  DEADLINE: <2018-11-06 Tue 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-07 Wed 23:38
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OCH12
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-11-06 Tue 20:54]--[2018-11-06 Tue 22:29] =>  1:35
+  :END:
+
+* DONE [#5] Wk 11 RQ                                          :small:writing:
+  DEADLINE: <2018-11-06 Tue 09:45>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-07 Wed 23:38
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OE011 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OE011
+  :END:
+
+* DONE [#3] FRQ5                                                    :writing:
+  DEADLINE: <2018-11-04 Sun 18:00>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-07 Wed 23:38
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OB010 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OB010
+  :END:
+
+* DONE [#4] 手写 Handwriting 14-1                               :handwriting:
+  DEADLINE: <2018-11-09 Fri 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-10 Sat 20:45
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OCH12
+  :END:
+
+* DONE [#5] 口语练习 Speaking 14-2 (1)                             :speaking:
+  DEADLINE: <2018-11-09 Fri 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-10 Sat 20:45
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OCH12
+  :END:
+
+* DONE [#5] WA-7:Extrema & Rectilinear Motion                      :big:pset:
+  DEADLINE: <2018-11-09 Fri 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-10 Sat 20:45
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OM4BC \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OM4BC
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-11-09 Fri 14:59]--[2018-11-09 Fri 17:23] =>  2:24
+  :END:
+
+* DONE [#4] Research Paper - Proposal                               :writing:
+  DEADLINE: <2018-11-09 Fri 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-10 Sat 20:45
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OHSC0 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OHSC0
+  :END:
+
+* DONE [#5] Unit 5 Quiz                                                :quiz:
+  DEADLINE: <2018-11-09 Fri 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-10 Sat 20:45
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OHSC0 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OHSC0
+  :END:
+
+* DONE [#3] Lab 4 Genetics                                              :lab:
+  DEADLINE: <2018-11-11 Sun 18:00 -4d>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-11 Sun 20:11
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OB010 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OB010
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-11-11 Sun 15:21]--[2018-11-11 Sun 18:04] =>  2:43
+  CLOCK: [2018-11-11 Sun 10:14]--[2018-11-11 Sun 10:30] =>  0:16
+  :END:
+  - [[file:~/Google%20Drive/OHS/10th%20Grade/Semester%201/OB010/Lab%204%20Genetics/lab4notes.org::*Lab%20Overview][File for Lab]]
+** DONE [#1] Lab 4 Genetics: Observations                               :lab:
+   SCHEDULED: <2018-11-03 Sat 10:00>
+** DONE [#1] Lab 4 Genetics: Observations                               :lab:
+   SCHEDULED: <2018-11-04 Sun 10:00>
+** DONE [#1] Lab 4 Genetics: Observations                               :lab:
+   SCHEDULED: <2018-11-05 Mon 10:00>
+** DONE [#5] Lab 4 Genetics: Observations                               :lab:
+   SCHEDULED: <2018-11-06 Tue 10:00>
+** DONE [#1] Lab 4 Genetics: Observations                               :lab:
+   SCHEDULED: <2018-11-07 Wed 10:00>
+** DONE [#1] Lab 4 Genetics:Observations                                :lab:
+   SCHEDULED: <2018-11-08 Thu 10:00>
+** DONE [#1] Lab 4 Genetics: Observations                               :lab:
+   SCHEDULED: <2018-11-09 Fri 10:00>
+** TODO [#1] Lab 4 Genetics: Observations                               :lab:
+   SCHEDULED: <2018-11-10 Sat 10:00>
+
+* DONE [#4] W11D1 Readings                             :medium:reading:OHSC0:
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-11 Sun 21:11
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OHSC0 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-11-04 Sun 14:32]--[2018-11-05 Mon 18:18] => 27:46
+  :END:
+  - [ ] Ptolemy Overview
+  - [ ] DeWitt Ch.13
+  - [ ] Encyclopedia Britannica [[https://www.britannica.com/biography/Ptolemy/images-videos][Ptolemy: Theory of the Solar System (01:14)]]
+
+* DONE [#5] W12D1 Readings
+  DEADLINE: <2018-11-11 Sun 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-12 Mon 00:02
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OHSC0 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OHSC0
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-11-11 Sun 21:11]--[2018-11-11 Sun 22:31] =>  1:20
+  :END:
+
+* DONE [#4] W12D1 Readings                                      :medium:prep:
+  DEADLINE: <2018-11-11 Sun 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-12 Mon 00:02
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OB010 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OB010
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-11-11 Sun 22:32]--[2018-11-11 Sun 23:22] =>  0:50
+  :END:
+
+* DONE [#3] 口语练习 Speaking 14-2 (2)                       :small:speaking:
+  DEADLINE: <2018-11-12 Mon 10:30>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-12 Mon 00:02
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OCH12
+  :END:
+
+* DONE [#3] 网上练习本 WebApp 14-2                               :small:pset:
+  DEADLINE: <2018-11-12 Mon 10:30>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-12 Mon 00:02
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OCH12
+  :END:
+
+* DONE [#3] 附加作业 Additional Exercises 14-2 (1)                   :medium:
+  DEADLINE: <2018-11-12 Mon 10:30>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-12 Mon 00:02
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OCH12
+  :END:
+
+* DONE [#5] WA-8: MVT                                              :big:pset:
+  DEADLINE: <2018-11-16 Fri 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-16 Fri 20:04
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OM4BC \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OM4BC
+  :END:
+  :LOGBOOK:
+  CLOCK: [2018-11-15 Thu 17:56]--[2018-11-15 Thu 18:12] =>  0:16
+  :END:
+
+* DONE [#5] 手写 Handwriting 14-2                        :medium:handwriting:
+  DEADLINE: <2018-11-16 Fri 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-16 Fri 20:04
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OCH12
+  :END:
+
+* DONE [#5] 附加作业 Additional Exercises 14-2 (2)            :small:writing:
+  DEADLINE: <2018-11-16 Fri 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-16 Fri 20:04
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OCH12
+  :END:
+
+* DONE [#5] 网上练习本 WebApp 14-2 (2)                        :small:writing:
+  DEADLINE: <2018-11-16 Fri 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-16 Fri 20:05
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OCH12
+  :END:
+
+* DONE [#3] Wk 12 RQ                                          :small:writing:
+  SCHEDULED: <2018-11-12 Mon 23:59> DEADLINE: <2018-11-13 Tue 09:45>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-16 Fri 23:12
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OE011 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OE011
+  :END:
+
+* DONE [#5] WP 3.8                                              :medium:pset:
+  SCHEDULED: <2018-11-12 Mon 18:00> DEADLINE: <2018-11-13 Tue 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-16 Fri 23:12
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OM4BC \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OM4BC
+  :END:
+
+* DONE [#5] WP 4.1-4.2                                          :medium:pset:
+  DEADLINE: <2018-11-15 Thu 23:59>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-16 Fri 23:12
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OM4BC \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OM4BC
+  :END:
+
+* DONE [#3] 预习 14-2(1) 比较 Prepare 14-2 (1)                  :medium:prep:
+  DEADLINE: <2018-11-13 Tue 10:30>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-16 Fri 23:12
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OCH12
+  :END:
+
+* DONE [#5] 预习 14-2(2) 你像谁？ Prepare 14-2 (2)               :small:prep:
+  DEADLINE: <2018-11-14 Wed 10:30>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-16 Fri 23:12
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: Class Todos/_\ *\ OCH12 \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: DONE
+  :ARCHIVE_ITAGS: class OCH12
+  :END:
+
+* TODO Write eKudos [1/3]
+  DEADLINE: <2018-11-15 Thu 21:00>
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-11-16 Fri 23:22
+  :ARCHIVE_FILE: ~/Dropbox/org/school.org
+  :ARCHIVE_OLPATH: _\ *\ Other Duties \* \_
+  :ARCHIVE_CATEGORY: school
+  :ARCHIVE_TODO: TODO
+  :END:
+** DONE Audrey Dutcher
+:W:
+Dear Audrey,
+
+I want you to know that I really appreciate you as a friend, and have a lot of respect for you. I know I can be really oddly random at times, and I wanna thank you for just sticking with me and always being there. You're the best friend I could ever ask for!
+
+Pierce
+
+P.S. Data is better :D (and Emacs... need I say more? ;) )
+:END:
+** TODO Josie Chan
+:W:
+Dear Josie,
+
+You're really special! I've always respected and admired you not only for your artistic skills in the musical sense, but also drawing and dancing. I always enjoy spending time with you and you're one of the people I feel most comfortable around. I know we've been really busy this past semester and haven't had much time to talk, but I really hope we get to hangout more in the future!
+
+Yours truly,
+Pierce
+
+P.S. It truly is really cute (especially that breakdown in class :'D)
+:END:
+** TODO Ryan Har
+:W:
+
+:END:

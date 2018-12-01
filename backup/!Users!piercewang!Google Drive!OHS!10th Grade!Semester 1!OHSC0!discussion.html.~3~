@@ -1,0 +1,814 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2018-11-28 Wed 20:34 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Week 13</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Pierce Wang" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Week 13</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org18e7aa9">1. Week 13</a>
+<ul>
+<li><a href="#orge02aadf">1.1. <b>Main Questions</b></a></li>
+<li><a href="#orgfb757c5">1.2. Huff - What Happened in Europe - Chinese Overview</a>
+<ul>
+<li><a href="#org31cb81b">1.2.1. Notes</a></li>
+<li><a href="#org7167f37">1.2.2. Summary</a></li>
+</ul>
+</li>
+<li><a href="#orgc27cc99">1.3. Lindberg - Ch.14 Legacy</a>
+<ul>
+<li><a href="#org38f3573">1.3.1. Notes</a></li>
+<li><a href="#org08d9c34">1.3.2. Summary</a></li>
+</ul>
+</li>
+<li><a href="#orgcec3aeb">1.4. W13D1</a>
+<ul>
+<li><a href="#org8f36e66">1.4.1. Notes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orge3a111e">2. Week 14</a>
+<ul>
+<li><a href="#orgd250358">2.1. Lindberg - Ch.12 Physics of Sublunar Region</a>
+<ul>
+<li><a href="#org8b3cf67">2.1.1. Notes</a></li>
+</ul>
+</li>
+<li><a href="#org9aab97c">2.2. Revival of Learning in the West</a>
+<ul>
+<li><a href="#org77b2de1">2.2.1. Notes</a></li>
+<li><a href="#org86f2c45">2.2.2. Questions</a></li>
+<li><a href="#orgcfa2c09">2.2.3. Summary</a></li>
+</ul>
+</li>
+<li><a href="#org382c998">2.3. W14D1</a>
+<ul>
+<li><a href="#orgd8e066f">2.3.1. Notes</a></li>
+</ul>
+</li>
+<li><a href="#org83857b9">2.4. Quiz Review Session</a>
+<ul>
+<li><a href="#org66bfdf3">2.4.1. Notes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org18e7aa9" class="outline-2">
+<h2 id="org18e7aa9"><span class="section-number-2">1</span> Week 13</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-orge02aadf" class="outline-3">
+<h3 id="orge02aadf"><span class="section-number-3">1.1</span> <b>Main Questions</b></h3>
+<div class="outline-text-3" id="text-1-1">
+<ol class="org-ol">
+<li>What were some of the key innovations in Europe in this time?</li>
+<li>What was 'special' about Europe in developing science?</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgfb757c5" class="outline-3">
+<h3 id="orgfb757c5"><span class="section-number-3">1.2</span> Huff - What Happened in Europe - Chinese Overview</h3>
+<div class="outline-text-3" id="text-1-2">
+</div>
+<div id="outline-container-org31cb81b" class="outline-4">
+<h4 id="org31cb81b"><span class="section-number-4">1.2.1</span> Notes</h4>
+<div class="outline-text-4" id="text-1-2-1">
+<ul class="org-ul">
+<li>"nothing in Chinese thought equivalent to
+<ul class="org-ul">
+<li>Greek philosophy as expressed by Aristotle"</li>
+<li>Christian theology</li>
+<li><i>corpus juris civilis</i></li>
+</ul></li>
+<li>12th and 13th centuries that universities arose in Europe
+<ul class="org-ul">
+<li>neutral zones of intellectual autonomy</li>
+<li>allowed philosophers to pursuie their agendas free from the dictates of the central state and the religious authorities</li>
+</ul></li>
+<li>New intellectual agenda was thoroughly naturalistic
+<ul class="org-ul">
+<li>scientific core of readings and lectures</li>
+<li>core of evolutionary course of study</li>
+</ul></li>
+<li>questions of existance, vacuums</li>
+<li>No established zones for public forums in China</li>
+<li>no legally autonomous universities</li>
+<li>Freedom of action, of contract, and of self-governance were all absent in China</li>
+<li>Travel was more open and encouraged in the Middle East and Europe</li>
+<li>Medical professionals could never gain positions of power in China</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org7167f37" class="outline-4">
+<h4 id="org7167f37"><span class="section-number-4">1.2.2</span> Summary</h4>
+<div class="outline-text-4" id="text-1-2-2">
+<ul class="org-ul">
+<li>China was generally impeded by the lack of intellectual freedom and neutral spaces where thoughts could be debated openly</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc27cc99" class="outline-3">
+<h3 id="orgc27cc99"><span class="section-number-3">1.3</span> Lindberg - Ch.14 Legacy</h3>
+<div class="outline-text-3" id="text-1-3">
+</div>
+<div id="outline-container-org38f3573" class="outline-4">
+<h4 id="org38f3573"><span class="section-number-4">1.3.1</span> Notes</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<ul class="org-ul">
+<li></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org08d9c34" class="outline-4">
+<h4 id="org08d9c34"><span class="section-number-4">1.3.2</span> Summary</h4>
+<div class="outline-text-4" id="text-1-3-2">
+<ul class="org-ul">
+<li></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgcec3aeb" class="outline-3">
+<h3 id="orgcec3aeb"><span class="section-number-3">1.4</span> W13D1</h3>
+<div class="outline-text-3" id="text-1-4">
+</div>
+<div id="outline-container-org8f36e66" class="outline-4">
+<h4 id="org8f36e66"><span class="section-number-4">1.4.1</span> Notes</h4>
+<div class="outline-text-4" id="text-1-4-1">
+<ul class="org-ul">
+<li><b>Anna Riordan Presentation</b></li>
+<li>Continuity Question
+<ul class="org-ul">
+<li>What did it amount to?</li>
+<li>Was it realy science?</li>
+<li>Were medieval and early modern science etc?</li>
+</ul></li>
+<li>Anti-medieval positons
+<ul class="org-ul">
+<li>Francis Bacon (1561 - 1626): said that the ages between antiquity and the time in which he was living were "unprosperous" for the sciences</li>
+<li>Voltair (1694-1778): "general decay and degeneracy"</li>
+<li>Andrew Dickson White: Christianity is evil and it interfered with the development of natural sciences</li>
+</ul></li>
+<li>Pro-Medieval Positions
+<ul class="org-ul">
+<li>Pierre Duhem (1861-1916): thought they were laying the foundation for modern science</li>
+</ul></li>
+<li>Revolution
+<ul class="org-ul">
+<li>Lindberg: revolution "represents fundamental change, with no limits on elapsed time" (360)</li>
+<li>potentially revolutionary for early modern science:
+<ul class="org-ul">
+<li>Physics and Math</li>
+<li>Experimental method</li>
+</ul></li>
+</ul></li>
+<li>Physics and Math
+<ul class="org-ul">
+<li>because Aristotle recognized difference between math and physics but did not allow for crossing between the two disciplines
+<ul class="org-ul">
+<li><b>Not</b> necessarily true, did not support prohibiting the crossing off of the two disciplines</li>
+</ul></li>
+</ul></li>
+<li>Experimental Method
+<ul class="org-ul">
+<li>Revolutionary for the early modern period</li>
+</ul></li>
+<li>Things to say
+<ul class="org-ul">
+<li>Modern day ways of information exchange:
+<ul class="org-ul">
+<li>Github, community, internet
+<ul class="org-ul">
+<li>Open source software
+<ul class="org-ul">
+<li>better code; if there's interest in the project</li>
+</ul></li>
+</ul></li>
+<li>options, people to interact with</li>
+<li>education, and commnuities of people online
+<ul class="org-ul">
+<li>possible danger of it?</li>
+<li></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orge3a111e" class="outline-2">
+<h2 id="orge3a111e"><span class="section-number-2">2</span> Week 14</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orgd250358" class="outline-3">
+<h3 id="orgd250358"><span class="section-number-3">2.1</span> Lindberg - Ch.12 Physics of Sublunar Region</h3>
+<div class="outline-text-3" id="text-2-1">
+</div>
+<div id="outline-container-org8b3cf67" class="outline-4">
+<h4 id="org8b3cf67"><span class="section-number-4">2.1.1</span> Notes</h4>
+</div>
+</div>
+<div id="outline-container-org9aab97c" class="outline-3">
+<h3 id="org9aab97c"><span class="section-number-3">2.2</span> Revival of Learning in the West</h3>
+<div class="outline-text-3" id="text-2-2">
+</div>
+<div id="outline-container-org77b2de1" class="outline-4">
+<h4 id="org77b2de1"><span class="section-number-4">2.2.1</span> Notes</h4>
+<div class="outline-text-4" id="text-2-2-1">
+<ul class="org-ul">
+<li>Outline
+<ul class="org-ul">
+<li>Middle ages overview</li>
+<li>Dissemination</li>
+<li>Schools and Approach
+<ul class="org-ul">
+<li>Growth of universities</li>
+<li>Curriculum and (impressive) autonomy</li>
+</ul></li>
+<li>Philosophy I</li>
+<li>Philosophy II</li>
+<li>Institutionalised</li>
+</ul></li>
+<li>Middle Ages
+<ul class="org-ul">
+<li>Idea of Middle Ages from 14th-15th C Italian Humanists, covering <b>roughly</b> 500-1450 [500-1000 early, 1000-1200 high, 1200-1450 late]</li>
+<li>Early M.A. was de-urbanised and Monasteries dominant educational force, focusing on religion, though some earlier work survived (Aristotle e.g.)
+<ul class="org-ul">
+<li>Boethius (applied Airstotelian logic to theology)</li>
+<li>Isidore of Seville (used philosophical tradition as comparison for religion)</li>
+<li>Gregory of Tours</li>
+<li>Gregory the Great (phil. underpinnings)</li>
+<li>Bede</li>
+</ul></li>
+</ul></li>
+<li>Dissemination in Europe
+<ul class="org-ul">
+<li>Charlemagne 8th C burst of learning as empire grew and centralised.
+<ul class="org-ul">
+<li>Alcuin brought liberal arts and astronomy, raised education of clergy with mandate for education</li>
+</ul></li>
+<li>John Scotus Eriugena (c860) trans. Greek texts and enhanced Neoplatonism</li>
+<li>Gerbert (c.970s-1000), later Pope, travelled widely and disseminated learning, particualrly mathematical</li>
+<li>Translation (boomed in early 12th C) developed through individuals and recoquests. Gerard of Cremona translated the <i>Almagest</i> (c1140s) and huge numbers of others in all disciplines</li>
+</ul></li>
+<li>Islamic World
+<ul class="org-ul">
+<li><img src="./Week 14/islamicworldmap_214258.png" alt="islamicworldmap_214258.png" /></li>
+</ul></li>
+<li>Islamic Advance
+<ul class="org-ul">
+<li>'the scholar's ink is holier than the martyr's blood'</li>
+<li>By the end of the 8th C.e., Islam had already assimilated most of the extant great works from Greece, AIran, and India. This assimilation was made possible through an extraordinary movement of translation, which has possibly no equivalent in history</li>
+<li>Immediately following, In the 8th trhough the 10th centuries, early scientists like Al-Haytham, Jabir ibn Hayyan (Geber) and Abu Bakr al-Razi advanced a set of techniques, tools, and principles for controlled and precise experimentation&#x2013;the proto scientific method!</li>
+<li>Any study that improved the tasks of daily life was encouraged
+<ul class="org-ul">
+<li>medical knowledge</li>
+<li>ways of measuring and calulating for maps
+<ul class="org-ul">
+<li>buildings</li>
+</ul></li>
+<li>tools for agriculture</li>
+<li>general craft industries (papermaking)</li>
+<li>relied on their own experiments more than on authorities</li>
+<li>alchemical studies formed an important part of other industries such as metal-working, ceramics, pharmacy, and dyeing</li>
+</ul></li>
+<li>Input, flood of texts</li>
+<li>Withdrawal from the sciences (Al-Ghazali), religious division, and conquests heralded the end of this 'golden period' in the 13th C
+<ul class="org-ul">
+<li>Al-Ghazali
+<ul class="org-ul">
+<li>reason leads to hell</li>
+<li>anything that quibbled with metaphysical ideas was frowned upon</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>Schools, Universities, and Approach
+<ul class="org-ul">
+<li>11th and 12th C Schools, from
+<ol class="org-ol">
+<li>stronger, ordering monarchies</li>
+<li>secure borders</li>
+<li>growing moey economy and trade</li>
+<li>technological improvements, particularly as concerns food production</li>
+<li>population explosion and re-urbanisation that concentrated money and interest in education</li>
+</ol></li>
+<li>Clergy schools open to all for a fee and broke off (in curriculum and geography) as needed for the clientele (medicine, law, logic, maths). Regional foci&#x2013;France attached to cathedrials but broad; Italy law and medicine; Britain theology and logic</li>
+<li>Managerial revolution&#x2013;reason can reform/address all</li>
+<li>Reason applied to 'support and defend' religion. Anselm (c.1080s) ontological proof of God. Peter Abelard (c1120s) continued reason's challenge to dogma</li>
+<li>Advanced from simply teh Trivium ("the three roads") of grammar, rhetoric and logic, to the Quadrivium ("the four roads") of arithmetic, geometry, music, and astronomy/cosmology</li>
+<li>Centres grew in cities and attracted masters and pupils, which eventually called for organisation, securing rights, and protections akin to the merchant guild structure
+<ul class="org-ul">
+<li>Bizarrily democratic institution</li>
+</ul></li>
+</ul></li>
+<li>"Philosophy - the 'invited guest' stays"
+<ul class="org-ul">
+<li>Emphasised philosophy, law, morality, logic, and Aristotle! in a fairly consistent curriculum with great freedom of study</li>
+<li>Natural Philosophy 12th C - Plato's <b>\ <i>\Timaeus\</i> \</b> key (until Aristotle in the 13thc), which advanced on ordered, law-bound divine cosmology. Needed to fit with bible -&gt; Thierry of Chartres (c1150s) restricted divine intervention to first moment of creation. After that it is all natural causes</li>
+<li>William of Conches (c1150s) followed this tradition and took it to English royalty: exhaust natural explanation before considering miracles. The complexity of natural processes only further supports divine power</li>
+<li>Rise of humanism, studying humans and their powers in their own right. Macrocosm and microcosm mirror. Numerology and astrology also grew but as a distant side note.</li>
+</ul></li>
+<li>Philosophy II
+<ul class="org-ul">
+<li>The pursuit of truth, became the <b>motto</b> of European universities and they claimed freedom on that ground. They were <i>mini democracies</i> founded upon and justified by their merit and aims with legal protections and autonomy unlike any other such body</li>
+<li>Coupled with the historical particularly of separation of church and state rule, the Christian conception of an absolute God, a god with unlimited powers enabled the broader and freer contemplation of alternatives, the nature of the universe, the mechanisms that made it work, etc.</li>
+</ul></li>
+<li>Institutionalised
+<ul class="org-ul">
+<li>The universities "sprang into existence &#x2026;  without express authorization of king, pope, prince, or prelate. They were spontaneous products of that instinct of association which swept like a great wave over the towns of Europe in the eleventh and twelfth centuries" (H. Rashdall, 1936)</li>
+<li>Lrgely through monumental efforts at translation and dissemination, by 1200 Europe had as astonishing collection of scientific texts that formed the heart of the nascent universities: Euclid's <i>Elements</i>, Ptolemy's <i>Almagest</i>, Ibn al-Haythem's <i>Optics</i>, the algebra of al-Khwarizmi, ritings of Glaen and Hippocrates, Ibs Sina's <i>Canon of Medicine</i>, and many works by Aristotle, including <i>Physics, On the Heavens, On Generation and Corruption, On the Soul, Metorology, The Small Works of Natural Things, The History of Animals, The Parts of Animals, and The Generation of Animals&#x2026;</i></li>
+<li>Europeans had no issue with combining the craft of scholarly traditions, and used both methods in their endless conquests</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org86f2c45" class="outline-4">
+<h4 id="org86f2c45"><span class="section-number-4">2.2.2</span> Questions</h4>
+<div class="outline-text-4" id="text-2-2-2">
+<ul class="org-ul">
+<li></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgcfa2c09" class="outline-4">
+<h4 id="orgcfa2c09"><span class="section-number-4">2.2.3</span> Summary</h4>
+<div class="outline-text-4" id="text-2-2-3">
+<ul class="org-ul">
+<li>Middle ages overview</li>
+<li>Dissemination</li>
+<li>Schools and Approach
+<ul class="org-ul">
+<li>Growth of universities</li>
+<li>Curriculum and (impressive) autonomy</li>
+</ul></li>
+<li>Philosophy I</li>
+<li>Philosophy II</li>
+<li>Institutionalised</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org382c998" class="outline-3">
+<h3 id="org382c998"><span class="section-number-3">2.3</span> W14D1</h3>
+<div class="outline-text-3" id="text-2-3">
+</div>
+<div id="outline-container-orgd8e066f" class="outline-4">
+<h4 id="orgd8e066f"><span class="section-number-4">2.3.1</span> Notes</h4>
+<div class="outline-text-4" id="text-2-3-1">
+<ul class="org-ul">
+<li><b>Dylan Chalcraft Presentation</b></li>
+<li><b>Medieval (Meta)Physics and the Rise of Western Universities</b></li>
+<li>Context
+<ul class="org-ul">
+<li>Western Roman Empire falls, beginning of the so called "dark ages."</li>
+<li>Christanity grows spreads and becomes the dominant religion in Europe
+<ul class="org-ul">
+<li>Source of identity</li>
+<li>Sort of gives a moral compass</li>
+</ul></li>
+<li>War and conflict inhibit widespread advances in philosophy outside of the church</li>
+<li>Renaissance marks the end of the middle ages</li>
+</ul></li>
+<li>Medieval (Meta)Physics
+<ul class="org-ul">
+<li>Heavily influenced by Aristotle's work, using Aristotle as a starting point</li>
+<li>There is a resurgence of the explorations of Forms and Natures</li>
+<li>Medieval Philosophers defined two types of form, Substantial and Accidental forms</li>
+</ul></li>
+<li>Matter and Form
+<ul class="org-ul">
+<li>Ibn Sina (980-1037) and Ibn Rushd (1126-98) worked with the links between matter and form</li>
+<li>They thought that the creation of the elements was not the simple two step process described by Aristotle. A third step was necessary</li>
+<li>Corporeal Form, the third form, which must be applied to the matter to create a three dimensional body, which is then ready to receive its elemental form</li>
+</ul></li>
+<li>Combinations
+<ul class="org-ul">
+<li>Central to the four elements theory is that all things are constituted of the four elements</li>
+<li>Questioning of how these mixtures are aligned raise the possibility of prime movers, celestial forces, or even God creating these combinations that create new Substantial Forms</li>
+<li>Other questions that were considered was the problem of how to explain the reemergence of elements after the destruction of the Substantial Form</li>
+<li>Alchemy also continued to be explored, which was mainly focused on chemically changing base metals into precious metals</li>
+</ul></li>
+<li>Europ's Educational Revival
+<ul class="org-ul">
+<li>Imperial growht allowed for more learning and study, specifically in the Charlemagne's church "approved" Holy Roman empire</li>
+<li>Clergy run schools teach later generations</li>
+<li>Neo-Platonism grows in popularity during the spread of classical knowledge, along with the translation of works into different languages</li>
+</ul></li>
+<li>Islamic Unity
+<ul class="org-ul">
+<li>Islam's extent and infrastructure allowed for leanring on a much more efficient and larger scale than in Europe at the time</li>
+<li>Big cities contain libraries and allow access to important classical works, along with bookmaking to document contemporary advances</li>
+<li>Scientists as we know them today begin to emerge, exploring to how to experiment precisely</li>
+<li>Invation (Crusades and Mongols, hurray) and Islamic power concerns lead to science and philosophy to fall out of favor</li>
+</ul></li>
+<li>Rise of Universities
+<ul class="org-ul">
+<li>Foundation of Schools due to secure governments in growing cities in the 11th century</li>
+<li>Specialization in fields is aided by education</li>
+<li>Clergy schools are now open to all for tuition</li>
+</ul></li>
+<li>Philosophy
+<ul class="org-ul">
+<li>Philosophy is established though medieval universities as the inital overarching concept, and all other subjects break off from it</li>
+</ul></li>
+<li>Questions
+<ul class="org-ul">
+<li>Should the Middle Ages be referred to as a dark age?</li>
+<li>Was the Islamic Caliphate's concern about scientific questioning called for?</li>
+<li>In a world without the great universities, would society still be able to function at our level of education and intellectual thought?</li>
+</ul></li>
+<li><b>PRESENTATION END</b></li>
+<li>Temaeus
+<ul class="org-ul">
+<li>ordered cosmology</li>
+</ul></li>
+<li></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org83857b9" class="outline-3">
+<h3 id="org83857b9"><span class="section-number-3">2.4</span> Quiz Review Session</h3>
+<div class="outline-text-3" id="text-2-4">
+</div>
+<div id="outline-container-org66bfdf3" class="outline-4">
+<h4 id="org66bfdf3"><span class="section-number-4">2.4.1</span> Notes</h4>
+<div class="outline-text-4" id="text-2-4-1">
+<ul class="org-ul">
+<li>China
+<ul class="org-ul">
+<li>Islamic Arabic World</li>
+<li>open discussion is really important</li>
+<li>China's great, sort of</li>
+<li>Balance, yin and yang
+<ol class="org-ol">
+<li>dark, male</li>
+<li>light</li>
+</ol></li>
+<li>if you don't balance, leads to illness</li>
+<li>sinister and dexterous (left and right in latin)</li>
+<li>daoists
+<ul class="org-ul">
+<li>you'll find the way</li>
+<li>naturalistic</li>
+<li>be like the water, mold to anything that comes</li>
+</ul></li>
+<li>confucianism
+<ul class="org-ul">
+<li>reason</li>
+</ul></li>
+<li>legalists</li>
+<li>Confucianism was similar to legalists
+<ul class="org-ul">
+<li>how do we keep public in the public sphere?</li>
+<li>ordered</li>
+<li>hierarchical</li>
+<li>structured</li>
+<li>more government control</li>
+<li>"this is your place"</li>
+</ul></li>
+<li>Mohists
+<ul class="org-ul">
+<li>love</li>
+<li>senses</li>
+<li>Aristotle</li>
+</ul></li>
+<li>logicians
+<ul class="org-ul">
+<li>plato</li>
+<li>rationalists</li>
+<li>sit back and "no no I can logically reason the world" (with Dr. Walker-Dale's voice)</li>
+</ul></li>
+<li>Chinese (generally) cared about
+<ul class="org-ul">
+<li>the harmony in the world</li>
+<li>order of the universe</li>
+<li>practical applications</li>
+</ul></li>
+</ul></li>
+<li>Important things
+<ul class="org-ul">
+<li>record keeping</li>
+<li>open, free discussion</li>
+<li>separation between government and educational spaces</li>
+<li>confucianism, daoism, legalism, mohism</li>
+<li>fire earth wood metal water</li>
+</ul></li>
+<li>Mandate of heaven
+<ul class="org-ul">
+<li>government is sanctioned by the gods</li>
+<li>heaven and earth in harmony</li>
+<li>emperors are basically gods</li>
+<li>that which happens in the stars shall happen in a form on earth</li>
+<li>gods picked government rulers</li>
+<li>eclipses are bad XD</li>
+</ul></li>
+<li>Arabic
+<ul class="org-ul">
+<li>optics</li>
+<li>less practical</li>
+<li>books scientific ideas spread</li>
+<li>math, institutionalization of medicine</li>
+<li>observatories</li>
+<li>Topics
+<ul class="org-ul">
+<li>optics</li>
+<li>medicine</li>
+<li>astronomy</li>
+<li>trigonometry</li>
+<li>geometry</li>
+</ul></li>
+<li>navigation</li>
+<li>prayer</li>
+<li>religion</li>
+<li>not challenging religion too much, not too directly</li>
+<li>Their biggest contribution: astronomy</li>
+<li>Other contributions
+<ul class="org-ul">
+<li>brought back lost works from the Greeks, from Europe</li>
+<li>scientific method</li>
+<li>delicate and specific instruments</li>
+<li>writing everything down, records</li>
+</ul></li>
+<li>Hated the equant, loved the epicycles</li>
+<li>Worked off of Aristotle and Plato's stuff on metaphysics
+<ul class="org-ul">
+<li>Form and matter</li>
+<li></li>
+</ul></li>
+</ul></li>
+<li>West
+<ul class="org-ul">
+<li>challenging</li>
+<li>theology</li>
+<li>get rational proofs of God</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Pierce Wang</p>
+<p class="date">Created: 2018-11-28 Wed 20:34</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

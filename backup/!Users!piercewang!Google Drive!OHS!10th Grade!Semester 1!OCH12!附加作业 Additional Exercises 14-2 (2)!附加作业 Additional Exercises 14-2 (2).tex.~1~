@@ -1,0 +1,112 @@
+% Created 2018-11-16 Fri 19:04
+% Intended LaTeX compiler: pdflatex
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{CJKutf8}
+\begin{CJK}{UTF8}{gbsn}
+\author{Pierce Wang}
+\date{\textit{<2018-11-16 Fri>} \today}
+\title{附加作业 Additional Exercises 14-2 (2)}
+\hypersetup{
+ pdfauthor={Pierce Wang},
+ pdftitle={附加作业 Additional Exercises 14-2 (2)},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 26.1 (Org mode 9.1.9)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+以下的练习是从IC 网上练习本转用的。The following exercises are adapted from the IC Webapp Workbook L14-2 Grammar and Writing section, Q4, Q6, and Q9
+
+\section{Grammar and Writing 4/D.}
+\label{sec:org3fd64ba}
+
+Your friend is studying fashion marketing and would like to interview you for an assignment. Answer the following questions based on what you are wearing today. Be sure to use the 是。。。的 structure in your answers! 
+
+\begin{itemize}
+\item 你的衣服是什么时候买的？
+\begin{itemize}
+\item 是很久以前买的。
+\end{itemize}
+\item 你的衣服是在哪儿买的？
+\begin{itemize}
+\item 是在我家很近的地方买的。
+\end{itemize}
+\item 你的衣服是谁买的？
+\begin{itemize}
+\item 是我妈妈买的。
+\end{itemize}
+\item 你的衣服是花多少钱买的？
+\begin{itemize}
+\item 是花不太多不太少的钱买的。
+\end{itemize}
+\end{itemize}
+
+
+
+\section{Grammar and Writing 6/F.}
+\label{sec:orgb0eab5a}
+
+这个狗好可爱。它的毛大多是棕色的。它有很大的耳朵。它的鼻子是黑色的。它比较少，好像在看它妈妈爸爸要吃的。
+
+\section{Grammar and Writing 9/I}
+\label{sec:org2082a7f}
+
+你要为你的好朋友开生日派对(pàiduì party)。请你写下来你的计划(jìhuà plans)  ：
+
+（每一个问题写一句 One sentence per question)  
+
+\begin{itemize}
+\item 在哪儿开?
+\begin{itemize}
+\item 在我的家开。
+\end{itemize}
+\item 要请谁 ?
+\begin{itemize}
+\item 要请陈静仪、孙钰舒、李金冕、跟李旧安。
+\end{itemize}
+\item 几点到几点 ?
+\begin{itemize}
+\item 早上一点半到下午两点半。
+\end{itemize}
+\item 要做什么？ (first, next, after that\ldots{})
+\begin{itemize}
+\item 先要吃中国饭然后吃美国饭，喝饮料，去看电影，再吃中国反，然后和有意思的饮料。
+\end{itemize}
+\item 什么样的蛋糕 ？
+\begin{itemize}
+\item 巧克力的蛋糕
+\end{itemize}
+\item 别人可以带 \ldots{}.
+\begin{itemize}
+\item 他自己因为我的朋友，李毅文，不要礼物。
+\end{itemize}
+\item 要不要送礼物 ？什么样的礼物？
+\begin{itemize}
+\item 李毅文不要礼物，所以不要送礼物给他。
+\end{itemize}
+\item 要是你不能走路去。。。
+\begin{itemize}
+\item 要叫呢个Uber接你来我的家。
+\end{itemize}
+\item 是不是惊喜(jīngxǐ surprise )派对 ？
+\begin{itemize}
+\item 不是，他非常不喜欢惊喜。
+\end{itemize}
+\end{itemize}
+\end{document}

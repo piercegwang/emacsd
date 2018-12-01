@@ -18,8 +18,14 @@
   [url-cookie "ACCOUNT_CHOOSER" "AFx_qI6a290TTTqYnqjSRq_DWWXwprrev4KXFY2elBNws3uuOVrR8xvfB1Gxr6NcswlIslYtyV4XSGjyDuCsGv6YdY5-JRuMyBjAnx1gVQHPU8M5kzPNZYjy-fyVt5OzrjuBbK0ub_EA" "Sun, 27-Sep-2020 01:03:18 GMT" "/" "accounts.google.com" t]
   [url-cookie "LSID" "o.mail.google.com:iQa8oiwkd8TeRzcGwj73Ey88E4hsqehMH2l1YFI-d5sGlkOFPZTDh37lT9lIA4HnqpnhAw." "Sun, 27-Sep-2020 01:03:24 GMT" "/" "accounts.google.com" t]
   [url-cookie "GAPS" "1:6MqYxOSfIfp_4dr8q6nsKqYBYG-btmg_6B0jTXByLaJ4sAXOYglRI8FU9mBHctybpHDuptAWPDp1LQdfPYaSRR7GZtAE5Q:l7vhnHkjicme2455" "Sun, 27-Sep-2020 01:03:24 GMT" "/" "accounts.google.com" t])
+ (".wikipedia.org"
+  [url-cookie "WMF-Last-Access-Global" "26-Nov-2018" "Fri, 28 Dec 2018 12:00:00 GMT" "/" ".wikipedia.org" t])
+ ("en.wikipedia.org"
+  [url-cookie "WMF-Last-Access" "26-Nov-2018" "Fri, 28 Dec 2018 12:00:00 GMT" "/" "en.wikipedia.org" t])
  ("mail.google.com"
   [url-cookie "OSID" "iQa8oswNgzXh-leqhkohFbkJQvzy2Y9E23XmNW4s50X1HffyL1gNIM5kgB9bS6Ul3WrIxQ." "Sun, 27-Sep-2020 01:03:24 GMT" "/" "mail.google.com" t])
+ ("usps.com"
+  [url-cookie "nsc_usps_com" "MjQuNi44MC42OA==" "Sat, 25 Nov 2023 20:16:21 GMT" "/" "usps.com" t])
  (".google.com"
   [url-cookie "SAPISID" "b7KpnkC_tAgtbBnq/AQT1CGrZfRUJq-inM" "Sun, 27-Sep-2020 01:03:18 GMT" "/" ".google.com" t]
   [url-cookie "SSID" "ANotKqt52qbnPo82a" "Sun, 27-Sep-2020 01:03:18 GMT" "/" ".google.com" t]))

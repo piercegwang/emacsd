@@ -4,10 +4,12 @@
 ;; Basic Org Mode configuration, assuming presence of Evil & Evil Leader.
 
 (require 'org)
+(require 'org-agenda)
 (setq org-directory "~/Dropbox/org/")
 (setq org-agenda-files (list "~/Dropbox/org/school.org"
 			     "~/Dropbox/org/todo.org"
-			     "~/Dropbox/org/violin.org"))
+			     "~/Dropbox/org/violin.org"
+			     "~/Dropbox/org/inbox.org"))
 (setq org-todo-keywords
       '((sequence "TODO" "IN-PROGRESS" "DONE")))
 '((sequence "TODO" "IN-PROGRESS" "DONE"))
@@ -49,6 +51,26 @@
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((python . t)))
+
+;; org-agenda-auto-exclude-function
+(defun org-my-auto-exclude-function (tag)
+  (string= tag "officehours")
+  (concat "-" tag))
+(setq org-agenda-auto-exclude-function 'org-my-auto-exclude-function)
+
+(defun org-agenda-redo-tags ()
+  "Custom redo then finalize function"
+  (interactive)
+  (list
+   (org-agenda-redo)
+   (org-agenda-align-tags)))
+
+(add-hook 'org-agenda-mode-hook
+	  (lambda ()
+	    (local-set-key (kbd "H-o") [?g ?/ ?- ?o])
+	    (local-set-key (kbd "H-r") 'org-agenda-redo-tags)
+	    (local-set-key (kbd "r") (lambda () (interactive) (org-agenda-align-tags))))
+	    )
 
 (provide 'init-org)
 ;; init-org.el ends here

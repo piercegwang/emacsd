@@ -1,0 +1,111 @@
+% Created 2018-11-30 Fri 00:44
+% Intended LaTeX compiler: pdflatex
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{CJKutf8}
+\begin{CJK}{UTF8}{gbsn}
+\usetheme{CambridgeUS}
+\usecolortheme{orchid}
+\usefonttheme{}
+\useinnertheme{}
+\useoutertheme{}
+\author{Pierce Wang}
+\date{\textit{<2018-11-30 Fri>}}
+\title{Taiwanese Street Markets}
+
+\hypersetup{
+ pdfauthor={Pierce Wang},
+ pdftitle={Taiwanese Street Markets},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 26.1 (Org mode 9.1.9)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\begin{frame}{Outline}
+\tableofcontents
+\end{frame}
+
+
+\section{The History of Night Markets}
+\label{sec:orgf0905b3}
+\begin{frame}[label={sec:org650f37f}]{The First Night Markets}
+\begin{itemize}
+\item 市坊
+\begin{itemize}
+\item Place for Trading Commodity
+\item Resident Area
+\end{itemize}
+\item Tang Dinasty
+\begin{itemize}
+\item Boundaries of the two districts gradually blurred
+\end{itemize}
+\end{itemize}
+\end{frame}
+\begin{frame}[label={sec:org85baf10}]{Night Markets Officially Recognized}
+\begin{itemize}
+\item Song Dynasty
+\item Emperor "Tai-zu" removed regulation and restrictions on night markets
+\end{itemize}
+\begin{center}
+\includegraphics[width=220px]{./data/nightmarket.jpg}
+\end{center}
+\end{frame}
+\section{Taiwan Night Markets}
+\label{sec:org0dc8f15}
+\begin{frame}[label={sec:org19ad935}]{How They Started}
+\begin{itemize}
+\item local markets that operated in urban sites
+\item small gatherings
+\item handicrafts and traditional medicine
+\item Night Markets became the most convenient way to get goods
+\end{itemize}
+\end{frame}
+\begin{frame}[label={sec:orgaeb10ba}]{台湾小吃}
+\begin{itemize}
+\item Simplified versions of banquet dishes
+\item Some of the best parts of the night markets
+\item Will talk about these more later\ldots{}
+\end{itemize}
+\end{frame}
+\begin{frame}[label={sec:org4ce4aab}]{Becoming Cultural Centers}
+\begin{itemize}
+\item began to embody local culture
+\item global recession in 1970s \(\to\) more opportunities for vendors
+\item Over time with industrialization, changed from places "that sold traditional snack food and handicrafts to modern centers of popular culture"
+\end{itemize}
+\end{frame}
+\begin{frame}[label={sec:orgc0d52b0}]{What is sold at Taiwanese Night Markets?}
+\begin{itemize}
+\item So many things\ldots{}
+\item Many hand crafts, jewelry
+\item general tech merchandise, charging cables, things people generally might need
+\item Higher end watches and other good quality items in more developed and established stores
+\item 小吃！
+\end{itemize}
+\end{frame}
+\section{Taiwanese 小吃}
+\label{sec:org37306f7}
+\begin{itemize}
+\item 小吃 = "Small Eats"
+\begin{itemize}
+\item Sort of like snacks
+\end{itemize}
+\item Some of the most famous\ldots{}
+\end{itemize}
+\begin{frame}[label={sec:org4dc8716}]{}
+\end{frame}
+\end{document}

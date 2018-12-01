@@ -1,0 +1,220 @@
+#+SEQ_TODO: TODO | DONE
+#+PRIORITIES: 1 9 5
+* General Comments
+  - Bow Changes
+    - Thumb, pinky
+  - Stay civil, elegant
+  - Posture
+** Others
+  - Eric Sung
+    - Wider vibrato
+  - Me
+    - Intonation, practice intonation
+* *Scales*
+** Techniques
+   - Vibrato
+     - 4 beats/1 note per bow
+     - 4 bows per note
+     - Constant Vibrato
+     - BPM = ?
+   - Intonation
+     - No Vibrato
+     - Check with other strings
+   - Bow Changes
+     - Thumb, fourth finger
+     - Shoulder down
+     - Keep vibrato sustained through bow changes
+* Main Repertoire
+** [#3] Sarasate Carmen Fantasy
+*** Things to remember:
+    * Beginning, Violin up
+    * Intonation on 6ths
+    * Look at music!
+** [#1] Prokofiev Violin Concerto No. 1
+*** First Movement
+    - Cleanliness
+    - Fingering on last two pages
+*** Second Movement
+    - Cleanliness
+    - intonation
+** [#1] Paganini Caprice No. 21
+** [#3] Bach Sonata in G Minor
+   - Siciliana
+     - Intonation
+     - Cleanliness
+   - Presto
+     - *Slow practice*
+** [#6] Brahms Violin Sonata in G Major
+* Grethel Trio
+** Dumky Trio
+*** Movement 1
+    - Smooth octaves
+*** Movement 2
+    - Respond to Ryan with thirds
+    - Practice intonation with thirds
+* Youth Baroque Ensemble
+** Fairy Queen - Henry Purcell
+** Vivaldi
+* Schedule
+** Realistic Schedule: 2:30
+*** Odd Days
+| Time (Minutes) | Activity/Piece |
+|----------------+----------------|
+|             30 | Scales         |
+|             50 | Carmen         |
+|             40 | Prokofiev      |
+|             30 | Bach           |
+|----------------+----------------|
+|           2.50 | Hours          |
+#+TBLFM: @6$1=vsum(@2$1..@5$1)/60;%.2f
+*** Even Days
+| Time (Minutes) | Activity/Piece |
+|----------------+----------------|
+|             30 | Scales         |
+|             30 | Carmen         |
+|             50 | Prokofiev      |
+|             40 | Paganini 21    |
+|----------------+----------------|
+|           2.50 | Hours          |
+#+TBLFM: @6$1=vsum(@2$1..@5$1)/60;%.2f
+** TODO Practice Log                                                :ARCHIVE:
+   DEADLINE: <2018-10-19 Fri +1d>
+   :PROPERTIES:
+   :LAST_REPEAT: [2018-10-19 Fri 00:19]
+   :END:
+   - State "DONE"       from "TODO"       [2018-10-19 Fri 00:19]
+   - State "DONE"       from "TODO"       [2018-10-17 Wed 23:25]
+   - State "DONE"       from "TODO"       [2018-10-17 Wed 00:36]
+   - State "DONE"       from "TODO"       [2018-10-16 Tue 08:55]
+   :LOGBOOK:
+   CLOCK: [2018-10-14 Sun 14:05]--[2018-10-14 Sun 15:07] =>  1:02
+   :END:
+   - State "DONE"       from "TODO"       [2018-10-14 Sun 22:18]
+   - State "DONE"       from "TODO"       [2018-10-13 Sat 23:29]
+   :PRACTICELOG:
+   | X | 1-10 | Link to diary entry           | Date             |
+   |---+------+-------------------------------+------------------|
+   | X |    3 | [[file:~/.emacs.d/diary::*Practice%20Log%20%5B2018-10-14%20Sun%5D][Practice Log {2018-10-14 Sun}]] | [2018-10-14 Sun] |
+   | X |    6 | None                          | [2018-10-15 Mon] |
+   | X |    6 | None                          | [2018-10-16 Tue] |
+   | X |    3 | None                          | [2018-10-17 Wed] |
+   | X |    6 | None                          | [2018-10-18 Thu] |
+   :END:
+* Put aside
+** [#4] Paganini Caprice No.4
+   * Intonation
+     - Thirds and octaves
+     - [ ] Think of better way to reach high tenths on third page?
+   * Musicality in slow section
+     - *Bow Changes!*
+* Lesson Notes
+** Lesson [2018-11-03 Sat]
+   - Things to remember:
+     - Posture
+     - Ring finger
+     - Changes of the bow
+   - Bach
+     - Third movement
+       - Break chords faster
+	 - Put all fingers down at the same time
+     - Presto
+       - Even pressure
+       - Intonation, text are the most important
+       - Don't start too slow, go right into the speed
+	 - Maybe, if I really want to
+   - Sarasate
+     - *Ring finger *All the time*
+     - Faster beginning
+     - second page, top *ll*
+     - vibrato end of second page
+     - Andante molto moderato
+       - Support vibrato with ring finger
+       - Vibrato on every note
+     - choir
+** Lesson [2018-11-05 Mon]
+   - Paganini Caprice No.21
+     - Rhythm
+       - Don't make eighths into sixteenths
+     - Changes of the bow
+     - Downbows => save
+       - 4th bar, downbow, save
+       - keep the sound with the ring finger
+     - *Feel ring finger*
+   - Prokofiev
+     - Start at the bottom part of the middle
+     - Second movement
+       - Intonation
+       - Not like a galloping horse, calmer, with a line to the top; start at piano
+       - The weird bumblebee passage should be nearly emotionless
+     - Feel ring finger and relax thumb in right hand
+       - Places when playing at the frog mainly
+       - relax thumb and feel the ring finger
+       - RN#28
+	 - Relax the thumb, ring finger
+	 - Help with the whole arm (elbow, shoulder blade)
+       - Don't rush ups in the middle of the first bow
+     - Meeting
+       - First movement
+	 - first note longer
+	   - imagine the violin part beforehand
+	   - long sound, not with long stroke
+	   - bow hanging on the ring finger
+	 - long notes move more, don't make them too long
+	 - *long lines*, longer notes
+	 - Make sure to keep in time, don't make the long notes too long, but connect
+	   - don't die
+	 - RH#4 moving more, beautiful
+	 - Second page
+	   - RH#7 bottom half, come off the string more
+	   - have to be more sarcastic, not at all like the first page
+	   - most in the bottom half
+	   - Use the elbow
+	   - RH#9
+	   - End of second page, don't die too soon, only start diminuendoing at the dim.
+	 - Third page, arco is
+	   - start on the string, third and fourth notes are off, the top notes are going to have accents *from* the string
+	     - all accents
+	   - two times up don't rush, savor the jumping notes in RH#14
+	   - Hairpins, RH#15
+	     - start softer, make more creshendo
+	   - Poco piu mosso, faster, on the finger board, don't worry so much about the notes (but try to get it XD)
+	   - RH#17
+	     - Strength inside, accents inmportant, faster
+	   - RH#19
+	     - Meno moso, here is where I can slow down
+	   - RH#21
+	     - Light, more bow, no pressure
+	     - Intonation
+	   - Intonation in scherzo
+	 - Second movement
+	   - Bowings, fool around with it, find one I like
+	   - stroke at RH#28
+	   - shorter but from the string, (off the string just a bit, make sure to keep the starts of notes)
+** [2018-11-09 Fri 10:05]
+   - How to practice intonation:
+     - Play two notes first
+       - Make sure both are in tune and correct as needec
+       - Once both notes are in tune move on to the next two notes
+     - Be smart?
+   - Why does the ring finger sound better when she tells me and worse when I do it myself?
+   -
+** Lesson [2018-11-10 Sat 15:43]
+   - Beginning, note longer (A, a little tiny bit of rit.)
+   - Second page, right notes
+   -
+* Practice
+** DONE Practice
+   SCHEDULED: <2018-11-06 Tue>
+   :LOGBOOK:
+   CLOCK: [2018-11-06 Tue 17:21]--[2018-11-06 Tue 18:00] =>  0:39
+   :END:
+** Practice
+   SCHEDULED: <2018-11-12 Mon>
+** Practice
+   SCHEDULED: <2018-11-13 Tue>
+** Practice
+   SCHEDULED: <2018-11-14 Wed>
+** Practice
+   SCHEDULED: <2018-11-15 Thu>
+** Practice
+   SCHEDULED: <2018-11-16 Fri>

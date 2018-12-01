@@ -1,0 +1,166 @@
+% Created 2018-11-30 Fri 01:05
+% Intended LaTeX compiler: pdflatex
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{CJKutf8}
+\begin{CJK}{UTF8}{gbsn}
+\usetheme{CambridgeUS}
+\usecolortheme{orchid}
+\usefonttheme{}
+\useinnertheme{}
+\useoutertheme{}
+\author{Pierce Wang}
+\date{\textit{<2018-11-30 Fri>}}
+\title{Taiwanese Street Markets}
+
+\hypersetup{
+ pdfauthor={Pierce Wang},
+ pdftitle={Taiwanese Street Markets},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 26.1 (Org mode 9.1.9)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\begin{frame}{Outline}
+\tableofcontents
+\end{frame}
+
+
+\section{The History of Night Markets}
+\label{sec:orgd1c75c8}
+\begin{frame}[label={sec:org117a39d}]{The First Night Markets}
+\begin{itemize}
+\item 市坊
+\begin{itemize}
+\item Place for Trading Commodity
+\item Resident Area
+\end{itemize}
+\item Tang Dinasty
+\begin{itemize}
+\item Boundaries of the two districts gradually blurred
+\end{itemize}
+\end{itemize}
+\end{frame}
+\begin{frame}[label={sec:org2828dae}]{Night Markets Officially Recognized}
+\begin{itemize}
+\item Song Dynasty
+\item Emperor "Tai-zu" removed regulation and restrictions on night markets
+\end{itemize}
+\begin{center}
+\includegraphics[width=220px]{./data/nightmarket.jpg}
+\end{center}
+\end{frame}
+\section{Taiwan Night Markets}
+\label{sec:org33f38b2}
+\begin{frame}[label={sec:org2fe3e26}]{How They Started}
+\begin{itemize}
+\item local markets that operated in urban sites
+\item small gatherings
+\item handicrafts and traditional medicine
+\item Night Markets became the most convenient way to get goods
+\end{itemize}
+\end{frame}
+\begin{frame}[label={sec:orgfd55af2}]{台湾小吃}
+\begin{itemize}
+\item Simplified versions of banquet dishes
+\item Some of the best parts of the night markets
+\item Will talk about these more later\ldots{}
+\end{itemize}
+\end{frame}
+\begin{frame}[label={sec:org3e61426}]{Becoming Cultural Centers}
+\begin{itemize}
+\item began to embody local culture
+\item global recession in 1970s \(\to\) more opportunities for vendors
+\item Over time with industrialization, changed from places "that sold traditional snack food and handicrafts to modern centers of popular culture"
+\end{itemize}
+\end{frame}
+\begin{frame}[label={sec:orge22b619}]{What is sold at Taiwanese Night Markets?}
+\begin{itemize}
+\item So many things\ldots{}
+\item Many hand crafts, jewelry
+\item general tech merchandise, charging cables, things people generally might need
+\item Higher end watches and other good quality items in more developed and established stores
+\item 小吃！
+\end{itemize}
+\end{frame}
+\section{Taiwanese 小吃}
+\label{sec:orge203869}
+\begin{frame}[label={sec:org52aa3c2}]{Taiwanese 小吃}
+\begin{itemize}
+\item 小吃 = "Small Eats"
+\begin{itemize}
+\item Sort of like snacks
+\end{itemize}
+\item Some of the most famous\ldots{}
+\end{itemize}
+\end{frame}
+\begin{frame}[label={sec:orgf1cc7ff}]{臭豆腐}
+\begin{itemize}
+\item "Stinky Tofu"
+\item \ldots{}absolutely delicious
+\begin{itemize}
+\item to some
+\end{itemize}
+\item Steamed, Fried
+\end{itemize}
+\begin{center}
+\includegraphics[width=200px]{./data/choudoufu.jpg}
+\end{center}
+\end{frame}
+\begin{frame}[label={sec:org1540822}]{葱油饼}
+\begin{itemize}
+\item "Scallion Pancake"
+\end{itemize}
+\begin{center}
+\includegraphics[width=260px]{./data/congyoubing.jpg}
+\end{center}
+\end{frame}
+\begin{frame}[label={sec:orgcfbbdef}]{猪排}
+\begin{itemize}
+\item Fried Porkchop
+\end{itemize}
+\begin{center}
+\includegraphics[width=260px]{./data/zhupai.jpg}
+\end{center}
+\end{frame}
+\begin{frame}[label={sec:org179a152}]{盐酥鸡}
+\begin{itemize}
+\item Popcorn Chicken
+\end{itemize}
+\begin{center}
+\includegraphics[width=260px]{./data/yansuji.jpg}
+\end{center}
+\end{frame}
+\section{Wrap-up}
+\label{sec:org44210f5}
+\begin{frame}[label={sec:orgee45a5b}]{and more\ldots{}}
+\begin{block}{Questions!}
+\begin{itemize}
+\item Have you all had any experiences with Taiwanese Night Markets?
+\item Do you have any favorite foods from Taiwan?
+\end{itemize}
+\end{block}
+\begin{block}{A video to watch}
+\begin{itemize}
+\item Strictly Dumpling - Taiwan Night Market Foods
+\begin{itemize}
+\item \url{https://www.youtube.com/watch?v=b9WnR8VcE9g}
+\end{itemize}
+\end{itemize}
+\end{block}
+\end{frame}
+\end{document}
