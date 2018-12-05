@@ -1,0 +1,38 @@
+% Created 2018-12-01 Sat 00:02
+% Intended LaTeX compiler: pdflatex
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Pierce Wang}
+\date{\textit{<2018-12-01 Sat>} \today}
+\title{Emacs Macros}
+\hypersetup{
+ pdfauthor={Pierce Wang},
+ pdftitle={Emacs Macros},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 26.1 (Org mode 9.1.9)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+\section{The General Steps}
+\label{sec:org9fc3543}
+\begin{enumerate}
+\item use either '\texttt{<F3>}' or '\texttt{C-x (}'
+\end{enumerate}
+\end{document}

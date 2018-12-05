@@ -1,0 +1,70 @@
+% Created 2018-12-03 Mon 00:00
+% Intended LaTeX compiler: pdflatex
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{CJKutf8}
+\begin{CJK}{UTF8}{gbsn}
+\author{Pierce Wang}
+\date{\textit{<2018-11-16 Fri>} \today}
+\title{附加作业 Additional Exercises 15-1}
+\hypersetup{
+ pdfauthor={Pierce Wang},
+ pdftitle={附加作业 Additional Exercises 15-1},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 26.1 (Org mode 9.1.9)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+以下的练习是从IC 网上练习本转用的。The following exercises are adapted from the IC Webapp Workbook L15-1  Reading Q5, and Grammar and Writing section, Q3
+
+
+
+\begin{enumerate}
+\item This is an instruction label on a prescription drug bottle. 用英文写 1-8 是什么意思 。要是 你不懂 ”服药 " 请看课本第134 页 的笔记。（1）
+\begin{center}
+\includegraphics[width=.9\linewidth]{./data/RXLabel.jpg}
+\end{center}
+\begin{enumerate}
+\item Date
+\item Each day eat \ldots{} times, each time eat \ldots{} pills, every other time (?)
+\item empty stomach
+\item in the morning
+\item before bedtime
+\item when it's convenient
+\item after you;'ve atedn, you can drink, sleep, eat
+\item Medicine name
+\end{enumerate}
+\item 你送了你的中国朋友, 张英, 去看病。医生给他开了药。用中写下来 这种药怎么吃.（2）
+\begin{itemize}
+\item 1 tablet, 3x/day; 每日服三次，每次服一粒
+\item Drink a cup of water when taking this medicine; 吃药的时候要喝水
+\item Take on an empty stomach; 吃药的时候不要吃
+\item After taking medicine, do not eat for at least 30 minutes; 吃药以后要等三十分就可以吃
+\end{itemize}
+\item Grammar and Writing 5/C. Answer these questions according to your own circumstances.  (1)
+
+\begin{itemize}
+\item 你每个星期上几次中文课？每个星期上三次中文课
+\item 你每个星期工作几次？我每个星期工作很多次
+\item 你每个星期运动几次？我每个星期运动七次
+\item 你每个月洗几次衣服？我每个月洗五次衣服
+\item 你昨天喝了几次水？我昨天喝了十次水
+\end{itemize}
+\end{enumerate}
+\end{document}
