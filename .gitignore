@@ -1,7 +1,7 @@
-/site-lisp/
+site-lisp/
 diary
 diary~
-/backups/*
+backups/
 history
 network-security.data
-/url/*
+url/
