@@ -213,7 +213,7 @@ If the input is non-empty, it is inserted at point."
     (setq ns-function-modifier 'hyper))
 
 (when (eq system-type 'gnu/linux)
-  (setq x-hyper-keysym 'hyper))
+  (setq x-super-keysym 'hyper))
 
 ;;; ERC Keybinds
 (global-set-key (kbd "H-M-e") (lambda () (interactive) (erc :server "irc.freenode.net" :port 6667 :nick "pgwang" :password passwords_ERC)))
@@ -254,5 +254,9 @@ If the input is non-empty, it is inserted at point."
 ;; Diary configuration
 (setq diary-file "~/.emacs.d/diary.gpg")
 (put 'dired-find-alternate-file 'disabled nil)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Revert-mode
+(global-auto-revert-mode 1)
 
 (provide 'init)
