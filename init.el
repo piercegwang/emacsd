@@ -30,9 +30,6 @@
 (evil-mode t)
 (add-hook 'dired-mode-hook 'evil-emacs-state)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Fonts
-(require 'init-fonts)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; elpy
@@ -172,25 +169,7 @@ If the input is non-empty, it is inserted at point."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Keyboard Macros
-;(fset 'setupworkspace
-;   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ;("aao23iooopo" 0 "%d")) arg)))
-;(global-set-key (kbd "C-x C-k 1") 'setupworkspace)
-
-(fset 'setupworkspace
-   [?\C-c ?a ?a ?\C-x ?0 M-f10 ?\C-x ?3 ?\H-l ?\C-x ?b ?* ?O ?r ?g ?  ?A ?g ?e ?n ?d ?a ?* return ?\H-h ?\C-x ?2 ?\C-c ?o S-tab S-tab ?\H-j ?\C-c ?i S-tab S-tab ?\H-l ?\H-r])
-(global-set-key (kbd "C-x C-k 1") 'setupworkspace)
-
-(fset 'OHSFigureSave
-   [?# ?+ ?C ?A ?P ?T ?I ?O ?N ?: ?  ?\C-x ?Q return return tab ?\[ ?\[ ?f ?i ?l ?e ?: ?. ?/ ?W ?e ?e ?k ?  ?\C-x ?Q return ?/ ?\C-x ?Q return ?_ ?\C-u ?\M-! ?d ?a ?t ?e ?  ?+ ?% ?H ?% ?M ?% ?S return escape ?e ?a ?. ?p ?n ?g escape ?v ?B ?F ?/ ?l ?y escape ?A ?\] ?\] return escape ?p ?0 ?i ?\M-x ?i ?n ?s ?e ?r ?t ?d ?i ?r ?e ?c ?t ?o ?r ?y return escape ?V ?d ?i ?\C-x ?\C-f ?\C-  ?\C-a backspace ?/ ?U ?s ?e ?r ?s ?/ ?p ?i ?e ?r ?c ?e ?w ?a ?n ?g ?/ ?S ?c ?r ?e ?e ?n ?s ?h ?o ?t ?s return ?s ?\M-< ?\C-z ?/ ?S ?c ?r ?e ?e ?n ?  ?S ?h ?o ?t return ?R ?\C-  ?\C-a backspace ?\s-v backspace return ?\C-x ?k return])
-(global-set-key (kbd "<f9>") 'OHSFigureSave)
-
-(fset 'OHSFigureSave
-   [?\[ ?\[ ?f ?i ?l ?e ?: ?. ?/ ?W ?e ?e ?k ?  ?\C-x ?Q return ?/ ?\C-x ?Q return ?_ ?\C-u ?\M-! ?d ?a ?t ?e ?  ?+ ?% ?H ?% ?M ?% ?S return escape ?e ?a ?. ?p ?n ?g escape ?v ?B ?F ?/ ?l ?y escape ?A ?\] ?\] return escape ?p ?0 ?i ?\M-x ?i ?n ?s ?e ?r ?t ?d ?i ?r ?e ?c ?t ?o ?r ?y return escape ?V ?d ?i ?\C-x ?\C-f ?\C-  ?\C-a backspace ?/ ?U ?s ?e ?r ?s ?/ ?p ?i ?e ?r ?c ?e ?w ?a ?n ?g ?/ ?S ?c ?r ?e ?e ?n ?s ?h ?o ?t ?s return ?s ?\M-< ?\C-z ?/ ?S ?c ?r ?e ?e ?n ?  ?S ?h ?o ?t return ?R ?\C-  ?\C-a backspace ?\s-v backspace return ?\C-x ?k return tab])
-(global-set-key (kbd "<f8>") 'OHSFigureSave)
-
-(fset 'importChineseFlashcards
-   [return ?\C-p ?* ?* ?  ?I ?t ?e ?m ?\C-c ?\C-c ?d ?r ?i ?l ?l return ?\C-n ?\C-a ?\C-z ?f ?= ?x ?x ?\C-z ?\C-k ?\C-n ?\C-a return return ?\C-p ?* ?* ?  ?A ?n ?s ?w ?e ?r ?\C-a ?* ?\C-n ?\C-a ?\C-y ?\; ?  ?\C-a ?\C-n ?\C-n])
-(global-set-key (kbd "<f6>") 'importChineseFlashcards)
+(require 'init-macros)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Run Emacs as Daemon
@@ -217,7 +196,6 @@ If the input is non-empty, it is inserted at point."
 
 ;;; ERC Keybinds
 (global-set-key (kbd "H-M-e") (lambda () (interactive) (erc :server "irc.freenode.net" :port 6667 :nick "pgwang" :password passwords_ERC)))
-                              
 
 ;;; Moving Windows with Hyper (Fn)
 (global-set-key (kbd "H-h") 'hyper-window-left)
@@ -227,6 +205,12 @@ If the input is non-empty, it is inserted at point."
 
 ;;; Visual Line Mode
 (global-set-key (kbd "H-v") 'visual-line-mode)
+
+;;; replace-regexp
+(global-set-key (kbd "C-M-$") 'replace-regexp)
+
+;;; Open .emacs.d
+(global-set-key (kbd "H-C-M-e") (lambda () (interactive) (dired "~/.emacs.d/")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Artist-mode
@@ -258,5 +242,14 @@ If the input is non-empty, it is inserted at point."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Revert-mode
 (global-auto-revert-mode 1)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Ibuffer mode
+(require 'init-ibuffer)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Fonts
+(require 'init-fonts)
+(set-font emacs-english-font emacs-cjk-font emacs-font-size-pair)
 
 (provide 'init)

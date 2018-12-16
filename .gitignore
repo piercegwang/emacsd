@@ -1,7 +1,7 @@
 site-lisp/
 diary
 diary~
-backups/
+backup/
 history
 network-security.data
 url/
