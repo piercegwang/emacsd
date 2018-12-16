@@ -1,25 +1,31 @@
 ;;; init-fonts.el --- Set up Chinese/English fonts
 ;;; Commentary:
 
+;(if (and (fboundp 'daemonp) (daemonp))
+;    (add-hook 'after-make-frame-functions
+;              (lambda (frame)
+;                (with-selected-frame frame
+;                  (set-fontset-font "fontset-default"
+;                                    'chinese-gbk "WenQuanYi Micro Hei Mono 16"))))
+;(set-fontset-font "fontset-default" 'chinese-gbk "WenQuanYi Micro Hei Mono 16"))
+;(set-default-font "Source Code Pro 13")
+
 ;; Font configuration based on https://coldnew.github.io/d5011be2/
-(set-face-attribute 'variable-pitch
-                     nil
-		     :family "Source Code Pro")
 
 (when (display-graphic-p)
   (if (eq system-type 'darwin)
       (set-face-attribute 'default nil :font "Source Code Pro"))
 
-  (defvar emacs-english-font "Source Code Pro" "The font name of English.")
+  (defvar emacs-english-font "Source Code Pro" "The font name for English.")
   (defvar emacs-cjk-font "WenQuanYi Micro Hei Mono" "The font name for CJK.")
   (find-font (font-spec :name "WenQuanYi Micro Hei Mono"))
   (font-family-list)
   (if (eq system-type 'windows-nt)
-      (setq emacs-cjk-font "WenQuanYi Micro Hey Mono"
+     (setq emacs-cjk-font "WenQuanYi Micro Hey Mono"
             emacs-english-font "Source Code Pro")
     (setq emacs-cjk-font "WenQuanYi Micro Hei Mono"))
 
-  (defvar emacs-font-size-pair '(12 . 14)
+  (defvar emacs-font-size-pair '(13 . 16) ; Old '(12 . 14)
     "Default font size pair for (english . chinese)")
 
   (defvar emacs-font-size-pair-list
@@ -27,7 +33,7 @@
       (13 . 16) (15 . 18) (17 . 20) (19 . 22)
       (20 . 24) (21 . 26) (24 . 28) (26 . 32)
       (28 . 34) (30 . 36) (34 . 40) (36 . 44))
-    "This list is used to store matching (englis . chinese) font-size.")
+    "This list is used to store matching (english . chinese) font-size.")
 
   (defun font-exist-p (fontname)
     "Test if this font is exist or not."
@@ -71,5 +77,10 @@
   (global-set-key (kbd "C--") 'decrease-emacs-font-size)
   )
 
+(set-face-attribute 'default nil :font emacs-english-font :height 130)
+(dolist (charset '(kana han symbol cjk-misc bopomofo))
+    (set-face-attribute charset (font-spec :family emacs-cjk-font :size (cdr emacs-font-size-pair))))
+
 (provide 'init-fonts)
+
 ;; init-fonts.el ends here
