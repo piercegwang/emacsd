@@ -212,6 +212,9 @@ If the input is non-empty, it is inserted at point."
 ;;; Open .emacs.d
 (global-set-key (kbd "H-C-M-e") (lambda () (interactive) (dired "~/.emacs.d/")))
 
+;;; Regular find-file
+(global-set-key (kbd "H-C-x o") (lambda () (interactive) (switch-to-buffer "*Org Agenda*")))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Artist-mode
 (add-hook 'artist-mode-hook
@@ -251,5 +254,24 @@ If the input is non-empty, it is inserted at point."
 ;; Fonts
 (require 'init-fonts)
 (set-font emacs-english-font emacs-cjk-font emacs-font-size-pair)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Tetris
+(add-hook 'tetris-mode-hook (lambda ()
+			      (define-key tetris-mode-map "x" 'tetris-rotate-prev)
+			      (define-key tetris-mode-map "z" 'tetris-rotate-next)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Helm
+(require 'helm-config)
+(helm-mode 1)
+(define-key global-map [remap find-file] 'helm-find-files)
+(define-key global-map [remap occur] 'helm-occur)
+(define-key global-map [remap list-buffers] 'helm-buffers-list)
+(define-key global-map [remap dabbrev-expand] 'helm-dabbrev)
+(define-key global-map [remap execute-extended-command] 'helm-M-x)
+(unless (boundp 'completion-in-region-function)
+  (define-key lisp-interaction-mode-map [remap completion-at-point] 'helm-lisp-completion-at-point)
+  (define-key emacs-lisp-mode-map       [remap completion-at-point] 'helm-lisp-completion-at-point))
 
 (provide 'init)

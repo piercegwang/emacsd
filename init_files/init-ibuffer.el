@@ -19,7 +19,7 @@
 		    (name . "\*Calendar\*")
 		    (name . "\*Org Agenda\*")
 		    (name . "^diary$")))
-	 ("Magit" (name . "\*magit\*"))
+	 ("Magit" (mode . Magit))
 	 ("ERC" (mode . erc-mode))
 	 ("Help" (or (name . "\*Help\*")
 		     (name . "\*info\*")

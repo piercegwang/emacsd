@@ -72,5 +72,13 @@
 	    (local-set-key (kbd "r") (lambda () (interactive) (org-agenda-align-tags))))
 	    )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; MobileOrg
+
+;; Set to the name of the file where new notes will be stored
+(setq org-mobile-inbox-for-pull "~/Dropbox/Apps/MobileOrg/index.org")
+;; Set to <your Dropbox root directory>/MobileOrg.
+(setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
+
 (provide 'init-org)
 ;; init-org.el ends here

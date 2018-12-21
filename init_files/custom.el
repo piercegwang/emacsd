@@ -58,12 +58,7 @@
      ("I" "#+INCLUDE: %file ?"))))
  '(package-selected-packages
    (quote
-    (magit elpy exec-path-from-shell smart-mode-line-powerline-theme smart-mode-line latex auctex evil-visual-mark-mode)))
-; '(safe-local-variable-values
-;   (quote
-;    ((eval face-remap-add-relative
-;	   (quote default)
-;	   :family "Arial"))))
+    (helm magit elpy exec-path-from-shell smart-mode-line-powerline-theme smart-mode-line latex auctex evil-visual-mark-mode)))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
