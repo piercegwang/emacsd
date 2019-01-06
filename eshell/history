@@ -24,3 +24,7 @@ git log
 exit
 ls
 ./a.out
+cd
+ls
+sshpi
+exit

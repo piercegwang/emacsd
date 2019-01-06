@@ -24,17 +24,24 @@
 (global-set-key (kbd "C-c v") 
                 (lambda () (interactive) (find-file (concat org-directory "/violin.org"))))
 (global-set-key (kbd "C-c m") 
-                (lambda () (interactive) (find-file (concat org-directory "/notes/emacs/emacs_notes.org"))))
+                (lambda () (interactive) (find-file (concat org-directory "/notes.org"))))
 (global-set-key (kbd "C-c k") 
                 (lambda () (interactive) (find-file (concat org-directory "/links.org"))))
 (setq org-agenda-overriding-columns-format "%28ITEM %TODO %SCHEDULED %DEADLINE %TAGS")
 
 ;;; Quick Capture
 (setq org-capture-templates
- '(("t" "Todo" entry (file+headline "~/Dropbox/org/todo.org" "Tasks")
+ '(("t" "Todo" entry (file+headline "~/Dropbox/org/todo.org" "General")
         "* TODO %?")
    ("L" "Link" entry (file "~/Dropbox/org/links.org")
-    "* TOREAD %?[[%:link][%:description]] %U\n" :prepend t)))
+    "* TOREAD %?[[%:link][%:description]] %U\n" :prepend t)
+   ("b" "Bookmark" entry (file+headline "~/Dropbox/org/notes.org" "Bookmarks")
+    "* [[%?%:link][%:description]]\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n" :empty-lines 1)
+   ("j" "Journal Entries")
+   ("jj" "Standard Journal" entry
+    (file+olp+datetree "~/Dropbox/org/orgjournal.org.gpg")
+    "* %?\n\n:PROPERTIES:\n:LOGGED: %U\n:END:\n\n")
+   ))
 
 ;;; org-drill
 (require 'org-drill)

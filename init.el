@@ -116,7 +116,6 @@
   (or (looking-at "[0-9]+")
       (error "No number at point"))
   (replace-match (number-to-string (1+ (string-to-number (match-string 0))))))
-(global-set-key (kbd "C-; C-=") 'increment-number-at-point)
 
 (defun insertdirectory ()
   "Insert current directory for macro use"
@@ -215,6 +214,12 @@ If the input is non-empty, it is inserted at point."
 ;;; Regular find-file
 (global-set-key (kbd "H-C-x o") (lambda () (interactive) (switch-to-buffer "*Org Agenda*")))
 
+;;; Increment Number
+(global-set-key (kbd "C-; C-=") 'increment-number-at-point)
+
+;;; Close window
+(global-set-key (kbd "s-0") 'delete-window)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Artist-mode
 (add-hook 'artist-mode-hook
@@ -273,5 +278,11 @@ If the input is non-empty, it is inserted at point."
 (unless (boundp 'completion-in-region-function)
   (define-key lisp-interaction-mode-map [remap completion-at-point] 'helm-lisp-completion-at-point)
   (define-key emacs-lisp-mode-map       [remap completion-at-point] 'helm-lisp-completion-at-point))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Save Emacs Sessions across starting
+(desktop-save-mode 1)
+(setq desktop-restore-frames nil)
+(setq desktop-path (list "~/emacs/desktopsave/"))
 
 (provide 'init)
