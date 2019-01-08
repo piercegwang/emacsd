@@ -18,7 +18,7 @@
 (global-set-key (kbd "C-c o") 
                 (lambda () (interactive) (find-file (concat org-directory "/school.org"))))
 (global-set-key (kbd "C-c p") 
-                (lambda () (interactive) (dired "~/Google Drive/OHS/10th Grade/Semester 1/")))
+                (lambda () (interactive) (dired "~/Google Drive/OHS/10th Grade/Semester 2/")))
 (global-set-key (kbd "C-c i") 
                 (lambda () (interactive) (find-file (concat org-directory "/todo.org"))))
 (global-set-key (kbd "C-c v") 
@@ -41,6 +41,22 @@
    ("jj" "Standard Journal" entry
     (file+olp+datetree "~/Dropbox/org/orgjournal.org.gpg")
     "* %?\n\n:PROPERTIES:\n:LOGGED: %U\n:END:\n\n")
+   ("S" "School Entries")
+   ("Sc" "Chinese Assignment" entry
+    (file+olp "~/Dropbox/org/school.org" "Class Todos" "_\\ *\\ OCH12 \\* \\_")
+    "* TODO [#%^{Priority|C|A|B|D}] %^{Assignment Name}\n    DEADLINE: %^T\n  - %^{Link}")
+   ("Sb" "Biology Assignment" entry
+    (file+olp "~/Dropbox/org/school.org" "Class Todos" "_\\ *\\ OB010 \\* \\_")
+    "* TODO [#%^{Priority|C|A|B|D}] %^{Assignment Name}\n    DEADLINE: %^T\n  - %^{Link}")
+   ("Se" "MWA Assignment" entry
+    (file+olp "~/Dropbox/org/school.org" "Class Todos" "_\\ *\\ OE011 \\* \\_")
+    "* TODO [#%^{Priority|C|A|B|D}] %^{Assignment Name}\n    DEADLINE: %^T\n  - %^{Link}")
+   ("Sm" "Calc BC Assignment" entry
+    (file+olp "~/Dropbox/org/school.org" "Class Todos" "_\\ *\\ OM4BC \\* \\_")
+    "* TODO [#%^{Priority|C|A|B|D}] %^{Assignment Name}\n    DEADLINE: %^T\n  - %^{Link}")
+   ("Sp" "Philosophy Assignment" entry
+    (file+olp "~/Dropbox/org/school.org" "Class Todos" "_\\ *\\ OHSC0 \\* \\_")
+    "* TODO [#%^{Priority|C|A|B|D}] %^{Assignment Name}\n    DEADLINE: %^T\n  - %^{Link}")
    ))
 
 ;;; org-drill

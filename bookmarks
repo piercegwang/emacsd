@@ -13,8 +13,8 @@
  (rear-context-string . "00:24]\n   :END:\n")
  (position . 18168))
 ("org-capture-last-stored"
- (filename . "~/Dropbox/org/orgjournal.org.gpg")
- (front-context-string . "**** First day b")
- (rear-context-string . "19-01-06 Sunday\n")
- (position . 15676))
+ (filename . "~/Dropbox/org/school.org")
+ (front-context-string . "*** TODO [#C] Pa")
+ (rear-context-string . "78/quizzes/8327\n")
+ (position . 699))
 )

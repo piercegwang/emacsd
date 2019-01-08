@@ -263,8 +263,8 @@ If the input is non-empty, it is inserted at point."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Tetris
 (add-hook 'tetris-mode-hook (lambda ()
-			      (define-key tetris-mode-map "x" 'tetris-rotate-prev)
-			      (define-key tetris-mode-map "z" 'tetris-rotate-next)))
+			      (define-key tetris-mode-map "z" 'tetris-rotate-prev)
+			      (define-key tetris-mode-map "x" 'tetris-rotate-next)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Helm
@@ -278,6 +278,7 @@ If the input is non-empty, it is inserted at point."
 (unless (boundp 'completion-in-region-function)
   (define-key lisp-interaction-mode-map [remap completion-at-point] 'helm-lisp-completion-at-point)
   (define-key emacs-lisp-mode-map       [remap completion-at-point] 'helm-lisp-completion-at-point))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Save Emacs Sessions across starting
