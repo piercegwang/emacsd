@@ -128,16 +128,25 @@
 (defun org-agenda-redo-tags ()
   "Custom redo then finalize function"
   (interactive)
-  (list
-   (org-agenda-redo)
-   (org-agenda-align-tags)))
+  ;(setq org-agenda-tags-column (string-to-number (concat "-" (number-to-string ((lambda () (interactive) (window-width)))))))
+  (setq org-agenda-tags-column (* -1 ((lambda () (interactive) (window-width)))))
+  (org-agenda-redo)
+  (org-agenda-align-tags)
+  (setq org-agenda-tags-column (eval (car (get 'org-agenda-tags-column 'standard-value))))
+  )
 
 (add-hook 'org-agenda-mode-hook
 	  (lambda ()
-	    (local-set-key (kbd "H-o") [?g ?/ ?- ?o])
-	    (local-set-key (kbd "H-r") 'org-agenda-redo-tags)
-	    (local-set-key (kbd "r") (lambda () (interactive) (org-agenda-align-tags))))
-	    )
+	    ;(local-set-key (kbd "H-o") [?g ?/ ?- ?o])
+	    (local-set-key (kbd "r") 'org-agenda-redo-tags)
+	    ))
+
+;; Re-align tags when window shape changes
+(add-hook 'org-agenda-mode-hook
+          (lambda () (add-hook 'window-configuration-change-hook 'org-agenda-align-tags nil t)))
+
+(add-hook 'org-agenda-finalize-hook
+	  'org-agenda-align-tags)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; MobileOrg
