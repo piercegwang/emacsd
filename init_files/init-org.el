@@ -31,33 +31,77 @@
 
 ;;; Quick Capture
 (setq org-capture-templates
- '(("t" "Todo" entry (file+headline "~/Dropbox/org/todo.org" "General")
-        "* TODO %?")
-   ("L" "Link" entry (file "~/Dropbox/org/links.org")
-    "* TOREAD %?[[%:link][%:description]] %U\n" :prepend t)
-   ("b" "Bookmark" entry (file+headline "~/Dropbox/org/notes.org" "Bookmarks")
-    "* [[%?%:link][%:description]]\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n" :empty-lines 1)
-   ("j" "Journal Entries")
-   ("jj" "Standard Journal" entry
-    (file+olp+datetree "~/Dropbox/org/orgjournal.org.gpg")
-    "* %?\n\n:PROPERTIES:\n:LOGGED: %U\n:END:\n\n")
-   ("S" "School Entries")
-   ("Sc" "Chinese Assignment" entry
-    (file+olp "~/Dropbox/org/school.org" "Class Todos" "_\\ *\\ OCH12 \\* \\_")
-    "* TODO [#%^{Priority|C|A|B|D}] %^{Assignment Name}\n    DEADLINE: %^T\n  - %^{Link}")
-   ("Sb" "Biology Assignment" entry
-    (file+olp "~/Dropbox/org/school.org" "Class Todos" "_\\ *\\ OB010 \\* \\_")
-    "* TODO [#%^{Priority|C|A|B|D}] %^{Assignment Name}\n    DEADLINE: %^T\n  - %^{Link}")
-   ("Se" "MWA Assignment" entry
-    (file+olp "~/Dropbox/org/school.org" "Class Todos" "_\\ *\\ OE011 \\* \\_")
-    "* TODO [#%^{Priority|C|A|B|D}] %^{Assignment Name}\n    DEADLINE: %^T\n  - %^{Link}")
-   ("Sm" "Calc BC Assignment" entry
-    (file+olp "~/Dropbox/org/school.org" "Class Todos" "_\\ *\\ OM4BC \\* \\_")
-    "* TODO [#%^{Priority|C|A|B|D}] %^{Assignment Name}\n    DEADLINE: %^T\n  - %^{Link}")
-   ("Sp" "Philosophy Assignment" entry
-    (file+olp "~/Dropbox/org/school.org" "Class Todos" "_\\ *\\ OHSC0 \\* \\_")
-    "* TODO [#%^{Priority|C|A|B|D}] %^{Assignment Name}\n    DEADLINE: %^T\n  - %^{Link}")
-   ))
+      '(
+("t" "Todo" entry (file+headline "~/Dropbox/org/todo.org" "General")
+"* TODO %?")
+("L" "Link" entry (file "~/Dropbox/org/links.org")
+"* TOREAD %?[[%:link][%:description]] %U
+" :prepend t)
+("b" "Bookmark" entry (file+headline "~/Dropbox/org/notes.org" "Bookmarks")
+"* [[%?%:link][%:description]]
+:PROPERTIES:
+:CREATED: %U
+:END:
+
+" :empty-lines 1)
+("j" "Journal Entries")
+("jj" "Standard Journal" entry
+(file+olp+datetree "~/Dropbox/org/orgjournal.org.gpg")
+"* %?
+
+:PROPERTIES:
+:LOGGED: %U
+:TYPE: generic
+:END:
+
+")
+("jd" "Dream Journal" entry
+(file+olp+datetree "~/Dropbox/org/orgjournal.org.gpg")
+"* %?
+
+:PROPERTIES:
+:LOGGED: %U
+:TYPE: dream
+:END:
+
+")
+("S" "School Entries")
+("Sc" "Chinese Assignment" entry
+(file+olp "~/Dropbox/org/school.org" "Class Todos" "_\\ *\\ OCH12 \\* \\_")
+"* TODO [#%^{Priority|C|A|B|D}] %^{Assignment Name}
+    DEADLINE: %^T
+:PROPERTIES:
+:LINK: %^{Link}
+:END:")
+("Sb" "Biology Assignment" entry
+(file+olp "~/Dropbox/org/school.org" "Class Todos" "_\\ *\\ OB010 \\* \\_")
+"* TODO [#%^{Priority|C|A|B|D}] %^{Assignment Name}
+    DEADLINE: %^T
+:PROPERTIES:
+:LINK: %^{Link}
+:END:")
+("Se" "MWA Assignment" entry
+(file+olp "~/Dropbox/org/school.org" "Class Todos" "_\\ *\\ OE011 \\* \\_")
+"* TODO [#%^{Priority|C|A|B|D}] %^{Assignment Name}
+    DEADLINE: %^T
+:PROPERTIES:
+:LINK: %^{Link}
+:END:")
+("Sm" "Calc BC Assignment" entry
+(file+olp "~/Dropbox/org/school.org" "Class Todos" "_\\ *\\ OM4BC \\* \\_")
+"* TODO [#%^{Priority|C|A|B|D}] %^{Assignment Name}
+    DEADLINE: %^T
+:PROPERTIES:
+:LINK: %^{Link}
+:END:")
+("Sp" "Philosophy Assignment" entry
+(file+olp "~/Dropbox/org/school.org" "Class Todos" "_\\ *\\ OHSC0 \\* \\_")
+"* TODO [#%^{Priority|C|A|B|D}] %^{Assignment Name}
+    DEADLINE: %^T
+:PROPERTIES:
+:LINK: %^{Link}
+:END:")
+))
 
 ;;; org-drill
 (require 'org-drill)
