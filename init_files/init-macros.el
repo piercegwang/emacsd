@@ -4,7 +4,7 @@
 ;; My macros
 
 (fset 'setupworkspace
-   [?\C-c ?a ?a ?\C-x ?0 M-f10 ?\C-x ?3 ?\H-l ?\H-\C-x ?o ?\H-h ?\C-x ?2 ?\C-c ?o S-tab S-tab ?\H-j ?\C-c ?i S-tab S-tab ?\H-l ?\H-r])
+   [?\C-c ?a ?a ?\C-x ?0 M-f10 ?\C-x ?3 ?\H-l ?\H-\C-x ?o ?\H-h ?\C-x ?2 ?\C-c ?o S-tab S-tab ?\H-j ?\C-c ?i S-tab S-tab ?\H-l])
 (global-set-key (kbd "C-x C-k 1") 'setupworkspace)
 
 ;;(fset 'OHSFigureSave

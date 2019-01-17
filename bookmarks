@@ -3,18 +3,18 @@
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
 (("org-capture-last-stored-marker"
- (filename . "~/Dropbox/org/todo.org")
- (front-context-string . "** \"Mastering Em")
- (rear-context-string . "Dr. Walker-Dale\n")
- (position . 2604))
+ (filename . "~/Dropbox/org/notes.org")
+ (front-context-string . "** Redragon Keyb")
+ (rear-context-string . " Support Link]]\n")
+ (position . 14214))
 ("org-refile-last-stored"
- (filename . "~/Dropbox/org/todo.org")
- (front-context-string . "** \"Mastering Em")
- (rear-context-string . "Dr. Walker-Dale\n")
- (position . 2604))
+ (filename . "~/Dropbox/org/notes.org")
+ (front-context-string . "** [[https://pqr")
+ (rear-context-string . "\n\\doublespacing\n")
+ (position . 9171))
 ("org-capture-last-stored"
- (filename . "~/Dropbox/org/todo.org")
- (front-context-string . "** \"Mastering Em")
- (rear-context-string . "n in properties\n")
- (position . 1434))
+ (filename . "~/Dropbox/org/orgjournal.org.gpg")
+ (front-context-string . "**** org agenda ")
+ (rear-context-string . "0:00]\n   :END:\n\n")
+ (position . 31788))
 )

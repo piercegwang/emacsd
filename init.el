@@ -55,9 +55,10 @@
 (add-to-list 'default-frame-alist '(width . 146))
 
 ;;; Visual line mode (for text wrapping)
-(global-visual-line-mode t)
-(global-linum-mode t)
-(set-default 'truncate-lines t)
+;(global-visual-line-mode t)
+(global-linum-mode 0)
+(global-display-line-numbers-mode 1)
+;(set-default 'truncate-lines t)
 
 ;;; smart-mode-line
 (require 'smart-mode-line)
@@ -71,6 +72,8 @@
 (add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; assuming you are using a dark theme
 ;;(setq ns-use-proxy-icon nil)
 ;;(setq frame-title-format nil)
+(menu-bar-mode -1)
+(tool-bar-mode -1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; GPG
@@ -88,7 +91,7 @@
 (put 'scroll-left 'disabled nil)
 
 ;;; default major mode
-(setq-default major-mode 'org-mode)
+;(setq-default major-mode 'org-mode)
 
 ;;; Email
 (setq user-mail-address "pierce.g.wang@gmail.com")
@@ -102,8 +105,6 @@
   kept-old-versions 5    ; and how many of the old
   )
 
-(menu-bar-mode -1)
-(tool-bar-mode -1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Custom Functions

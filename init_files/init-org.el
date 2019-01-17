@@ -27,9 +27,73 @@
                 (lambda () (interactive) (find-file (concat org-directory "/notes.org"))))
 (global-set-key (kbd "C-c k") 
                 (lambda () (interactive) (find-file (concat org-directory "/links.org"))))
-(setq org-agenda-overriding-columns-format "%28ITEM %TODO %SCHEDULED %DEADLINE %TAGS")
+;(setq org-agenda-overriding-columns-format "%28ITEM %TODO %SCHEDULED %DEADLINE %TAGS")
 
-;;; Quick Capture
+
+;; Org Refile
+(setq org-refile-targets '((nil :maxlevel . 9)
+                                (org-agenda-files :maxlevel . 9)))
+(setq org-refile-use-outline-path 'file)
+(setq org-outline-path-complete-in-steps nil)
+(setq org-refile-allow-creating-parent-nodes 'confirm)
+
+;;; org-drill
+(require 'org-drill)
+
+;;; Agenda key (C-c a) and other settings
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-cb" 'org-switchb)
+
+;;; org-format-latex-options
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.4))
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Org Agenda
+
+;; org-agenda-auto-exclude-function
+(defun org-my-auto-exclude-function (tag)
+  (string= tag "officehours")
+  (concat "-" tag))
+(setq org-agenda-auto-exclude-function 'org-my-auto-exclude-function)
+
+(defun org-agenda-redo-tags ()
+  "Custom redo then finalize function"
+  (interactive)
+  ;(setq org-agenda-tags-column (string-to-number (concat "-" (number-to-string ((lambda () (interactive) (window-width)))))))
+  (setq org-agenda-tags-column (* -1 ((lambda () (interactive) (window-width)))))
+  (org-agenda-redo)
+  (org-agenda-align-tags)
+  (setq org-agenda-tags-column (eval (car (get 'org-agenda-tags-column 'standard-value))))
+  )
+
+;(add-hook 'org-agenda-mode-hook
+;	  (lambda ()
+;	    ;(local-set-key (kbd "H-o") [?g ?/ ?- ?o])
+;	    (local-set-key (kbd "r") 'org-agenda-redo-tags)
+;	    ))
+
+;; Re-align tags when window shape changes
+(add-hook 'org-agenda-mode-hook
+          (lambda () (add-hook 'window-configuration-change-hook 'org-agenda-align-tags nil t)))
+
+;(add-hook 'org-agenda-finalize-hook
+;	  'org-agenda-align-tags)
+
+(setq org-deadline-warning-days 7)
+
+(add-hook 'org-agenda-finalize-hook
+	  (lambda ()
+	    (display-line-numbers-mode 0)
+	    ))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Quick capture
 (setq org-capture-templates
       '(
 ("t" "Todo" entry (file+headline "~/Dropbox/org/todo.org" "General")
@@ -44,27 +108,27 @@
 :END:
 
 " :empty-lines 1)
+("m" "Manual" entry (file "~/Dropbox/org/notes.org")
+"* %?
+
+:PROPERTIES:
+:CREATED: %U
+:END:" :empty-lines 1)
 ("j" "Journal Entries")
 ("jj" "Standard Journal" entry
 (file+olp+datetree "~/Dropbox/org/orgjournal.org.gpg")
-"* %?
+"* %? %^g
 
 :PROPERTIES:
 :LOGGED: %U
-:TYPE: generic
-:END:
-
-")
+:END:" :empty-lines 1)
 ("jd" "Dream Journal" entry
 (file+olp+datetree "~/Dropbox/org/orgjournal.org.gpg")
-"* %?
+"* %? %^g
 
 :PROPERTIES:
 :LOGGED: %U
-:TYPE: dream
-:END:
-
-")
+:END:" :empty-lines 1)
 ("S" "School Entries")
 ("Sc" "Chinese Assignment" entry
 (file+olp "~/Dropbox/org/school.org" "Class Todos" "_\\ *\\ OCH12 \\* \\_")
@@ -101,52 +165,15 @@
 :PROPERTIES:
 :LINK: %^{Link}
 :END:")
+("St" "PE Assignment" entry
+(file+olp "~/Dropbox/org/school.org" "Class Todos" "_\\ *\\ OHSPE \\* \\_")
+"* TODO [#%^{Priority|C|A|B|D}] %^{Assignment Name}
+    DEADLINE: %^T
+:PROPERTIES:
+:LINK: %^{Link}
+:END:")
 ))
 
-;;; org-drill
-(require 'org-drill)
-
-;;; Agenda key (C-c a) and other settings
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cc" 'org-capture)
-(global-set-key "\C-cb" 'org-switchb)
-
-;;; org-format-latex-options
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.4))
-
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((python . t)))
-
-;; org-agenda-auto-exclude-function
-(defun org-my-auto-exclude-function (tag)
-  (string= tag "officehours")
-  (concat "-" tag))
-(setq org-agenda-auto-exclude-function 'org-my-auto-exclude-function)
-
-(defun org-agenda-redo-tags ()
-  "Custom redo then finalize function"
-  (interactive)
-  ;(setq org-agenda-tags-column (string-to-number (concat "-" (number-to-string ((lambda () (interactive) (window-width)))))))
-  (setq org-agenda-tags-column (* -1 ((lambda () (interactive) (window-width)))))
-  (org-agenda-redo)
-  (org-agenda-align-tags)
-  (setq org-agenda-tags-column (eval (car (get 'org-agenda-tags-column 'standard-value))))
-  )
-
-(add-hook 'org-agenda-mode-hook
-	  (lambda ()
-	    ;(local-set-key (kbd "H-o") [?g ?/ ?- ?o])
-	    (local-set-key (kbd "r") 'org-agenda-redo-tags)
-	    ))
-
-;; Re-align tags when window shape changes
-(add-hook 'org-agenda-mode-hook
-          (lambda () (add-hook 'window-configuration-change-hook 'org-agenda-align-tags nil t)))
-
-(add-hook 'org-agenda-finalize-hook
-	  'org-agenda-align-tags)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; MobileOrg
@@ -155,6 +182,9 @@
 (setq org-mobile-inbox-for-pull "~/Dropbox/Apps/MobileOrg/index.org")
 ;; Set to <your Dropbox root directory>/MobileOrg.
 (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
+
+;; Org entries
+(setq org-agenda-max-entries nil)
 
 (provide 'init-org)
 ;; init-org.el ends here
