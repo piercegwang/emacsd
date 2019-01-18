@@ -58,7 +58,7 @@
 ;(global-visual-line-mode t)
 (global-linum-mode 0)
 (global-display-line-numbers-mode 1)
-;(set-default 'truncate-lines t)
+(set-default 'truncate-lines t)
 
 ;;; smart-mode-line
 (require 'smart-mode-line)
@@ -97,7 +97,7 @@
 (setq user-mail-address "pierce.g.wang@gmail.com")
 
 ;;;
-(setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
+(setq backup-directory-alist '(("." . "~/Dropbox/org/backup"))
   backup-by-copying t    ; Don't delink hardlinks
   version-control t      ; Use version numbers on backups
   delete-old-versions t  ; Automatically delete excess backups

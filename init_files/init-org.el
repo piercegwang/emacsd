@@ -114,21 +114,13 @@
 :PROPERTIES:
 :CREATED: %U
 :END:" :empty-lines 1)
-("j" "Journal Entries")
-("jj" "Standard Journal" entry
+("j" "Journal" entry
 (file+olp+datetree "~/Dropbox/org/orgjournal.org.gpg")
-"* %? %^g
+"* %?
 
 :PROPERTIES:
 :LOGGED: %U
-:END:" :empty-lines 1)
-("jd" "Dream Journal" entry
-(file+olp+datetree "~/Dropbox/org/orgjournal.org.gpg")
-"* %? %^g
-
-:PROPERTIES:
-:LOGGED: %U
-:END:" :empty-lines 1)
+:END:" :empty-lines-after 1)
 ("S" "School Entries")
 ("Sc" "Chinese Assignment" entry
 (file+olp "~/Dropbox/org/school.org" "Class Todos" "_\\ *\\ OCH12 \\* \\_")
