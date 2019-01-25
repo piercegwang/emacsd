@@ -4,17 +4,17 @@
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
 (("org-capture-last-stored-marker"
  (filename . "~/Dropbox/org/notes.org")
- (front-context-string . "** Redragon Keyb")
- (rear-context-string . " Support Link]]\n")
- (position . 14214))
+ (front-context-string . "*** Errors\n    -")
+ (rear-context-string . "|             |\n")
+ (position . 7651))
 ("org-refile-last-stored"
  (filename . "~/Dropbox/org/notes.org")
- (front-context-string . "** [[https://pqr")
- (rear-context-string . "\n\\doublespacing\n")
- (position . 9171))
+ (front-context-string . "*** Mom loves th")
+ (rear-context-string . "END:\n\n** People\n")
+ (position . 14688))
 ("org-capture-last-stored"
- (filename . "~/Dropbox/org/orgjournal.org.gpg")
- (front-context-string . "**** org agenda ")
- (rear-context-string . "0:00]\n   :END:\n\n")
- (position . 31788))
+ (filename . "~/Dropbox/org/todo.org")
+ (front-context-string . "** Things to do ")
+ (rear-context-string . "1-25 Fri 20:00>\n")
+ (position . 1664))
 )

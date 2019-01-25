@@ -42,8 +42,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; cdlatex
 (load "~/.emacs.d/custom_load/cdlatex.el")
-(define-key org-cdlatex-mode-map (kbd "C-c M-d") 'cdlatex-dollar)
-(define-key cdlatex-mode-map (kbd "C-c M-d") 'cdlatex-dollar)
+(define-key org-cdlatex-mode-map (kbd "H-d") 'cdlatex-dollar)
+(define-key cdlatex-mode-map (kbd "H-d") 'cdlatex-dollar)
 
 (setq TeX-engine 'xetex)
 (setq latex-run-command "xetex")

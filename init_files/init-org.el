@@ -7,20 +7,20 @@
 (require 'org-agenda)
 (setq org-directory "~/Dropbox/org/")
 (setq org-agenda-files (list "~/Dropbox/org/school.org"
-			     "~/Dropbox/org/todo.org"
+			     "~/Dropbox/org/gtd.org"
 			     "~/Dropbox/org/violin.org"
-			     "~/Dropbox/org/inbox.org"))
+			     "~/Dropbox/org/inbox.org"
+			     "~/Dropbox/org/tickler.org"))
 (setq org-todo-keywords
-      '((sequence "TODO" "IN-PROGRESS" "DONE")))
-'((sequence "TODO" "IN-PROGRESS" "DONE"))
-(setq org-default-notes-file (concat org-directory "/todo.org"))
+      '((sequence "TODO(t)" "IN-PROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
+(setq org-default-notes-file (concat org-directory "/inbox.org"))
 (define-key global-map "\C-cc" 'org-capture)
 (global-set-key (kbd "C-c o") 
                 (lambda () (interactive) (find-file (concat org-directory "/school.org"))))
 (global-set-key (kbd "C-c p") 
                 (lambda () (interactive) (dired "~/Google Drive/OHS/10th Grade/Semester 2/")))
 (global-set-key (kbd "C-c i") 
-                (lambda () (interactive) (find-file (concat org-directory "/todo.org"))))
+                (lambda () (interactive) (find-file (concat org-directory "/gtd.org"))))
 (global-set-key (kbd "C-c v") 
                 (lambda () (interactive) (find-file (concat org-directory "/violin.org"))))
 (global-set-key (kbd "C-c m") 
@@ -29,10 +29,17 @@
                 (lambda () (interactive) (find-file (concat org-directory "/links.org"))))
 ;(setq org-agenda-overriding-columns-format "%28ITEM %TODO %SCHEDULED %DEADLINE %TAGS")
 
+(setq org-tag-persistent-alist '((:startgroup . nil)
+				 ("@school" . ?s)
+				 ("@home" . ?h)
+				 ("@music" . ?m)
+				 (:endgroup . nil)))
 
 ;; Org Refile
+(setq pgwang/refile-targets (file-expand-wildcards "~/Dropbox/org/*.org"))
 (setq org-refile-targets '((nil :maxlevel . 9)
-                                (org-agenda-files :maxlevel . 9)))
+                           (org-agenda-files :maxlevel . 9)
+			   (pgwang/refile-targets :maxlevel . 9)))
 (setq org-refile-use-outline-path 'file)
 (setq org-outline-path-complete-in-steps nil)
 (setq org-refile-allow-creating-parent-nodes 'confirm)
@@ -96,7 +103,7 @@
 ;; Quick capture
 (setq org-capture-templates
       '(
-("t" "Todo" entry (file+headline "~/Dropbox/org/todo.org" "General")
+("i" "Inbox" entry (file "~/Dropbox/org/inbox.org")
 "* TODO %?")
 ("L" "Link" entry (file "~/Dropbox/org/links.org")
 "* TOREAD %?[[%:link][%:description]] %U
@@ -117,10 +124,9 @@
 ("j" "Journal" entry
 (file+olp+datetree "~/Dropbox/org/orgjournal.org.gpg")
 "* %?
-
 :PROPERTIES:
 :LOGGED: %U
-:END:" :empty-lines-after 1)
+:END:")
 ("S" "School Entries")
 ("Sc" "Chinese Assignment" entry
 (file+olp "~/Dropbox/org/school.org" "Class Todos" "_\\ *\\ OCH12 \\* \\_")
