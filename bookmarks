@@ -4,17 +4,17 @@
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
 (("org-capture-last-stored-marker"
  (filename . "~/Dropbox/org/notes.org")
- (front-context-string . "*** Errors\n    -")
- (rear-context-string . "|             |\n")
- (position . 7651))
+ (front-context-string . "** Music and Lyr")
+ (rear-context-string . "Creed, Creed II\n")
+ (position . 18633))
 ("org-refile-last-stored"
- (filename . "~/Dropbox/org/notes.org")
- (front-context-string . "*** Mom loves th")
- (rear-context-string . "END:\n\n** People\n")
- (position . 14688))
+ (filename . "~/Dropbox/org/gtd.org")
+ (front-context-string . "**** Fischoff fo")
+ (rear-context-string . "2-18 Mon 21:00>\n")
+ (position . 9747))
 ("org-capture-last-stored"
- (filename . "~/Dropbox/org/todo.org")
- (front-context-string . "** Things to do ")
- (rear-context-string . "1-25 Fri 20:00>\n")
- (position . 1664))
+ (filename . "~/Dropbox/org/inbox.org")
+ (front-context-string . "* TODO OB010 Mid")
+ (rear-context-string . "2019-03-05 Tue>\n")
+ (position . 181))
 )

@@ -56,8 +56,8 @@
 
 ;;; Visual line mode (for text wrapping)
 ;(global-visual-line-mode t)
-(global-linum-mode 0)
-(global-display-line-numbers-mode 1)
+(global-linum-mode 1)
+(global-display-line-numbers-mode 0)
 (set-default 'truncate-lines t)
 
 ;;; smart-mode-line
@@ -75,12 +75,12 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 
+(setq visual-line-fringe-indicators '(left-curly-arrow nil)) ;; '(left-curly-arrow right-curly-arrow) for both left and right
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; GPG
 (require 'epa-file)
 (epa-file-enable)
-(put 'upcase-region 'disabled nil)
-(put 'downcase-region 'disabled nil)
 (setf epa-pinentry-mode 'loopback)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -88,7 +88,6 @@
 
 ;;; Change shell process (from bash to zsh)
 (setq shell-file-name "/bin/zsh")
-(put 'scroll-left 'disabled nil)
 
 ;;; default major mode
 ;(setq-default major-mode 'org-mode)
@@ -167,6 +166,12 @@ If the input is non-empty, it is inserted at point."
   (dotimes (i (or count 1))
     (windmove-down)))
 
+;; Auto close gpg buffers
+(run-with-idle-timer 60 t (lambda ()
+                         (let ((victim (get-buffer "orgjournal.org.gpg")))
+                           (when (and victim (not (buffer-modified-p victim))) (message "Killing buffer %s" (buffer-name victim)
+                                                                                        (kill-buffer victim))))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Keyboard Macros
 (require 'init-macros)
@@ -221,6 +226,10 @@ If the input is non-empty, it is inserted at point."
 ;;; Close window
 (global-set-key (kbd "s-0") 'delete-window)
 
+;;; Sync OHS Calendar
+(global-set-key (kbd "H-c H-p") (lambda () (interactive)
+                                  (shell-command "bash ~/QScripts/syncgcal.sh")))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Artist-mode
 (add-hook 'artist-mode-hook
@@ -246,7 +255,6 @@ If the input is non-empty, it is inserted at point."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Diary configuration
 (setq diary-file "~/.emacs.d/diary.gpg")
-(put 'dired-find-alternate-file 'disabled nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Revert-mode
@@ -267,6 +275,9 @@ If the input is non-empty, it is inserted at point."
 			      (define-key tetris-mode-map "z" 'tetris-rotate-prev)
 			      (define-key tetris-mode-map "x" 'tetris-rotate-next)))
 
+;; ctetris
+(require 'ctetris)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Helm
 (require 'helm-config)
@@ -286,5 +297,13 @@ If the input is non-empty, it is inserted at point."
 (desktop-save-mode 1)
 (setq desktop-restore-frames nil)
 (setq desktop-path (list "~/emacs/desktopsave/"))
+
+;; 'disabled nil
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
+(put 'scroll-left 'disabled nil)
+(put 'dired-find-alternate-file 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
+
 
 (provide 'init)

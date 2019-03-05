@@ -10,30 +10,34 @@
 			     "~/Dropbox/org/gtd.org"
 			     "~/Dropbox/org/violin.org"
 			     "~/Dropbox/org/inbox.org"
-			     "~/Dropbox/org/tickler.org"))
+			     "~/Dropbox/org/tickler.org"
+                             "~/Dropbox/org/gcal.org"))
 (setq org-todo-keywords
       '((sequence "TODO(t)" "IN-PROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
 (setq org-default-notes-file (concat org-directory "/inbox.org"))
 (define-key global-map "\C-cc" 'org-capture)
-(global-set-key (kbd "C-c o") 
+(global-set-key (kbd "H-c o") 
                 (lambda () (interactive) (find-file (concat org-directory "/school.org"))))
-(global-set-key (kbd "C-c p") 
+(global-set-key (kbd "H-c p") 
                 (lambda () (interactive) (dired "~/Google Drive/OHS/10th Grade/Semester 2/")))
-(global-set-key (kbd "C-c i") 
+(global-set-key (kbd "H-c i") 
                 (lambda () (interactive) (find-file (concat org-directory "/gtd.org"))))
-(global-set-key (kbd "C-c v") 
+(global-set-key (kbd "H-c v") 
                 (lambda () (interactive) (find-file (concat org-directory "/violin.org"))))
-(global-set-key (kbd "C-c m") 
+(global-set-key (kbd "H-c m") 
                 (lambda () (interactive) (find-file (concat org-directory "/notes.org"))))
-(global-set-key (kbd "C-c k") 
+(global-set-key (kbd "H-c k") 
                 (lambda () (interactive) (find-file (concat org-directory "/links.org"))))
 ;(setq org-agenda-overriding-columns-format "%28ITEM %TODO %SCHEDULED %DEADLINE %TAGS")
 
-(setq org-tag-persistent-alist '((:startgroup . nil)
-				 ("@school" . ?s)
-				 ("@home" . ?h)
-				 ("@music" . ?m)
-				 (:endgroup . nil)))
+(setq org-log-done 'time) ; Log when task marked as done
+(setq org-tag-persistent-alist '(("violin" . ?V)
+				 (:endgroup)
+				 ("@school" . ?S)
+				 ("@home" . ?H)
+				 ("@music" . ?M)
+				 (:startgroup)))
+
 
 ;; Org Refile
 (setq pgwang/refile-targets (file-expand-wildcards "~/Dropbox/org/*.org"))
@@ -97,10 +101,14 @@
 
 (add-hook 'org-agenda-finalize-hook
 	  (lambda ()
-	    (display-line-numbers-mode 0)
+	    (linum-mode -1)
 	    ))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Quick capture
+(defun pgwang/year-month ()
+  "Custom function to return date in format: YYYY-MM"
+  (format-time-string "%Y-%m"))
+
 (setq org-capture-templates
       '(
 ("i" "Inbox" entry (file "~/Dropbox/org/inbox.org")
@@ -122,54 +130,35 @@
 :CREATED: %U
 :END:" :empty-lines 1)
 ("j" "Journal" entry
-(file+olp+datetree "~/Dropbox/org/orgjournal.org.gpg")
+(file+olp+datetree "~/Dropbox/org/orgjournal.org.gpg" :kill-buffer)
 "* %?
 :PROPERTIES:
 :LOGGED: %U
 :END:")
 ("S" "School Entries")
-("Sc" "Chinese Assignment" entry
-(file+olp "~/Dropbox/org/school.org" "Class Todos" "_\\ *\\ OCH12 \\* \\_")
-"* TODO [#%^{Priority|C|A|B|D}] %^{Assignment Name}
-    DEADLINE: %^T
-:PROPERTIES:
-:LINK: %^{Link}
-:END:")
-("Sb" "Biology Assignment" entry
-(file+olp "~/Dropbox/org/school.org" "Class Todos" "_\\ *\\ OB010 \\* \\_")
-"* TODO [#%^{Priority|C|A|B|D}] %^{Assignment Name}
-    DEADLINE: %^T
-:PROPERTIES:
-:LINK: %^{Link}
-:END:")
-("Se" "MWA Assignment" entry
-(file+olp "~/Dropbox/org/school.org" "Class Todos" "_\\ *\\ OE011 \\* \\_")
-"* TODO [#%^{Priority|C|A|B|D}] %^{Assignment Name}
-    DEADLINE: %^T
-:PROPERTIES:
-:LINK: %^{Link}
-:END:")
-("Sm" "Calc BC Assignment" entry
-(file+olp "~/Dropbox/org/school.org" "Class Todos" "_\\ *\\ OM4BC \\* \\_")
-"* TODO [#%^{Priority|C|A|B|D}] %^{Assignment Name}
-    DEADLINE: %^T
-:PROPERTIES:
-:LINK: %^{Link}
-:END:")
-("Sp" "Philosophy Assignment" entry
-(file+olp "~/Dropbox/org/school.org" "Class Todos" "_\\ *\\ OHSC0 \\* \\_")
-"* TODO [#%^{Priority|C|A|B|D}] %^{Assignment Name}
-    DEADLINE: %^T
-:PROPERTIES:
-:LINK: %^{Link}
-:END:")
-("St" "PE Assignment" entry
-(file+olp "~/Dropbox/org/school.org" "Class Todos" "_\\ *\\ OHSPE \\* \\_")
-"* TODO [#%^{Priority|C|A|B|D}] %^{Assignment Name}
-    DEADLINE: %^T
-:PROPERTIES:
-:LINK: %^{Link}
-:END:")
+("Sc" "Chinese Quote" item
+(file+olp "~/Dropbox/org/notes/school/quotes.org" "OCH12")
+"- \"%?\" - %^{Person}
+    %u")
+("Sb" "Biology Quote" item
+(file+olp "~/Dropbox/org/notes/school/quotes.org" "OB010")
+"- \"%?\" - %^{Person}
+    %u")
+("Se" "MWA Quote" item
+(file+olp "~/Dropbox/org/notes/school/quotes.org" "OE011")
+"- \"%?\" - %^{Person}
+    %u")
+("Sm" "Calc BC Quote" item
+(file+olp "~/Dropbox/org/notes/school/quotes.org" "OM4BC")
+"- \"%?\" - %^{Person}
+    %u")
+("Sp" "Philosophy Quote" item
+(file+olp "~/Dropbox/org/notes/school/quotes.org" "OHSC0")
+"- \"%?\" - %^{Person}
+    %u")
+("Sx" "OHSPE Log" table-line
+ (file+function "~/Dropbox/org/notes/OHS/PELog/pelog.org" pgwang/year-month)
+ "|%^{Exercise}|%^{Duration of Exercise (HH:MM)}|%U|" :table-line-pos "II-1")
 ))
 
 

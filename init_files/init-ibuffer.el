@@ -11,10 +11,7 @@
 	 ("emacs-config" (or (filename . "/.emacs.d/")
 			     (filename . ".emacs.d/init.el")))
 	 ("OHS" (filename . "/Google Drive/OHS/"))
-	 ("Org" (or (mode . org-mode)
-		    (filename . "/Dropbox/org/")
-		    ;(mode . org-agenda-mode)
-		    ))
+	 ("Org" (filename . "/Dropbox/org/"))
 	 ("planner" (or
 		    (name . "\*Calendar\*")
 		    (name . "\*Org Agenda\*")
