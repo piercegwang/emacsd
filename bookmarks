@@ -4,17 +4,17 @@
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
 (("org-capture-last-stored-marker"
  (filename . "~/Dropbox/org/notes.org")
- (front-context-string . "** Music and Lyr")
- (rear-context-string . "Creed, Creed II\n")
- (position . 18633))
+ (front-context-string . "** =screencaptur")
+ (rear-context-string . ":\n\n* pyautogui\n\n")
+ (position . 31008))
 ("org-refile-last-stored"
- (filename . "~/Dropbox/org/gtd.org")
- (front-context-string . "**** Fischoff fo")
- (rear-context-string . "2-18 Mon 21:00>\n")
- (position . 9747))
+ (filename . "~/Dropbox/org/notes.org")
+ (front-context-string . "** Shawshank Red")
+ (rear-context-string . "6-29 Sat 12:20]\n")
+ (position . 22640))
 ("org-capture-last-stored"
  (filename . "~/Dropbox/org/inbox.org")
- (front-context-string . "* TODO OB010 Mid")
- (rear-context-string . "2019-03-05 Tue>\n")
- (position . 181))
+ (front-context-string . "* TODO Make a pr")
+ (rear-context-string . "7-05 Fri 14:04]\n")
+ (position . 313))
 )

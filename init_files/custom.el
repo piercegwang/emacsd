@@ -18,11 +18,9 @@
     (autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands readonly ring stamp track)))
  '(ibuffer-saved-filter-groups
    (quote
-    (("Projects"
-      ("parseassignments"
-       (filename . "/OHS/parseassignments/"))
-      ("edX"
-       (filename . "/edX/"))
+    (("Coursera"
+      ("Coursera"
+       (filename . "coursera"))
       ("emacs-config"
        (or
         (filename . "/.emacs.d/")
@@ -71,7 +69,7 @@
        (or
         (name . "*Help*")
         (name . "*info*")
-        (name . "*GNU Emacs*")))))))
+        (name . "*GNU Emacs*")))))) t)
  '(ibuffer-saved-filters
    (quote
     (("programming"
@@ -110,47 +108,10 @@
  '(indent-tabs-mode nil)
  '(org-modules
    (quote
-    (org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-w3m org-drill org-learn)))
- '(org-structure-template-alist
-   (quote
-    (("s" "#+BEGIN_SRC ?
-
-#+END_SRC")
-     ("e" "#+BEGIN_EXAMPLE
-?
-#+END_EXAMPLE")
-     ("q" "#+BEGIN_QUOTE
-?
-#+END_QUOTE")
-     ("v" "#+BEGIN_VERSE
-?
-#+END_VERSE")
-     ("V" "#+BEGIN_VERBATIM
-?
-#+END_VERBATIM")
-     ("c" "#+BEGIN_CENTER
-?
-#+END_CENTER")
-     ("C" "#+BEGIN_COMMENT
-?
-#+END_COMMENT")
-     ("l" "#+BEGIN_EXPORT latex
-?
-#+END_EXPORT")
-     ("L" "#+LaTeX: ")
-     ("h" "#+BEGIN_EXPORT html
-?
-#+END_EXPORT")
-     ("H" "#+HTML: ")
-     ("a" "#+BEGIN_EXPORT ascii
-?
-#+END_EXPORT")
-     ("A" "#+ASCII: ")
-     ("i" "#+INDEX: ?")
-     ("I" "#+INCLUDE: %file ?"))))
+    (org-bbdb org-bibtex org-docview org-gnus org-habit org-info org-irc org-mhe org-rmail org-w3m org-drill org-learn)))
  '(package-selected-packages
    (quote
-    (htmlize lua-mode helm magit elpy exec-path-from-shell smart-mode-line-powerline-theme smart-mode-line latex auctex evil-visual-mark-mode)))
+    (org htmlize lua-mode helm magit elpy exec-path-from-shell smart-mode-line-powerline-theme smart-mode-line latex auctex evil-visual-mark-mode)))
  '(show-paren-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

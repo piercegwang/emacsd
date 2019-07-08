@@ -11,7 +11,8 @@
 			     "~/Dropbox/org/violin.org"
 			     "~/Dropbox/org/inbox.org"
 			     "~/Dropbox/org/tickler.org"
-                             "~/Dropbox/org/gcal.org"))
+                             "~/Dropbox/org/gcal.org"
+                             "~/Dropbox/org/events.org"))
 (setq org-todo-keywords
       '((sequence "TODO(t)" "IN-PROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
 (setq org-default-notes-file (concat org-directory "/inbox.org"))
@@ -97,6 +98,11 @@
 ;(add-hook 'org-agenda-finalize-hook
 ;	  'org-agenda-align-tags)
 
+(add-hook 'org-mode-hook
+          (lambda ()
+            (org-cdlatex-mode)
+            ))
+
 (setq org-deadline-warning-days 7)
 
 (add-hook 'org-agenda-finalize-hook
@@ -109,10 +115,16 @@
   "Custom function to return date in format: YYYY-MM"
   (format-time-string "%Y-%m"))
 
+(defun pgwang/add-12 ()
+  "Custom function return active org timestamp with exactly 24 hour difference"
+  (format-time-string "%Y-%m-%d %a %H:%M" (time-add (current-time) 85500)))
+
 (setq org-capture-templates
       '(
 ("i" "Inbox" entry (file "~/Dropbox/org/inbox.org")
 "* TODO %?")
+("e" "Event" entry (file "~/Dropbox/org/events.org")
+"* %?")
 ("L" "Link" entry (file "~/Dropbox/org/links.org")
 "* TOREAD %?[[%:link][%:description]] %U
 " :prepend t)
@@ -130,11 +142,12 @@
 :CREATED: %U
 :END:" :empty-lines 1)
 ("j" "Journal" entry
-(file+olp+datetree "~/Dropbox/org/orgjournal.org.gpg" :kill-buffer)
+(file+olp+datetree "~/Dropbox/org/orgjournal.org.gpg")
 "* %?
 :PROPERTIES:
 :LOGGED: %U
-:END:")
+:JOY: %^{Happy? [1-10]}
+:END:" :kill-buffer t)
 ("S" "School Entries")
 ("Sc" "Chinese Quote" item
 (file+olp "~/Dropbox/org/notes/school/quotes.org" "OCH12")
@@ -159,6 +172,11 @@
 ("Sx" "OHSPE Log" table-line
  (file+function "~/Dropbox/org/notes/OHS/PELog/pelog.org" pgwang/year-month)
  "|%^{Exercise}|%^{Duration of Exercise (HH:MM)}|%U|" :table-line-pos "II-1")
+("v" "Voting Log" entry
+ (file+olp "~/Dropbox/org/fun.org" "MC Voting" "Casual Craft")
+ "* Vote
+SCHEDULED: <%(pgwang/add-12)>
+%U" :immediate-finish t)
 ))
 
 

@@ -8,6 +8,7 @@
 (setq package-archives
     '(("melpa-stable" . "https://stable.melpa.org/packages/")
       ("gnu" . "https://elpa.gnu.org/packages/")
+      ("org" . "http://orgmode.org/elpa/")
       ))
 (package-initialize)
 
@@ -96,7 +97,7 @@
 (setq user-mail-address "pierce.g.wang@gmail.com")
 
 ;;;
-(setq backup-directory-alist '(("." . "~/Dropbox/org/backup"))
+(setq backup-directory-alist '(("." . "~/org/backup"))
   backup-by-copying t    ; Don't delink hardlinks
   version-control t      ; Use version numbers on backups
   delete-old-versions t  ; Automatically delete excess backups
@@ -116,6 +117,16 @@
   (or (looking-at "[0-9]+")
       (error "No number at point"))
   (replace-match (number-to-string (1+ (string-to-number (match-string 0))))))
+
+;;; Decrement Numbers
+(defun decrement-number-at-point ()
+  "Decrements numbers at cursor"
+  (interactive)
+  (skip-chars-backward "0-9")
+  (or (looking-at "[0-9]+")
+      (error "No number at point"))
+  (replace-match (number-to-string (1- (string-to-number (match-string 0))))))
+
 
 (defun insertdirectory ()
   "Insert current directory for macro use"
@@ -167,10 +178,10 @@ If the input is non-empty, it is inserted at point."
     (windmove-down)))
 
 ;; Auto close gpg buffers
-(run-with-idle-timer 60 t (lambda ()
-                         (let ((victim (get-buffer "orgjournal.org.gpg")))
-                           (when (and victim (not (buffer-modified-p victim))) (message "Killing buffer %s" (buffer-name victim)
-                                                                                        (kill-buffer victim))))))
+;(run-with-idle-timer 60 t (lambda ()
+;                         (let ((victim (get-buffer "orgjournal.org.gpg")))
+;                           (when (and victim (not (buffer-modified-p victim))) (message "Killing buffer %s" (buffer-name victim)
+;                                                                                        (kill-buffer victim))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Keyboard Macros
@@ -220,15 +231,13 @@ If the input is non-empty, it is inserted at point."
 ;;; Regular find-file
 (global-set-key (kbd "H-C-x o") (lambda () (interactive) (switch-to-buffer "*Org Agenda*")))
 
-;;; Increment Number
+;;; Increment and Decrement Number
 (global-set-key (kbd "C-; C-=") 'increment-number-at-point)
+(global-set-key (kbd "C-; C--") 'decrement-number-at-point)
 
 ;;; Close window
 (global-set-key (kbd "s-0") 'delete-window)
 
-;;; Sync OHS Calendar
-(global-set-key (kbd "H-c H-p") (lambda () (interactive)
-                                  (shell-command "bash ~/QScripts/syncgcal.sh")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Artist-mode
@@ -305,5 +314,15 @@ If the input is non-empty, it is inserted at point."
 (put 'dired-find-alternate-file 'disabled nil)
 (put 'narrow-to-page 'disabled nil)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Octave
+(setq auto-mode-alist
+      (cons '("\\.m$" . octave-mode) auto-mode-alist))
+(add-hook 'octave-mode-hook
+          (lambda ()
+            (abbrev-mode 1)
+            (auto-fill-mode 1)
+            (if (eq window-system 'x)
+                (font-lock-mode 1))))
 
 (provide 'init)
