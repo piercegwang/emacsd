@@ -1,6 +1,6 @@
 ;;(setq debug-on-error t)
 
-;; init.el by Pierce Wang
+;; init.el by Pierce Wang for Emacs 26.1
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; packages
@@ -66,6 +66,7 @@
 (load-theme 'tango-dark t)
 (setq sml/theme 'powerline)
 (sml/setup)
+;OHS
 (add-to-list 'sml/replacer-regexp-list '("^~/Google Drive/OHS/\\([0-9]\\{2\\}\\)th Grade/Semester [0-9]/\\([0-9A-Z]*\\)/" ":\\2:"))
 
 ;; Make title bar dark
@@ -195,6 +196,10 @@ If the input is non-empty, it is inserted at point."
 (unless (server-running-p) (server-start))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Calendar Mode Hook (Switch to emacs-state)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ERC
 (setq erc-log-channels-directory "~/logs/")
 (setq erc-save-buffer-on-part t)
@@ -255,6 +260,10 @@ If the input is non-empty, it is inserted at point."
 (setq calendar-latitude 37.550201)
 (setq calendar-longitude -121.980827)
 (setq calendar-location-name "Fremont, CA")
+(add-hook 'calendar-mode-hook
+    (lambda ()
+      (evil-emacs-state)
+      ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Magit

@@ -20,7 +20,7 @@
 (global-set-key (kbd "H-c o") 
                 (lambda () (interactive) (find-file (concat org-directory "/school.org"))))
 (global-set-key (kbd "H-c p") 
-                (lambda () (interactive) (dired "~/Google Drive/OHS/10th Grade/Semester 2/")))
+                (lambda () (interactive) (dired "~/Google Drive/OHS/11th Grade/Semester 1/")))
 (global-set-key (kbd "H-c i") 
                 (lambda () (interactive) (find-file (concat org-directory "/gtd.org"))))
 (global-set-key (kbd "H-c v") 
@@ -32,13 +32,9 @@
 ;(setq org-agenda-overriding-columns-format "%28ITEM %TODO %SCHEDULED %DEADLINE %TAGS")
 
 (setq org-log-done 'time) ; Log when task marked as done
-(setq org-tag-persistent-alist '(("violin" . ?V)
-				 (:endgroup)
-				 ("@school" . ?S)
-				 ("@home" . ?H)
-				 ("@music" . ?M)
-				 (:startgroup)))
 
+
+(setq org-tag-persistent-alist '(("tag" . ?t)))
 
 ;; Org Refile
 (setq pgwang/refile-targets (file-expand-wildcards "~/Dropbox/org/*.org"))
@@ -70,10 +66,11 @@
 ;; Org Agenda
 
 ;; org-agenda-auto-exclude-function
-(defun org-my-auto-exclude-function (tag)
-  (string= tag "officehours")
-  (concat "-" tag))
-(setq org-agenda-auto-exclude-function 'org-my-auto-exclude-function)
+(defun pgwang/org-my-auto-exclude-function (tag)
+  (if
+      (string= tag "officehours")
+      (concat "-" tag)))
+(setq org-agenda-auto-exclude-function 'pgwang/org-my-auto-exclude-function)
 
 (defun org-agenda-redo-tags ()
   "Custom redo then finalize function"
@@ -115,6 +112,10 @@
   "Custom function to return date in format: YYYY-MM"
   (format-time-string "%Y-%m"))
 
+(defun pgwang/U ()
+  "Custom function to return date in org inactive timestamp format"
+  (format-time-string "[%Y-%m-%d %a]"))
+
 (defun pgwang/add-12 ()
   "Custom function return active org timestamp with exactly 24 hour difference"
   (format-time-string "%Y-%m-%d %a %H:%M" (time-add (current-time) 85500)))
@@ -146,33 +147,37 @@
 "* %?
 :PROPERTIES:
 :LOGGED: %U
-:JOY: %^{Happy? [1-10]}
+:JOY: %^{Rate enjoyment [1-10]}
 :END:" :kill-buffer t)
-("S" "School Entries")
-("Sc" "Chinese Quote" item
-(file+olp "~/Dropbox/org/notes/school/quotes.org" "OCH12")
-"- \"%?\" - %^{Person}
-    %u")
-("Sb" "Biology Quote" item
-(file+olp "~/Dropbox/org/notes/school/quotes.org" "OB010")
-"- \"%?\" - %^{Person}
-    %u")
-("Se" "MWA Quote" item
-(file+olp "~/Dropbox/org/notes/school/quotes.org" "OE011")
-"- \"%?\" - %^{Person}
-    %u")
-("Sm" "Calc BC Quote" item
-(file+olp "~/Dropbox/org/notes/school/quotes.org" "OM4BC")
-"- \"%?\" - %^{Person}
-    %u")
-("Sp" "Philosophy Quote" item
-(file+olp "~/Dropbox/org/notes/school/quotes.org" "OHSC0")
-"- \"%?\" - %^{Person}
-    %u")
+("S" "School")
 ("Sx" "OHSPE Log" table-line
  (file+function "~/Dropbox/org/notes/OHS/PELog/pelog.org" pgwang/year-month)
  "|%^{Exercise}|%^{Duration of Exercise (HH:MM)}|%U|" :table-line-pos "II-1")
-("v" "Voting Log" entry
+("F" "Fun")
+("FR" "RL Create Date" entry
+ (file+olp "~/Dropbox/org/notes/nodeka/fun_notes.org" "Rocket League" "Time Logging")
+ "*** %u
+**** Training
+***** Free Play
+**** Matches
+***** Ranked
+|            | W | L |
+|------------+---+---|
+| Solo Duels | 0 | 0 |
+| Duos       | 0 | 0 |
+| Standard   | 0 | 0 |
+***** Unranked
+|            | W | L |
+|------------+---+---|
+| Solo Duels | 0 | 0 |
+| Duos       | 0 | 0 |
+| Standard   | 0 | 0 |
+| Chaos      | 0 | 0 |
+| Rumble     | 0 | 0 |
+| Dropshot   | 0 | 0 |
+| Other      | 0 | 0 |
+" :immediate-finish t)
+("Fv" "Voting Log" entry
  (file+olp "~/Dropbox/org/fun.org" "MC Voting" "Casual Craft")
  "* Vote
 SCHEDULED: <%(pgwang/add-12)>
@@ -190,6 +195,26 @@ SCHEDULED: <%(pgwang/add-12)>
 
 ;; Org entries
 (setq org-agenda-max-entries nil)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Org Crypt
+(require 'org-crypt)
+(org-crypt-use-before-save-magic)
+(setq org-tags-exclude-from-inheritance (quote ("crypt")))
+
+(setq org-crypt-key nil)
+  ;; GPG key to use for encryption
+  ;; Either the Key ID or set to nil to use symmetric encryption.
+
+(setq auto-save-default nil)
+  ;; Auto-saving does not cooperate with org-crypt.el: so you need
+  ;; to turn it off if you plan to use org-crypt.el quite often.
+  ;; Otherwise, you'll get an (annoying) message each time you
+  ;; start Org.
+
+  ;; To turn it off only locally, you can insert this:
+  ;;
+  ;; # -*- buffer-auto-save-file-name: nil; -*-
 
 (provide 'init-org)
 ;; init-org.el ends here

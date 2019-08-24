@@ -3,18 +3,18 @@
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
 (("org-capture-last-stored-marker"
- (filename . "~/Dropbox/org/notes.org")
- (front-context-string . "** =screencaptur")
- (rear-context-string . ":\n\n* pyautogui\n\n")
- (position . 31008))
+ (filename . "~/Dropbox/org/school.org")
+ (front-context-string . "**** Meeting wit")
+ (rear-context-string . "eeting)?\n:END:\n\n")
+ (position . 6988))
 ("org-refile-last-stored"
- (filename . "~/Dropbox/org/notes.org")
- (front-context-string . "** Shawshank Red")
- (rear-context-string . "6-29 Sat 12:20]\n")
- (position . 22640))
+ (filename . "~/Dropbox/org/school.org")
+ (front-context-string . "**** Meeting wit")
+ (rear-context-string . "eeting)?\n:END:\n\n")
+ (position . 6988))
 ("org-capture-last-stored"
  (filename . "~/Dropbox/org/inbox.org")
- (front-context-string . "* TODO Make a pr")
- (rear-context-string . "7-05 Fri 14:04]\n")
- (position . 313))
+ (front-context-string . "* Meeting with A")
+ (rear-context-string)
+ (position . 1))
 )
