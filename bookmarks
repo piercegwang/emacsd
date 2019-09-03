@@ -3,18 +3,18 @@
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
 (("org-capture-last-stored-marker"
- (filename . "~/Dropbox/org/school.org")
- (front-context-string . "**** Meeting wit")
- (rear-context-string . "eeting)?\n:END:\n\n")
- (position . 6988))
+ (filename . "~/Dropbox/org/someday.org")
+ (front-context-string . "** TODO Look int")
+ (rear-context-string . "_dot_emacs.html\n")
+ (position . 4642))
 ("org-refile-last-stored"
- (filename . "~/Dropbox/org/school.org")
- (front-context-string . "**** Meeting wit")
- (rear-context-string . "eeting)?\n:END:\n\n")
- (position . 6988))
+ (filename . "~/Dropbox/org/someday.org")
+ (front-context-string . "** TODO Look int")
+ (rear-context-string . "_dot_emacs.html\n")
+ (position . 4642))
 ("org-capture-last-stored"
  (filename . "~/Dropbox/org/inbox.org")
- (front-context-string . "* Meeting with A")
- (rear-context-string)
- (position . 1))
+ (front-context-string . "* TODO Look into")
+ (rear-context-string . "9-01 Sun 11:20]\n")
+ (position . 678))
 )
