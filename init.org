@@ -69,6 +69,27 @@ This helps get rid of =functions might not be defined at runtime= warnings. See 
     (setq use-package-expand-minimally byte-compile-current-file))
 #+END_SRC
 
+*** Startup Time Test
+
+#+begin_src emacs-lisp
+  (add-hook 'emacs-startup-hook
+	    (lambda ()
+	      (message "Emacs ready in %s with %d garbage collections."
+		       (format "%.2f seconds"
+			       (float-time
+				(time-subtract after-init-time before-init-time)))
+		       gcs-done)))
+#+end_src
+
+*** Custom Set Variables
+
+Store custom-file separately, don't freek out when it's not found.
+
+#+begin_src emacs-lisp
+  (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+  (load custom-file 'noerror)
+#+end_src
+
 ** Use package
 
 Initialize package and add Melpa, GNU, and Org sources.
@@ -146,7 +167,18 @@ Install use-package.
   (menu-bar-mode -1)
   (tool-bar-mode -1)
 
-  (setq visual-line-fringe-indicators '(left-curly-arrow nil)) ;; '(left-curly-arrow right-curly-arrow) for both left and right
+  (setq visual-line-fringe-indicators '(left-curly-arrow hollow-square)) ;; '(left-curly-arrow right-curly-arrow) for both left and right
+  ;; Testing freetonik's fringe indicator alist
+  (setq-default fringe-indicator-alist '((truncation left-arrow right-arrow)
+   (continuation nil right-arrow)
+   (overlay-arrow . right-triangle)
+   (up . up-arrow)
+   (down . down-arrow)
+   (top top-left-angle top-right-angle)
+   (bottom bottom-left-angle bottom-right-angle top-right-angle top-left-angle)
+   (top-bottom left-bracket right-bracket top-right-angle top-left-angle)
+   (empty-line . empty-line)
+   (unknown . question-mark)))
 #+end_src
 
 ** Fonts
@@ -156,18 +188,18 @@ Special Fonts config for ease of zooming chinese and english fonts at same rate.
 #+begin_src emacs-lisp
   (when (display-graphic-p)
     (if (eq system-type 'darwin)
-        (set-face-attribute 'default nil :font "Source Code Pro"))
+        (set-face-attribute 'default nil :font "PT Mono"))
 
-    (defvar emacs-english-font "Source Code Pro" "The font name for English.")
+    (defvar emacs-english-font "PT Mono" "The font name for English.")
     (defvar emacs-cjk-font "WenQuanYi Micro Hei Mono" "The font name for CJK.")
     (find-font (font-spec :name "WenQuanYi Micro Hei Mono"))
     (font-family-list)
     (if (eq system-type 'windows-nt)
        (setq emacs-cjk-font "WenQuanYi Micro Hey Mono"
-              emacs-english-font "Source Code Pro")
+              emacs-english-font "PT Mono")
       (setq emacs-cjk-font "WenQuanYi Micro Hei Mono"))
 
-    (defvar emacs-font-size-pair '(13 . 16) ; Old '(12 . 14)
+    (defvar emacs-font-size-pair '(12 . 14) ; Old '(12 . 14)
       "Default font size pair for (english . chinese)")
 
     (defvar emacs-font-size-pair-list
@@ -238,14 +270,15 @@ Special Fonts config for ease of zooming chinese and english fonts at same rate.
 #+begin_src emacs-lisp
   (load-file "~/.passwords.el")
 #+end_src
-** smart-mode-line
+** Mode Line
 
 #+begin_src emacs-lisp
   (use-package smart-mode-line
     :config
-    (setq sml/theme 'powerline)
-    (sml/setup)
+    ;; (setq sml/theme 'powerline)
+    (setq sml/theme 'dark)
     (add-to-list 'sml/replacer-regexp-list '("^~/Google Drive/OHS/\\([0-9]\\{2\\}\\)th Grade/Semester [0-9]/\\([0-9A-Z]*\\)/" ":\\2:"))
+    (add-hook 'after-init-hook 'sml/setup)
     )
 #+end_src
 
@@ -326,6 +359,13 @@ Keybinds:
 Tags:
 
 #+begin_src emacs-lisp
+  (setq org-tag-persistent-alist '(("OHS" . ?S)
+				   ("noexport" . ?N)))
+#+end_src
+
+Log when tasks are marked as done:
+
+#+begin_src emacs-lisp
   (setq org-log-done 'time) ; Log when task marked as done
 #+end_src
 
@@ -393,9 +433,8 @@ Org Refile:
   ("e" "Event" entry (file "~/Dropbox/org/events.org")
   "* %?")
   ("L" "Link" entry (file "~/Dropbox/org/links.org")
-  "* TOREAD %?[[%:link][%:description]] %U
-  " :prepend t)
-  ("b" "Bookmark" entry (file+headline "~/Dropbox/org/notes.org" "Bookmarks")
+  "* TOREAD %?[[%:link][%:description]] %U" :prepend t)
+  ("l" "Link Bookmark" entry (file+headline "~/Dropbox/org/notes.org" "Bookmarks")
   "* [[%?%:link][%:description]]
   :PROPERTIES:
   :CREATED: %U
@@ -408,12 +447,13 @@ Org Refile:
   :PROPERTIES:
   :CREATED: %U
   :END:" :empty-lines 1)
+  ("b" "Book" entry (file+headline "~/Dropbox/org/notes.org" "Books")
+   "* %^{RATING}p%^{Book Title}")
   ("j" "Journal" entry
   (file+olp+datetree "~/Dropbox/org/orgjournal.org.gpg")
-  "* %?
+  "* %^{RATING}p%?
   :PROPERTIES:
-  :LOGGED: %U
-  :JOY: %^{Rate enjoyment [1-10]}
+  :LOGGED: %^{Logged Time}U
   :END:" :kill-buffer t)
   ("S" "School")
   ("Sx" "OHSPE Log" table-line
@@ -463,22 +503,26 @@ Org Refile:
 *** Crypt
 
 #+begin_src emacs-lisp
-  (org-crypt-use-before-save-magic)
-  (setq org-tags-exclude-from-inheritance (quote ("crypt")))
+  (use-package org-crypt
+    :load-path "elpa/org-9.2.3"
+    :config
+    (org-crypt-use-before-save-magic)
+    (setq org-tags-exclude-from-inheritance (quote ("crypt")))
 
-  (setq org-crypt-key nil)
-  ;; GPG key to use for encryption
-  ;; Either the Key ID or set to nil to use symmetric encryption.
-
-  (setq auto-save-default nil)
-  ;; Auto-saving does not cooperate with org-crypt.el: so you need
-  ;; to turn it off if you plan to use org-crypt.el quite often.
-  ;; Otherwise, you'll get an (annoying) message each time you
-  ;; start Org.
-
-  ;; To turn it off only locally, you can insert this:
-  ;;
-  ;; # -*- buffer-auto-save-file-name: nil; -*-
+    (setq org-crypt-key nil)
+    ;; GPG key to use for encryption
+    ;; Either the Key ID or set to nil to use symmetric encryption.
+  
+    (setq auto-save-default nil)
+    ;; Auto-saving does not cooperate with org-crypt.el: so you need
+    ;; to turn it off if you plan to use org-crypt.el quite often.
+    ;; Otherwise, you'll get an (annoying) message each time you
+    ;; start Org.
+  
+    ;; To turn it off only locally, you can insert this:
+    ;;
+    ;; # -*- buffer-auto-save-file-name: nil; -*-
+    )
 #+end_src
 
 *** Babel
@@ -543,7 +587,7 @@ Org Refile:
 ** Macros
 #+begin_src emacs-lisp
   (fset 'setupworkspace
-     [?\C-c ?a ?a ?d ?. ?\C-x ?0 M-f10 ?\C-x ?3 ?\H-l ?\H-\C-x ?o ?\C-x ?2 ?\H-j ?\H-c ?i ?\H-h ?\H-c ?o ?\H-l ?\C-u ?7 ?\C-x ?^])
+     [?\C-c ?a ?a ?d ?. ?\C-x ?0 M-f10 ?\C-x ?3 ?\H-l ?\H-\C-x ?o ?\C-x ?2 ?\C-u ?7 ?\C-x ?^ ?\H-j ?\H-c ?i ?\H-h ?\H-c ?o ?\H-l])
   (global-set-key (kbd "C-x C-k 1") 'setupworkspace)
 
   ;;(fset 'OHSFigureSave
@@ -809,3 +853,4 @@ Org Refile:
   (put 'narrow-to-page 'disabled nil)
 #+end_src
 
+** Last Things

@@ -15,6 +15,17 @@ tangled, and the tangled file is compiled."
 (eval-when-compile
   (setq use-package-expand-minimally byte-compile-current-file))
 
+(add-hook 'emacs-startup-hook
+	  (lambda ()
+	    (message "Emacs ready in %s with %d garbage collections."
+		     (format "%.2f seconds"
+			     (float-time
+			      (time-subtract after-init-time before-init-time)))
+		     gcs-done)))
+
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file 'noerror)
+
 (require 'package)
 (setq package-archives
     '(("melpa-stable" . "https://stable.melpa.org/packages/")
@@ -70,22 +81,33 @@ tangled, and the tangled file is compiled."
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 
-(setq visual-line-fringe-indicators '(left-curly-arrow nil)) ;; '(left-curly-arrow right-curly-arrow) for both left and right
+(setq visual-line-fringe-indicators '(left-curly-arrow hollow-square)) ;; '(left-curly-arrow right-curly-arrow) for both left and right
+;; Testing freetonik's fringe indicator alist
+(setq-default fringe-indicator-alist '((truncation left-arrow right-arrow)
+ (continuation nil right-arrow)
+ (overlay-arrow . right-triangle)
+ (up . up-arrow)
+ (down . down-arrow)
+ (top top-left-angle top-right-angle)
+ (bottom bottom-left-angle bottom-right-angle top-right-angle top-left-angle)
+ (top-bottom left-bracket right-bracket top-right-angle top-left-angle)
+ (empty-line . empty-line)
+ (unknown . question-mark)))
 
 (when (display-graphic-p)
   (if (eq system-type 'darwin)
-      (set-face-attribute 'default nil :font "Source Code Pro"))
+      (set-face-attribute 'default nil :font "PT Mono"))
 
-  (defvar emacs-english-font "Source Code Pro" "The font name for English.")
+  (defvar emacs-english-font "PT Mono" "The font name for English.")
   (defvar emacs-cjk-font "WenQuanYi Micro Hei Mono" "The font name for CJK.")
   (find-font (font-spec :name "WenQuanYi Micro Hei Mono"))
   (font-family-list)
   (if (eq system-type 'windows-nt)
      (setq emacs-cjk-font "WenQuanYi Micro Hey Mono"
-            emacs-english-font "Source Code Pro")
+            emacs-english-font "PT Mono")
     (setq emacs-cjk-font "WenQuanYi Micro Hei Mono"))
 
-  (defvar emacs-font-size-pair '(13 . 16) ; Old '(12 . 14)
+  (defvar emacs-font-size-pair '(12 . 14) ; Old '(12 . 14)
     "Default font size pair for (english . chinese)")
 
   (defvar emacs-font-size-pair-list
@@ -151,9 +173,10 @@ tangled, and the tangled file is compiled."
 
 (use-package smart-mode-line
   :config
-  (setq sml/theme 'powerline)
-  (sml/setup)
+  ;; (setq sml/theme 'powerline)
+  (setq sml/theme 'dark)
   (add-to-list 'sml/replacer-regexp-list '("^~/Google Drive/OHS/\\([0-9]\\{2\\}\\)th Grade/Semester [0-9]/\\([0-9A-Z]*\\)/" ":\\2:"))
+  (add-hook 'after-init-hook 'sml/setup)
   )
 
 (use-package helm
@@ -208,6 +231,9 @@ tangled, and the tangled file is compiled."
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-cb" 'org-switchb)
+
+(setq org-tag-persistent-alist '(("OHS" . ?S)
+				 ("noexport" . ?N)))
 
 (setq org-log-done 'time) ; Log when task marked as done
 
@@ -264,9 +290,8 @@ tangled, and the tangled file is compiled."
 ("e" "Event" entry (file "~/Dropbox/org/events.org")
 "* %?")
 ("L" "Link" entry (file "~/Dropbox/org/links.org")
-"* TOREAD %?[[%:link][%:description]] %U
-" :prepend t)
-("b" "Bookmark" entry (file+headline "~/Dropbox/org/notes.org" "Bookmarks")
+"* TOREAD %?[[%:link][%:description]] %U" :prepend t)
+("l" "Link Bookmark" entry (file+headline "~/Dropbox/org/notes.org" "Bookmarks")
 "* [[%?%:link][%:description]]
 :PROPERTIES:
 :CREATED: %U
@@ -279,12 +304,13 @@ tangled, and the tangled file is compiled."
 :PROPERTIES:
 :CREATED: %U
 :END:" :empty-lines 1)
+("b" "Book" entry (file+headline "~/Dropbox/org/notes.org" "Books")
+ "* %^{RATING}p%^{Book Title}")
 ("j" "Journal" entry
 (file+olp+datetree "~/Dropbox/org/orgjournal.org.gpg")
-"* %?
+"* %^{RATING}p%?
 :PROPERTIES:
-:LOGGED: %U
-:JOY: %^{Rate enjoyment [1-10]}
+:LOGGED: %^{Logged Time}U
 :END:" :kill-buffer t)
 ("S" "School")
 ("Sx" "OHSPE Log" table-line
@@ -326,22 +352,26 @@ SCHEDULED: <%(pgwang/add-12)>
 ;; Set to <your Dropbox root directory>/MobileOrg.
 (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
 
-(org-crypt-use-before-save-magic)
-(setq org-tags-exclude-from-inheritance (quote ("crypt")))
+(use-package org-crypt
+  :load-path "elpa/org-9.2.3"
+  :config
+  (org-crypt-use-before-save-magic)
+  (setq org-tags-exclude-from-inheritance (quote ("crypt")))
 
-(setq org-crypt-key nil)
-;; GPG key to use for encryption
-;; Either the Key ID or set to nil to use symmetric encryption.
+  (setq org-crypt-key nil)
+  ;; GPG key to use for encryption
+  ;; Either the Key ID or set to nil to use symmetric encryption.
 
-(setq auto-save-default nil)
-;; Auto-saving does not cooperate with org-crypt.el: so you need
-;; to turn it off if you plan to use org-crypt.el quite often.
-;; Otherwise, you'll get an (annoying) message each time you
-;; start Org.
+  (setq auto-save-default nil)
+  ;; Auto-saving does not cooperate with org-crypt.el: so you need
+  ;; to turn it off if you plan to use org-crypt.el quite often.
+  ;; Otherwise, you'll get an (annoying) message each time you
+  ;; start Org.
 
-;; To turn it off only locally, you can insert this:
-;;
-;; # -*- buffer-auto-save-file-name: nil; -*-
+  ;; To turn it off only locally, you can insert this:
+  ;;
+  ;; # -*- buffer-auto-save-file-name: nil; -*-
+  )
 
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -381,7 +411,7 @@ SCHEDULED: <%(pgwang/add-12)>
                 (font-lock-mode 1))))
 
 (fset 'setupworkspace
-   [?\C-c ?a ?a ?d ?. ?\C-x ?0 M-f10 ?\C-x ?3 ?\H-l ?\H-\C-x ?o ?\C-x ?2 ?\H-j ?\H-c ?i ?\H-h ?\H-c ?o ?\H-l ?\C-u ?7 ?\C-x ?^])
+   [?\C-c ?a ?a ?d ?. ?\C-x ?0 M-f10 ?\C-x ?3 ?\H-l ?\H-\C-x ?o ?\C-x ?2 ?\C-u ?7 ?\C-x ?^ ?\H-j ?\H-c ?i ?\H-h ?\H-c ?o ?\H-l])
 (global-set-key (kbd "C-x C-k 1") 'setupworkspace)
 
 ;;(fset 'OHSFigureSave
