@@ -8,3 +8,8 @@ url/
 network-security.data
 request/
 auto-save-list/
+bookmarks
+
+# ignore site-lisp git clones
+site-lisp/*
+!site-lisp/README

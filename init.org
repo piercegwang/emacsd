@@ -251,7 +251,7 @@ Special Fonts config for ease of zooming chinese and english fonts at same rate.
     (global-set-key (kbd "C--") 'decrease-emacs-font-size)
     )
 
-  (set-face-attribute 'default nil :font emacs-english-font :height 130)
+  (set-face-attribute 'default nil :font emacs-english-font :height 120)
   (dolist (charset '(kana han symbol cjk-misc bopomofo))
       (set-face-attribute charset (font-spec :family emacs-cjk-font :size (cdr emacs-font-size-pair))))
 
@@ -432,18 +432,13 @@ Org Refile:
   "* TODO %?")
   ("e" "Event" entry (file "~/Dropbox/org/events.org")
   "* %?")
-  ("L" "Link" entry (file "~/Dropbox/org/links.org")
-  "* TOREAD %?[[%:link][%:description]] %U" :prepend t)
-  ("l" "Link Bookmark" entry (file+headline "~/Dropbox/org/notes.org" "Bookmarks")
+  ("L" "Link" entry (file+headline "~/Dropbox/org/links.org" "Inbox")
   "* [[%?%:link][%:description]]
   :PROPERTIES:
   :CREATED: %U
-  :END:
-
-  " :empty-lines 1)
+  :END:" :prepend t)
   ("m" "Manual" entry (file "~/Dropbox/org/notes.org")
   "* %?
-
   :PROPERTIES:
   :CREATED: %U
   :END:" :empty-lines 1)
@@ -456,9 +451,26 @@ Org Refile:
   :LOGGED: %^{Logged Time}U
   :END:" :kill-buffer t)
   ("S" "School")
-  ("Sx" "OHSPE Log" table-line
-   (file+function "~/Dropbox/org/notes/OHS/PELog/pelog.org" pgwang/year-month)
-   "|%^{Exercise}|%^{Duration of Exercise (HH:MM)}|%U|" :table-line-pos "II-1")
+  ("Se" "OE020B" entry
+   (file+headline "~/Dropbox/org/school.org" "_\\ *sOE020B* \\_")
+   "* TODO %?
+       DEADLINE: <%<%Y-%m-%d %a 13:30>>")
+  ("Sp" "OP005" entry
+   (file+headline "~/Dropbox/org/school.org" "_\\ *sOP005* \\_")
+   "* TODO %?
+       DEADLINE: <%<%Y-%m-%d %a 14:45>>")
+  ("Sd" "ODFRL" entry
+   (file+headline "~/Dropbox/org/school.org" "_\\ *sODFRL* \\_")
+   "* TODO %?
+       DEADLINE: <%<%Y-%m-%d %a 16:00>>")
+  ("Sh" "OH011A" entry
+   (file+headline "~/Dropbox/org/school.org" "_\\ *sOH011A* \\_")
+   "* TODO %?
+       DEADLINE: <%<%Y-%m-%d %a 08:30>>")
+  ("Sm" "UM52A" entry
+   (file+headline "~/Dropbox/org/school.org" "_\\ *sUM52A* \\_")
+   "**** TODO %?
+       DEADLINE: <%<%Y-%m-%d %a 13:30>>")
   ("F" "Fun")
   ("FR" "RL Create Date" entry
    (file+olp "~/Dropbox/org/notes/nodeka/fun_notes.org" "Rocket League" "Time Logging")
@@ -735,6 +747,14 @@ Org Refile:
   (use-package magit
     :config
     (global-set-key (kbd "C-x g") 'magit-status))
+#+end_src
+** yasnippet - Yet Another Snippet Extension
+#+begin_src emacs-lisp
+  (use-package yasnippet
+    :config
+    (yas/initialize)
+    (yas-global-mode 1) ;; or M-x yas-reload-all if you've started YASnippet already.
+    )
 #+end_src
 ** Backups
 #+begin_src emacs-lisp

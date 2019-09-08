@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: hat
+# key: ha
+# condition: (org-inside-LaTeX-fragment-p)
+# --
+\hat{$1}$0

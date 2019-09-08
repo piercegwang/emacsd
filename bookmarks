@@ -2,19 +2,44 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("org-capture-last-stored-marker"
- (filename . "~/Dropbox/org/notes.org")
- (front-context-string . "** Calc Unit Tab")
- (rear-context-string . "ue 08:43]\n:END:\n")
- (position . 17853))
-("org-refile-last-stored"
- (filename . "~/Dropbox/org/notes.org")
- (front-context-string . "** Calc Unit Tab")
- (rear-context-string . "ue 08:43]\n:END:\n")
- (position . 17853))
-("org-capture-last-stored"
+(("violin"
+ (filename . "~/Dropbox/org/violin.org")
+ (front-context-string . "#+PRIORITIES: 1 ")
+ (rear-context-string)
+ (position . 1))
+("gtd"
+ (filename . "~/Dropbox/org/gtd.org")
+ (front-context-string . "#+PRIORITIES: A ")
+ (rear-context-string)
+ (position . 1))
+("links"
+ (filename . "~/Dropbox/org/links.org")
+ (front-context-string . "* OHS\n** [[https")
+ (rear-context-string . "13:56]\n   :END:\n")
+ (position . 698))
+("inbox"
  (filename . "~/Dropbox/org/inbox.org")
  (front-context-string . "* TODO Organize ")
  (rear-context-string)
  (position . 1))
+("school"
+ (filename . "~/Dropbox/org/school.org")
+ (front-context-string . "* 2019-2020\n** *")
+ (rear-context-string . "PTIONS: toc:nil\n")
+ (position . 466))
+("org-capture-last-stored-marker"
+ (filename . "~/Dropbox/org/school.org")
+ (front-context-string . "**** PW/TGIF Ann")
+ (rear-context-string . "ri 14:00-15:00>\n")
+ (position . 18349))
+("org-refile-last-stored"
+ (filename . "~/Dropbox/org/school.org")
+ (front-context-string . "*** DONE Sign up")
+ (rear-context-string . "r to call them?\n")
+ (position . 21856))
+("org-capture-last-stored"
+ (filename . "~/Dropbox/org/events.org")
+ (front-context-string . "* PW/TGIF Announ")
+ (rear-context-string . "9-01 Sun 11:20]\n")
+ (position . 2960))
 )

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: vec
+# key: v
+# condition: (org-inside-LaTeX-fragment-p)
+# --
+\vec{$1}$0

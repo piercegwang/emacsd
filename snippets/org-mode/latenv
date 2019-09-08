@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: LaTeX Environment \( \)
+# key: lav
+# --
+\\( $0 \\)
