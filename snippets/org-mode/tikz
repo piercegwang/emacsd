@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: tikz figure in LaTeX Export
+# key: tikz
+# --
+
+#+begin_export latex
+\begin{tikzpicture}
+$0
+\end{tikzpicture}
+#+end_export

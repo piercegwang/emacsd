@@ -69,8 +69,10 @@ tangled, and the tangled file is compiled."
 (global-set-key (kbd "H-v") 'visual-line-mode)
 
 ;(global-visual-line-mode t)
-(global-linum-mode 1)
-(global-display-line-numbers-mode 0)
+(global-linum-mode 0)
+(global-display-line-numbers-mode 1)
+(setq-default display-line-numbers 'relative)
+(setq display-line-numbers-type 'relative)
 (set-default 'truncate-lines t)
 
 ;; Make title bar dark
@@ -96,15 +98,15 @@ tangled, and the tangled file is compiled."
 
 (when (display-graphic-p)
   (if (eq system-type 'darwin)
-      (set-face-attribute 'default nil :font "PT Mono"))
+      (set-face-attribute 'default nil :font "Menlo"))
 
-  (defvar emacs-english-font "PT Mono" "The font name for English.")
+  (defvar emacs-english-font "Menlo" "The font name for English.")
   (defvar emacs-cjk-font "WenQuanYi Micro Hei Mono" "The font name for CJK.")
   (find-font (font-spec :name "WenQuanYi Micro Hei Mono"))
   (font-family-list)
   (if (eq system-type 'windows-nt)
      (setq emacs-cjk-font "WenQuanYi Micro Hey Mono"
-            emacs-english-font "PT Mono")
+            emacs-english-font "Menlo")
     (setq emacs-cjk-font "WenQuanYi Micro Hei Mono"))
 
   (defvar emacs-font-size-pair '(12 . 14) ; Old '(12 . 14)
@@ -265,7 +267,7 @@ tangled, and the tangled file is compiled."
 
 (add-hook 'org-agenda-finalize-hook
           (lambda ()
-            (linum-mode -1)
+            (display-line-numbers-mode -1)
             ))
 
 ;; Org entries
@@ -404,6 +406,10 @@ SCHEDULED: <%(pgwang/add-12)>
   )
 
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.4))
+(setq org-format-latex-options (plist-put org-format-latex-options :html-scale 0.9))
+
+(use-package org-bullets
+    :hook (org-mode . org-bullets-mode))
 
 ;Probably not needed
 ;(add-to-list 'load-path "~/.emacs.d/site-lisp/evil")
@@ -648,6 +654,8 @@ If the input is non-empty, it is inserted at point."
 (add-hook 'ibuffer-mode-hook
           (lambda ()
             (ibuffer-switch-to-saved-filter-groups "default")))
+
+(setq delete-by-moving-to-trash t)
 
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)

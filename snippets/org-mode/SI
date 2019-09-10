@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: dfrac
-# key: dfr
+# name: SI Unit
+# key: si
 # condition: (org-inside-LaTeX-fragment-p)
 # --
-\dfrac{$0}{}
+\SI{$0}{}

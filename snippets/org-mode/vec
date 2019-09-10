@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: vec
-# key: v
+# key: ve
 # condition: (org-inside-LaTeX-fragment-p)
 # --
-\vec{$1}$0
+\vec{$0}

@@ -155,8 +155,10 @@ Install use-package.
   (global-set-key (kbd "H-v") 'visual-line-mode)
 
   ;(global-visual-line-mode t)
-  (global-linum-mode 1)
-  (global-display-line-numbers-mode 0)
+  (global-linum-mode 0)
+  (global-display-line-numbers-mode 1)
+  (setq-default display-line-numbers 'relative)
+  (setq display-line-numbers-type 'relative)
   (set-default 'truncate-lines t)
 
   ;; Make title bar dark
@@ -188,15 +190,15 @@ Special Fonts config for ease of zooming chinese and english fonts at same rate.
 #+begin_src emacs-lisp
   (when (display-graphic-p)
     (if (eq system-type 'darwin)
-        (set-face-attribute 'default nil :font "PT Mono"))
+        (set-face-attribute 'default nil :font "Menlo"))
 
-    (defvar emacs-english-font "PT Mono" "The font name for English.")
+    (defvar emacs-english-font "Menlo" "The font name for English.")
     (defvar emacs-cjk-font "WenQuanYi Micro Hei Mono" "The font name for CJK.")
     (find-font (font-spec :name "WenQuanYi Micro Hei Mono"))
     (font-family-list)
     (if (eq system-type 'windows-nt)
        (setq emacs-cjk-font "WenQuanYi Micro Hey Mono"
-              emacs-english-font "PT Mono")
+              emacs-english-font "Menlo")
       (setq emacs-cjk-font "WenQuanYi Micro Hei Mono"))
 
     (defvar emacs-font-size-pair '(12 . 14) ; Old '(12 . 14)
@@ -404,7 +406,7 @@ Org Refile:
 
   (add-hook 'org-agenda-finalize-hook
             (lambda ()
-              (linum-mode -1)
+              (display-line-numbers-mode -1)
               ))
 
   ;; Org entries
@@ -571,6 +573,12 @@ Org Refile:
 
 #+begin_src emacs-lisp
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.4))
+  (setq org-format-latex-options (plist-put org-format-latex-options :html-scale 0.9))
+#+end_src
+*** Org Bullets
+#+begin_src emacs-lisp
+  (use-package org-bullets
+      :hook (org-mode . org-bullets-mode))
 #+end_src
 ** Evil
 #+begin_src emacs-lisp
@@ -863,7 +871,10 @@ Org Refile:
             (lambda ()
               (ibuffer-switch-to-saved-filter-groups "default")))
 #+end_src
-
+** Dired
+#+begin_src emacs-lisp
+  (setq delete-by-moving-to-trash t)
+#+end_src
 ** Disabled Functions
 #+begin_src emacs-lisp
   (put 'upcase-region 'disabled nil)
