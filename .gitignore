@@ -9,6 +9,7 @@ network-security.data
 request/
 auto-save-list/
 bookmarks
+.cache/
 
 # ignore site-lisp git clones
 site-lisp/*

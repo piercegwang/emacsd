@@ -1889,7 +1889,7 @@
 		("Alex Harsanyi" . "AlexHarsanyi@gmail.com"))
 	       (:keywords "languages" "sql"))])
  (ssh-deploy .
-	     [(3 1 8)
+	     [(3 1 9)
 	      ((emacs
 		(25)))
 	      "Deployment via Tramp, global or per directory." tar

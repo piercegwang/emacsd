@@ -60,7 +60,7 @@ tangled, and the tangled file is compiled."
 ;;; Change shell process (from bash to zsh)
 (setq shell-file-name "/bin/zsh")
 
-(load-theme 'tango-dark t)
+;(load-theme 'tango-dark t)
 ;;; Frame
 (add-to-list 'default-frame-alist '(height . 46))
 (add-to-list 'default-frame-alist '(width . 146))
@@ -71,13 +71,13 @@ tangled, and the tangled file is compiled."
 ;(global-visual-line-mode t)
 (global-linum-mode 0)
 (global-display-line-numbers-mode 1)
-(setq-default display-line-numbers 'relative)
-(setq display-line-numbers-type 'relative)
+(setq-default display-line-numbers 'visual)
+(setq display-line-numbers-type 'visualr)
 (set-default 'truncate-lines t)
 
 ;; Make title bar dark
-(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-(add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; assuming you are using a dark theme
+;(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+;(add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; assuming you are using a dark theme
 ;;(setq ns-use-proxy-icon nil)
 ;;(setq frame-title-format nil)
 (menu-bar-mode -1)
@@ -95,6 +95,39 @@ tangled, and the tangled file is compiled."
  (top-bottom left-bracket right-bracket top-right-angle top-left-angle)
  (empty-line . empty-line)
  (unknown . question-mark)))
+
+(use-package all-the-icons)
+
+(use-package doom-themes)
+
+;; Global settings (defaults)
+(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+      doom-themes-enable-italic t) ; if nil, italics is universally disabled
+
+;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
+;; may have their own settings.
+(load-theme 'doom-molokai t)
+
+;; Enable flashing mode-line on errors
+(doom-themes-visual-bell-config)
+
+;; Enable custom neotree theme (all-the-icons must be installed!)
+(doom-themes-neotree-config)
+;; or for treemacs users
+(setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
+(doom-themes-treemacs-config)
+
+;; Corrects (and improves) org-mode's native fontification.
+(doom-themes-org-config)
+
+;; this must be used after loading the theme with (load-theme THEME-NAME t)
+(custom-set-faces
+ `(org-time-grid ((t (:foreground ,(doom-blend 'yellow 'fg 0.6)))))
+ )
+
+(use-package treemacs)
+(use-package treemacs-evil)
+(use-package treemacs-magit)
 
 (when (display-graphic-p)
   (if (eq system-type 'darwin)
@@ -172,14 +205,6 @@ tangled, and the tangled file is compiled."
 (setf epa-pinentry-mode 'loopback)
 
 (load-file "~/.passwords.el")
-
-(use-package smart-mode-line
-  :config
-  ;; (setq sml/theme 'powerline)
-  (setq sml/theme 'dark)
-  (add-to-list 'sml/replacer-regexp-list '("^~/Google Drive/OHS/\\([0-9]\\{2\\}\\)th Grade/Semester [0-9]/\\([0-9A-Z]*\\)/" ":\\2:"))
-  (add-hook 'after-init-hook 'sml/setup)
-  )
 
 (use-package helm
   :config

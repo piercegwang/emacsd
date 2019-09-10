@@ -146,7 +146,7 @@ Install use-package.
 ** Visuals
 
 #+begin_src emacs-lisp
-  (load-theme 'tango-dark t)
+  ;(load-theme 'tango-dark t)
   ;;; Frame
   (add-to-list 'default-frame-alist '(height . 46))
   (add-to-list 'default-frame-alist '(width . 146))
@@ -157,13 +157,13 @@ Install use-package.
   ;(global-visual-line-mode t)
   (global-linum-mode 0)
   (global-display-line-numbers-mode 1)
-  (setq-default display-line-numbers 'relative)
-  (setq display-line-numbers-type 'relative)
+  (setq-default display-line-numbers 'visual)
+  (setq display-line-numbers-type 'visualr)
   (set-default 'truncate-lines t)
 
   ;; Make title bar dark
-  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-  (add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; assuming you are using a dark theme
+  ;(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+  ;(add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; assuming you are using a dark theme
   ;;(setq ns-use-proxy-icon nil)
   ;;(setq frame-title-format nil)
   (menu-bar-mode -1)
@@ -182,7 +182,47 @@ Install use-package.
    (empty-line . empty-line)
    (unknown . question-mark)))
 #+end_src
+*** All the Icons
+#+begin_src emacs-lisp
+  (use-package all-the-icons)
+#+end_src
+*** Doom Theme
+#+begin_src emacs-lisp
+  (use-package doom-themes)
 
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+
+  ;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
+  ;; may have their own settings.
+  (load-theme 'doom-molokai t)
+
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+
+  ;; Enable custom neotree theme (all-the-icons must be installed!)
+  (doom-themes-neotree-config)
+  ;; or for treemacs users
+  (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
+  (doom-themes-treemacs-config)
+
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config)
+#+end_src
+**** Set Orgmode Agenda Stuff
+#+begin_src emacs-lisp
+  ;; this must be used after loading the theme with (load-theme THEME-NAME t)
+  (custom-set-faces
+   `(org-time-grid ((t (:foreground ,(doom-blend 'yellow 'fg 0.6)))))
+   )
+#+end_src
+** Treemacs
+#+begin_src emacs-lisp
+  (use-package treemacs)
+  (use-package treemacs-evil)
+  (use-package treemacs-magit)
+#+end_src
 ** Fonts
 
 Special Fonts config for ease of zooming chinese and english fonts at same rate.
@@ -274,11 +314,11 @@ Special Fonts config for ease of zooming chinese and english fonts at same rate.
 #+end_src
 ** Mode Line
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (use-package smart-mode-line
     :config
     ;; (setq sml/theme 'powerline)
-    (setq sml/theme 'dark)
+    ;(setq sml/theme 'dark)
     (add-to-list 'sml/replacer-regexp-list '("^~/Google Drive/OHS/\\([0-9]\\{2\\}\\)th Grade/Semester [0-9]/\\([0-9A-Z]*\\)/" ":\\2:"))
     (add-hook 'after-init-hook 'sml/setup)
     )
