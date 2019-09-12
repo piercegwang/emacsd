@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: Strikethrough Org
-# key: +
-# --
-+$1+$0

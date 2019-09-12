@@ -110,7 +110,7 @@
     (org-bbdb org-bibtex org-docview org-gnus org-habit org-info org-irc org-mhe org-rmail org-w3m org-drill org-learn)))
  '(package-selected-packages
    (quote
-    (treemacs-magit treemacs-evil treemacs doom-themes org-bullets org htmlize lua-mode helm magit elpy exec-path-from-shell smart-mode-line latex auctex evil-visual-mark-mode)))
+    (epa-file framemove treemacs-magit treemacs-evil treemacs doom-themes org-bullets org htmlize lua-mode helm magit elpy exec-path-from-shell smart-mode-line latex auctex evil-visual-mark-mode)))
  '(show-paren-mode nil)
  '(sml/pre-modes-separator (propertize " " (quote face) (quote sml/modes))))
 (custom-set-faces
@@ -118,4 +118,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(org-habit-alert-face ((t (:foreground "#d7d4ca"))))
+ '(org-habit-overdue-face ((t (:foreground "#d7c8c4"))))
+ '(org-habit-ready-face ((t (:foreground "#c4ced3"))))
+ '(org-time-grid ((t (:foreground "#ddcd98")))))

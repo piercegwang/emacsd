@@ -1,3 +1,39 @@
+;;; Increment Numbers
+(defun increment-number-at-point ()
+  "Increments numbers at cursor"
+  (interactive)
+  (skip-chars-backward "0-9")
+  (or (looking-at "[0-9]+")
+      (error "No number at point"))
+  (replace-match (number-to-string (1+ (string-to-number (match-string 0))))))
+
+;;; Decrement Numbers
+(defun decrement-number-at-point ()
+  "Decrements numbers at cursor"
+  (interactive)
+  (skip-chars-backward "0-9")
+  (or (looking-at "[0-9]+")
+      (error "No number at point"))
+  (replace-match (number-to-string (1- (string-to-number (match-string 0))))))
+
+;;; Binding
+(global-set-key (kbd "C-; C-=") 'increment-number-at-point)
+(global-set-key (kbd "C-; C--") 'decrement-number-at-point)
+
+(defun insertdirectory ()
+  "Insert current directory for macro use"
+  (interactive)
+  (insert default-directory))
+
+(defun ignore-error-wrapper (fn)
+  "Funtion return new function that ignore errors.
+     The function wraps a function with `ignore-errors' macro."
+  (lexical-let ((fn fn))
+    (lambda ()
+      (interactive)
+      (ignore-errors
+        (funcall fn)))))
+
 ;;; -*- lexical-binding: t -*-
 
 (defun tangle-init ()
@@ -129,82 +165,33 @@ tangled, and the tangled file is compiled."
  `(org-habit-overdue-face ((t (:foreground ,(doom-blend 'red 'fg 0.1)))))
  )
 
+(when (fboundp 'windmove-default-keybindings)
+  (global-set-key (kbd "H-h") (ignore-error-wrapper 'windmove-left))
+  (global-set-key (kbd "H-l") (ignore-error-wrapper 'windmove-right))
+  (global-set-key (kbd "H-k") (ignore-error-wrapper 'windmove-up))
+  (global-set-key (kbd "H-j") (ignore-error-wrapper 'windmove-down))
+  )
+
+;; Disabled, Doesn't really work for me - going to use s-left and s-right instead
+;; (use-package framemove
+;;   :load-path "custom_load"
+;;   :config
+;;   (require 'framemove)
+;;   (global-set-key (kbd "C-s-<down>")  'fm-down-frame)
+;;   (global-set-key (kbd "C-s-<up>")    'fm-up-frame)
+;;   (global-set-key (kbd "C-s-<left>")  'fm-left-frame)
+;;   (global-set-key (kbd "C-s-<right>") 'fm-right-frame)
+;;   (setq framemove-hook-into-windmove t)
+;;   )
+
 (use-package treemacs)
 (use-package treemacs-evil)
 (use-package treemacs-magit)
 
-(when (display-graphic-p)
-  (if (eq system-type 'darwin)
-      (set-face-attribute 'default nil :font "Menlo"))
+(add-to-list 'default-frame-alist
+             '(font . "Menlo-12"))
 
-  (defvar emacs-english-font "Menlo" "The font name for English.")
-  (defvar emacs-cjk-font "WenQuanYi Micro Hei Mono" "The font name for CJK.")
-  (find-font (font-spec :name "WenQuanYi Micro Hei Mono"))
-  (font-family-list)
-  (if (eq system-type 'windows-nt)
-     (setq emacs-cjk-font "WenQuanYi Micro Hey Mono"
-            emacs-english-font "Menlo")
-    (setq emacs-cjk-font "WenQuanYi Micro Hei Mono"))
-
-  (defvar emacs-font-size-pair '(12 . 14) ; Old '(12 . 14)
-    "Default font size pair for (english . chinese)")
-
-  (defvar emacs-font-size-pair-list
-    '((5 .  6) (9 . 10) (10 . 12) (12 . 14)
-      (13 . 16) (15 . 18) (17 . 20) (19 . 22)
-      (20 . 24) (21 . 26) (24 . 28) (26 . 32)
-      (28 . 34) (30 . 36) (34 . 40) (36 . 44))
-    "This list is used to store matching (english . chinese) font-size.")
-
-  (defun font-exist-p (fontname)
-    "Test if this font is exist or not."
-    (if (or (not fontname) (string= fontname ""))
-        nil
-      (if (not (x-list-fonts fontname)) nil t)))
-
-  (defun set-font (english chinese size-pair)
-    "Setup emacs English and Chinese font on x window-system."
-
-    (if (font-exist-p english)
-        (set-frame-font (format "%s:pixelsize=%d" english (car size-pair)) t))
-
-    (if (font-exist-p chinese)
-        (dolist (charset '(kana han symbol cjk-misc bopomofo))
-          (set-fontset-font (frame-parameter nil 'font) charset
-                            (font-spec :family chinese :size (cdr size-pair))))))
-  ;; Setup font size based on emacs-font-size-pair
-  (set-font emacs-english-font emacs-cjk-font emacs-font-size-pair)
-
-  (defun emacs-step-font-size (step)
-    "Increase/Decrease emacs's font size."
-    (let ((scale-steps emacs-font-size-pair-list))
-      (if (< step 0) (setq scale-steps (reverse scale-steps)))
-      (setq emacs-font-size-pair
-            (or (cadr (member emacs-font-size-pair scale-steps))
-                emacs-font-size-pair))
-      (when emacs-font-size-pair
-        (message "emacs font size set to %.1f" (car emacs-font-size-pair))
-        (set-font emacs-english-font emacs-cjk-font emacs-font-size-pair))))
-
-  (defun increase-emacs-font-size ()
-    "Decrease emacs's font-size acording emacs-font-size-pair-list."
-    (interactive) (emacs-step-font-size 1))
-
-  (defun decrease-emacs-font-size ()
-    "Increase emacs's font-size acording emacs-font-size-pair-list."
-    (interactive) (emacs-step-font-size -1))
-
-  (global-set-key (kbd "C-=") 'increase-emacs-font-size)
-  (global-set-key (kbd "C--") 'decrease-emacs-font-size)
-  )
-
-(set-face-attribute 'default nil :font emacs-english-font :height 120)
-(dolist (charset '(kana han symbol cjk-misc bopomofo))
-    (set-face-attribute charset (font-spec :family emacs-cjk-font :size (cdr emacs-font-size-pair))))
-
-(set-font emacs-english-font emacs-cjk-font emacs-font-size-pair)
-
-(require 'epa-file)
+;; (require 'epa-file)
 (epa-file-enable)
 (setf epa-pinentry-mode 'loopback)
 
@@ -562,67 +549,6 @@ If the input is non-empty, it is inserted at point."
 ;                           (when (and victim (not (buffer-modified-p victim))) (message "Killing buffer %s" (buffer-name victim)
 ;                                                                                        (kill-buffer victim))))))
 
-(defun hyper-window-left (count)
-  "Move the cursor to new COUNT-th window left of the current one."
-  :repeat nil
-  (interactive "p")
-  (dotimes (i count)
-    (windmove-left)))
-
-(defun hyper-window-right (count)
-  "Move the cursor to new COUNT-th window right of the current one."
-  :repeat nil
-  (interactive "p")
-  (dotimes (i count)
-    (windmove-right)))
-
-(defun hyper-window-up (count)
-  "Move the cursor to new COUNT-th window above the current one."
-  :repeat nil
-  (interactive "p")
-  (dotimes (i (or count 1))
-    (windmove-up)))
-
-(defun hyper-window-down (count)
-  "Move the cursor to new COUNT-th window below the current one."
-  :repeat nil
-  (interactive "p")
-  (dotimes (i (or count 1))
-    (windmove-down)))
-
-;;; Binding
-(global-set-key (kbd "H-h") 'hyper-window-left)
-(global-set-key (kbd "H-l") 'hyper-window-right)
-(global-set-key (kbd "H-k") 'hyper-window-up)
-(global-set-key (kbd "H-j") 'hyper-window-down)
-
-;;; Increment Numbers
-(defun increment-number-at-point ()
-  "Increments numbers at cursor"
-  (interactive)
-  (skip-chars-backward "0-9")
-  (or (looking-at "[0-9]+")
-      (error "No number at point"))
-  (replace-match (number-to-string (1+ (string-to-number (match-string 0))))))
-
-;;; Decrement Numbers
-(defun decrement-number-at-point ()
-  "Decrements numbers at cursor"
-  (interactive)
-  (skip-chars-backward "0-9")
-  (or (looking-at "[0-9]+")
-      (error "No number at point"))
-  (replace-match (number-to-string (1- (string-to-number (match-string 0))))))
-
-;;; Binding
-(global-set-key (kbd "C-; C-=") 'increment-number-at-point)
-(global-set-key (kbd "C-; C--") 'decrement-number-at-point)
-
-(defun insertdirectory ()
-  "Insert current directory for macro use"
-  (interactive)
-  (insert default-directory))
-
 (use-package magit
   :config
   (global-set-key (kbd "C-x g") 'magit-status))
@@ -662,6 +588,8 @@ If the input is non-empty, it is inserted at point."
       (local-set-key (kbd "<f3>") 'artist-select-op-line)     ; f3 = line
       (local-set-key (kbd "<f4>") 'artist-select-op-square)   ; f4 = rectangle
       (local-set-key (kbd "<f5>") 'artist-select-op-ellipse)  ; f5 = ellipse
+      (display-line-numbers-mode -1)
+      (evil-emacs-state)
       ))
 
 (add-hook 'tetris-mode-hook (lambda ()
