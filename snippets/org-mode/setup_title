@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Insert Title and Date
+# key: <td
+# --
+#+TITLE: $0
+#+DATE: \today

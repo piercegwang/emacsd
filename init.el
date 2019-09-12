@@ -72,12 +72,12 @@ tangled, and the tangled file is compiled."
 (global-linum-mode 0)
 (global-display-line-numbers-mode 1)
 (setq-default display-line-numbers 'visual)
-(setq display-line-numbers-type 'visualr)
+(setq display-line-numbers-type 'visual)
 (set-default 'truncate-lines t)
 
 ;; Make title bar dark
-;(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-;(add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; assuming you are using a dark theme
+(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+(add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; assuming you are using a dark theme
 ;;(setq ns-use-proxy-icon nil)
 ;;(setq frame-title-format nil)
 (menu-bar-mode -1)
@@ -123,6 +123,10 @@ tangled, and the tangled file is compiled."
 ;; this must be used after loading the theme with (load-theme THEME-NAME t)
 (custom-set-faces
  `(org-time-grid ((t (:foreground ,(doom-blend 'yellow 'fg 0.6)))))
+ `(org-time-grid ((t (:foreground ,(doom-blend 'yellow 'fg 0.6)))))
+ `(org-habit-ready-face ((t (:foreground ,(doom-blend 'blue 'fg 0.1)))))
+ `(org-habit-alert-face ((t (:foreground ,(doom-blend 'yellow 'fg 0.1)))))
+ `(org-habit-overdue-face ((t (:foreground ,(doom-blend 'red 'fg 0.1)))))
  )
 
 (use-package treemacs)
@@ -205,6 +209,17 @@ tangled, and the tangled file is compiled."
 (setf epa-pinentry-mode 'loopback)
 
 (load-file "~/.passwords.el")
+
+(use-package smart-mode-line
+  :config
+  ;; (setq sml/theme 'powerline)
+  ;(setq sml/theme 'dark)
+  (add-to-list 'sml/replacer-regexp-list '("^~/Google Drive/OHS/\\([0-9]\\{2\\}\\)th Grade/Classes/\\([0-9A-Z]*\\)/" ":\\2:"))
+  (add-hook 'after-init-hook 'sml/setup)
+  )
+
+(size-indication-mode 1)
+(line-number-mode -1)
 
 (use-package helm
   :config
@@ -314,6 +329,10 @@ tangled, and the tangled file is compiled."
       '(
 ("i" "Inbox" entry (file "~/Dropbox/org/inbox.org")
 "* TODO %?")
+("n" "Quick Note" entry
+ (file "~/Dropbox/org/inbox.org")
+ "* %?
+%U")
 ("e" "Event" entry (file "~/Dropbox/org/events.org")
 "* %?")
 ("L" "Link" entry (file+headline "~/Dropbox/org/links.org" "Inbox")
@@ -355,6 +374,14 @@ tangled, and the tangled file is compiled."
  (file+headline "~/Dropbox/org/school.org" "_\\ *sUM52A* \\_")
  "**** TODO %?
      DEADLINE: <%<%Y-%m-%d %a 13:30>>")
+("M" "Musicianship Homework" entry
+ (file+headline "~/Dropbox/org/gtd.org" "Musicianship")
+ "* TODO Musicianship Homework
+DEADLINE: %^t
+Written: %^{Written Homework}
+Ottman: %^{Ottman}
+Hall: %^{Hall}
+Score Reading: %^{Score Reading}")
 ("F" "Fun")
 ("FR" "RL Create Date" entry
  (file+olp "~/Dropbox/org/notes/nodeka/fun_notes.org" "Rocket League" "Time Logging")
@@ -397,7 +424,7 @@ SCHEDULED: <%(pgwang/add-12)>
   (org-crypt-use-before-save-magic)
   (setq org-tags-exclude-from-inheritance (quote ("crypt")))
 
-  (setq org-crypt-key nil)
+  (setq org-crypt-key "3C44F187958295E4")
   ;; GPG key to use for encryption
   ;; Either the Key ID or set to nil to use symmetric encryption.
 
@@ -430,17 +457,27 @@ SCHEDULED: <%(pgwang/add-12)>
               ))
   )
 
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.4))
-(setq org-format-latex-options (plist-put org-format-latex-options :html-scale 0.9))
+(setq org-format-latex-options
+      '(:foreground "#d6d6d4" :background default 
+                    :scale 1.4
+                    :html-foreground "Black" :html-background "Transparent"
+                    :html-scale 1.0 
+                    :matchers ("begin" "$1" "$" "$$" "\\(" "\\[")))
+
+(let ((dvipng--plist (alist-get 'dvipng org-preview-latex-process-alist)))
+  (plist-put dvipng--plist :use-xcolor t)
+  (plist-put dvipng--plist :image-converter '("dvipng -D %D -T tight -o %O %f")))
 
 (use-package org-bullets
     :hook (org-mode . org-bullets-mode))
 
 ;Probably not needed
 ;(add-to-list 'load-path "~/.emacs.d/site-lisp/evil")
-(require 'evil)
-(evil-mode t)
-(add-hook 'dired-mode-hook 'evil-emacs-state)
+(use-package evil
+  :config
+  (evil-mode t)
+  (add-hook 'dired-mode-hook 'evil-emacs-state)
+  )
 
 (elpy-enable)
 
@@ -592,7 +629,6 @@ If the input is non-empty, it is inserted at point."
 
 (use-package yasnippet
   :config
-  (yas/initialize)
   (yas-global-mode 1) ;; or M-x yas-reload-all if you've started YASnippet already.
   )
 

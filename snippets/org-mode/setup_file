@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Insert SETUPFILE
+# key: <setup
+# --
+#+SETUPFILE: /Users/piercewang/Dropbox/org/templates/$0
