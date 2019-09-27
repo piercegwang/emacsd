@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Text Latex
+# key: te
+# condition: (org-inside-LaTeX-fragment-p)
+# --
+\text{$0}

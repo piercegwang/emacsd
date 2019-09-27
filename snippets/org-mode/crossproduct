@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: 2 \mid
-# key: mm
+# name: Cross Product lav
+# key: cross
 # condition: (org-inside-LaTeX-fragment-p)
 # --
-\mid\mid$0
+\vec{$1} \times \vec{$2}$0

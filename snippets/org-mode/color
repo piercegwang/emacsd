@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Color{}
+# key: color
+# condition: (org-inside-LaTeX-fragment-p)
+# --
+\color{red}$1\color{orange}$2\color{yellow}$3\color{green}$4\color{blue}$5\color{indigo}$6

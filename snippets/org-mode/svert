@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: lvert rvert pair
+# key: mm
+# condition: (org-inside-LaTeX-fragment-p)
+# --
+\lvert $0 \rvert 

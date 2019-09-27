@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: overrightarrow LaTeX
+# key: ora
+# condition: (org-inside-LaTeX-fragment-p)
+# --
+\overrightarrow{$0}

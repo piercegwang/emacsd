@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: 2x2 Latex vMatrix
+# key: 2x2v
+# condition: (org-inside-LaTeX-fragment-p)
+# --
+\begin{vmatrix} $1 & $2 \\\\ $3 & $4 \end{vmatrix} \\) \\( $0

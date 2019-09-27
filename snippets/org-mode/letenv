@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: LaTeX Environment \( \)
-# key: lav
+# name: LaTeX Environment \(\)
+# key: lev
 # condition: (not (org-inside-LaTeX-fragment-p))
 # --
-\\( $0 \\)
+\\($0\\)

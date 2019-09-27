@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Vector Projection
+# key: proj
+# condition: (org-inside-LaTeX-fragment-p)
+# --
+\vctproj[$1]{$2}$0

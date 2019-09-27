@@ -62,6 +62,8 @@ tangled, and the tangled file is compiled."
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file 'noerror)
 
+(setq confirm-kill-emacs 'yes-or-no-p)
+
 (require 'package)
 (setq package-archives
     '(("melpa-stable" . "https://stable.melpa.org/packages/")
@@ -188,8 +190,76 @@ tangled, and the tangled file is compiled."
 (use-package treemacs-evil)
 (use-package treemacs-magit)
 
-(add-to-list 'default-frame-alist
-             '(font . "Menlo-12"))
+(when (display-graphic-p)
+  (if (eq system-type 'darwin)
+      (set-face-attribute 'default nil :font "Menlo"))
+
+  (defvar emacs-english-font "Menlo" "The font name for English.")
+  (defvar emacs-cjk-font "WenQuanYi Micro Hei Mono" "The font name for CJK.")
+  (find-font (font-spec :name "WenQuanYi Micro Hei Mono"))
+  (font-family-list)
+  (if (eq system-type 'windows-nt)
+     (setq emacs-cjk-font "WenQuanYi Micro Hey Mono"
+            emacs-english-font "Menlo")
+    (setq emacs-cjk-font "WenQuanYi Micro Hei Mono"))
+
+  (defvar emacs-font-size-pair '(12 . 14) ; Old '(12 . 14)
+    "Default font size pair for (english . chinese)")
+
+  (defvar emacs-font-size-pair-list
+    '((5 .  6) (9 . 10) (10 . 12) (12 . 14)
+      (13 . 16) (15 . 18) (17 . 20) (19 . 22)
+      (20 . 24) (21 . 26) (24 . 28) (26 . 32)
+      (28 . 34) (30 . 36) (34 . 40) (36 . 44))
+    "This list is used to store matching (english . chinese) font-size.")
+
+  (defun font-exist-p (fontname)
+    "Test if this font is exist or not."
+    (if (or (not fontname) (string= fontname ""))
+        nil
+      (if (not (x-list-fonts fontname)) nil t)))
+
+  (defun set-font (english chinese size-pair)
+    "Setup emacs English and Chinese font on x window-system."
+
+    (if (font-exist-p english)
+        (set-frame-font (format "%s:pixelsize=%d" english (car size-pair)) t))
+
+    (if (font-exist-p chinese)
+        (dolist (charset '(kana han symbol cjk-misc bopomofo))
+          (set-fontset-font (frame-parameter nil 'font) charset
+                            (font-spec :family chinese :size (cdr size-pair))))))
+  ;; Setup font size based on emacs-font-size-pair
+  (set-font emacs-english-font emacs-cjk-font emacs-font-size-pair)
+
+  (defun emacs-step-font-size (step)
+    "Increase/Decrease emacs's font size."
+    (let ((scale-steps emacs-font-size-pair-list))
+      (if (< step 0) (setq scale-steps (reverse scale-steps)))
+      (setq emacs-font-size-pair
+            (or (cadr (member emacs-font-size-pair scale-steps))
+                emacs-font-size-pair))
+      (when emacs-font-size-pair
+        (message "emacs font size set to %.1f" (car emacs-font-size-pair))
+        (set-font emacs-english-font emacs-cjk-font emacs-font-size-pair))))
+
+  (defun increase-emacs-font-size ()
+    "Decrease emacs's font-size acording emacs-font-size-pair-list."
+    (interactive) (emacs-step-font-size 1))
+
+  (defun decrease-emacs-font-size ()
+    "Increase emacs's font-size acording emacs-font-size-pair-list."
+    (interactive) (emacs-step-font-size -1))
+
+  (global-set-key (kbd "C-=") 'increase-emacs-font-size)
+  (global-set-key (kbd "C--") 'decrease-emacs-font-size)
+  )
+
+(set-face-attribute 'default nil :font emacs-english-font :height 120)
+(dolist (charset '(kana han symbol cjk-misc bopomofo))
+    (set-face-attribute charset (font-spec :family emacs-cjk-font :size (cdr emacs-font-size-pair))))
+
+(set-font emacs-english-font emacs-cjk-font emacs-font-size-pair)
 
 ;; (require 'epa-file)
 (epa-file-enable)
@@ -321,7 +391,8 @@ tangled, and the tangled file is compiled."
  "* %?
 %U")
 ("e" "Event" entry (file "~/Dropbox/org/events.org")
-"* %?")
+"* %?
+%^t")
 ("L" "Link" entry (file+headline "~/Dropbox/org/links.org" "Inbox")
 "* [[%?%:link][%:description]]
 :PROPERTIES:
@@ -365,10 +436,10 @@ tangled, and the tangled file is compiled."
  (file+headline "~/Dropbox/org/gtd.org" "Musicianship")
  "* TODO Musicianship Homework
 DEADLINE: %^t
-Written: %^{Written Homework}
-Ottman: %^{Ottman}
-Hall: %^{Hall}
-Score Reading: %^{Score Reading}")
+- [ ] Written: %^{Written Homework}
+- [ ] Singing: %^{Singing}
+- [ ] Rhythm: %^{Rhythm}
+- [ ] Keyboard: %^{Keyboard}")
 ("F" "Fun")
 ("FR" "RL Create Date" entry
  (file+olp "~/Dropbox/org/notes/nodeka/fun_notes.org" "Rocket League" "Time Logging")
@@ -651,3 +722,9 @@ If the input is non-empty, it is inserted at point."
 (put 'scroll-left 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)
 (put 'narrow-to-page 'disabled nil)
+
+(defun pgwang/turn-on-flyspell-hook ()
+  (cond ((string-match "^/Users/piercewang/Google Drive/OHS/11th Grade/Classes/" (if (eq buffer-file-name nil) "" buffer-file-name))
+         (flyspell-mode 1))))
+
+(add-hook 'text-mode-hook 'pgwang/turn-on-flyspell-hook)

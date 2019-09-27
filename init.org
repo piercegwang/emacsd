@@ -2,7 +2,7 @@
 #+AUTHOR: Pierce Wang
 #+BABEL: :cache yes
 #+PROPERTY: header-args :tangle yes :results silent
-#+STARTUP: overview
+#+STARTUP: content
 
 * Credits
 Inspired by [[https://github.com/freetonik/emacs-dotfiles][freetonik]]'s setup. Check out his podcast!
@@ -167,6 +167,11 @@ Store custom-file separately, don't freek out when it's not found.
   (load custom-file 'noerror)
 #+end_src
 
+*** Confirm Kill Emacs
+Make Emacs confirm when quitting:
+#+begin_src emacs-lisp
+  (setq confirm-kill-emacs 'yes-or-no-p)
+#+end_src
 ** Use package
 
 Initialize package and add Melpa, GNU, and Org sources.
@@ -328,14 +333,14 @@ Windows and Frames are different than one would now intuitively think. Windows e
   (use-package treemacs-magit)
 #+end_src
 ** Fonts
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (add-to-list 'default-frame-alist
                '(font . "Menlo-12"))
 #+end_src
 *** Chinese Font with English Font
 Special Fonts config for ease of zooming chinese and english fonts at same rate.
 
-#+begin_src emacs-lisp :tangle no
+#+begin_src emacs-lisp
   (when (display-graphic-p)
     (if (eq system-type 'darwin)
         (set-face-attribute 'default nil :font "Menlo"))
@@ -589,7 +594,8 @@ Org Refile:
    "* %?
   %U")
   ("e" "Event" entry (file "~/Dropbox/org/events.org")
-  "* %?")
+  "* %?
+  %^t")
   ("L" "Link" entry (file+headline "~/Dropbox/org/links.org" "Inbox")
   "* [[%?%:link][%:description]]
   :PROPERTIES:
@@ -633,10 +639,10 @@ Org Refile:
    (file+headline "~/Dropbox/org/gtd.org" "Musicianship")
    "* TODO Musicianship Homework
   DEADLINE: %^t
-  Written: %^{Written Homework}
-  Ottman: %^{Ottman}
-  Hall: %^{Hall}
-  Score Reading: %^{Score Reading}")
+  - [ ] Written: %^{Written Homework}
+  - [ ] Singing: %^{Singing}
+  - [ ] Rhythm: %^{Rhythm}
+  - [ ] Keyboard: %^{Keyboard}")
   ("F" "Fun")
   ("FR" "RL Create Date" entry
    (file+olp "~/Dropbox/org/notes/nodeka/fun_notes.org" "Rocket League" "Time Logging")
@@ -916,6 +922,14 @@ Fix color handling in org-preview-latex-fragment
         (display-line-numbers-mode -1)
         (evil-emacs-state)
         ))
+#+end_src
+** Flyspell mode
+#+begin_src elisp
+  (defun pgwang/turn-on-flyspell-hook ()
+    (cond ((string-match "^/Users/piercewang/Google Drive/OHS/11th Grade/Classes/" (if (eq buffer-file-name nil) "" buffer-file-name))
+           (flyspell-mode 1))))
+
+  (add-hook 'text-mode-hook 'pgwang/turn-on-flyspell-hook)
 #+end_src
 ** Games
 *** Tetris
