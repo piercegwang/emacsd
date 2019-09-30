@@ -537,6 +537,8 @@ SCHEDULED: <%(pgwang/add-12)>
   (add-hook 'dired-mode-hook 'evil-emacs-state)
   )
 
+(define-key evil-normal-state-map (kbd "<S-return>") [?m ?` ?o escape ?` ?`])
+
 (elpy-enable)
 
 (setq auto-mode-alist
