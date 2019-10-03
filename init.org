@@ -458,11 +458,6 @@ Special Fonts config for ease of zooming chinese and english fonts at same rate.
     )
 #+end_src
 
-** LaTeX
-#+begin_src emacs-lisp
-  (setq TeX-engine 'xetex)
-  (setq latex-run-command "xetex")
-#+end_src
 ** Orgmode
 
 #+begin_src emacs-lisp
@@ -726,6 +721,9 @@ Org Refile:
 #+end_src
 
 *** Latex
+#+begin_src emacs-lisp
+  (require 'ox-latex)
+#+end_src
 **** CDLatex
 #+begin_src emacs-lisp
   (use-package cdlatex
@@ -761,6 +759,38 @@ Fix color handling in org-preview-latex-fragment
 #+begin_src emacs-lisp
   (use-package org-bullets
       :hook (org-mode . org-bullets-mode))
+#+end_src
+** LaTeX
+#+begin_src emacs-lisp
+  (setq TeX-engine 'xetex)
+  (setq latex-run-command "xetex")
+#+end_src
+
+*** AUCTEX
+#+begin_src emacs-lisp
+  (use-package tex
+    :defer t
+    :ensure auctex
+    :config
+    (setq TeX-auto-save t))
+#+end_src
+
+*** Classes - Adding Academic XeTeX Times New Roman Class
+
+#+begin_src emacs-lisp
+  (unless (find "Times" org-latex-classes :key 'car
+                :test 'equal)
+    (add-to-list 'org-latex-classes
+                 '("Times"
+                   "\\documentclass[12pt]{article}
+\\usepackage{fontspec}
+\\setmainfont{Times New Roman}
+\\usepackage{hyperref}"
+                   ("\\section{%s}" . "\\section*{%s}")
+                   ("\\subsection{%s}" . "\\subsection*{%s}")
+                   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                   ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 #+end_src
 ** Evil
 #+begin_src emacs-lisp

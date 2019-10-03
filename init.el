@@ -292,9 +292,6 @@ tangled, and the tangled file is compiled."
     (define-key emacs-lisp-mode-map       [remap completion-at-point] 'helm-lisp-completion-at-point))
   )
 
-(setq TeX-engine 'xetex)
-(setq latex-run-command "xetex")
-
 (use-package org)
 ;(use-package org-agenda)
 
@@ -505,6 +502,8 @@ SCHEDULED: <%(pgwang/add-12)>
 (use-package org-drill
   :load-path "custom_load")
 
+(require 'ox-latex)
+
 (use-package cdlatex
   :config
   (define-key org-cdlatex-mode-map (kbd "H-d") 'cdlatex-dollar)
@@ -528,6 +527,29 @@ SCHEDULED: <%(pgwang/add-12)>
 
 (use-package org-bullets
     :hook (org-mode . org-bullets-mode))
+
+(setq TeX-engine 'xetex)
+(setq latex-run-command "xetex")
+
+(use-package tex
+  :defer t
+  :ensure auctex
+  :config
+  (setq TeX-auto-save t))
+
+(unless (find "Times" org-latex-classes :key 'car
+                :test 'equal)
+    (add-to-list 'org-latex-classes
+                 '("Times"
+                   "\\documentclass[12pt]{article}
+\\usepackage{fontspec}
+\\setmainfont{Times New Roman}
+\\usepackage{hyperref}"
+                   ("\\section{%s}" . "\\section*{%s}")
+                   ("\\subsection{%s}" . "\\subsection*{%s}")
+                   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                   ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
 ;Probably not needed
 ;(add-to-list 'load-path "~/.emacs.d/site-lisp/evil")
