@@ -437,35 +437,6 @@ DEADLINE: %^t
 - [ ] Singing: %^{Singing}
 - [ ] Rhythm: %^{Rhythm}
 - [ ] Keyboard: %^{Keyboard}")
-("F" "Fun")
-("FR" "RL Create Date" entry
- (file+olp "~/Dropbox/org/notes/nodeka/fun_notes.org" "Rocket League" "Time Logging")
- "*** %u
-**** Training
-***** Free Play
-**** Matches
-***** Ranked
-|            | W | L |
-|------------+---+---|
-| Solo Duels | 0 | 0 |
-| Duos       | 0 | 0 |
-| Standard   | 0 | 0 |
-***** Unranked
-|            | W | L |
-|------------+---+---|
-| Solo Duels | 0 | 0 |
-| Duos       | 0 | 0 |
-| Standard   | 0 | 0 |
-| Chaos      | 0 | 0 |
-| Rumble     | 0 | 0 |
-| Dropshot   | 0 | 0 |
-| Other      | 0 | 0 |
-" :immediate-finish t)
-("Fv" "Voting Log" entry
- (file+olp "~/Dropbox/org/fun.org" "MC Voting" "Casual Craft")
- "* Vote
-SCHEDULED: <%(pgwang/add-12)>
-%U" :immediate-finish t)
 ))
 
 ;; Set to the name of the file where new notes will be stored

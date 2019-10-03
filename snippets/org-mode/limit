@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Limit
+# key: lim
+# condition: (org-inside-LaTeX-fragment-p)
+# --
+\lim_{$1 \to $0}

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Summation
+# key: sum
+# condition: (org-inside-LaTeX-fragment-p)
+# --
+\sum_{$1}^{$2} $0

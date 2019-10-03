@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Antiderivative
+# key: inte
+# condition: (org-inside-LaTeX-fragment-p)
+# --
+\int $0 d$1 
