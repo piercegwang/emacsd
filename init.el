@@ -34,6 +34,8 @@
       (ignore-errors
         (funcall fn)))))
 
+(set-keyboard-coding-system nil)
+
 ;;; -*- lexical-binding: t -*-
 
 (defun tangle-init ()
@@ -431,7 +433,7 @@ tangled, and the tangled file is compiled."
      DEADLINE: <%<%Y-%m-%d %a 13:30>>")
 ("M" "Musicianship Homework" entry
  (file+headline "~/Dropbox/org/gtd.org" "Musicianship")
- "* TODO Musicianship Homework
+ "* TODO Musicianship Homework [/]
 DEADLINE: %^t
 - [ ] Written: %^{Written Homework}
 - [ ] Singing: %^{Singing}
@@ -520,7 +522,86 @@ DEADLINE: %^t
                    ("\\subsection{%s}" . "\\subsection*{%s}")
                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                    ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+    (add-to-list 'org-latex-classes
+                 '("MLA"
+                   "\\documentclass[12pt]{article}
+%
+%Margin - 1 inch on all sides
+%
+\\usepackage[letterpaper]{geometry}
+\\usepackage{fontspec}
+\\setmainfont{Times New Roman}
+\\geometry{top=1.0in, bottom=1.0in, left=1.0in, right=1.0in}
+
+%
+%Doublespacing
+%
+\\usepackage{setspace}
+\\doublespacing
+
+%
+%Rotating tables (e.g. sideways when too long)
+%
+\\usepackage{rotating}
+
+
+%
+%Fancy-header package to modify header/page numbering (insert last name)
+%
+\\usepackage{fancyhdr}
+\\pagestyle{fancy}
+\\lhead{} 
+\\chead{} 
+\\rhead{Wang \\thepage} 
+\\lfoot{} 
+\\cfoot{} 
+\\rfoot{} 
+\\renewcommand{\\headrulewidth}{0pt} 
+\\renewcommand{\\footrulewidth}{0pt} 
+%To make sure we actually have header 0.5in away from top edge
+%12pt is one-sixth of an inch. Subtract this from 0.5in to get headsep value
+\\setlength\\headsep{0.333in}
+
+%
+%Works cited environment
+%(to start, use \\begin{workscited...}, each entry preceded by \\bibent)
+% - from Ryan Alcock's MLA style file
+%
+\\newcommand{\\bibent}{\\noindent \\hangindent 40pt}
+\\newenvironment{workscited}{\\newpage \\begin{center} Works Cited \\end{center}}{\\newpage }
+
+
+%
+%Begin document
+%
+\\begin{document}
+%commented until I can add this in the org-latex-export function using advice
+%\\begin{flushleft}
+
+%%%%First page name, class, etc
+Pierce Wang\\\\
+Professor\\\\
+Class\\\\
+February 11 2019\\\\
+
+
+%%%%Title
+\\begin{center}
+Paper Title
+\\end{center}
+
+
+%%%%Changes paragraph indentation to 0.5in
+\\setlength{\\parindent}{0.5in}
+%%%%Begin body of paper here
+[NO-DEFAULT-PACKAGES]"
+                   ("\\section{%s}" . "\\section*{%s}")
+                   ("\\subsection{%s}" . "\\subsection*{%s}")
+                   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                   ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+                   ))
 
 ;Probably not needed
 ;(add-to-list 'load-path "~/.emacs.d/site-lisp/evil")
@@ -528,6 +609,8 @@ DEADLINE: %^t
   :config
   (evil-mode t)
   (add-hook 'dired-mode-hook 'evil-emacs-state)
+  (add-hook 'calendar-mode-hook 'evil-emacs-state)
+  (add-hook 'display-time-hook 'evil-emacs-state)
   )
 
 (define-key evil-normal-state-map (kbd "<S-return>") [?m ?` ?o escape ?` ?`])
@@ -711,6 +794,7 @@ If the input is non-empty, it is inserted at point."
             (ibuffer-switch-to-saved-filter-groups "default")))
 
 (setq delete-by-moving-to-trash t)
+(setq insert-directory-program "gls")
 
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
