@@ -108,7 +108,7 @@ enabled.  When invoked interactively, nil's are passed to all arguments."
         (or group-directories dired-quick-sort-group-directories-last)
         dired-quick-sort-time-last (or time dired-quick-sort-time-last))
   (dired-sort-other
-   (format "%s %s %s %s %s" dired-listing-switches
+   (format "%s -h %s %s %s %s" dired-listing-switches
            dired-quick-sort-sort-by-last
            (if (char-equal dired-quick-sort-reverse-last ?y)
                "-r" "")

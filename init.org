@@ -416,6 +416,19 @@ Special Fonts config for ease of zooming chinese and english fonts at same rate.
 
   (set-font emacs-english-font emacs-cjk-font emacs-font-size-pair)
 #+end_src
+*** Changing Font to Variable Width
+#+begin_src emacs-lisp
+  (defun pgwang/buffer-to-variable-width (&optional arg)
+      "Make the font of the current buffer Arial.
+  This function is just for me to make it easier to read essays when writing in emacs.
+  With digit argument, reset buffer to default font."
+      (interactive)
+      (face-remap-add-relative 'default :family "Arial")
+      (display-line-numbers-mode 0))
+      )
+
+  (global-set-key (kbd "H-f") 'pgwang/buffer-to-variable-width)
+#+end_src
 
 ** GPG
 
@@ -1093,12 +1106,16 @@ Fix color handling in org-preview-latex-fragment
 #+end_src
 *** dired-quick-sort.el
 Disabled because it relies on GNU core utils - will need to either install GNU ls or reconfigure file.
-#+begin_src emacs-lisp :tangle no
+#+begin_src emacs-lisp
   (use-package dired-quick-sort
     :load-path "custom_load"
     :config
     (dired-quick-sort-setup)
     )
+#+end_src
+*** Human readable format for ls switches (=-h=)
+#+begin_src emacs-lisp
+  (setq dired-listing-switches "-alh")
 #+end_src
 ** Disabled Functions
 #+begin_src emacs-lisp
@@ -1109,4 +1126,9 @@ Disabled because it relies on GNU core utils - will need to either install GNU l
   (put 'narrow-to-page 'disabled nil)
 #+end_src
 
+** browse-url-firefox-program
+Allow the function =browse-url-firefox= to open links in firefox using bin. One could probably also accomplish this using =brew='s version of firefox, but I didn't want to install firefox again.
+#+begin_src emacs-lisp
+  (setq browse-url-firefox-program "/Applications/Firefox.app/Contents/MacOS/firefox-bin")
+#+end_src
 ** Last Things

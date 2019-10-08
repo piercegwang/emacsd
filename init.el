@@ -263,6 +263,17 @@ tangled, and the tangled file is compiled."
 
 (set-font emacs-english-font emacs-cjk-font emacs-font-size-pair)
 
+(defun pgwang/buffer-to-variable-width (&optional arg)
+    "Make the font of the current buffer Arial.
+This function is just for me to make it easier to read essays when writing in emacs.
+With digit argument, reset buffer to default font."
+    (interactive)
+    (face-remap-add-relative 'default :family "Arial")
+    (display-line-numbers-mode 0))
+    )
+
+(global-set-key (kbd "H-f") 'pgwang/buffer-to-variable-width)
+
 ;; (require 'epa-file)
 (epa-file-enable)
 (setf epa-pinentry-mode 'loopback)
@@ -796,11 +807,21 @@ If the input is non-empty, it is inserted at point."
 (setq delete-by-moving-to-trash t)
 (setq insert-directory-program "gls")
 
+(use-package dired-quick-sort
+  :load-path "custom_load"
+  :config
+  (dired-quick-sort-setup)
+  )
+
+(setq dired-listing-switches "-alh")
+
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 (put 'scroll-left 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)
 (put 'narrow-to-page 'disabled nil)
+
+(setq browse-url-firefox-program "/Applications/Firefox.app/Contents/MacOS/firefox-bin")
 
 (defun pgwang/turn-on-flyspell-hook ()
   (cond ((string-match "^/Users/piercewang/Google Drive/OHS/11th Grade/Classes/" (if (eq buffer-file-name nil) "" buffer-file-name))

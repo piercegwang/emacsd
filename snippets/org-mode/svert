@@ -3,4 +3,4 @@
 # key: mm
 # condition: (org-inside-LaTeX-fragment-p)
 # --
-\lvert $0 \rvert 
+\left\lvert $0 \right\rvert 
