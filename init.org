@@ -417,6 +417,7 @@ Special Fonts config for ease of zooming chinese and english fonts at same rate.
   (set-font emacs-english-font emacs-cjk-font emacs-font-size-pair)
 #+end_src
 *** Changing Font to Variable Width
+Use =H-f= to change to variable fonts. In order to change back, use =(find-alternate-file)= or =C-x C-v=
 #+begin_src emacs-lisp
   (defun pgwang/buffer-to-variable-width (&optional arg)
       "Make the font of the current buffer Arial.
@@ -424,7 +425,7 @@ Special Fonts config for ease of zooming chinese and english fonts at same rate.
   With digit argument, reset buffer to default font."
       (interactive)
       (face-remap-add-relative 'default :family "Arial")
-      (display-line-numbers-mode 0))
+      (display-line-numbers-mode 0)
       )
 
   (global-set-key (kbd "H-f") 'pgwang/buffer-to-variable-width)
@@ -582,6 +583,82 @@ Org Refile:
   (setq org-agenda-max-entries nil)
 #+end_src
 
+**** CANCELLED Hydra for Filtering
+     CLOSED: [2019-10-08 Tue 20:17]
+A hydra to quickly use different filter presets.
+Presents:
+- School-related items
+- Class
+- Violin
+
+#+begin_src emacs-lisp :tangle no
+   (defhydra pgwang/org-agenda-filter-presets ()
+     "A hydra to make filter presets for the org-agenda"
+     ("S" (progn (org-agenda-filter-remove-all) (org-agenda-filter-apply '("+OHS") 'tag)) "OHS")
+     ("o" (progn (org-agenda-filter-remove-all) (org-agenda-filter-apply '("-OHS") 'tag)) "Everything but OHS")
+     ("n" (org-agenda-filter-remove-all) "Remove all")
+     ("q" nil "exit" :exit t)
+     )
+
+   (define-key org-agenda-mode-map (kbd "H-/") 'pgwang/org-agenda-filter-presets/body)
+#+end_src
+
+*** CANCELLED org-super-agenda
+    CLOSED: [2019-10-08 Tue 19:00]
+Testing out org-super-agenda. Code kept here in case I want to experiemnt in the future. However, for now, I've decided that tags and filtering is the best option for me.
+#+begin_src emacs-lisp :tangle no
+  (use-package org-super-agenda
+    :config
+    (org-super-agenda-mode)
+    )
+  (setq org-agenda-custom-commands
+        '(("z" "Super zaen view"
+           ((agenda "" ((org-agenda-span 'day)
+                        (org-super-agenda-groups
+                         '((:name "Text"
+                                  :time-grid t
+                                  :date today
+                                  :todo "TODO"
+                                  :scheduled today
+                                  :deadline today
+                                  :order 1)
+                           (:name "School Stuff"
+                                  :tag "OHS"
+                                  :order 2)
+                           ))))
+            (alltodo "" ((org-agenda-overriding-header "")
+                         (org-super-agenda-groups
+                          '((:name "Due Today"
+                                   :deadline today
+                                   :order 2)
+                            (:name "OHS"
+                                   :tag "OHS"
+                                   :order 10)
+                            (:name "Due Soon"
+                                   :deadline future
+                                   :order 8)
+                            (:name "Overdue"
+                                   :deadline past
+                                   :order 9)
+                            (:name "Issues"
+                                   :tag "Issue"
+                                   :order 12)
+                            (:name "Emacs"
+                                   :tag "Emacs"
+                                   :order 13)
+                            (:name "Waiting"
+                                   :todo "WAITING"
+                                   :order 20)
+                            (:name "trivial"
+                                   :priority<= "C"
+                                   :tag "someday"
+                                   :order 90)
+                            (:discard (:habit t)
+                                      )))))))
+          )
+        )
+#+end_src
+
 *** Quick Capture
 
 #+begin_src emacs-lisp
@@ -596,6 +673,19 @@ Org Refile:
   (defun pgwang/add-12 ()
     "Custom function return active org timestamp with exactly 24 hour difference"
     (format-time-string "%Y-%m-%d %a %H:%M" (time-add (current-time) 85500)))
+
+  (defun pgwang/headline_date ()
+    "Function to find the date as headline for Violin capture template"
+    (beginning-of-buffer)
+    (let ((searchresults (search-forward (format-time-string "[%Y-%m-%d %a]") nil t)))
+      (if searchresults
+          'searchresults
+        (progn
+          (message "Not found! Use Vc to create today's practice first.")
+          (keyboard-quit))
+        )
+      )
+    )
 
   (setq org-capture-templates
         '(
@@ -655,6 +745,17 @@ Org Refile:
   - [ ] Singing: %^{Singing}
   - [ ] Rhythm: %^{Rhythm}
   - [ ] Keyboard: %^{Keyboard}")
+  ("V" "Violin")
+  ("Vc" "Create Practice Entry" entry
+   (file+olp "~/Dropbox/org/violin.org" "Practice Log")
+   "* [%<%Y-%m-%d %a>]
+  %t
+  - %?"
+   :clock-in t)
+  ("Vd" "Add practice details" item
+   (file+function "~/Dropbox/org/violin.org" pgwang/headline_date)
+   "%?"
+   :clock-in t)
   ))
 #+end_src
 

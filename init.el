@@ -269,7 +269,7 @@ This function is just for me to make it easier to read essays when writing in em
 With digit argument, reset buffer to default font."
     (interactive)
     (face-remap-add-relative 'default :family "Arial")
-    (display-line-numbers-mode 0))
+    (display-line-numbers-mode 0)
     )
 
 (global-set-key (kbd "H-f") 'pgwang/buffer-to-variable-width)
@@ -392,6 +392,19 @@ With digit argument, reset buffer to default font."
   "Custom function return active org timestamp with exactly 24 hour difference"
   (format-time-string "%Y-%m-%d %a %H:%M" (time-add (current-time) 85500)))
 
+(defun pgwang/headline_date ()
+  "Function to find the date as headline for Violin capture template"
+  (beginning-of-buffer)
+  (let ((searchresults (search-forward (format-time-string "[%Y-%m-%d %a]") nil t)))
+    (if searchresults
+        'searchresults
+      (progn
+        (message "Not found! Use Vc to create today's practice first.")
+        (keyboard-quit))
+      )
+    )
+  )
+
 (setq org-capture-templates
       '(
 ("i" "Inbox" entry (file "~/Dropbox/org/inbox.org")
@@ -450,6 +463,17 @@ DEADLINE: %^t
 - [ ] Singing: %^{Singing}
 - [ ] Rhythm: %^{Rhythm}
 - [ ] Keyboard: %^{Keyboard}")
+("V" "Violin")
+("Vc" "Create Practice Entry" entry
+ (file+olp "~/Dropbox/org/violin.org" "Practice Log")
+ "* [%<%Y-%m-%d %a>]
+%t
+- %?"
+ :clock-in t)
+("Vd" "Add practice details" item
+ (file+function "~/Dropbox/org/violin.org" pgwang/headline_date)
+ "%?"
+ :clock-in t)
 ))
 
 ;; Set to the name of the file where new notes will be stored
