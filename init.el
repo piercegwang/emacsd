@@ -416,7 +416,7 @@ With digit argument, reset buffer to default font."
 ("e" "Event" entry (file "~/Dropbox/org/events.org")
 "* %?
 %^t")
-("L" "Link" entry (file+headline "~/Dropbox/org/links.org" "Inbox")
+("L" "Link" entry (file+headline "~/Dropbox/org/links.org" "!Inbox")
 "* [[%?%:link][%:description]]
 :PROPERTIES:
 :CREATED: %U
@@ -469,7 +469,7 @@ DEADLINE: %^t
  "* [%<%Y-%m-%d %a>]
 %t
 - %?"
- :clock-in t)
+ :clock-in t :clock-keep t)
 ("Vd" "Add practice details" item
  (file+function "~/Dropbox/org/violin.org" pgwang/headline_date)
  "%?"
@@ -546,21 +546,21 @@ DEADLINE: %^t
   (setq TeX-auto-save t))
 
 (unless (find "Times" org-latex-classes :key 'car
-                :test 'equal)
-    (add-to-list 'org-latex-classes
-                 '("Times"
-                   "\\documentclass[12pt]{article}
+              :test 'equal)
+  (add-to-list 'org-latex-classes
+               '("Times"
+                 "\\documentclass[12pt]{article}
 \\usepackage{fontspec}
 \\setmainfont{Times New Roman}
 \\usepackage{hyperref}"
-                   ("\\section{%s}" . "\\section*{%s}")
-                   ("\\subsection{%s}" . "\\subsection*{%s}")
-                   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                   ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-    (add-to-list 'org-latex-classes
-                 '("MLA"
-                   "\\documentclass[12pt]{article}
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+  (add-to-list 'org-latex-classes
+               '("MLA"
+                 "\\documentclass[12pt]{article}
 %
 %Margin - 1 inch on all sides
 %
@@ -631,12 +631,12 @@ Paper Title
 \\setlength{\\parindent}{0.5in}
 %%%%Begin body of paper here
 [NO-DEFAULT-PACKAGES]"
-                   ("\\section{%s}" . "\\section*{%s}")
-                   ("\\subsection{%s}" . "\\subsection*{%s}")
-                   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                   ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
-                   ))
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+               ))
 
 ;Probably not needed
 ;(add-to-list 'load-path "~/.emacs.d/site-lisp/evil")
