@@ -263,16 +263,22 @@ tangled, and the tangled file is compiled."
 
 (set-font emacs-english-font emacs-cjk-font emacs-font-size-pair)
 
-(defun pgwang/buffer-to-variable-width (&optional arg)
+(defun pgwang/toggle-variable-width (&optional arg)
     "Make the font of the current buffer Arial.
 This function is just for me to make it easier to read essays when writing in emacs.
 With digit argument, reset buffer to default font."
     (interactive)
-    (face-remap-add-relative 'default :family "Arial")
-    (display-line-numbers-mode 0)
+    (if (not face-remapping-alist)
+        (progn
+          (face-remap-set-base 'default :family "Arial")
+          (display-line-numbers-mode 0))
+      (progn
+        (face-remap-set-base 'default)
+        (display-line-numbers-mode t))
+      )
     )
 
-(global-set-key (kbd "H-f") 'pgwang/buffer-to-variable-width)
+(global-set-key (kbd "H-f") 'pgwang/toggle-variable-width)
 
 ;; (require 'epa-file)
 (epa-file-enable)
@@ -317,6 +323,8 @@ With digit argument, reset buffer to default font."
                              "~/Dropbox/org/gcal.org"
                              "~/Dropbox/org/events.org"))
 (setq org-default-notes-file (concat org-directory "/inbox.org"))
+
+(setq org-startup-indented t)
 
 (setq org-todo-keywords
       '((sequence "TODO(t)" "IN-PROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
@@ -380,6 +388,28 @@ With digit argument, reset buffer to default font."
 ;; Org entries
 (setq org-agenda-max-entries nil)
 
+(setq org-agenda-custom-commands
+      '(("q" . "Custom Agenda Views")
+        ("qs" "General Agenda" agenda ""
+         ((org-agenda-span 1)
+          (org-agenda-sorting-strategy
+           '((agenda habit-down time-up deadline-up)))
+          )
+         )
+        ("qo" "OHS (Test)"
+         ((agenda "" ((org-agenda-span 1)
+                      (org-deadline-warning-days 3)
+                      ))
+          (tags-todo "+OHS"))
+         ((org-agenda-sorting-strategy '((agenda habit-down time-up deadline-up)
+                                         ;; (todo timestamp-up)
+                                         (tags ts-up priority-down) 
+                                         ;; (search timestamp-up)
+                                         )
+                                       )))
+        )
+      )
+
 (defun pgwang/year-month ()
   "Custom function to return date in format: YYYY-MM"
   (format-time-string "%Y-%m"))
@@ -398,9 +428,7 @@ With digit argument, reset buffer to default font."
   (let ((searchresults (search-forward (format-time-string "[%Y-%m-%d %a]") nil t)))
     (if searchresults
         'searchresults
-      (progn
-        (message "Not found! Use Vc to create today's practice first.")
-        (keyboard-quit))
+      (error "Not found! Use Vc to create today's practice first.")
       )
     )
   )
@@ -430,10 +458,11 @@ With digit argument, reset buffer to default font."
  "* %^{RATING}p%^{Book Title}")
 ("j" "Journal" entry
 (file+olp+datetree "~/Dropbox/org/orgjournal.org.gpg")
-"* %^{RATING}p%?
+"* %^{RATING}p%^{Title of Entry}
 :PROPERTIES:
 :LOGGED: %^{Logged Time}U
-:END:" :kill-buffer t)
+:END:
+%?" :kill-buffer t)
 ("S" "School")
 ("Se" "OE020B" entry
  (file+headline "~/Dropbox/org/school.org" "_\\ *sOE020B* \\_")
@@ -535,6 +564,8 @@ DEADLINE: %^t
 
 (use-package org-bullets
     :hook (org-mode . org-bullets-mode))
+
+(setq org-export-async-init-file "~/.emacs.d/orgasyncinit.el")
 
 (setq TeX-engine 'xetex)
 (setq latex-run-command "xetex")
@@ -645,6 +676,7 @@ Paper Title
   (evil-mode t)
   (add-hook 'dired-mode-hook 'evil-emacs-state)
   (add-hook 'calendar-mode-hook 'evil-emacs-state)
+  (add-hook 'calendar-load-hook 'evil-emacs-state)
   (add-hook 'display-time-hook 'evil-emacs-state)
   )
 

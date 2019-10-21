@@ -2,7 +2,7 @@
 #+AUTHOR: Pierce Wang
 #+BABEL: :cache yes
 #+PROPERTY: header-args :tangle yes :results silent
-#+STARTUP: content
+#+STARTUP: content indent
 
 * Credits
 Inspired by [[https://github.com/freetonik/emacs-dotfiles][freetonik]]'s setup. Check out his podcast!
@@ -163,9 +163,7 @@ This helps get rid of =functions might not be defined at runtime= warnings. See 
 #+end_src
 
 *** Custom Set Variables
-
 Store custom-file separately, don't freek out when it's not found.
-
 #+begin_src emacs-lisp
   (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
   (load custom-file 'noerror)
@@ -177,9 +175,7 @@ Make Emacs confirm when quitting:
   (setq confirm-kill-emacs 'yes-or-no-p)
 #+end_src
 ** Use package
-
 Initialize package and add Melpa, GNU, and Org sources.
-
 #+begin_src emacs-lisp
   (require 'package)
   (setq package-archives
@@ -419,16 +415,22 @@ Special Fonts config for ease of zooming chinese and english fonts at same rate.
 *** Changing Font to Variable Width
 Use =H-f= to change to variable fonts. In order to change back, use =(find-alternate-file)= or =C-x C-v=
 #+begin_src emacs-lisp
-  (defun pgwang/buffer-to-variable-width (&optional arg)
+  (defun pgwang/toggle-variable-width (&optional arg)
       "Make the font of the current buffer Arial.
   This function is just for me to make it easier to read essays when writing in emacs.
   With digit argument, reset buffer to default font."
       (interactive)
-      (face-remap-add-relative 'default :family "Arial")
-      (display-line-numbers-mode 0)
+      (if (not face-remapping-alist)
+          (progn
+            (face-remap-set-base 'default :family "Arial")
+            (display-line-numbers-mode 0))
+        (progn
+          (face-remap-set-base 'default)
+          (display-line-numbers-mode t))
+        )
       )
 
-  (global-set-key (kbd "H-f") 'pgwang/buffer-to-variable-width)
+  (global-set-key (kbd "H-f") 'pgwang/toggle-variable-width)
 #+end_src
 
 ** GPG
@@ -483,7 +485,7 @@ Use =H-f= to change to variable fonts. In order to change back, use =(find-alter
   ;(use-package org-agenda)
 #+end_src
 
-Setting orgmode directories:
+*** Setting orgmode directories:
 
 #+begin_src emacs-lisp
   (setq org-directory "~/Dropbox/org/")
@@ -497,14 +499,20 @@ Setting orgmode directories:
   (setq org-default-notes-file (concat org-directory "/inbox.org"))
 #+end_src
 
-Todo keywords:
+*** Startup
+Make org-mode files automatically indent.
+#+begin_src emacs-lisp
+  (setq org-startup-indented t)
+#+end_src
+
+*** Todo keywords
 
 #+begin_src emacs-lisp
   (setq org-todo-keywords
         '((sequence "TODO(t)" "IN-PROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
 #+end_src
 
-Keybinds:
+*** Keybinds
 
 #+begin_src emacs-lisp
   (define-key global-map "\C-cc" 'org-capture)
@@ -528,20 +536,20 @@ Keybinds:
   (global-set-key "\C-cb" 'org-switchb)
 #+end_src
 
-Tags:
+*** Tags
 
 #+begin_src emacs-lisp
   (setq org-tag-persistent-alist '(("OHS" . ?S)
 				   ("noexport" . ?N)))
 #+end_src
 
-Log when tasks are marked as done:
+*** Log when tasks are marked as done:
 
 #+begin_src emacs-lisp
   (setq org-log-done 'time) ; Log when task marked as done
 #+end_src
 
-Org Refile:
+*** Org Refile:
 
 #+begin_src emacs-lisp
   (setq pgwang/refile-targets (file-expand-wildcards "~/Dropbox/org/*.org"))
@@ -601,6 +609,33 @@ Presents:
      )
 
    (define-key org-agenda-mode-map (kbd "H-/") 'pgwang/org-agenda-filter-presets/body)
+#+end_src
+
+**** Custom Commands
+Custom commands, testing sorting strategy variable
+
+#+begin_src emacs-lisp
+  (setq org-agenda-custom-commands
+        '(("q" . "Custom Agenda Views")
+          ("qs" "General Agenda" agenda ""
+           ((org-agenda-span 1)
+            (org-agenda-sorting-strategy
+             '((agenda habit-down time-up deadline-up)))
+            )
+           )
+          ("qo" "OHS (Test)"
+           ((agenda "" ((org-agenda-span 1)
+                        (org-deadline-warning-days 3)
+                        ))
+            (tags-todo "+OHS"))
+           ((org-agenda-sorting-strategy '((agenda habit-down time-up deadline-up)
+                                           ;; (todo timestamp-up)
+                                           (tags ts-up priority-down) 
+                                           ;; (search timestamp-up)
+                                           )
+                                         )))
+          )
+        )
 #+end_src
 
 *** CANCELLED org-super-agenda
@@ -680,9 +715,7 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
     (let ((searchresults (search-forward (format-time-string "[%Y-%m-%d %a]") nil t)))
       (if searchresults
           'searchresults
-        (progn
-          (message "Not found! Use Vc to create today's practice first.")
-          (keyboard-quit))
+        (error "Not found! Use Vc to create today's practice first.")
         )
       )
     )
@@ -712,10 +745,11 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
    "* %^{RATING}p%^{Book Title}")
   ("j" "Journal" entry
   (file+olp+datetree "~/Dropbox/org/orgjournal.org.gpg")
-  "* %^{RATING}p%?
+  "* %^{RATING}p%^{Title of Entry}
   :PROPERTIES:
   :LOGGED: %^{Logged Time}U
-  :END:" :kill-buffer t)
+  :END:
+  %?" :kill-buffer t)
   ("S" "School")
   ("Se" "OE020B" entry
    (file+headline "~/Dropbox/org/school.org" "_\\ *sOE020B* \\_")
@@ -849,6 +883,11 @@ Fix color handling in org-preview-latex-fragment
   (use-package org-bullets
       :hook (org-mode . org-bullets-mode))
 #+end_src
+*** Export
+**** Async Init File:
+#+begin_src emacs-lisp
+  (setq org-export-async-init-file "~/.emacs.d/orgasyncinit.el")
+#+end_src
 ** LaTeX
 #+begin_src emacs-lisp
   (setq TeX-engine 'xetex)
@@ -970,6 +1009,7 @@ Fix color handling in org-preview-latex-fragment
     (evil-mode t)
     (add-hook 'dired-mode-hook 'evil-emacs-state)
     (add-hook 'calendar-mode-hook 'evil-emacs-state)
+    (add-hook 'calendar-load-hook 'evil-emacs-state)
     (add-hook 'display-time-hook 'evil-emacs-state)
     )
 #+end_src
@@ -1129,6 +1169,7 @@ Fix color handling in org-preview-latex-fragment
         ))
 #+end_src
 ** Flyspell mode
+Activate =flyspell-mode= automatically in all school files.
 #+begin_src elisp
   (defun pgwang/turn-on-flyspell-hook ()
     (cond ((string-match "^/Users/piercewang/Google Drive/OHS/11th Grade/Classes/" (if (eq buffer-file-name nil) "" buffer-file-name))
