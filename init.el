@@ -181,7 +181,7 @@ tangled, and the tangled file is compiled."
 ;;   :load-path "custom_load"
 ;;   :config
 ;;   (require 'framemove)
-;;   (global-set-key (kbd "C-s-<down>")  'fm-down-frame)
+;;   (global-set-key (kbd "C-e-<down>")  'fm-down-frame)
 ;;   (global-set-key (kbd "C-s-<up>")    'fm-up-frame)
 ;;   (global-set-key (kbd "C-s-<left>")  'fm-left-frame)
 ;;   (global-set-key (kbd "C-s-<right>") 'fm-right-frame)
@@ -400,10 +400,12 @@ With digit argument, reset buffer to default font."
          ((agenda "" ((org-agenda-span 1)
                       (org-deadline-warning-days 3)
                       ))
-          (tags-todo "+OHS"))
+          (tags-todo "gcal|class"
+                     ((org-agenda-span 5)
+                     )))
          ((org-agenda-sorting-strategy '((agenda habit-down time-up deadline-up)
-                                         ;; (todo timestamp-up)
-                                         (tags ts-up priority-down) 
+                                         ;; (todo ts-up todo-state-down)
+                                         (tags ts-up todo-state-down) 
                                          ;; (search timestamp-up)
                                          )
                                        )))
@@ -496,8 +498,7 @@ DEADLINE: %^t
 ("Vc" "Create Practice Entry" entry
  (file+olp "~/Dropbox/org/violin.org" "Practice Log")
  "* [%<%Y-%m-%d %a>]
-%t
-- %?"
+%t%?"
  :clock-in t :clock-keep t)
 ("Vd" "Add practice details" item
  (file+function "~/Dropbox/org/violin.org" pgwang/headline_date)
@@ -681,6 +682,7 @@ Paper Title
   )
 
 (define-key evil-normal-state-map (kbd "<S-return>") [?m ?` ?o escape ?` ?`])
+(define-key evil-normal-state-map (kbd "<s-S-return>") [?m ?` ?O escape ?` ?`])
 
 (elpy-enable)
 
@@ -718,7 +720,7 @@ Paper Title
 (global-set-key (kbd "H-x H-h e") 'pgwang/enable-helm)
 
 (fset 'OHSFigureSave
-      [?\H-x ?\H-h ?d ?\[ ?\[ ?f ?i ?l ?e ?: ?. ?/ ?f ?i ?g ?u ?r ?e ?s ?/ ?\C-x ?Q return ?_ ?\C-u ?\M-! ?d ?a ?t ?e ?  ?+ ?% ?H ?% ?M ?% ?S return escape ?e ?a ?. ?p ?n ?g escape ?v ?F ?: ?3 ?l ?y escape ?A ?\] ?\] return escape ?p ?0 ?i ?\M-x ?i ?n ?s ?e ?r ?t ?d ?i ?r ?e ?c ?t ?o ?r ?y return escape ?V ?d ?i backspace ?\H-m ?\H-s ?s ?\M-< ?\C-z ?\C-s ?S ?c ?r ?e ?e ?n ?  ?S ?h ?o ?t return ?R ?\C-  ?\C-a backspace ?\s-v backspace return ?\C-x ?k return tab ?\H-x ?\H-h ?e])
+      [?\H-x ?\H-h ?d ?\[ ?\[ ?f ?i ?l ?e ?: ?. ?/ ?f ?i ?g ?u ?r ?e ?s ?/ ?\C-x ?Q return ?_ ?\C-u ?\M-! ?d ?a ?t ?e ?  ?+ ?% ?H ?% ?M ?% ?S return escape ?e ?a ?. ?p ?n ?g escape ?v ?F ?: ?3 ?l ?y escape ?A ?\] ?\] return escape ?p ?0 ?i ?\M-x ?i ?n ?s ?e ?r ?t ?d ?i ?r ?e ?c ?t ?o ?r ?y return escape ?V ?d ?i backspace ?\H-m ?\H-s ?S ?t ?G ?R ?q ?\M-< ?\C-z ?\C-s ?S ?c ?r ?e ?e ?n ?  ?S ?h ?o ?t return ?R ?\C-  ?\C-a backspace ?\s-v backspace return ?\C-x ?k return tab ?\H-x ?\H-h ?e])
 ;To use: setup "figures" folder in directory of orgmode file this macro will be used in. Configure MacOS to save screenshots in ~/Screenshots. When using, type week number first then title.
 (global-set-key (kbd "<f8>") 'OHSFigureSave)
 
