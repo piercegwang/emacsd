@@ -3,7 +3,6 @@
 #+BABEL: :cache yes
 #+PROPERTY: header-args :tangle yes :results silent
 #+STARTUP: content indent
-
 * Credits
 Inspired by [[https://github.com/freetonik/emacs-dotfiles][freetonik]]'s setup. Check out his podcast!
 * Installing
@@ -98,6 +97,23 @@ For some functions that I don't need to give errors:
         (interactive)
         (ignore-errors
           (funcall fn)))))
+#+end_src
+*** Insert Org-mode Image
+#+begin_src emacs-lisp
+  (defun insert-org-image ()
+    "Moves image from Dropbox folder to ./media, inserting org-mode link"
+    (interactive)
+    (unless (not (eq system-type 'darwin))
+      (let* ((outdir (concat (file-name-directory (buffer-file-name)) "/figures"))
+             (namefile (concat (read-string "Enter File Name: ") "_" (format-time-string "%Y%m%d%k%M%S.png")))
+             (outfile (expand-file-name namefile outdir)))
+        (unless (file-directory-p outdir)
+          (make-directory outdir t))
+        (call-process "screencapture" nil nil nil "-i" outfile)
+        (insert (concat (concat "[[./figures/" (file-name-nondirectory outfile)) "]]"))
+        (newline)))
+    )
+  (global-set-key (kbd "<f8>") 'insert-org-image)
 #+end_src
 *** Keyboard Coding System
 #+begin_src emacs-lisp
@@ -1038,17 +1054,13 @@ Fix color handling in org-preview-latex-fragment
 ** Macros
 #+begin_src emacs-lisp
   (fset 'setupworkspace
-     [?\C-c ?a ?a ?d ?. ?\C-x ?0 M-f10 ?\C-x ?3 ?\H-l ?\H-\C-x ?o ?\C-x ?2 ?\C-u ?7 ?\C-x ?^ ?\H-j ?\H-c ?i ?\H-h ?\H-c ?o ?\H-l])
+     [?\C-c ?a ?q ?s ?. ?\C-x ?0 M-f10 ?\C-x ?3 ?\H-l ?\H-\C-x ?o ?\C-x ?2 ?\C-u ?7 ?\C-x ?^ ?\H-j ?\H-c ?i ?\H-h ?\H-c ?o ?\H-l])
   (global-set-key (kbd "C-x C-k 1") 'setupworkspace)
 
   ;;(fset 'OHSFigureSave
   ;;   [?# ?+ ?C ?A ?P ?T ?I ?O ?N ?: ?  ?\C-x ?Q return return tab ?\[ ?\[ ?f ?i ?l ?e ?: ?. ?/ ?W ?e ?e ?k ?  ?\C-x ?Q return ?/ ?\C-x ?Q return ?_ ?\C-u ?\M-! ?d ?a ?t ?e ?  ?+ ?% ?H ?% ?M ?% ?S return escape ?e ?a ?. ?p ?n ?g escape ?v ?B ?F ?/ ?l ?y escape ?A ?\] ?\] return escape ?p ?0 ?i ?\M-x ?i ?n ?s ?e ?r ?t ?d ?i ?r ?e ?c ?t ?o ?r ?y return escape ?V ?d ?i ?\C-x ?\C-f ?\C-  ?\C-a backspace ?/ ?U ?s ?e ?r ?s ?/ ?p ?i ?e ?r ?c ?e ?w ?a ?n ?g ?/ ?S ?c ?r ?e ?e ?n ?s ?h ?o ?t ?s return ?s ?\M-< ?\C-z ?/ ?S ?c ?r ?e ?e ?n ?  ?S ?h ?o ?t return ?R ?\C-  ?\C-a backspace ?\s-v backspace return ?\C-x ?k return])
   ;;(global-set-key (kbd "<f9>") 'OHSFigureSave)
 
-  (defun pgwang/dired-screenshots ()
-    "Dired Screenshots"
-    (interactive)
-    (dired "/Users/piercewang/Screenshots"))
   (defun pgwang/disable-helm ()
     "Disable Helm"
     (interactive)
@@ -1057,14 +1069,8 @@ Fix color handling in org-preview-latex-fragment
     "Enable Helm"
     (interactive)
     (helm-mode))
-  (global-set-key (kbd "H-m H-s") 'pgwang/dired-screenshots)
   (global-set-key (kbd "H-x H-h d") 'pgwang/disable-helm)
   (global-set-key (kbd "H-x H-h e") 'pgwang/enable-helm)
-
-  (fset 'OHSFigureSave
-        [?\H-x ?\H-h ?d ?\[ ?\[ ?f ?i ?l ?e ?: ?. ?/ ?f ?i ?g ?u ?r ?e ?s ?/ ?\C-x ?Q return ?_ ?\C-u ?\M-! ?d ?a ?t ?e ?  ?+ ?% ?H ?% ?M ?% ?S return escape ?e ?a ?. ?p ?n ?g escape ?v ?F ?: ?3 ?l ?y escape ?A ?\] ?\] return escape ?p ?0 ?i ?\M-x ?i ?n ?s ?e ?r ?t ?d ?i ?r ?e ?c ?t ?o ?r ?y return escape ?V ?d ?i backspace ?\H-m ?\H-s ?S ?t ?G ?R ?q ?\M-< ?\C-z ?\C-s ?S ?c ?r ?e ?e ?n ?  ?S ?h ?o ?t return ?R ?\C-  ?\C-a backspace ?\s-v backspace return ?\C-x ?k return tab ?\H-x ?\H-h ?e])
-  ;To use: setup "figures" folder in directory of orgmode file this macro will be used in. Configure MacOS to save screenshots in ~/Screenshots. When using, type week number first then title.
-  (global-set-key (kbd "<f8>") 'OHSFigureSave)
 
   ;(fset 'importChineseFlashcards
   ;   [return ?\C-p ?* ?* ?  ?I ?t ?e ?m ?\C-c ?\C-c ?d ?r ?i ?l ?l return ?\C-n ?\C-a ?\C-z ?f ?= ?x ?x ?\C-z ?\C-k ?\C-n ?\C-a return return ?\C-p ?* ?* ?  ?A ?n ?s ?w ?e ?r ?\C-a ?* ?\C-n ?\C-a ?\C-y ?\; ?  ?\C-a ?\C-n ?\C-n])
