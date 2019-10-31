@@ -278,22 +278,12 @@ tangled, and the tangled file is compiled."
 
 (set-font emacs-english-font emacs-cjk-font emacs-font-size-pair)
 
-(defun pgwang/toggle-variable-width (&optional arg)
-    "Make the font of the current buffer Arial.
-This function is just for me to make it easier to read essays when writing in emacs.
-With digit argument, reset buffer to default font."
-    (interactive)
-    (if (not face-remapping-alist)
-        (progn
-          (face-remap-set-base 'default :family "Arial")
-          (display-line-numbers-mode 0))
-      (progn
-        (face-remap-set-base 'default)
-        (display-line-numbers-mode t))
-      )
-    )
+(add-hook 'buffer-face-mode-hook (lambda () (interactive)
+                                   (if display-line-numbers-mode
+                                       (display-line-numbers-mode 0)
+                                     (display-line-numbers-mode t))))
 
-(global-set-key (kbd "H-f") 'pgwang/toggle-variable-width)
+(global-set-key (kbd "H-f") 'buffer-face-mode)
 
 ;; (require 'epa-file)
 (epa-file-enable)
