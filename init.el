@@ -51,6 +51,16 @@
 
 (set-keyboard-coding-system nil)
 
+(defun pgwang/org-open-link-prop-at-point ()
+  "This function opens the link pointed to by the link property \":LINK:\" at a given org node at point"
+  (interactive)
+  (let ((link (plist-get (org-element--get-node-properties) :LINK)))
+    (if (eq link nil)
+        (error "Not on a node with :LINK: property!")
+      (browse-url-firefox link)
+      ))
+  )
+
 ;;; -*- lexical-binding: t -*-
 
 (defun tangle-init ()
@@ -465,32 +475,32 @@ tangled, and the tangled file is compiled."
  "* %^{RATING}p%^{Book Title}")
 ("j" "Journal" entry
 (file+olp+datetree "~/Dropbox/org/orgjournal.org.gpg")
-"* %^{RATING}p%^{Title of Entry}
+"* %^{RATING}p%?
 :PROPERTIES:
 :LOGGED: %^{Logged Time}U
 :END:
-%?" :kill-buffer t)
+" :kill-buffer t)
 ("S" "School")
 ("Se" "OE020B" entry
  (file+headline "~/Dropbox/org/school.org" "_\\ *sOE020B* \\_")
  "* TODO %?
-     DEADLINE: <%<%Y-%m-%d %a 13:30>>")
+DEADLINE: <%<%Y-%m-%d %a 13:30>>")
 ("Sp" "OP005" entry
  (file+headline "~/Dropbox/org/school.org" "_\\ *sOP005* \\_")
  "* TODO %?
-     DEADLINE: <%<%Y-%m-%d %a 14:45>>")
+DEADLINE: <%<%Y-%m-%d %a 14:45>>")
 ("Sd" "ODFRL" entry
  (file+headline "~/Dropbox/org/school.org" "_\\ *sODFRL* \\_")
  "* TODO %?
-     DEADLINE: <%<%Y-%m-%d %a 16:00>>")
+DEADLINE: <%<%Y-%m-%d %a 16:00>>")
 ("Sh" "OH011A" entry
  (file+headline "~/Dropbox/org/school.org" "_\\ *sOH011A* \\_")
  "* TODO %?
-     DEADLINE: <%<%Y-%m-%d %a 08:30>>")
+DEADLINE: <%<%Y-%m-%d %a 08:30>>")
 ("Sm" "UM52A" entry
  (file+headline "~/Dropbox/org/school.org" "_\\ *sUM52A* \\_")
  "**** TODO %?
-     DEADLINE: <%<%Y-%m-%d %a 13:30>>")
+DEADLINE: <%<%Y-%m-%d %a 13:30>>")
 ("M" "Musicianship Homework" entry
  (file+headline "~/Dropbox/org/gtd.org" "Musicianship")
  "* TODO Musicianship Homework [/]
@@ -830,6 +840,8 @@ If the input is non-empty, it is inserted at point."
 ;;; Close window
 (global-set-key (kbd "s-0") 'delete-window)
 
+(global-set-key (kbd "H-c H-o") 'pgwang/org-open-link-prop-at-point)
+
 ;;; Email
 (setq user-mail-address "pierce.g.wang@gmail.com")
 
@@ -856,9 +868,14 @@ If the input is non-empty, it is inserted at point."
 (add-hook 'ibuffer-mode-hook
           (lambda ()
             (ibuffer-switch-to-saved-filter-groups "default")))
+(define-key ibuffer-mode-map (kbd "P") nil)
 
 (setq delete-by-moving-to-trash t)
 (setq insert-directory-program "gls")
+
+(setq dired-dwim-target t)
+
+(define-key dired-mode-map (kbd "P") nil)
 
 (use-package dired-quick-sort
   :load-path "custom_load"
@@ -875,6 +892,8 @@ If the input is non-empty, it is inserted at point."
 (put 'narrow-to-page 'disabled nil)
 
 (setq browse-url-firefox-program "/Applications/Firefox.app/Contents/MacOS/firefox-bin")
+
+(put 'narrow-to-region 'disabled nil)
 
 (defun pgwang/turn-on-flyspell-hook ()
   (cond ((string-match "^/Users/piercewang/Google Drive/OHS/11th Grade/Classes/" (if (eq buffer-file-name nil) "" buffer-file-name))

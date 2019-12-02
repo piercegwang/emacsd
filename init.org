@@ -119,6 +119,21 @@ For some functions that I don't need to give errors:
 #+begin_src emacs-lisp
   (set-keyboard-coding-system nil)
 #+end_src
+*** Open Link from =:LINK= Property
+This is for items created by my gcal script after having parsed assignments from the ical file.
+
+
+#+begin_src emacs-lisp
+  (defun pgwang/org-open-link-prop-at-point ()
+    "This function opens the link pointed to by the link property \":LINK:\" at a given org node at point"
+    (interactive)
+    (let ((link (plist-get (org-element--get-node-properties) :LINK)))
+      (if (eq link nil)
+          (error "Not on a node with :LINK: property!")
+        (browse-url-firefox link)
+        ))
+    )
+#+end_src
 ** Meta
 When this configuration is loaded for the first time, the =init.el= is the file that is loaded. It looks like this:
 
@@ -753,32 +768,32 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
    "* %^{RATING}p%^{Book Title}")
   ("j" "Journal" entry
   (file+olp+datetree "~/Dropbox/org/orgjournal.org.gpg")
-  "* %^{RATING}p%^{Title of Entry}
+  "* %^{RATING}p%?
   :PROPERTIES:
   :LOGGED: %^{Logged Time}U
   :END:
-  %?" :kill-buffer t)
+  " :kill-buffer t)
   ("S" "School")
   ("Se" "OE020B" entry
    (file+headline "~/Dropbox/org/school.org" "_\\ *sOE020B* \\_")
    "* TODO %?
-       DEADLINE: <%<%Y-%m-%d %a 13:30>>")
+  DEADLINE: <%<%Y-%m-%d %a 13:30>>")
   ("Sp" "OP005" entry
    (file+headline "~/Dropbox/org/school.org" "_\\ *sOP005* \\_")
    "* TODO %?
-       DEADLINE: <%<%Y-%m-%d %a 14:45>>")
+  DEADLINE: <%<%Y-%m-%d %a 14:45>>")
   ("Sd" "ODFRL" entry
    (file+headline "~/Dropbox/org/school.org" "_\\ *sODFRL* \\_")
    "* TODO %?
-       DEADLINE: <%<%Y-%m-%d %a 16:00>>")
+  DEADLINE: <%<%Y-%m-%d %a 16:00>>")
   ("Sh" "OH011A" entry
    (file+headline "~/Dropbox/org/school.org" "_\\ *sOH011A* \\_")
    "* TODO %?
-       DEADLINE: <%<%Y-%m-%d %a 08:30>>")
+  DEADLINE: <%<%Y-%m-%d %a 08:30>>")
   ("Sm" "UM52A" entry
    (file+headline "~/Dropbox/org/school.org" "_\\ *sUM52A* \\_")
    "**** TODO %?
-       DEADLINE: <%<%Y-%m-%d %a 13:30>>")
+  DEADLINE: <%<%Y-%m-%d %a 13:30>>")
   ("M" "Musicianship Homework" entry
    (file+headline "~/Dropbox/org/gtd.org" "Musicianship")
    "* TODO Musicianship Homework [/]
@@ -1209,6 +1224,12 @@ Activate =flyspell-mode= automatically in all school files.
   ;;; Close window
   (global-set-key (kbd "s-0") 'delete-window)
 #+end_src
+*** Open Link from =:LINK= Property
+This is for items created by my gcal script after having parsed assignments from the ical file.
+
+#+begin_src emacs-lisp
+  (global-set-key (kbd "H-c H-o") 'pgwang/org-open-link-prop-at-point)
+#+end_src
 ** User Configuration
 #+begin_src emacs-lisp
   ;;; Email
@@ -1239,11 +1260,22 @@ Activate =flyspell-mode= automatically in all school files.
   (add-hook 'ibuffer-mode-hook
             (lambda ()
               (ibuffer-switch-to-saved-filter-groups "default")))
+  (define-key ibuffer-mode-map (kbd "P") nil)
 #+end_src
 ** Dired
 #+begin_src emacs-lisp
   (setq delete-by-moving-to-trash t)
   (setq insert-directory-program "gls")
+#+end_src
+
+Make moving files easier between two split buffers.
+#+begin_src emacs-lisp
+  (setq dired-dwim-target t)
+#+end_src
+
+Remove print option to not accidentally print
+#+begin_src emacs-lisp
+  (define-key dired-mode-map (kbd "P") nil)
 #+end_src
 *** dired-quick-sort.el
 Disabled because it relies on GNU core utils - will need to either install GNU ls or reconfigure file.
@@ -1273,3 +1305,6 @@ Allow the function =browse-url-firefox= to open links in firefox using bin. One 
   (setq browse-url-firefox-program "/Applications/Firefox.app/Contents/MacOS/firefox-bin")
 #+end_src
 ** Last Things
+#+begin_src emacs-lisp
+  (put 'narrow-to-region 'disabled nil)
+#+end_src
