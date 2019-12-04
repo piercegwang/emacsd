@@ -61,6 +61,15 @@
       ))
   )
 
+(defun pgwang/dired-open-file ()
+  "In dired, open the file named on this line using the default application in the system."
+  (interactive)
+  (let ((file (dired-get-filename nil t))
+        (filename (dired-get-filename t t)))
+    (message "Opening %s..." filename)
+    (call-process "open" nil 0 nil file)
+    (message "Opening %s done" filename)))
+
 ;;; -*- lexical-binding: t -*-
 
 (defun tangle-init ()
@@ -698,6 +707,8 @@ Paper Title
 
 (define-key evil-normal-state-map (kbd "<S-return>") [?m ?` ?o escape ?` ?`])
 (define-key evil-normal-state-map (kbd "<s-S-return>") [?m ?` ?O escape ?` ?`])
+(define-key evil-motion-state-map (kbd "k") 'previous-line)
+(define-key evil-motion-state-map (kbd "j") 'next-line)
 
 (elpy-enable)
 
@@ -876,6 +887,8 @@ If the input is non-empty, it is inserted at point."
 (setq dired-dwim-target t)
 
 (define-key dired-mode-map (kbd "P") nil)
+
+(define-key dired-mode-map (kbd "O") 'pgwang/dired-open-file)
 
 (use-package dired-quick-sort
   :load-path "custom_load"

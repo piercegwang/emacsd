@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Surround Selection
+# binding: C-c s-c
+# --
+$1`yas-selected-text`$1$0

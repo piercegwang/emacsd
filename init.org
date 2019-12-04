@@ -134,6 +134,17 @@ This is for items created by my gcal script after having parsed assignments from
         ))
     )
 #+end_src
+*** Dired Open File
+#+begin_src emacs-lisp
+  (defun pgwang/dired-open-file ()
+    "In dired, open the file named on this line using the default application in the system."
+    (interactive)
+    (let ((file (dired-get-filename nil t))
+          (filename (dired-get-filename t t)))
+      (message "Opening %s..." filename)
+      (call-process "open" nil 0 nil file)
+      (message "Opening %s done" filename)))
+#+end_src
 ** Meta
 When this configuration is loaded for the first time, the =init.el= is the file that is loaded. It looks like this:
 
@@ -1039,6 +1050,8 @@ Fix color handling in org-preview-latex-fragment
 #+begin_src emacs-lisp
   (define-key evil-normal-state-map (kbd "<S-return>") [?m ?` ?o escape ?` ?`])
   (define-key evil-normal-state-map (kbd "<s-S-return>") [?m ?` ?O escape ?` ?`])
+  (define-key evil-motion-state-map (kbd "k") 'previous-line)
+  (define-key evil-motion-state-map (kbd "j") 'next-line)
 #+end_src
 ** Programming Environments
 *** Elpy
@@ -1277,6 +1290,12 @@ Remove print option to not accidentally print
 #+begin_src emacs-lisp
   (define-key dired-mode-map (kbd "P") nil)
 #+end_src
+
+Custom dired open file function
+#+begin_src emacs-lisp
+  (define-key dired-mode-map (kbd "O") 'pgwang/dired-open-file)
+#+end_src
+
 *** dired-quick-sort.el
 Disabled because it relies on GNU core utils - will need to either install GNU ls or reconfigure file.
 #+begin_src emacs-lisp
