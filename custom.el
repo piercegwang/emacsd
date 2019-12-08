@@ -68,7 +68,7 @@
        (or
         (name . "*Help*")
         (name . "*info*")
-        (name . "*GNU Emacs*")))))) t)
+        (name . "*GNU Emacs*")))))))
  '(ibuffer-saved-filters
    (quote
     (("programming"

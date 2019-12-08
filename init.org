@@ -100,20 +100,21 @@ For some functions that I don't need to give errors:
 #+end_src
 *** Insert Org-mode Image
 #+begin_src emacs-lisp
-  (defun insert-org-image ()
+  (defun insert-org-image (&optional swindow)
     "Moves image from Dropbox folder to ./media, inserting org-mode link"
-    (interactive)
+    (interactive "P")
     (unless (not (eq system-type 'darwin))
       (let* ((outdir (concat (file-name-directory (buffer-file-name)) "/figures"))
              (namefile (concat (read-string "Enter File Name: ") "_" (format-time-string "%Y%m%d%k%M%S.png")))
              (outfile (expand-file-name namefile outdir)))
         (unless (file-directory-p outdir)
           (make-directory outdir t))
-        (call-process "screencapture" nil nil nil "-i" outfile)
-        (insert (concat (concat "[[./figures/" (file-name-nondirectory outfile)) "]]"))
-        (newline)))
+        (message "Argument: %s" swindow)
+        (if swindow
+            (call-process "screencapture" nil nil nil "-w" outfile)
+          (call-process "screencapture" nil nil nil "-i" outfile))
+        (insert (concat (concat "[[./figures/" (file-name-nondirectory outfile)) "]]"))))
     )
-  (global-set-key (kbd "<f8>") 'insert-org-image)
 #+end_src
 *** Keyboard Coding System
 #+begin_src emacs-lisp
@@ -144,6 +145,20 @@ This is for items created by my gcal script after having parsed assignments from
       (message "Opening %s..." filename)
       (call-process "open" nil 0 nil file)
       (message "Opening %s done" filename)))
+#+end_src
+*** append-to-list
+#+begin_src emacs-lisp
+  (defun append-to-list (list-var elements)
+    "Append ELEMENTS to the end of LIST-VAR.
+
+  The return value is the new value of LIST-VAR."
+    (unless (consp elements)
+      (error "ELEMENTS must be a list"))
+    (let ((list (symbol-value list-var)))
+      (if list
+          (setcdr (last list) elements)
+        (set list-var elements)))
+    (symbol-value list-var))
 #+end_src
 ** Meta
 When this configuration is loaded for the first time, the =init.el= is the file that is loaded. It looks like this:
@@ -454,15 +469,20 @@ Special Fonts config for ease of zooming chinese and english fonts at same rate.
 
   (set-font emacs-english-font emacs-cjk-font emacs-font-size-pair)
 #+end_src
-*** Changing Font to Variable Width
-Use =H-f= to change to variable fonts using buffer-face-mode.
-#+begin_src emacs-lisp
-  (add-hook 'buffer-face-mode-hook (lambda () (interactive)
-                                     (if display-line-numbers-mode
-                                         (display-line-numbers-mode 0)
-                                       (display-line-numbers-mode t))))
+*** Mixed Pitch
+Mixed pitch package for mixing variable and monospace fonts where appropriate (replacing buffer-face-mode).
 
-  (global-set-key (kbd "H-f") 'buffer-face-mode)
+#+begin_src emacs-lisp
+  (use-package mixed-pitch
+    :load-path "site-lisp/mixed-pitch"
+    :config
+    ;; (set-face-attribute 'variable-pitch :height 160)
+    (setq mixed-pitch-fixed-pitch-faces '(diff-added diff-context diff-file-header diff-function diff-header diff-hunk-header diff-removed font-latex-math-face font-latex-sedate-face font-latex-warning-face font-latex-sectioning-5-face font-lock-builtin-face font-lock-comment-delimiter-face font-lock-constant-face font-lock-doc-face font-lock-function-name-face font-lock-keyword-face font-lock-negation-char-face font-lock-preprocessor-face font-lock-regexp-grouping-backslash font-lock-regexp-grouping-construct font-lock-string-face font-lock-type-face font-lock-variable-name-face markdown-code-face markdown-gfm-checkbox-face markdown-inline-code-face markdown-language-info-face markdown-language-keyword-face markdown-math-face message-header-name message-header-to message-header-cc message-header-newsgroups message-header-xheader message-header-subject message-header-other mu4e-header-key-face mu4e-header-value-face mu4e-link-face mu4e-contact-face mu4e-compose-separator-face mu4e-compose-header-face org-block org-block-begin-line org-block-end-line org-document-info-keyword org-code org-latex-and-related org-checkbox org-meta-line org-table org-verbatim))
+    (append-to-list 'mixed-pitch-fixed-pitch-faces '(line-number line-number-current-line org-list-dt))
+    (set-face-attribute 'variable-pitch nil :height 130)
+    (global-set-key (kbd "H-f") 'mixed-pitch-mode)
+    (add-hook 'text-mode 'mixed-pitch-mode)
+    )
 #+end_src
 
 ** GPG
@@ -805,7 +825,8 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
    (file+headline "~/Dropbox/org/school.org" "_\\ *sUM52A* \\_")
    "**** TODO %?
   DEADLINE: <%<%Y-%m-%d %a 13:30>>")
-  ("M" "Musicianship Homework" entry
+  ("m" "Music")
+  ("mM" "Musicianship Homework" entry
    (file+headline "~/Dropbox/org/gtd.org" "Musicianship")
    "* TODO Musicianship Homework [/]
   DEADLINE: %^t
@@ -813,6 +834,11 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
   - [ ] Singing: %^{Singing}
   - [ ] Rhythm: %^{Rhythm}
   - [ ] Keyboard: %^{Keyboard}")
+  ("mc" "Conducting Homework" entry
+   (file+headline "~/Dropbox/org/music.org" "Homework")
+   "* TODO Conducting Homework
+  DEADLINE: %^t
+  - ")
   ("V" "Violin")
   ("Vc" "Create Practice Entry" entry
    (file+olp "~/Dropbox/org/violin.org" "Practice Log")
@@ -1237,11 +1263,16 @@ Activate =flyspell-mode= automatically in all school files.
   ;;; Close window
   (global-set-key (kbd "s-0") 'delete-window)
 #+end_src
-*** Open Link from =:LINK= Property
-This is for items created by my gcal script after having parsed assignments from the ical file.
 
+Open Link from =:LINK= Property
+This is for items created by my gcal script after having parsed assignments from the ical file.
 #+begin_src emacs-lisp
   (global-set-key (kbd "H-c H-o") 'pgwang/org-open-link-prop-at-point)
+#+end_src
+
+Insert Org-mode Image
+#+begin_src emacs-lisp
+  (global-set-key (kbd "<f8>") 'insert-org-image)
 #+end_src
 ** User Configuration
 #+begin_src emacs-lisp

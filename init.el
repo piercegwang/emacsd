@@ -34,20 +34,21 @@
       (ignore-errors
         (funcall fn)))))
 
-(defun insert-org-image ()
+(defun insert-org-image (&optional swindow)
   "Moves image from Dropbox folder to ./media, inserting org-mode link"
-  (interactive)
+  (interactive "P")
   (unless (not (eq system-type 'darwin))
     (let* ((outdir (concat (file-name-directory (buffer-file-name)) "/figures"))
            (namefile (concat (read-string "Enter File Name: ") "_" (format-time-string "%Y%m%d%k%M%S.png")))
            (outfile (expand-file-name namefile outdir)))
       (unless (file-directory-p outdir)
         (make-directory outdir t))
-      (call-process "screencapture" nil nil nil "-i" outfile)
-      (insert (concat (concat "[[./figures/" (file-name-nondirectory outfile)) "]]"))
-      (newline)))
+      (message "Argument: %s" swindow)
+      (if swindow
+          (call-process "screencapture" nil nil nil "-w" outfile)
+        (call-process "screencapture" nil nil nil "-i" outfile))
+      (insert (concat (concat "[[./figures/" (file-name-nondirectory outfile)) "]]"))))
   )
-(global-set-key (kbd "<f8>") 'insert-org-image)
 
 (set-keyboard-coding-system nil)
 
@@ -69,6 +70,18 @@
     (message "Opening %s..." filename)
     (call-process "open" nil 0 nil file)
     (message "Opening %s done" filename)))
+
+(defun append-to-list (list-var elements)
+  "Append ELEMENTS to the end of LIST-VAR.
+
+The return value is the new value of LIST-VAR."
+  (unless (consp elements)
+    (error "ELEMENTS must be a list"))
+  (let ((list (symbol-value list-var)))
+    (if list
+        (setcdr (last list) elements)
+      (set list-var elements)))
+  (symbol-value list-var))
 
 ;;; -*- lexical-binding: t -*-
 
@@ -297,12 +310,16 @@ tangled, and the tangled file is compiled."
 
 (set-font emacs-english-font emacs-cjk-font emacs-font-size-pair)
 
-(add-hook 'buffer-face-mode-hook (lambda () (interactive)
-                                   (if display-line-numbers-mode
-                                       (display-line-numbers-mode 0)
-                                     (display-line-numbers-mode t))))
-
-(global-set-key (kbd "H-f") 'buffer-face-mode)
+(use-package mixed-pitch
+  :load-path "site-lisp/mixed-pitch"
+  :config
+  ;; (set-face-attribute 'variable-pitch :height 160)
+  (setq mixed-pitch-fixed-pitch-faces '(diff-added diff-context diff-file-header diff-function diff-header diff-hunk-header diff-removed font-latex-math-face font-latex-sedate-face font-latex-warning-face font-latex-sectioning-5-face font-lock-builtin-face font-lock-comment-delimiter-face font-lock-constant-face font-lock-doc-face font-lock-function-name-face font-lock-keyword-face font-lock-negation-char-face font-lock-preprocessor-face font-lock-regexp-grouping-backslash font-lock-regexp-grouping-construct font-lock-string-face font-lock-type-face font-lock-variable-name-face markdown-code-face markdown-gfm-checkbox-face markdown-inline-code-face markdown-language-info-face markdown-language-keyword-face markdown-math-face message-header-name message-header-to message-header-cc message-header-newsgroups message-header-xheader message-header-subject message-header-other mu4e-header-key-face mu4e-header-value-face mu4e-link-face mu4e-contact-face mu4e-compose-separator-face mu4e-compose-header-face org-block org-block-begin-line org-block-end-line org-document-info-keyword org-code org-latex-and-related org-checkbox org-meta-line org-table org-verbatim))
+  (append-to-list 'mixed-pitch-fixed-pitch-faces '(line-number line-number-current-line org-list-dt))
+  (set-face-attribute 'variable-pitch nil :height 130)
+  (global-set-key (kbd "H-f") 'mixed-pitch-mode)
+  (add-hook 'text-mode 'mixed-pitch-mode)
+  )
 
 ;; (require 'epa-file)
 (epa-file-enable)
@@ -510,7 +527,8 @@ DEADLINE: <%<%Y-%m-%d %a 08:30>>")
  (file+headline "~/Dropbox/org/school.org" "_\\ *sUM52A* \\_")
  "**** TODO %?
 DEADLINE: <%<%Y-%m-%d %a 13:30>>")
-("M" "Musicianship Homework" entry
+("m" "Music")
+("mM" "Musicianship Homework" entry
  (file+headline "~/Dropbox/org/gtd.org" "Musicianship")
  "* TODO Musicianship Homework [/]
 DEADLINE: %^t
@@ -518,6 +536,11 @@ DEADLINE: %^t
 - [ ] Singing: %^{Singing}
 - [ ] Rhythm: %^{Rhythm}
 - [ ] Keyboard: %^{Keyboard}")
+("mc" "Conducting Homework" entry
+ (file+headline "~/Dropbox/org/music.org" "Homework")
+ "* TODO Conducting Homework
+DEADLINE: %^t
+- ")
 ("V" "Violin")
 ("Vc" "Create Practice Entry" entry
  (file+olp "~/Dropbox/org/violin.org" "Practice Log")
@@ -852,6 +875,8 @@ If the input is non-empty, it is inserted at point."
 (global-set-key (kbd "s-0") 'delete-window)
 
 (global-set-key (kbd "H-c H-o") 'pgwang/org-open-link-prop-at-point)
+
+(global-set-key (kbd "<f8>") 'insert-org-image)
 
 ;;; Email
 (setq user-mail-address "pierce.g.wang@gmail.com")
