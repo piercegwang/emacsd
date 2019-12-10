@@ -310,15 +310,16 @@ tangled, and the tangled file is compiled."
 
 (set-font emacs-english-font emacs-cjk-font emacs-font-size-pair)
 
+(set-face-attribute 'variable-pitch nil :family "Avenir Book")
+
 (use-package mixed-pitch
   :load-path "site-lisp/mixed-pitch"
   :config
   ;; (set-face-attribute 'variable-pitch :height 160)
   (setq mixed-pitch-fixed-pitch-faces '(diff-added diff-context diff-file-header diff-function diff-header diff-hunk-header diff-removed font-latex-math-face font-latex-sedate-face font-latex-warning-face font-latex-sectioning-5-face font-lock-builtin-face font-lock-comment-delimiter-face font-lock-constant-face font-lock-doc-face font-lock-function-name-face font-lock-keyword-face font-lock-negation-char-face font-lock-preprocessor-face font-lock-regexp-grouping-backslash font-lock-regexp-grouping-construct font-lock-string-face font-lock-type-face font-lock-variable-name-face markdown-code-face markdown-gfm-checkbox-face markdown-inline-code-face markdown-language-info-face markdown-language-keyword-face markdown-math-face message-header-name message-header-to message-header-cc message-header-newsgroups message-header-xheader message-header-subject message-header-other mu4e-header-key-face mu4e-header-value-face mu4e-link-face mu4e-contact-face mu4e-compose-separator-face mu4e-compose-header-face org-block org-block-begin-line org-block-end-line org-document-info-keyword org-code org-latex-and-related org-checkbox org-meta-line org-table org-verbatim))
-  (append-to-list 'mixed-pitch-fixed-pitch-faces '(line-number line-number-current-line org-list-dt))
-  (set-face-attribute 'variable-pitch nil :height 130)
+  (append-to-list 'mixed-pitch-fixed-pitch-faces '(line-number line-number-current-line org-list-dt org-link))
+  ;; (add-hook 'text-mode-hook 'mixed-pitch-mode)
   (global-set-key (kbd "H-f") 'mixed-pitch-mode)
-  (add-hook 'text-mode 'mixed-pitch-mode)
   )
 
 ;; (require 'epa-file)
