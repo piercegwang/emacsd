@@ -1248,7 +1248,7 @@ Activate =flyspell-mode= automatically in all school files.
 #+begin_src emacs-lisp
   (setq erc-log-channels-directory "~/logs/")
   (setq erc-save-buffer-on-part t)
-  (global-set-key (kbd "H-M-e") (lambda () (interactive) (erc :server "irc.freenode.net" :port 6667 :nick "pgwang" :password passwords_ERC)))
+  (global-set-key (kbd "H-M-e") (lambda () (interactive) (erc :server "irc.freenode.net" :port 6667 :nick "tesrodome" :password passwords_ERC)))
 #+end_src
 ** Keybinds
 #+begin_src emacs-lisp
@@ -1275,6 +1275,25 @@ This is for items created by my gcal script after having parsed assignments from
 Insert Org-mode Image
 #+begin_src emacs-lisp
   (global-set-key (kbd "<f8>") 'insert-org-image)
+#+end_src
+** Resizing Windows
+Hydra for resizing windows.
+
+Functions to change:
+(enlarge-window)
+(shrink-window-horizontally)
+(enlarge-window-horizontally)
+
+#+begin_src emacs-lisp
+  (defhydra hydra-windowmanage (global-map "H-c ^")
+    "Hydra for window management."
+    ("=" enlarge-window "+Vertical")
+    ("-" (enlarge-window -1) "-Vertical")
+    ("]" enlarge-window-horizontally "+Horizontal")
+    ("[" shrink-window-horizontally "-Horizontal")
+    ("q" nil "Quit"))
+
+  (global-set-key (kbd "C-c C-6") 'hydra-windowmanage/body)
 #+end_src
 ** User Configuration
 #+begin_src emacs-lisp
