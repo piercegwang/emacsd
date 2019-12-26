@@ -82,7 +82,7 @@ tangled, and the tangled file is compiled."
 
 (set-keyboard-coding-system nil)
 
-(defun pgwang/org-open-link-prop-at-point ()
+(defun pgw/org-open-link-prop-at-point ()
   "This function opens the link pointed to by the link property \":LINK:\" at a given org node at point"
   (interactive)
   (let ((link (plist-get (org-element--get-node-properties) :LINK)))
@@ -92,7 +92,7 @@ tangled, and the tangled file is compiled."
       ))
   )
 
-(defun pgwang/dired-open-file ()
+(defun pgw/dired-open-file ()
   "In dired, open the file named on this line using the default application in the system."
   (interactive)
   (let ((file (dired-get-filename nil t))
@@ -232,6 +232,55 @@ The return value is the new value of LIST-VAR."
 (use-package treemacs-evil)
 (use-package treemacs-magit)
 
+(setq pgw/default-font "Menlo")
+(setq pgw/default-font-size 12)
+(setq pgw/current-font-size pgw/default-font-size)
+
+(setq pgw/font-change-increment 1.1)
+
+(defun pgw/font-code ()
+  "Return a string representing the current font (like \"Inconsolata-14\")."
+  (concat pgw/default-font "-" (number-to-string pgw/current-font-size)))
+
+(defun pgw/set-font-size ()
+  "Set the font to `pgw/default-font' at `pgw/current-font-size'.
+Set that for the current frame, and also make it the default for
+other, future frames."
+  (let ((font-code (pgw/font-code)))
+    (if (assoc 'font default-frame-alist)
+        (setcdr (assoc 'font default-frame-alist) font-code)
+      (add-to-list 'default-frame-alist (cons 'font font-code)))
+    (set-frame-font font-code)))
+
+(defun pgw/reset-font-size ()
+  "Change font size back to `pgw/default-font-size'."
+  (interactive)
+  (setq pgw/current-font-size pgw/default-font-size)
+  (pgw/set-font-size))
+
+(defun pgw/increase-font-size ()
+  "Increase current font size by a factor of `pgw/font-change-increment'."
+  (interactive)
+  (setq pgw/current-font-size
+        (ceiling (* pgw/current-font-size pgw/font-change-increment)))
+  (pgw/set-font-size))
+
+(defun pgw/decrease-font-size ()
+  "Decrease current font size by a factor of `pgw/font-change-increment', down to a minimum size of 1."
+  (interactive)
+  (setq pgw/current-font-size
+        (max 1
+             (floor (/ pgw/current-font-size pgw/font-change-increment))))
+  (pgw/set-font-size))
+
+(define-key global-map (kbd "C-)") 'pgw/reset-font-size)
+(define-key global-map (kbd "C-+") 'pgw/increase-font-size)
+(define-key global-map (kbd "C-=") 'pgw/increase-font-size)
+(define-key global-map (kbd "C-_") 'pgw/decrease-font-size)
+(define-key global-map (kbd "C--") 'pgw/decrease-font-size)
+
+(pgw/reset-font-size)
+
 (set-face-attribute 'variable-pitch nil :family "Avenir Book")
 
 (use-package mixed-pitch
@@ -318,20 +367,20 @@ The return value is the new value of LIST-VAR."
 
 (setq org-log-done 'time) ; Log when task marked as done
 
-(setq pgwang/refile-targets (file-expand-wildcards "~/Dropbox/org/*.org"))
+(setq pgw/refile-targets (file-expand-wildcards "~/Dropbox/org/*.org"))
 (setq org-refile-targets '((nil :maxlevel . 9)
                            (org-agenda-files :maxlevel . 9)
-                           (pgwang/refile-targets :maxlevel . 9)))
+                           (pgw/refile-targets :maxlevel . 9)))
 (setq org-refile-use-outline-path 'file)
 (setq org-outline-path-complete-in-steps nil)
 (setq org-refile-allow-creating-parent-nodes 'confirm)
 
 ;; org-agenda-auto-exclude-function
-(defun pgwang/org-my-auto-exclude-function (tag)
+(defun pgw/org-my-auto-exclude-function (tag)
   (if
       (string= tag "officehours")
       (concat "-" tag)))
-(setq org-agenda-auto-exclude-function 'pgwang/org-my-auto-exclude-function)
+(setq org-agenda-auto-exclude-function 'pgw/org-my-auto-exclude-function)
 
 ;(setq org-agenda-overriding-columns-format "%28ITEM %TODO %SCHEDULED %DEADLINE %TAGS")
 
@@ -376,19 +425,19 @@ The return value is the new value of LIST-VAR."
         )
       )
 
-(defun pgwang/year-month ()
+(defun pgw/year-month ()
   "Custom function to return date in format: YYYY-MM"
   (format-time-string "%Y-%m"))
 
-(defun pgwang/U ()
+(defun pgw/U ()
   "Custom function to return date in org inactive timestamp format"
   (format-time-string "[%Y-%m-%d %a]"))
 
-(defun pgwang/add-12 ()
+(defun pgw/add-12 ()
   "Custom function return active org timestamp with exactly 24 hour difference"
   (format-time-string "%Y-%m-%d %a %H:%M" (time-add (current-time) 85500)))
 
-(defun pgwang/headline_date ()
+(defun pgw/headline_date ()
   "Function to find the date as headline for Violin capture template"
   (beginning-of-buffer)
   (let ((searchresults (search-forward (format-time-string "[%Y-%m-%d %a]") nil t)))
@@ -471,7 +520,7 @@ DEADLINE: %^t
 %t%?"
  :clock-in t :clock-keep t)
 ("Vd" "Add practice details" item
- (file+function "~/Dropbox/org/violin.org" pgwang/headline_date)
+ (file+function "~/Dropbox/org/violin.org" pgw/headline_date)
  "%?"
  :clock-in t)
 ))
@@ -675,16 +724,16 @@ Paper Title
 ;;   [?# ?+ ?C ?A ?P ?T ?I ?O ?N ?: ?  ?\C-x ?Q return return tab ?\[ ?\[ ?f ?i ?l ?e ?: ?. ?/ ?W ?e ?e ?k ?  ?\C-x ?Q return ?/ ?\C-x ?Q return ?_ ?\C-u ?\M-! ?d ?a ?t ?e ?  ?+ ?% ?H ?% ?M ?% ?S return escape ?e ?a ?. ?p ?n ?g escape ?v ?B ?F ?/ ?l ?y escape ?A ?\] ?\] return escape ?p ?0 ?i ?\M-x ?i ?n ?s ?e ?r ?t ?d ?i ?r ?e ?c ?t ?o ?r ?y return escape ?V ?d ?i ?\C-x ?\C-f ?\C-  ?\C-a backspace ?/ ?U ?s ?e ?r ?s ?/ ?p ?i ?e ?r ?c ?e ?w ?a ?n ?g ?/ ?S ?c ?r ?e ?e ?n ?s ?h ?o ?t ?s return ?s ?\M-< ?\C-z ?/ ?S ?c ?r ?e ?e ?n ?  ?S ?h ?o ?t return ?R ?\C-  ?\C-a backspace ?\s-v backspace return ?\C-x ?k return])
 ;;(global-set-key (kbd "<f9>") 'OHSFigureSave)
 
-(defun pgwang/disable-helm ()
+(defun pgw/disable-helm ()
   "Disable Helm"
   (interactive)
   (helm-mode 0))
-(defun pgwang/enable-helm ()
+(defun pgw/enable-helm ()
   "Enable Helm"
   (interactive)
   (helm-mode))
-(global-set-key (kbd "H-x H-h d") 'pgwang/disable-helm)
-(global-set-key (kbd "H-x H-h e") 'pgwang/enable-helm)
+(global-set-key (kbd "H-x H-h d") 'pgw/disable-helm)
+(global-set-key (kbd "H-x H-h e") 'pgw/enable-helm)
 
 ;(fset 'importChineseFlashcards
 ;   [return ?\C-p ?* ?* ?  ?I ?t ?e ?m ?\C-c ?\C-c ?d ?r ?i ?l ?l return ?\C-n ?\C-a ?\C-z ?f ?= ?x ?x ?\C-z ?\C-k ?\C-n ?\C-a return return ?\C-p ?* ?* ?  ?A ?n ?s ?w ?e ?r ?\C-a ?* ?\C-n ?\C-a ?\C-y ?\; ?  ?\C-a ?\C-n ?\C-n])
@@ -797,7 +846,7 @@ If the input is non-empty, it is inserted at point."
 ;;; Close window
 (global-set-key (kbd "s-0") 'delete-window)
 
-(global-set-key (kbd "H-c H-o") 'pgwang/org-open-link-prop-at-point)
+(global-set-key (kbd "H-c H-o") 'pgw/org-open-link-prop-at-point)
 
 (global-set-key (kbd "<f8>") 'insert-org-image)
 
@@ -846,7 +895,7 @@ If the input is non-empty, it is inserted at point."
 
 (define-key dired-mode-map (kbd "P") nil)
 
-(define-key dired-mode-map (kbd "O") 'pgwang/dired-open-file)
+(define-key dired-mode-map (kbd "O") 'pgw/dired-open-file)
 
 (use-package dired-quick-sort
   :load-path "custom_load"
@@ -866,8 +915,8 @@ If the input is non-empty, it is inserted at point."
 
 (put 'narrow-to-region 'disabled nil)
 
-(defun pgwang/turn-on-flyspell-hook ()
+(defun pgw/turn-on-flyspell-hook ()
   (cond ((string-match "^/Users/piercewang/Google Drive/OHS/11th Grade/Classes/" (if (eq buffer-file-name nil) "" buffer-file-name))
          (flyspell-mode 1))))
 
-(add-hook 'text-mode-hook 'pgwang/turn-on-flyspell-hook)
+(add-hook 'text-mode-hook 'pgw/turn-on-flyspell-hook)
