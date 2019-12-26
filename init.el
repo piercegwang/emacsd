@@ -153,7 +153,7 @@ The return value is the new value of LIST-VAR."
 (add-to-list 'default-frame-alist '(width . 146))
 
 ;;; Visual line mode (for text wrapping)
-(global-set-key (kbd "H-v") 'visual-line-mode)
+(global-set-key (kbd "C-x v v") 'visual-line-mode)
 
 ;(global-visual-line-mode t)
 (global-linum-mode 0)
@@ -284,13 +284,13 @@ other, future frames."
 (set-face-attribute 'variable-pitch nil :family "Avenir Book")
 
 (use-package mixed-pitch
-  :load-path "site-lisp/mixed-pitch"
+  :load-path "custom_load"
   :config
   ;; (set-face-attribute 'variable-pitch :height 160)
   (setq mixed-pitch-fixed-pitch-faces '(diff-added diff-context diff-file-header diff-function diff-header diff-hunk-header diff-removed font-latex-math-face font-latex-sedate-face font-latex-warning-face font-latex-sectioning-5-face font-lock-builtin-face font-lock-comment-delimiter-face font-lock-constant-face font-lock-doc-face font-lock-function-name-face font-lock-keyword-face font-lock-negation-char-face font-lock-preprocessor-face font-lock-regexp-grouping-backslash font-lock-regexp-grouping-construct font-lock-string-face font-lock-type-face font-lock-variable-name-face markdown-code-face markdown-gfm-checkbox-face markdown-inline-code-face markdown-language-info-face markdown-language-keyword-face markdown-math-face message-header-name message-header-to message-header-cc message-header-newsgroups message-header-xheader message-header-subject message-header-other mu4e-header-key-face mu4e-header-value-face mu4e-link-face mu4e-contact-face mu4e-compose-separator-face mu4e-compose-header-face org-block org-block-begin-line org-block-end-line org-document-info-keyword org-code org-latex-and-related org-checkbox org-meta-line org-table org-verbatim))
   (append-to-list 'mixed-pitch-fixed-pitch-faces '(line-number line-number-current-line org-list-dt org-link))
   ;; (add-hook 'text-mode-hook 'mixed-pitch-mode)
-  (global-set-key (kbd "H-f") 'mixed-pitch-mode)
+  (global-set-key (kbd "C-x v f") 'mixed-pitch-mode)
   )
 
 ;; (require 'epa-file)
@@ -343,18 +343,8 @@ other, future frames."
       '((sequence "TODO(t)" "IN-PROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
 
 (define-key global-map "\C-cc" 'org-capture)
-(global-set-key (kbd "H-c o") 
-                (lambda () (interactive) (find-file (concat org-directory "/school.org"))))
 (global-set-key (kbd "H-c p") 
                 (lambda () (interactive) (dired "~/Google Drive/OHS/11th Grade/Semester 1/")))
-(global-set-key (kbd "H-c i") 
-                (lambda () (interactive) (find-file (concat org-directory "/gtd.org"))))
-(global-set-key (kbd "H-c v") 
-                (lambda () (interactive) (find-file (concat org-directory "/violin.org"))))
-(global-set-key (kbd "H-c m") 
-                (lambda () (interactive) (find-file (concat org-directory "/notes.org"))))
-(global-set-key (kbd "H-c k") 
-                (lambda () (interactive) (find-file (concat org-directory "/links.org"))))
 
 ;;; Agenda key (C-c a) and other settings
 (global-set-key "\C-cl" 'org-store-link)
@@ -717,7 +707,7 @@ Paper Title
                 (font-lock-mode 1))))
 
 (fset 'setupworkspace
-   [?\C-c ?a ?q ?s ?. ?\C-x ?0 M-f10 ?\C-x ?3 ?\H-l ?\H-\C-x ?o ?\C-x ?2 ?\C-u ?7 ?\C-x ?^ ?\H-j ?\H-c ?i ?\H-h ?\H-c ?o ?\H-l])
+   [?\C-c ?a ?q ?s ?. ?\C-x ?0 ?\C-x ?3 ?\H-l ?\H-\C-x ?o ?\C-x ?2 ?\C-u ?7 ?\C-x ?^ ?\H-j ?\H-c ?i ?\H-h ?\H-c ?o ?\H-l])
 (global-set-key (kbd "C-x C-k 1") 'setupworkspace)
 
 ;;(fset 'OHSFigureSave

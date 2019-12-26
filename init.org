@@ -304,7 +304,7 @@ Install use-package.
   (add-to-list 'default-frame-alist '(width . 146))
 
   ;;; Visual line mode (for text wrapping)
-  (global-set-key (kbd "H-v") 'visual-line-mode)
+  (global-set-key (kbd "C-x v v") 'visual-line-mode)
 
   ;(global-visual-line-mode t)
   (global-linum-mode 0)
@@ -492,7 +492,6 @@ Special Fonts config for ease of zooming chinese and english fonts at same rate.
 
   (set-font emacs-english-font emacs-cjk-font emacs-font-size-pair)
 #+end_src
-
 *** Set default font and configure font resizing
 
 Credit to Harry R. Schwartz [[https://github.com/hrs/dotfiles/blob/master/emacs/.emacs.d/configuration.org#set-default-font-and-configure-font-resizing][github]]
@@ -560,15 +559,17 @@ other, future frames."
 *** Mixed Pitch
 Mixed pitch package for mixing variable and monospace fonts where appropriate (replacing buffer-face-mode).
 
+I copied mixed-pitch.el from [[https://gitlab.com/jabranham/mixed-pitch/][this]] repository because of [[https://gitlab.com/jabranham/mixed-pitch/issues/6][this]] issue. I will hopefully be changing it back at some point (or coming up with a better fix because the fonts don't seem to work great together) but for now this will be the fix.
+
 #+begin_src emacs-lisp
   (use-package mixed-pitch
-    :load-path "site-lisp/mixed-pitch"
+    :load-path "custom_load"
     :config
     ;; (set-face-attribute 'variable-pitch :height 160)
     (setq mixed-pitch-fixed-pitch-faces '(diff-added diff-context diff-file-header diff-function diff-header diff-hunk-header diff-removed font-latex-math-face font-latex-sedate-face font-latex-warning-face font-latex-sectioning-5-face font-lock-builtin-face font-lock-comment-delimiter-face font-lock-constant-face font-lock-doc-face font-lock-function-name-face font-lock-keyword-face font-lock-negation-char-face font-lock-preprocessor-face font-lock-regexp-grouping-backslash font-lock-regexp-grouping-construct font-lock-string-face font-lock-type-face font-lock-variable-name-face markdown-code-face markdown-gfm-checkbox-face markdown-inline-code-face markdown-language-info-face markdown-language-keyword-face markdown-math-face message-header-name message-header-to message-header-cc message-header-newsgroups message-header-xheader message-header-subject message-header-other mu4e-header-key-face mu4e-header-value-face mu4e-link-face mu4e-contact-face mu4e-compose-separator-face mu4e-compose-header-face org-block org-block-begin-line org-block-end-line org-document-info-keyword org-code org-latex-and-related org-checkbox org-meta-line org-table org-verbatim))
     (append-to-list 'mixed-pitch-fixed-pitch-faces '(line-number line-number-current-line org-list-dt org-link))
     ;; (add-hook 'text-mode-hook 'mixed-pitch-mode)
-    (global-set-key (kbd "H-f") 'mixed-pitch-mode)
+    (global-set-key (kbd "C-x v f") 'mixed-pitch-mode)
     )
 #+end_src
 
@@ -1196,7 +1197,7 @@ Fix color handling in org-preview-latex-fragment
 ** Macros
 #+begin_src emacs-lisp
   (fset 'setupworkspace
-     [?\C-c ?a ?q ?s ?. ?\C-x ?0 M-f10 ?\C-x ?3 ?\H-l ?\H-\C-x ?o ?\C-x ?2 ?\C-u ?7 ?\C-x ?^ ?\H-j ?\H-c ?i ?\H-h ?\H-c ?o ?\H-l])
+     [?\C-c ?a ?q ?s ?. ?\C-x ?0 ?\C-x ?3 ?\H-l ?\H-\C-x ?o ?\C-x ?2 ?\C-u ?7 ?\C-x ?^ ?\H-j ?\H-c ?i ?\H-h ?\H-c ?o ?\H-l])
   (global-set-key (kbd "C-x C-k 1") 'setupworkspace)
 
   ;;(fset 'OHSFigureSave
