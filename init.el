@@ -1,3 +1,33 @@
+;;; -*- lexical-binding: t -*-
+
+(defun tangle-init ()
+  "If the current buffer is 'init.org' the code-blocks are
+tangled, and the tangled file is compiled."
+  (when (equal (buffer-file-name)
+               (expand-file-name (concat user-emacs-directory "init.org")))
+    ;; Avoid running hooks when tangling.
+    (let ((prog-mode-hook nil))
+      (org-babel-tangle)
+      (byte-compile-file (concat user-emacs-directory "init.el")))))
+
+(add-hook 'after-save-hook 'tangle-init)
+
+(eval-when-compile
+  (setq use-package-expand-minimally byte-compile-current-file))
+
+(add-hook 'emacs-startup-hook
+	  (lambda ()
+	    (message "Emacs ready in %s with %d garbage collections."
+		     (format "%.2f seconds"
+			     (float-time
+			      (time-subtract after-init-time before-init-time)))
+		     gcs-done)))
+
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file 'noerror)
+
+(setq confirm-kill-emacs 'yes-or-no-p)
+
 ;;; Increment Numbers
 (defun increment-number-at-point ()
   "Increments numbers at cursor"
@@ -83,36 +113,6 @@ The return value is the new value of LIST-VAR."
       (set list-var elements)))
   (symbol-value list-var))
 
-;;; -*- lexical-binding: t -*-
-
-(defun tangle-init ()
-  "If the current buffer is 'init.org' the code-blocks are
-tangled, and the tangled file is compiled."
-  (when (equal (buffer-file-name)
-               (expand-file-name (concat user-emacs-directory "init.org")))
-    ;; Avoid running hooks when tangling.
-    (let ((prog-mode-hook nil))
-      (org-babel-tangle)
-      (byte-compile-file (concat user-emacs-directory "init.el")))))
-
-(add-hook 'after-save-hook 'tangle-init)
-
-(eval-when-compile
-  (setq use-package-expand-minimally byte-compile-current-file))
-
-(add-hook 'emacs-startup-hook
-	  (lambda ()
-	    (message "Emacs ready in %s with %d garbage collections."
-		     (format "%.2f seconds"
-			     (float-time
-			      (time-subtract after-init-time before-init-time)))
-		     gcs-done)))
-
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(load custom-file 'noerror)
-
-(setq confirm-kill-emacs 'yes-or-no-p)
-
 (require 'package)
 (setq package-archives
     '(("melpa-stable" . "https://stable.melpa.org/packages/")
@@ -163,7 +163,7 @@ tangled, and the tangled file is compiled."
 (set-default 'truncate-lines t)
 
 ;; Make title bar dark
-(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+;; (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 (add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; assuming you are using a dark theme
 ;;(setq ns-use-proxy-icon nil)
 ;;(setq frame-title-format nil)
@@ -185,36 +185,29 @@ tangled, and the tangled file is compiled."
 
 (use-package all-the-icons)
 
-(use-package doom-themes)
-
-;; Global settings (defaults)
-(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+(use-package doom-themes
+  :config
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
       doom-themes-enable-italic t) ; if nil, italics is universally disabled
 
-;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
-;; may have their own settings.
-(load-theme 'doom-molokai t)
+  ;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
+  ;; may have their own settings.
+  ;; (load-theme 'doom-solarized-light t)
+  (load-theme 'doom-molokai t)
 
-;; Enable flashing mode-line on errors
-(doom-themes-visual-bell-config)
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
 
-;; Enable custom neotree theme (all-the-icons must be installed!)
-(doom-themes-neotree-config)
-;; or for treemacs users
-(setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
-(doom-themes-treemacs-config)
+  ;; Enable custom neotree theme (all-the-icons must be installed!)
+  (doom-themes-neotree-config)
+  ;; or for treemacs users
+  (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
+  (doom-themes-treemacs-config)
 
-;; Corrects (and improves) org-mode's native fontification.
-(doom-themes-org-config)
-
-;; this must be used after loading the theme with (load-theme THEME-NAME t)
-(custom-set-faces
- `(org-time-grid ((t (:foreground ,(doom-blend 'yellow 'fg 0.6)))))
- `(org-time-grid ((t (:foreground ,(doom-blend 'yellow 'fg 0.6)))))
- `(org-habit-ready-face ((t (:foreground ,(doom-blend 'blue 'fg 0.1)))))
- `(org-habit-alert-face ((t (:foreground ,(doom-blend 'yellow 'fg 0.1)))))
- `(org-habit-overdue-face ((t (:foreground ,(doom-blend 'red 'fg 0.1)))))
- )
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config)
+  )
 
 (when (fboundp 'windmove-default-keybindings)
   (global-set-key (kbd "H-h") (ignore-error-wrapper 'windmove-left))
@@ -238,77 +231,6 @@ tangled, and the tangled file is compiled."
 (use-package treemacs)
 (use-package treemacs-evil)
 (use-package treemacs-magit)
-
-(when (display-graphic-p)
-  (if (eq system-type 'darwin)
-      (set-face-attribute 'default nil :font "Menlo"))
-
-  (defvar emacs-english-font "Menlo" "The font name for English.")
-  (defvar emacs-cjk-font "WenQuanYi Micro Hei Mono" "The font name for CJK.")
-  (find-font (font-spec :name "WenQuanYi Micro Hei Mono"))
-  (font-family-list)
-  (if (eq system-type 'windows-nt)
-     (setq emacs-cjk-font "WenQuanYi Micro Hey Mono"
-            emacs-english-font "Menlo")
-    (setq emacs-cjk-font "WenQuanYi Micro Hei Mono"))
-
-  (defvar emacs-font-size-pair '(12 . 14) ; Old '(12 . 14)
-    "Default font size pair for (english . chinese)")
-
-  (defvar emacs-font-size-pair-list
-    '((5 .  6) (9 . 10) (10 . 12) (12 . 14)
-      (13 . 16) (15 . 18) (17 . 20) (19 . 22)
-      (20 . 24) (21 . 26) (24 . 28) (26 . 32)
-      (28 . 34) (30 . 36) (34 . 40) (36 . 44))
-    "This list is used to store matching (english . chinese) font-size.")
-
-  (defun font-exist-p (fontname)
-    "Test if this font is exist or not."
-    (if (or (not fontname) (string= fontname ""))
-        nil
-      (if (not (x-list-fonts fontname)) nil t)))
-
-  (defun set-font (english chinese size-pair)
-    "Setup emacs English and Chinese font on x window-system."
-
-    (if (font-exist-p english)
-        (set-frame-font (format "%s:pixelsize=%d" english (car size-pair)) t))
-
-    (if (font-exist-p chinese)
-        (dolist (charset '(kana han symbol cjk-misc bopomofo))
-          (set-fontset-font (frame-parameter nil 'font) charset
-                            (font-spec :family chinese :size (cdr size-pair))))))
-  ;; Setup font size based on emacs-font-size-pair
-  (set-font emacs-english-font emacs-cjk-font emacs-font-size-pair)
-
-  (defun emacs-step-font-size (step)
-    "Increase/Decrease emacs's font size."
-    (let ((scale-steps emacs-font-size-pair-list))
-      (if (< step 0) (setq scale-steps (reverse scale-steps)))
-      (setq emacs-font-size-pair
-            (or (cadr (member emacs-font-size-pair scale-steps))
-                emacs-font-size-pair))
-      (when emacs-font-size-pair
-        (message "emacs font size set to %.1f" (car emacs-font-size-pair))
-        (set-font emacs-english-font emacs-cjk-font emacs-font-size-pair))))
-
-  (defun increase-emacs-font-size ()
-    "Decrease emacs's font-size acording emacs-font-size-pair-list."
-    (interactive) (emacs-step-font-size 1))
-
-  (defun decrease-emacs-font-size ()
-    "Increase emacs's font-size acording emacs-font-size-pair-list."
-    (interactive) (emacs-step-font-size -1))
-
-  (global-set-key (kbd "C-=") 'increase-emacs-font-size)
-  (global-set-key (kbd "C--") 'decrease-emacs-font-size)
-  )
-
-(set-face-attribute 'default nil :font emacs-english-font :height 120)
-(dolist (charset '(kana han symbol cjk-misc bopomofo))
-    (set-face-attribute charset (font-spec :family emacs-cjk-font :size (cdr emacs-font-size-pair))))
-
-(set-font emacs-english-font emacs-cjk-font emacs-font-size-pair)
 
 (set-face-attribute 'variable-pitch nil :family "Avenir Book")
 

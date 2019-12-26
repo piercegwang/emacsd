@@ -12,154 +12,13 @@ This config works best with brew's emacs (26.1)
   brew linkapps emacs
   brew ln emacs
 #+end_src
+
 ** Dependencies
 #+begin_src sh :tangle no
   brew install ispell
   brew cask install mactex
 #+end_src
-* Configurations
-** Custom Functions
-*** Switching Frames H-vim (DISABLED)
-#+begin_src emacs-lisp :tangle no
-  (defun hyper-window-left (count)
-    "Move the cursor to new COUNT-th window left of the current one."
-    :repeat nil
-    (interactive "p")
-    (dotimes (i count)
-      (windmove-left)))
 
-  (defun hyper-window-right (count)
-    "Move the cursor to new COUNT-th window right of the current one."
-    :repeat nil
-    (interactive "p")
-    (dotimes (i count)
-      (windmove-right)))
-
-  (defun hyper-window-up (count)
-    "Move the cursor to new COUNT-th window above the current one."
-    :repeat nil
-    (interactive "p")
-    (dotimes (i (or count 1))
-      (windmove-up)))
-
-  (defun hyper-window-down (count)
-    "Move the cursor to new COUNT-th window below the current one."
-    :repeat nil
-    (interactive "p")
-    (dotimes (i (or count 1))
-      (windmove-down)))
-
-  ;;; Binding
-  (global-set-key (kbd "H-h") 'hyper-window-left)
-  (global-set-key (kbd "H-l") 'hyper-window-right)
-  (global-set-key (kbd "H-k") 'hyper-window-up)
-  (global-set-key (kbd "H-j") 'hyper-window-down)
-#+end_src
-*** Increment/Decrement Numbers
-#+begin_src emacs-lisp
-  ;;; Increment Numbers
-  (defun increment-number-at-point ()
-    "Increments numbers at cursor"
-    (interactive)
-    (skip-chars-backward "0-9")
-    (or (looking-at "[0-9]+")
-        (error "No number at point"))
-    (replace-match (number-to-string (1+ (string-to-number (match-string 0))))))
-
-  ;;; Decrement Numbers
-  (defun decrement-number-at-point ()
-    "Decrements numbers at cursor"
-    (interactive)
-    (skip-chars-backward "0-9")
-    (or (looking-at "[0-9]+")
-        (error "No number at point"))
-    (replace-match (number-to-string (1- (string-to-number (match-string 0))))))
-
-  ;;; Binding
-  (global-set-key (kbd "C-; C-=") 'increment-number-at-point)
-  (global-set-key (kbd "C-; C--") 'decrement-number-at-point)
-#+end_src
-*** Insert Directory (obsolete?)
-#+begin_src emacs-lisp
-  (defun insertdirectory ()
-    "Insert current directory for macro use"
-    (interactive)
-    (insert default-directory))
-#+end_src
-*** Ignore Error Wrapping Function
-For some functions that I don't need to give errors:
-#+begin_src emacs-lisp
-  (defun ignore-error-wrapper (fn)
-    "Funtion return new function that ignore errors.
-       The function wraps a function with `ignore-errors' macro."
-    (lexical-let ((fn fn))
-      (lambda ()
-        (interactive)
-        (ignore-errors
-          (funcall fn)))))
-#+end_src
-*** Insert Org-mode Image
-#+begin_src emacs-lisp
-  (defun insert-org-image (&optional swindow)
-    "Moves image from Dropbox folder to ./media, inserting org-mode link"
-    (interactive "P")
-    (unless (not (eq system-type 'darwin))
-      (let* ((outdir (concat (file-name-directory (buffer-file-name)) "/figures"))
-             (namefile (concat (read-string "Enter File Name: ") "_" (format-time-string "%Y%m%d%k%M%S.png")))
-             (outfile (expand-file-name namefile outdir)))
-        (unless (file-directory-p outdir)
-          (make-directory outdir t))
-        (message "Argument: %s" swindow)
-        (if swindow
-            (call-process "screencapture" nil nil nil "-w" outfile)
-          (call-process "screencapture" nil nil nil "-i" outfile))
-        (insert (concat (concat "[[./figures/" (file-name-nondirectory outfile)) "]]"))))
-    )
-#+end_src
-*** Keyboard Coding System
-#+begin_src emacs-lisp
-  (set-keyboard-coding-system nil)
-#+end_src
-*** Open Link from =:LINK= Property
-This is for items created by my gcal script after having parsed assignments from the ical file.
-
-
-#+begin_src emacs-lisp
-  (defun pgwang/org-open-link-prop-at-point ()
-    "This function opens the link pointed to by the link property \":LINK:\" at a given org node at point"
-    (interactive)
-    (let ((link (plist-get (org-element--get-node-properties) :LINK)))
-      (if (eq link nil)
-          (error "Not on a node with :LINK: property!")
-        (browse-url-firefox link)
-        ))
-    )
-#+end_src
-*** Dired Open File
-#+begin_src emacs-lisp
-  (defun pgwang/dired-open-file ()
-    "In dired, open the file named on this line using the default application in the system."
-    (interactive)
-    (let ((file (dired-get-filename nil t))
-          (filename (dired-get-filename t t)))
-      (message "Opening %s..." filename)
-      (call-process "open" nil 0 nil file)
-      (message "Opening %s done" filename)))
-#+end_src
-*** append-to-list
-#+begin_src emacs-lisp
-  (defun append-to-list (list-var elements)
-    "Append ELEMENTS to the end of LIST-VAR.
-
-  The return value is the new value of LIST-VAR."
-    (unless (consp elements)
-      (error "ELEMENTS must be a list"))
-    (let ((list (symbol-value list-var)))
-      (if list
-          (setcdr (last list) elements)
-        (set list-var elements)))
-    (symbol-value list-var))
-#+end_src
 ** Meta
 When this configuration is loaded for the first time, the =init.el= is the file that is loaded. It looks like this:
 
@@ -231,6 +90,159 @@ Make Emacs confirm when quitting:
 #+begin_src emacs-lisp
   (setq confirm-kill-emacs 'yes-or-no-p)
 #+end_src
+
+* Configurations
+** Custom Functions
+*** Switching Frames H-vim (DISABLED)
+#+begin_src emacs-lisp :tangle no
+  (defun hyper-window-left (count)
+    "Move the cursor to new COUNT-th window left of the current one."
+    :repeat nil
+    (interactive "p")
+    (dotimes (i count)
+      (windmove-left)))
+
+  (defun hyper-window-right (count)
+    "Move the cursor to new COUNT-th window right of the current one."
+    :repeat nil
+    (interactive "p")
+    (dotimes (i count)
+      (windmove-right)))
+
+  (defun hyper-window-up (count)
+    "Move the cursor to new COUNT-th window above the current one."
+    :repeat nil
+    (interactive "p")
+    (dotimes (i (or count 1))
+      (windmove-up)))
+
+  (defun hyper-window-down (count)
+    "Move the cursor to new COUNT-th window below the current one."
+    :repeat nil
+    (interactive "p")
+    (dotimes (i (or count 1))
+      (windmove-down)))
+
+  ;;; Binding
+  (global-set-key (kbd "H-h") 'hyper-window-left)
+  (global-set-key (kbd "H-l") 'hyper-window-right)
+  (global-set-key (kbd "H-k") 'hyper-window-up)
+  (global-set-key (kbd "H-j") 'hyper-window-down)
+#+end_src
+
+*** Increment/Decrement Numbers
+#+begin_src emacs-lisp
+  ;;; Increment Numbers
+  (defun increment-number-at-point ()
+    "Increments numbers at cursor"
+    (interactive)
+    (skip-chars-backward "0-9")
+    (or (looking-at "[0-9]+")
+        (error "No number at point"))
+    (replace-match (number-to-string (1+ (string-to-number (match-string 0))))))
+
+  ;;; Decrement Numbers
+  (defun decrement-number-at-point ()
+    "Decrements numbers at cursor"
+    (interactive)
+    (skip-chars-backward "0-9")
+    (or (looking-at "[0-9]+")
+        (error "No number at point"))
+    (replace-match (number-to-string (1- (string-to-number (match-string 0))))))
+
+  ;;; Binding
+  (global-set-key (kbd "C-; C-=") 'increment-number-at-point)
+  (global-set-key (kbd "C-; C--") 'decrement-number-at-point)
+#+end_src
+
+*** Insert Directory (obsolete?)
+#+begin_src emacs-lisp
+  (defun insertdirectory ()
+    "Insert current directory for macro use"
+    (interactive)
+    (insert default-directory))
+#+end_src
+
+*** Ignore Error Wrapping Function
+For some functions that I don't need to give errors:
+#+begin_src emacs-lisp
+  (defun ignore-error-wrapper (fn)
+    "Funtion return new function that ignore errors.
+       The function wraps a function with `ignore-errors' macro."
+    (lexical-let ((fn fn))
+      (lambda ()
+        (interactive)
+        (ignore-errors
+          (funcall fn)))))
+#+end_src
+
+*** Insert Org-mode Image
+#+begin_src emacs-lisp
+  (defun insert-org-image (&optional swindow)
+    "Moves image from Dropbox folder to ./media, inserting org-mode link"
+    (interactive "P")
+    (unless (not (eq system-type 'darwin))
+      (let* ((outdir (concat (file-name-directory (buffer-file-name)) "/figures"))
+             (namefile (concat (read-string "Enter File Name: ") "_" (format-time-string "%Y%m%d%k%M%S.png")))
+             (outfile (expand-file-name namefile outdir)))
+        (unless (file-directory-p outdir)
+          (make-directory outdir t))
+        (message "Argument: %s" swindow)
+        (if swindow
+            (call-process "screencapture" nil nil nil "-w" outfile)
+          (call-process "screencapture" nil nil nil "-i" outfile))
+        (insert (concat (concat "[[./figures/" (file-name-nondirectory outfile)) "]]"))))
+    )
+#+end_src
+
+*** Keyboard Coding System
+#+begin_src emacs-lisp
+  (set-keyboard-coding-system nil)
+#+end_src
+
+*** Open Link from =:LINK= Property
+This is for items created by my gcal script after having parsed assignments from the ical file.
+
+
+#+begin_src emacs-lisp
+  (defun pgwang/org-open-link-prop-at-point ()
+    "This function opens the link pointed to by the link property \":LINK:\" at a given org node at point"
+    (interactive)
+    (let ((link (plist-get (org-element--get-node-properties) :LINK)))
+      (if (eq link nil)
+          (error "Not on a node with :LINK: property!")
+        (browse-url-firefox link)
+        ))
+    )
+#+end_src
+
+*** Dired Open File
+#+begin_src emacs-lisp
+  (defun pgwang/dired-open-file ()
+    "In dired, open the file named on this line using the default application in the system."
+    (interactive)
+    (let ((file (dired-get-filename nil t))
+          (filename (dired-get-filename t t)))
+      (message "Opening %s..." filename)
+      (call-process "open" nil 0 nil file)
+      (message "Opening %s done" filename)))
+#+end_src
+
+*** append-to-list
+#+begin_src emacs-lisp
+  (defun append-to-list (list-var elements)
+    "Append ELEMENTS to the end of LIST-VAR.
+
+  The return value is the new value of LIST-VAR."
+    (unless (consp elements)
+      (error "ELEMENTS must be a list"))
+    (let ((list (symbol-value list-var)))
+      (if list
+          (setcdr (last list) elements)
+        (set list-var elements)))
+    (symbol-value list-var))
+#+end_src
+
 ** Use package
 Initialize package and add Melpa, GNU, and Org sources.
 #+begin_src emacs-lisp
@@ -282,6 +294,7 @@ Install use-package.
   ;;; Change shell process (from bash to zsh)
   (setq shell-file-name "/bin/zsh")
 #+end_src
+
 ** Visuals
 
 #+begin_src emacs-lisp
@@ -301,7 +314,7 @@ Install use-package.
   (set-default 'truncate-lines t)
 
   ;; Make title bar dark
-  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+  ;; (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
   (add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; assuming you are using a dark theme
   ;;(setq ns-use-proxy-icon nil)
   ;;(setq frame-title-format nil)
@@ -321,36 +334,41 @@ Install use-package.
    (empty-line . empty-line)
    (unknown . question-mark)))
 #+end_src
+
 *** All the Icons
 #+begin_src emacs-lisp
   (use-package all-the-icons)
 #+end_src
+
 *** Doom Theme
 #+begin_src emacs-lisp
-  (use-package doom-themes)
-
-  ;; Global settings (defaults)
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+  (use-package doom-themes
+    :config
+    ;; Global settings (defaults)
+    (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
 
-  ;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
-  ;; may have their own settings.
-  (load-theme 'doom-molokai t)
+    ;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
+    ;; may have their own settings.
+    ;; (load-theme 'doom-solarized-light t)
+    (load-theme 'doom-molokai t)
 
-  ;; Enable flashing mode-line on errors
-  (doom-themes-visual-bell-config)
+    ;; Enable flashing mode-line on errors
+    (doom-themes-visual-bell-config)
 
-  ;; Enable custom neotree theme (all-the-icons must be installed!)
-  (doom-themes-neotree-config)
-  ;; or for treemacs users
-  (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
-  (doom-themes-treemacs-config)
+    ;; Enable custom neotree theme (all-the-icons must be installed!)
+    (doom-themes-neotree-config)
+    ;; or for treemacs users
+    (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
+    (doom-themes-treemacs-config)
 
-  ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config)
+    ;; Corrects (and improves) org-mode's native fontification.
+    (doom-themes-org-config)
+    )
 #+end_src
+
 **** Set Orgmode Agenda Stuff
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   ;; this must be used after loading the theme with (load-theme THEME-NAME t)
   (custom-set-faces
    `(org-time-grid ((t (:foreground ,(doom-blend 'yellow 'fg 0.6)))))
@@ -360,6 +378,7 @@ Install use-package.
    `(org-habit-overdue-face ((t (:foreground ,(doom-blend 'red 'fg 0.1)))))
    )
 #+end_src
+
 ** Movement between Windows and Frames
 Windows and Frames are different than one would now intuitively think. Windows exist inside subdivided frames which we call windows now. The following code makes windows and frames easier to navigate:
 
@@ -383,21 +402,25 @@ Windows and Frames are different than one would now intuitively think. Windows e
   ;;   (setq framemove-hook-into-windmove t)
   ;;   )
 #+end_src
+
 ** Treemacs
 #+begin_src emacs-lisp
   (use-package treemacs)
   (use-package treemacs-evil)
   (use-package treemacs-magit)
 #+end_src
+
 ** Fonts
 #+begin_src emacs-lisp :tangle no
   (add-to-list 'default-frame-alist
                '(font . "Menlo-12"))
 #+end_src
-*** Chinese Font with English Font
+
+*** CANCELLED Chinese Font with English Font
+CLOSED: [2019-12-22 Sun 18:44]
 Special Fonts config for ease of zooming chinese and english fonts at same rate.
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (when (display-graphic-p)
     (if (eq system-type 'darwin)
         (set-face-attribute 'default nil :font "Menlo"))
@@ -451,7 +474,7 @@ Special Fonts config for ease of zooming chinese and english fonts at same rate.
           (message "emacs font size set to %.1f" (car emacs-font-size-pair))
           (set-font emacs-english-font emacs-cjk-font emacs-font-size-pair))))
 
-    (defun increase-emacs-font-size ()
+          (defun increase-emacs-font-size ()
       "Decrease emacs's font-size acording emacs-font-size-pair-list."
       (interactive) (emacs-step-font-size 1))
 
@@ -469,6 +492,7 @@ Special Fonts config for ease of zooming chinese and english fonts at same rate.
 
   (set-font emacs-english-font emacs-cjk-font emacs-font-size-pair)
 #+end_src
+
 *** Variable Pitch Default Font
 #+begin_src emacs-lisp
   (set-face-attribute 'variable-pitch nil :family "Avenir Book")
@@ -488,6 +512,7 @@ Mixed pitch package for mixing variable and monospace fonts where appropriate (r
     (global-set-key (kbd "H-f") 'mixed-pitch-mode)
     )
 #+end_src
+
 ** GPG
 
 #+begin_src emacs-lisp
@@ -500,6 +525,7 @@ Mixed pitch package for mixing variable and monospace fonts where appropriate (r
 #+begin_src emacs-lisp
   (load-file "~/.passwords.el")
 #+end_src
+
 ** Mode Line
 
 #+begin_src emacs-lisp
@@ -511,11 +537,13 @@ Mixed pitch package for mixing variable and monospace fonts where appropriate (r
     (add-hook 'after-init-hook 'sml/setup)
     )
 #+end_src
+
 *** Other Configuration
 #+begin_src emacs-lisp
   (size-indication-mode 1)
   (line-number-mode -1)
 #+end_src
+
 ** Helm
 #+begin_src emacs-lisp
   (use-package helm
@@ -908,6 +936,7 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
 #+begin_src emacs-lisp
   (require 'ox-latex)
 #+end_src
+
 **** CDLatex
 #+begin_src emacs-lisp
   (use-package cdlatex
@@ -939,16 +968,19 @@ Fix color handling in org-preview-latex-fragment
     (plist-put dvipng--plist :use-xcolor t)
     (plist-put dvipng--plist :image-converter '("dvipng -D %D -T tight -o %O %f")))
 #+end_src
+
 *** Org Bullets
 #+begin_src emacs-lisp
   (use-package org-bullets
       :hook (org-mode . org-bullets-mode))
 #+end_src
+
 *** Export
 **** Async Init File:
 #+begin_src emacs-lisp
   (setq org-export-async-init-file "~/.emacs.d/orgasyncinit.el")
 #+end_src
+
 ** LaTeX
 #+begin_src emacs-lisp
   (setq TeX-engine 'xetex)
@@ -1061,6 +1093,7 @@ Fix color handling in org-preview-latex-fragment
                  ))
 
 #+end_src
+
 ** Evil
 #+begin_src emacs-lisp
   ;Probably not needed
@@ -1074,6 +1107,7 @@ Fix color handling in org-preview-latex-fragment
     (add-hook 'display-time-hook 'evil-emacs-state)
     )
 #+end_src
+
 *** Normal Mode Keybinds
 #+begin_src emacs-lisp
   (define-key evil-normal-state-map (kbd "<S-return>") [?m ?` ?o escape ?` ?`])
@@ -1081,11 +1115,13 @@ Fix color handling in org-preview-latex-fragment
   (define-key evil-motion-state-map (kbd "k") 'previous-line)
   (define-key evil-motion-state-map (kbd "j") 'next-line)
 #+end_src
+
 ** Programming Environments
 *** Elpy
 #+begin_src emacs-lisp
   (elpy-enable)
 #+end_src
+
 *** Octave
 #+begin_src emacs-lisp
   (setq auto-mode-alist
@@ -1097,6 +1133,7 @@ Fix color handling in org-preview-latex-fragment
               (if (eq window-system 'x)
                   (font-lock-mode 1))))
 #+end_src
+
 ** Macros
 #+begin_src emacs-lisp
   (fset 'setupworkspace
@@ -1140,6 +1177,7 @@ Fix color handling in org-preview-latex-fragment
      [?\C-  ?\M-f ?\M-f ?\M-f ?\M-w ?\M-! ?e ?c ?h ?o ?  ?\" ?* ?  ?\s-v ?\" ?  ?> ?> ?  ?j ?o ?u ?r ?n ?a ?l ?. ?o ?r ?g return ?! ?p ?a ?n ?d ?o ?c ?  ?- ?f ?  ?d ?o ?c ?x ?  ?- ?t ?  ?o ?r ?g ?  ?? ?  ?> ?> ?  ?j ?o ?u ?r ?n ?a ?l ?. ?o ?r ?g return ?g ?n])
   (global-set-key (kbd "C-x C-k 4") 'journal_convert)
 #+end_src
+
 *** Macro Query
 #+begin_src emacs-lisp
   (defun my-macro-query (arg)
@@ -1157,6 +1195,7 @@ Fix color handling in org-preview-latex-fragment
       (unless (string= "" input) (insert input))))
   (global-set-key "\C-xQ" 'my-macro-query)
 #+end_src
+
 ** Autoclose GPG Buffer (DISABLED)
 #+begin_src emacs-lisp
   ;; Auto close gpg buffers
@@ -1165,12 +1204,14 @@ Fix color handling in org-preview-latex-fragment
   ;                           (when (and victim (not (buffer-modified-p victim))) (message "Killing buffer %s" (buffer-name victim)
   ;                                                                                        (kill-buffer victim))))))
 #+end_src
+
 ** Magit
 #+begin_src emacs-lisp
   (use-package magit
     :config
     (global-set-key (kbd "C-x g") 'magit-status))
 #+end_src
+
 ** yasnippet - Yet Another Snippet Extension
 #+begin_src emacs-lisp
   (use-package yasnippet
@@ -1178,6 +1219,7 @@ Fix color handling in org-preview-latex-fragment
     (yas-global-mode 1) ;; or M-x yas-reload-all if you've started YASnippet already.
     )
 #+end_src
+
 ** Backups
 #+begin_src emacs-lisp
   (setq backup-directory-alist '(("." . "~/org/backup"))
@@ -1188,6 +1230,7 @@ Fix color handling in org-preview-latex-fragment
     kept-old-versions 5    ; and how many of the old
     )
 #+end_src
+
 ** Daemon
 #+begin_src emacs-lisp
   ;;(if 'server-process
@@ -1195,10 +1238,12 @@ Fix color handling in org-preview-latex-fragment
   (load "server")
   (unless (server-running-p) (server-start))
 #+end_src
+
 ** Revert Mode
 #+begin_src emacs-lisp
   (global-auto-revert-mode 1)
 #+end_src
+
 ** Calendar
 #+begin_src emacs-lisp
   (setq calendar-latitude 37.550201)
@@ -1209,6 +1254,7 @@ Fix color handling in org-preview-latex-fragment
         (evil-emacs-state)
         ))
 #+end_src
+
 ** Artist Mode
 #+begin_src emacs-lisp
   (add-hook 'artist-mode-hook
@@ -1222,6 +1268,7 @@ Fix color handling in org-preview-latex-fragment
         (evil-emacs-state)
         ))
 #+end_src
+
 ** Flyspell mode
 Activate =flyspell-mode= automatically in all school files.
 #+begin_src elisp
@@ -1231,6 +1278,7 @@ Activate =flyspell-mode= automatically in all school files.
 
   (add-hook 'text-mode-hook 'pgwang/turn-on-flyspell-hook)
 #+end_src
+
 ** Games
 *** Tetris
 #+begin_src emacs-lisp
@@ -1238,18 +1286,21 @@ Activate =flyspell-mode= automatically in all school files.
                                 (define-key tetris-mode-map "z" 'tetris-rotate-prev)
                                 (define-key tetris-mode-map "x" 'tetris-rotate-next)))
 #+end_src
+
 ** Desktop Save
 #+begin_src emacs-lisp
   (desktop-save-mode 1)
   (setq desktop-restore-frames nil)
   (setq desktop-path (list "~/emacs/desktopsave/"))
 #+end_src
+
 ** ERC
 #+begin_src emacs-lisp
   (setq erc-log-channels-directory "~/logs/")
   (setq erc-save-buffer-on-part t)
   (global-set-key (kbd "H-M-e") (lambda () (interactive) (erc :server "irc.freenode.net" :port 6667 :nick "tesrodome" :password passwords_ERC)))
 #+end_src
+
 ** Keybinds
 #+begin_src emacs-lisp
   ;;; replace-regexp
@@ -1276,6 +1327,7 @@ Insert Org-mode Image
 #+begin_src emacs-lisp
   (global-set-key (kbd "<f8>") 'insert-org-image)
 #+end_src
+
 ** Resizing Windows
 Hydra for resizing windows.
 
@@ -1295,11 +1347,13 @@ Functions to change:
 
   (global-set-key (kbd "C-c C-6") 'hydra-windowmanage/body)
 #+end_src
+
 ** User Configuration
 #+begin_src emacs-lisp
   ;;; Email
   (setq user-mail-address "pierce.g.wang@gmail.com")
 #+end_src
+
 ** IBuffer
 #+begin_src emacs-lisp
   (use-package ibuffer
@@ -1327,6 +1381,7 @@ Functions to change:
               (ibuffer-switch-to-saved-filter-groups "default")))
   (define-key ibuffer-mode-map (kbd "P") nil)
 #+end_src
+
 ** Dired
 #+begin_src emacs-lisp
   (setq delete-by-moving-to-trash t)
@@ -1357,10 +1412,12 @@ Disabled because it relies on GNU core utils - will need to either install GNU l
     (dired-quick-sort-setup)
     )
 #+end_src
+
 *** Human readable format for ls switches (=-h=)
 #+begin_src emacs-lisp
   (setq dired-listing-switches "-alh")
 #+end_src
+
 ** Disabled Functions
 #+begin_src emacs-lisp
   (put 'upcase-region 'disabled nil)
@@ -1375,7 +1432,9 @@ Allow the function =browse-url-firefox= to open links in firefox using bin. One 
 #+begin_src emacs-lisp
   (setq browse-url-firefox-program "/Applications/Firefox.app/Contents/MacOS/firefox-bin")
 #+end_src
+
 ** Last Things
 #+begin_src emacs-lisp
   (put 'narrow-to-region 'disabled nil)
 #+end_src
+
