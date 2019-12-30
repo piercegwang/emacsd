@@ -63,9 +63,78 @@ This helps get rid of =functions might not be defined at runtime= warnings. See 
 
 #+BEGIN_SRC emacs-lisp
   (eval-when-compile
-    (setq use-package-expand-minimally byte-compile-current-file))
+    (defvar use-package-expand-minimally byte-compile-current-file))
 #+END_SRC
 
+* Startup
+** Garbage Collection
+For faster startup times, according to [[https://github.com/hlissner/doom-emacs/blob/develop/docs/faq.org#how-does-doom-start-up-so-quickly][hlissner]],
+
+#+begin_quote
+The GC eats up quite a bit of time, easily doubling startup time. The trick is to turn up the memory threshold as early as possible.
+#+end_quote
+
+#+begin_src emacs-lisp
+  (setq gc-cons-threshold most-positive-fixnum ; 2^61 bytes
+        gc-cons-percentage 0.6)
+
+  (defvar better-gc-cons-threshold 16777216 ; 16mb
+    "The default value to use for `gc-cons-threshold'.
+  If you experience freezing, decrease this. If you experience stuttering, increase this.")
+
+
+  (add-hook 'emacs-startup-hook
+    (lambda ()
+      (setq gc-cons-threshold better-gc-cons-threshold
+            gc-cons-percentage 0.1))) ; Default value for `gc-cons-percentage'
+#+end_src
+
+gc and minibuffer (also from doom)
+#+begin_src emacs-lisp
+  (defun pgw/defer-garbage-collection-h ()
+    (setq gc-cons-threshold most-positive-fixnum))
+
+  (defun pgw/restore-garbage-collection-h ()
+    "Defer it so that commands launched immediately after will enjoy the benefits."
+    (run-at-time
+     1 nil (lambda () (setq gc-cons-threshold better-gc-cons-threshold))))
+
+  (add-hook 'minibuffer-setup-hook #'pgw/defer-garbage-collection-h)
+  (add-hook 'minibuffer-exit-hook #'pgw/restore-garbage-collection-h)
+#+end_src
+
+** Use package
+Initialize package and add Melpa, GNU, and Org sources.
+#+begin_src emacs-lisp
+  (require 'package)
+  (setq package-archives
+      '(("melpa-stable" . "https://stable.melpa.org/packages/")
+        ("gnu" . "https://elpa.gnu.org/packages/")
+        ("org" . "http://orgmode.org/elpa/")
+        ))
+  (package-initialize)
+#+end_src
+
+Add custom load path:
+
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/custom_load/")
+#+end_src
+
+Install use-package.
+
+#+BEGIN_SRC emacs-lisp
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+
+  (eval-when-compile (require 'use-package))
+
+  (setq use-package-always-ensure t)
+#+END_SRC
+
+* Configurations
+** Emacs Stuff
 *** Startup Time Test
 
 #+begin_src emacs-lisp
@@ -91,43 +160,20 @@ Make Emacs confirm when quitting:
   (setq confirm-kill-emacs 'yes-or-no-p)
 #+end_src
 
-* Configurations
 ** Custom Functions
-*** Switching Frames H-vim (DISABLED)
-#+begin_src emacs-lisp :tangle no
-  (defun hyper-window-left (count)
-    "Move the cursor to new COUNT-th window left of the current one."
-    :repeat nil
-    (interactive "p")
-    (dotimes (i count)
-      (windmove-left)))
+*** append-to-list
+#+begin_src emacs-lisp
+  (defun append-to-list (list-var elements)
+    "Append ELEMENTS to the end of LIST-VAR.
 
-  (defun hyper-window-right (count)
-    "Move the cursor to new COUNT-th window right of the current one."
-    :repeat nil
-    (interactive "p")
-    (dotimes (i count)
-      (windmove-right)))
-
-  (defun hyper-window-up (count)
-    "Move the cursor to new COUNT-th window above the current one."
-    :repeat nil
-    (interactive "p")
-    (dotimes (i (or count 1))
-      (windmove-up)))
-
-  (defun hyper-window-down (count)
-    "Move the cursor to new COUNT-th window below the current one."
-    :repeat nil
-    (interactive "p")
-    (dotimes (i (or count 1))
-      (windmove-down)))
-
-  ;;; Binding
-  (global-set-key (kbd "H-h") 'hyper-window-left)
-  (global-set-key (kbd "H-l") 'hyper-window-right)
-  (global-set-key (kbd "H-k") 'hyper-window-up)
-  (global-set-key (kbd "H-j") 'hyper-window-down)
+  The return value is the new value of LIST-VAR."
+    (unless (consp elements)
+      (error "ELEMENTS must be a list"))
+    (let ((list (symbol-value list-var)))
+      (if list
+          (setcdr (last list) elements)
+        (set list-var elements)))
+    (symbol-value list-var))
 #+end_src
 
 *** Increment/Decrement Numbers
@@ -191,7 +237,7 @@ For some functions that I don't need to give errors:
         (if swindow
             (call-process "screencapture" nil nil nil "-w" outfile)
           (call-process "screencapture" nil nil nil "-i" outfile))
-        (insert (concat (concat "[[./figures/" (file-name-nondirectory outfile)) "]]"))))
+        (insert (concat (concat "[[file:figures/" (file-name-nondirectory outfile)) "]]"))))
     )
 #+end_src
 
@@ -200,11 +246,12 @@ For some functions that I don't need to give errors:
   (set-keyboard-coding-system nil)
 #+end_src
 
-*** Open Link from =:LINK= Property
+*** CANCELLED Open Link from =:LINK= Property                     :ARCHIVE:
+CLOSED: [2019-12-27 Fri 16:07]
 This is for items created by my gcal script after having parsed assignments from the ical file.
 
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (defun pgw/org-open-link-prop-at-point ()
     "This function opens the link pointed to by the link property \":LINK:\" at a given org node at point"
     (interactive)
@@ -216,72 +263,39 @@ This is for items created by my gcal script after having parsed assignments from
     )
 #+end_src
 
+I later discovered that I didn't need this as =C-c C-o= already opens the first link under a headline if point is on the headline.
+
 *** Dired Open File
 #+begin_src emacs-lisp
   (defun pgw/dired-open-file ()
     "In dired, open the file named on this line using the default application in the system."
     (interactive)
-    (let ((file (dired-get-filename nil t))
-          (filename (dired-get-filename t t)))
+    (let ((file (dired-get-filename nil t)) ; Full path
+          (filename (dired-get-filename t t))) ; File name for display
       (message "Opening %s..." filename)
       (call-process "open" nil 0 nil file)
       (message "Opening %s done" filename)))
 #+end_src
 
-*** append-to-list
+*** Copy MLA org-file
 #+begin_src emacs-lisp
-  (defun append-to-list (list-var elements)
-    "Append ELEMENTS to the end of LIST-VAR.
-
-  The return value is the new value of LIST-VAR."
-    (unless (consp elements)
-      (error "ELEMENTS must be a list"))
-    (let ((list (symbol-value list-var)))
-      (if list
-          (setcdr (last list) elements)
-        (set list-var elements)))
-    (symbol-value list-var))
+  (defun pgw/copy-mla-file ()
+    "Copy MLA_OrgFile.org to current directory for use in school essays."
+    (interactive)
+    (copy-file "~/Dropbox/org/templates/school/MLA_OrgFile.org" default-directory)
+    )
 #+end_src
-
-** Use package
-Initialize package and add Melpa, GNU, and Org sources.
-#+begin_src emacs-lisp
-  (require 'package)
-  (setq package-archives
-      '(("melpa-stable" . "https://stable.melpa.org/packages/")
-        ("gnu" . "https://elpa.gnu.org/packages/")
-        ("org" . "http://orgmode.org/elpa/")
-        ))
-  (package-initialize)
-#+end_src
-
-Add custom load path:
-
-#+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/custom_load/")
-#+end_src
-
-Install use-package.
-
-#+BEGIN_SRC emacs-lisp
-  (unless (package-installed-p 'use-package)
-    (package-refresh-contents)
-    (package-install 'use-package))
-
-  (eval-when-compile (require 'use-package))
-
-  (setq use-package-always-ensure t)
-#+END_SRC
 
 ** Modifier Keys
 #+begin_src emacs-lisp
   (when (eq system-type 'darwin)
+    (with-no-warnings
       (setq mac-option-modifier 'meta)
       (setq mac-control-modifier 'control)
-      (setq ns-function-modifier 'hyper))
+      (setq ns-function-modifier 'hyper)))
 
   (when (eq system-type 'gnu/linux)
-    (setq x-super-keysym 'hyper))
+    (with-no-warnings (setq x-super-keysym 'hyper)))
 #+end_src
 
 ** OS Integration
@@ -492,6 +506,7 @@ Special Fonts config for ease of zooming chinese and english fonts at same rate.
 
   (set-font emacs-english-font emacs-cjk-font emacs-font-size-pair)
 #+end_src
+
 *** Set default font and configure font resizing
 
 Credit to Harry R. Schwartz [[https://github.com/hrs/dotfiles/blob/master/emacs/.emacs.d/configuration.org#set-default-font-and-configure-font-resizing][github]]
@@ -593,7 +608,7 @@ I copied mixed-pitch.el from [[https://gitlab.com/jabranham/mixed-pitch/][this]]
     :config
     ;; (setq sml/theme 'powerline)
     ;(setq sml/theme 'dark)
-    (add-to-list 'sml/replacer-regexp-list '("^~/Google Drive/OHS/\\([0-9]\\{2\\}\\)th Grade/Classes/\\([0-9A-Z]*\\)/" ":\\2:"))
+    (add-to-list 'sml/replacer-regexp-list '("^~/Google Drive/OHS/\\([0-9]\\{2\\}\\)th Grade/Semester [0-9]\\{2\\}/\\([0-9A-Z]*\\)/" ":\\2:"))
     (add-hook 'after-init-hook 'sml/setup)
     )
 #+end_src
@@ -642,6 +657,30 @@ I copied mixed-pitch.el from [[https://gitlab.com/jabranham/mixed-pitch/][this]]
   (setq org-default-notes-file (concat org-directory "/inbox.org"))
 #+end_src
 
+*** Export Publishing
+#+begin_src emacs-lisp
+  (require 'ox-publish)
+  (setq org-publish-project-alist
+        '(("pages-notes"
+           :base-directory "~/Dropbox/org_publish/"
+           :base-extension "org"
+           :publishing-directory "~/Documents/Projects/Github/github_pages/"
+           :recursive t
+           :publishing-function org-html-publish-to-html
+           :headline-levels 4             ; Just the default for this project.
+           :auto-preamble t
+           )
+          ("pages-static"
+           :base-directory "~/Dropbox/org_publish/"
+           :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+           :publishing-directory "~/Documents/Projects/Github/github_pages/"
+           :recursive t
+           :publishing-function org-publish-attachment
+           )
+          ("pages" :components ("pages-notes" "pages-static"))
+          ))
+#+end_src
+
 *** Startup
 Make org-mode files automatically indent.
 #+begin_src emacs-lisp
@@ -661,7 +700,7 @@ Make org-mode files automatically indent.
   (global-set-key (kbd "H-c o") 
                   (lambda () (interactive) (find-file (concat org-directory "/school.org"))))
   (global-set-key (kbd "H-c p") 
-                  (lambda () (interactive) (dired "~/Google Drive/OHS/11th Grade/Semester 1/")))
+                  (lambda () (interactive) (dired "~/Google Drive/OHS/11th Grade/Semester 2/")))
   (global-set-key (kbd "H-c i") 
                   (lambda () (interactive) (find-file (concat org-directory "/gtd.org"))))
   (global-set-key (kbd "H-c v") 
@@ -855,7 +894,7 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
 
   (defun pgw/headline_date ()
     "Function to find the date as headline for Violin capture template"
-    (beginning-of-buffer)
+    (goto-char (point-min))
     (let ((searchresults (search-forward (format-time-string "[%Y-%m-%d %a]") nil t)))
       (if searchresults
           'searchresults
@@ -1050,8 +1089,8 @@ Fix color handling in org-preview-latex-fragment
 *** AUCTEX
 #+begin_src emacs-lisp
   (use-package tex
-    :defer t
     :ensure auctex
+    :defer t
     :config
     (setq TeX-auto-save t))
 #+end_src
@@ -1059,8 +1098,8 @@ Fix color handling in org-preview-latex-fragment
 *** Classes - Adding Academic XeTeX Times New Roman Class
 
 #+begin_src emacs-lisp
-  (unless (find "Times" org-latex-classes :key 'car
-                :test 'equal)
+  (unless (with-no-warnings (find "Times" org-latex-classes :key 'car
+                                  :test 'equal))
     (add-to-list 'org-latex-classes
                  '("Times"
                    "\\documentclass[12pt]{article}
@@ -1071,87 +1110,7 @@ Fix color handling in org-preview-latex-fragment
                    ("\\subsection{%s}" . "\\subsection*{%s}")
                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                    ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-    (add-to-list 'org-latex-classes
-                 '("MLA"
-                   "\\documentclass[12pt]{article}
-  %
-  %Margin - 1 inch on all sides
-  %
-  \\usepackage[letterpaper]{geometry}
-  \\usepackage{fontspec}
-  \\setmainfont{Times New Roman}
-  \\geometry{top=1.0in, bottom=1.0in, left=1.0in, right=1.0in}
-
-  %
-  %Doublespacing
-  %
-  \\usepackage{setspace}
-  \\doublespacing
-
-  %
-  %Rotating tables (e.g. sideways when too long)
-  %
-  \\usepackage{rotating}
-
-
-  %
-  %Fancy-header package to modify header/page numbering (insert last name)
-  %
-  \\usepackage{fancyhdr}
-  \\pagestyle{fancy}
-  \\lhead{} 
-  \\chead{} 
-  \\rhead{Wang \\thepage} 
-  \\lfoot{} 
-  \\cfoot{} 
-  \\rfoot{} 
-  \\renewcommand{\\headrulewidth}{0pt} 
-  \\renewcommand{\\footrulewidth}{0pt} 
-  %To make sure we actually have header 0.5in away from top edge
-  %12pt is one-sixth of an inch. Subtract this from 0.5in to get headsep value
-  \\setlength\\headsep{0.333in}
-
-  %
-  %Works cited environment
-  %(to start, use \\begin{workscited...}, each entry preceded by \\bibent)
-  % - from Ryan Alcock's MLA style file
-  %
-  \\newcommand{\\bibent}{\\noindent \\hangindent 40pt}
-  \\newenvironment{workscited}{\\newpage \\begin{center} Works Cited \\end{center}}{\\newpage }
-
-
-  %
-  %Begin document
-  %
-  \\begin{document}
-  %commented until I can add this in the org-latex-export function using advice
-  %\\begin{flushleft}
-
-  %%%%First page name, class, etc
-  Pierce Wang\\\\
-  Professor\\\\
-  Class\\\\
-  February 11 2019\\\\
-
-
-  %%%%Title
-  \\begin{center}
-  Paper Title
-  \\end{center}
-
-
-  %%%%Changes paragraph indentation to 0.5in
-  \\setlength{\\parindent}{0.5in}
-  %%%%Begin body of paper here
-  [NO-DEFAULT-PACKAGES]"
-                   ("\\section{%s}" . "\\section*{%s}")
-                   ("\\subsection{%s}" . "\\subsection*{%s}")
-                   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                   ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
-                 ))
-
+                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 #+end_src
 
 ** Evil
@@ -1300,10 +1259,10 @@ Fix color handling in org-preview-latex-fragment
 #+end_src
 
 ** Revert Mode
+For files changed by dropbox and also dired buffers.
 #+begin_src emacs-lisp
   (global-auto-revert-mode 1)
 #+end_src
-
 ** Calendar
 #+begin_src emacs-lisp
   (setq calendar-latitude 37.550201)
@@ -1333,7 +1292,7 @@ Fix color handling in org-preview-latex-fragment
 Activate =flyspell-mode= automatically in all school files.
 #+begin_src elisp
   (defun pgw/turn-on-flyspell-hook ()
-    (cond ((string-match "^/Users/piercewang/Google Drive/OHS/11th Grade/Classes/" (if (eq buffer-file-name nil) "" buffer-file-name))
+    (cond ((string-match "^/Users/piercewang/Google Drive/OHS/" (if (eq buffer-file-name nil) "" buffer-file-name))
            (flyspell-mode 1))))
 
   (add-hook 'text-mode-hook 'pgw/turn-on-flyspell-hook)
@@ -1342,15 +1301,17 @@ Activate =flyspell-mode= automatically in all school files.
 ** Games
 *** Tetris
 #+begin_src emacs-lisp
-  (add-hook 'tetris-mode-hook (lambda ()
-                                (define-key tetris-mode-map "z" 'tetris-rotate-prev)
-                                (define-key tetris-mode-map "x" 'tetris-rotate-next)))
+  (use-package tetris
+    :bind (:map tetris-mode-map
+                ("z" . tetris-rotate-prev)
+                ("x" . tetris-rotate-next)))
 #+end_src
 
 ** Desktop Save
 #+begin_src emacs-lisp
   (desktop-save-mode 1)
   (setq desktop-restore-frames nil)
+  (setq desktop-restore-eager 20)
   (setq desktop-path (list "~/emacs/desktopsave/"))
 #+end_src
 
@@ -1410,7 +1371,7 @@ Functions to change:
 
 ** User Configuration
 #+begin_src emacs-lisp
-  ;;; Email
+  (setq user-full-name "Pierce Wang")
   (setq user-mail-address "pierce.g.wang@gmail.com")
 #+end_src
 
@@ -1445,6 +1406,7 @@ Functions to change:
 ** Dired
 #+begin_src emacs-lisp
   (setq delete-by-moving-to-trash t)
+  (setq trash-directory "~/.Trash")
   (setq insert-directory-program "gls")
 #+end_src
 

@@ -13,7 +13,49 @@ tangled, and the tangled file is compiled."
 (add-hook 'after-save-hook 'tangle-init)
 
 (eval-when-compile
-  (setq use-package-expand-minimally byte-compile-current-file))
+  (defvar use-package-expand-minimally byte-compile-current-file))
+
+(setq gc-cons-threshold most-positive-fixnum ; 2^61 bytes
+      gc-cons-percentage 0.6)
+
+(defvar better-gc-cons-threshold 16777216 ; 16mb
+  "The default value to use for `gc-cons-threshold'.
+If you experience freezing, decrease this. If you experience stuttering, increase this.")
+
+
+(add-hook 'emacs-startup-hook
+  (lambda ()
+    (setq gc-cons-threshold better-gc-cons-threshold
+          gc-cons-percentage 0.1))) ; Default value for `gc-cons-percentage'
+
+(defun pgw/defer-garbage-collection-h ()
+  (setq gc-cons-threshold most-positive-fixnum))
+
+(defun pgw/restore-garbage-collection-h ()
+  "Defer it so that commands launched immediately after will enjoy the benefits."
+  (run-at-time
+   1 nil (lambda () (setq gc-cons-threshold better-gc-cons-threshold))))
+
+(add-hook 'minibuffer-setup-hook #'pgw/defer-garbage-collection-h)
+(add-hook 'minibuffer-exit-hook #'pgw/restore-garbage-collection-h)
+
+(require 'package)
+(setq package-archives
+    '(("melpa-stable" . "https://stable.melpa.org/packages/")
+      ("gnu" . "https://elpa.gnu.org/packages/")
+      ("org" . "http://orgmode.org/elpa/")
+      ))
+(package-initialize)
+
+(add-to-list 'load-path "~/.emacs.d/custom_load/")
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(eval-when-compile (require 'use-package))
+
+(setq use-package-always-ensure t)
 
 (add-hook 'emacs-startup-hook
 	  (lambda ()
@@ -27,6 +69,18 @@ tangled, and the tangled file is compiled."
 (load custom-file 'noerror)
 
 (setq confirm-kill-emacs 'yes-or-no-p)
+
+(defun append-to-list (list-var elements)
+  "Append ELEMENTS to the end of LIST-VAR.
+
+The return value is the new value of LIST-VAR."
+  (unless (consp elements)
+    (error "ELEMENTS must be a list"))
+  (let ((list (symbol-value list-var)))
+    (if list
+        (setcdr (last list) elements)
+      (set list-var elements)))
+  (symbol-value list-var))
 
 ;;; Increment Numbers
 (defun increment-number-at-point ()
@@ -77,67 +131,34 @@ tangled, and the tangled file is compiled."
       (if swindow
           (call-process "screencapture" nil nil nil "-w" outfile)
         (call-process "screencapture" nil nil nil "-i" outfile))
-      (insert (concat (concat "[[./figures/" (file-name-nondirectory outfile)) "]]"))))
+      (insert (concat (concat "[[file:figures/" (file-name-nondirectory outfile)) "]]"))))
   )
 
 (set-keyboard-coding-system nil)
 
-(defun pgw/org-open-link-prop-at-point ()
-  "This function opens the link pointed to by the link property \":LINK:\" at a given org node at point"
-  (interactive)
-  (let ((link (plist-get (org-element--get-node-properties) :LINK)))
-    (if (eq link nil)
-        (error "Not on a node with :LINK: property!")
-      (browse-url-firefox link)
-      ))
-  )
-
 (defun pgw/dired-open-file ()
   "In dired, open the file named on this line using the default application in the system."
   (interactive)
-  (let ((file (dired-get-filename nil t))
-        (filename (dired-get-filename t t)))
+  (let ((file (dired-get-filename nil t)) ; Full path
+        (filename (dired-get-filename t t))) ; File name for display
     (message "Opening %s..." filename)
     (call-process "open" nil 0 nil file)
     (message "Opening %s done" filename)))
 
-(defun append-to-list (list-var elements)
-  "Append ELEMENTS to the end of LIST-VAR.
-
-The return value is the new value of LIST-VAR."
-  (unless (consp elements)
-    (error "ELEMENTS must be a list"))
-  (let ((list (symbol-value list-var)))
-    (if list
-        (setcdr (last list) elements)
-      (set list-var elements)))
-  (symbol-value list-var))
-
-(require 'package)
-(setq package-archives
-    '(("melpa-stable" . "https://stable.melpa.org/packages/")
-      ("gnu" . "https://elpa.gnu.org/packages/")
-      ("org" . "http://orgmode.org/elpa/")
-      ))
-(package-initialize)
-
-(add-to-list 'load-path "~/.emacs.d/custom_load/")
-
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-(eval-when-compile (require 'use-package))
-
-(setq use-package-always-ensure t)
+(defun pgw/copy-mla-file ()
+  "Copy MLA_OrgFile.org to current directory for use in school essays."
+  (interactive)
+  (copy-file "~/Dropbox/org/templates/school/MLA_OrgFile.org" default-directory)
+  )
 
 (when (eq system-type 'darwin)
+  (with-no-warnings
     (setq mac-option-modifier 'meta)
     (setq mac-control-modifier 'control)
-    (setq ns-function-modifier 'hyper))
+    (setq ns-function-modifier 'hyper)))
 
 (when (eq system-type 'gnu/linux)
-  (setq x-super-keysym 'hyper))
+  (with-no-warnings (setq x-super-keysym 'hyper)))
 
 (use-package exec-path-from-shell)
 
@@ -303,7 +324,7 @@ other, future frames."
   :config
   ;; (setq sml/theme 'powerline)
   ;(setq sml/theme 'dark)
-  (add-to-list 'sml/replacer-regexp-list '("^~/Google Drive/OHS/\\([0-9]\\{2\\}\\)th Grade/Classes/\\([0-9A-Z]*\\)/" ":\\2:"))
+  (add-to-list 'sml/replacer-regexp-list '("^~/Google Drive/OHS/\\([0-9]\\{2\\}\\)th Grade/Semester [0-9]\\{2\\}/\\([0-9A-Z]*\\)/" ":\\2:"))
   (add-hook 'after-init-hook 'sml/setup)
   )
 
@@ -337,14 +358,45 @@ other, future frames."
                              "~/Dropbox/org/events.org"))
 (setq org-default-notes-file (concat org-directory "/inbox.org"))
 
+(require 'ox-publish)
+(setq org-publish-project-alist
+      '(("pages-notes"
+         :base-directory "~/Dropbox/org_publish/"
+         :base-extension "org"
+         :publishing-directory "~/Documents/Projects/Github/github_pages/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4             ; Just the default for this project.
+         :auto-preamble t
+         )
+        ("pages-static"
+         :base-directory "~/Dropbox/org_publish/"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+         :publishing-directory "~/Documents/Projects/Github/github_pages/"
+         :recursive t
+         :publishing-function org-publish-attachment
+         )
+        ("pages" :components ("pages-notes" "pages-static"))
+        ))
+
 (setq org-startup-indented t)
 
 (setq org-todo-keywords
       '((sequence "TODO(t)" "IN-PROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
 
 (define-key global-map "\C-cc" 'org-capture)
+(global-set-key (kbd "H-c o") 
+                (lambda () (interactive) (find-file (concat org-directory "/school.org"))))
 (global-set-key (kbd "H-c p") 
-                (lambda () (interactive) (dired "~/Google Drive/OHS/11th Grade/Semester 1/")))
+                (lambda () (interactive) (dired "~/Google Drive/OHS/11th Grade/Semester 2/")))
+(global-set-key (kbd "H-c i") 
+                (lambda () (interactive) (find-file (concat org-directory "/gtd.org"))))
+(global-set-key (kbd "H-c v") 
+                (lambda () (interactive) (find-file (concat org-directory "/violin.org"))))
+(global-set-key (kbd "H-c m") 
+                (lambda () (interactive) (find-file (concat org-directory "/notes.org"))))
+(global-set-key (kbd "H-c k") 
+                (lambda () (interactive) (find-file (concat org-directory "/links.org"))))
 
 ;;; Agenda key (C-c a) and other settings
 (global-set-key "\C-cl" 'org-store-link)
@@ -429,7 +481,7 @@ other, future frames."
 
 (defun pgw/headline_date ()
   "Function to find the date as headline for Violin capture template"
-  (beginning-of-buffer)
+  (goto-char (point-min))
   (let ((searchresults (search-forward (format-time-string "[%Y-%m-%d %a]") nil t)))
     (if searchresults
         'searchresults
@@ -581,13 +633,13 @@ DEADLINE: %^t
 (setq latex-run-command "xetex")
 
 (use-package tex
-  :defer t
   :ensure auctex
+  :defer t
   :config
   (setq TeX-auto-save t))
 
-(unless (find "Times" org-latex-classes :key 'car
-              :test 'equal)
+(unless (with-no-warnings (find "Times" org-latex-classes :key 'car
+                                :test 'equal))
   (add-to-list 'org-latex-classes
                '("Times"
                  "\\documentclass[12pt]{article}
@@ -598,86 +650,7 @@ DEADLINE: %^t
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-  (add-to-list 'org-latex-classes
-               '("MLA"
-                 "\\documentclass[12pt]{article}
-%
-%Margin - 1 inch on all sides
-%
-\\usepackage[letterpaper]{geometry}
-\\usepackage{fontspec}
-\\setmainfont{Times New Roman}
-\\geometry{top=1.0in, bottom=1.0in, left=1.0in, right=1.0in}
-
-%
-%Doublespacing
-%
-\\usepackage{setspace}
-\\doublespacing
-
-%
-%Rotating tables (e.g. sideways when too long)
-%
-\\usepackage{rotating}
-
-
-%
-%Fancy-header package to modify header/page numbering (insert last name)
-%
-\\usepackage{fancyhdr}
-\\pagestyle{fancy}
-\\lhead{} 
-\\chead{} 
-\\rhead{Wang \\thepage} 
-\\lfoot{} 
-\\cfoot{} 
-\\rfoot{} 
-\\renewcommand{\\headrulewidth}{0pt} 
-\\renewcommand{\\footrulewidth}{0pt} 
-%To make sure we actually have header 0.5in away from top edge
-%12pt is one-sixth of an inch. Subtract this from 0.5in to get headsep value
-\\setlength\\headsep{0.333in}
-
-%
-%Works cited environment
-%(to start, use \\begin{workscited...}, each entry preceded by \\bibent)
-% - from Ryan Alcock's MLA style file
-%
-\\newcommand{\\bibent}{\\noindent \\hangindent 40pt}
-\\newenvironment{workscited}{\\newpage \\begin{center} Works Cited \\end{center}}{\\newpage }
-
-
-%
-%Begin document
-%
-\\begin{document}
-%commented until I can add this in the org-latex-export function using advice
-%\\begin{flushleft}
-
-%%%%First page name, class, etc
-Pierce Wang\\\\
-Professor\\\\
-Class\\\\
-February 11 2019\\\\
-
-
-%%%%Title
-\\begin{center}
-Paper Title
-\\end{center}
-
-
-%%%%Changes paragraph indentation to 0.5in
-\\setlength{\\parindent}{0.5in}
-%%%%Begin body of paper here
-[NO-DEFAULT-PACKAGES]"
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
-               ))
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
 ;Probably not needed
 ;(add-to-list 'load-path "~/.emacs.d/site-lisp/evil")
@@ -811,12 +784,14 @@ If the input is non-empty, it is inserted at point."
       (evil-emacs-state)
       ))
 
-(add-hook 'tetris-mode-hook (lambda ()
-                              (define-key tetris-mode-map "z" 'tetris-rotate-prev)
-                              (define-key tetris-mode-map "x" 'tetris-rotate-next)))
+(use-package tetris
+  :bind (:map tetris-mode-map
+              ("z" . tetris-rotate-prev)
+              ("x" . tetris-rotate-next)))
 
 (desktop-save-mode 1)
 (setq desktop-restore-frames nil)
+(setq desktop-restore-eager 20)
 (setq desktop-path (list "~/emacs/desktopsave/"))
 
 (setq erc-log-channels-directory "~/logs/")
@@ -850,7 +825,7 @@ If the input is non-empty, it is inserted at point."
 
 (global-set-key (kbd "C-c C-6") 'hydra-windowmanage/body)
 
-;;; Email
+(setq user-full-name "Pierce Wang")
 (setq user-mail-address "pierce.g.wang@gmail.com")
 
 (use-package ibuffer
@@ -879,6 +854,7 @@ If the input is non-empty, it is inserted at point."
 (define-key ibuffer-mode-map (kbd "P") nil)
 
 (setq delete-by-moving-to-trash t)
+(setq trash-directory "~/.Trash")
 (setq insert-directory-program "gls")
 
 (setq dired-dwim-target t)
@@ -906,7 +882,7 @@ If the input is non-empty, it is inserted at point."
 (put 'narrow-to-region 'disabled nil)
 
 (defun pgw/turn-on-flyspell-hook ()
-  (cond ((string-match "^/Users/piercewang/Google Drive/OHS/11th Grade/Classes/" (if (eq buffer-file-name nil) "" buffer-file-name))
+  (cond ((string-match "^/Users/piercewang/Google Drive/OHS/" (if (eq buffer-file-name nil) "" buffer-file-name))
          (flyspell-mode 1))))
 
 (add-hook 'text-mode-hook 'pgw/turn-on-flyspell-hook)
