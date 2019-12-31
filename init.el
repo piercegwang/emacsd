@@ -367,6 +367,7 @@ other, future frames."
          :recursive t
          :publishing-function org-html-publish-to-html
          :headline-levels 4             ; Just the default for this project.
+         :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/style.css\"/>"
          :auto-preamble t
          )
         ("pages-static"
@@ -669,6 +670,8 @@ DEADLINE: %^t
 (define-key evil-motion-state-map (kbd "j") 'next-line)
 
 (elpy-enable)
+
+(use-package python-docstring)
 
 (setq auto-mode-alist
       (cons '("\\.m$" . octave-mode) auto-mode-alist))

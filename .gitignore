@@ -11,7 +11,3 @@ auto-save-list/
 bookmarks
 .cache/
 *.html
-
-# ignore site-lisp git clones
-site-lisp/*
-!site-lisp/README

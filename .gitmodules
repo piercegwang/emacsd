@@ -1,0 +1,3 @@
+[submodule "site-lisp/python-docstring-mode"]
+	path = site-lisp/python-docstring-mode
+	url = https://github.com/glyph/python-docstring-mode.git

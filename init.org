@@ -668,6 +668,7 @@ I copied mixed-pitch.el from [[https://gitlab.com/jabranham/mixed-pitch/][this]]
            :recursive t
            :publishing-function org-html-publish-to-html
            :headline-levels 4             ; Just the default for this project.
+           :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/style.css\"/>"
            :auto-preamble t
            )
           ("pages-static"
@@ -1136,9 +1137,15 @@ Fix color handling in org-preview-latex-fragment
 #+end_src
 
 ** Programming Environments
-*** Elpy
+*** Python
+**** Elpy
 #+begin_src emacs-lisp
   (elpy-enable)
+#+end_src
+**** python-docstring
+Smart Python Docstring Formatting
+#+begin_src emacs-lisp
+  (use-package python-docstring)
 #+end_src
 
 *** Octave
@@ -1152,6 +1159,7 @@ Fix color handling in org-preview-latex-fragment
               (if (eq window-system 'x)
                   (font-lock-mode 1))))
 #+end_src
+
 
 ** Macros
 #+begin_src emacs-lisp
