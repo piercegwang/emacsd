@@ -625,6 +625,13 @@ DEADLINE: %^t
         ("pages" :components ("pages-notes" "pages-static"))
         ))
 
+(use-package org-noter
+  :after org
+  :ensure t
+  :config
+  (setq org-noter-default-notes-file-names '("notes.org")
+        org-noter-notes-search-path '("~/org/Research-Notes/notes")))
+
 (setq TeX-engine 'xetex)
 (setq latex-run-command "xetex")
 

@@ -10,11 +10,13 @@
  '(custom-safe-themes
    (quote
     ("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "b9e9ba5aeedcc5ba8be99f1cc9301f6679912910ff92fdf7980929c2fc83ab4d" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
+ '(debug-on-error nil)
  '(default-input-method "TeX")
  '(epg-gpg-program "/usr/local/bin/gpg")
  '(erc-modules
    (quote
     (autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands readonly ring stamp track)))
+ '(helm-mode t)
  '(ibuffer-saved-filter-groups
    (quote
     (("Coursera"
@@ -110,7 +112,7 @@
     (org-bbdb org-bibtex org-docview org-gnus org-habit org-info org-irc org-mhe org-rmail org-w3m org-drill org-learn)))
  '(package-selected-packages
    (quote
-    (which-key artist-mode python-docstring markdown-mode epa-file framemove treemacs-magit treemacs-evil treemacs doom-themes org-bullets org htmlize lua-mode helm magit elpy exec-path-from-shell smart-mode-line latex auctex evil-visual-mark-mode)))
+    (org-noter which-key artist-mode python-docstring markdown-mode epa-file framemove treemacs-magit treemacs-evil treemacs doom-themes org-bullets org htmlize lua-mode helm magit elpy exec-path-from-shell smart-mode-line latex auctex evil-visual-mark-mode)))
  '(show-paren-mode nil)
  '(sml/pre-modes-separator (propertize " " (quote face) (quote sml/modes))))
 (custom-set-faces
