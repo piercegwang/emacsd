@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: Python Docstring
+# key: """
+# --
+"""Documentation for $1
+
+Args: $2$0
+${2:$(elpy-snippet-docstring-assignments yas-text)}
+:returns: $3
+:raises keyError: $4
+"""

@@ -151,6 +151,21 @@ The return value is the new value of LIST-VAR."
   (copy-file "~/Dropbox/org/templates/school/MLA_OrgFile.org" default-directory)
   )
 
+(defun elpy-snippet-docstring-assignments (arg-string)
+  "Return the typical docstring assignments for arguments in reST documentation."
+  (let ((indentation (make-string (save-excursion
+                                    (goto-char start-point)
+                                    (current-indentation))
+                                  ?\s)))
+    (mapconcat (lambda (arg)
+                 (if (string-match "^\\*" (car arg))
+                     ""
+                   (format ":param %s: \n%s"
+                           (car arg)
+                           indentation)))
+               (elpy-snippet-split-args arg-string)
+               "")))
+
 (when (eq system-type 'darwin)
   (with-no-warnings
     (setq mac-option-modifier 'meta)
@@ -346,39 +361,10 @@ other, future frames."
   )
 
 (use-package org)
-;(use-package org-agenda)
 
-(setq org-directory "~/Dropbox/org/")
-(setq org-agenda-files (list "~/Dropbox/org/school.org"
-                             "~/Dropbox/org/gtd.org"
-                             "~/Dropbox/org/violin.org"
-                             "~/Dropbox/org/inbox.org"
-                             "~/Dropbox/org/tickler.org"
-                             "~/Dropbox/org/gcal.org"
-                             "~/Dropbox/org/events.org"))
+(setq org-directory "~/Dropbox/org")
+(setq org-agenda-files (directory-files org-directory t "org$"))
 (setq org-default-notes-file (concat org-directory "/inbox.org"))
-
-(require 'ox-publish)
-(setq org-publish-project-alist
-      '(("pages-notes"
-         :base-directory "~/Dropbox/org_publish/"
-         :base-extension "org"
-         :publishing-directory "~/Documents/Projects/Github/github_pages/"
-         :recursive t
-         :publishing-function org-html-publish-to-html
-         :headline-levels 4             ; Just the default for this project.
-         :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/style.css\"/>"
-         :auto-preamble t
-         )
-        ("pages-static"
-         :base-directory "~/Dropbox/org_publish/"
-         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
-         :publishing-directory "~/Documents/Projects/Github/github_pages/"
-         :recursive t
-         :publishing-function org-publish-attachment
-         )
-        ("pages" :components ("pages-notes" "pages-static"))
-        ))
 
 (setq org-startup-indented t)
 
@@ -452,19 +438,6 @@ other, future frames."
            '((agenda habit-down time-up deadline-up)))
           )
          )
-        ("qo" "OHS (Test)"
-         ((agenda "" ((org-agenda-span 1)
-                      (org-deadline-warning-days 3)
-                      ))
-          (tags-todo "gcal|class"
-                     ((org-agenda-span 5)
-                     )))
-         ((org-agenda-sorting-strategy '((agenda habit-down time-up deadline-up)
-                                         ;; (todo ts-up todo-state-down)
-                                         (tags ts-up todo-state-down) 
-                                         ;; (search timestamp-up)
-                                         )
-                                       )))
         )
       )
 
@@ -523,28 +496,28 @@ other, future frames."
 " :kill-buffer t)
 ("S" "School")
 ("Se" "OE020B" entry
- (file+headline "~/Dropbox/org/school.org" "_\\ *sOE020B* \\_")
+ (file+headline "~/Dropbox/org/school.org" "_sOE020B_")
  "* TODO %?
 DEADLINE: <%<%Y-%m-%d %a 13:30>>")
 ("Sp" "OP005" entry
- (file+headline "~/Dropbox/org/school.org" "_\\ *sOP005* \\_")
+ (file+headline "~/Dropbox/org/school.org" "_sOP005_")
  "* TODO %?
 DEADLINE: <%<%Y-%m-%d %a 14:45>>")
 ("Sd" "ODFRL" entry
- (file+headline "~/Dropbox/org/school.org" "_\\ *sODFRL* \\_")
+ (file+headline "~/Dropbox/org/school.org" "_sODFRL_")
  "* TODO %?
 DEADLINE: <%<%Y-%m-%d %a 16:00>>")
 ("Sh" "OH011A" entry
- (file+headline "~/Dropbox/org/school.org" "_\\ *sOH011A* \\_")
+ (file+headline "~/Dropbox/org/school.org" "_sOH011A_")
  "* TODO %?
 DEADLINE: <%<%Y-%m-%d %a 08:30>>")
-("Sm" "UM52A" entry
- (file+headline "~/Dropbox/org/school.org" "_\\ *sUM52A* \\_")
+("Sm" "UM52B" entry
+ (file+headline "~/Dropbox/org/school.org" "_sUM52B_")
  "**** TODO %?
 DEADLINE: <%<%Y-%m-%d %a 13:30>>")
 ("m" "Music")
 ("mM" "Musicianship Homework" entry
- (file+headline "~/Dropbox/org/gtd.org" "Musicianship")
+ (file+headline "~/Dropbox/org/music.org" "Musicianship")
  "* TODO Musicianship Homework [/]
 DEADLINE: %^t
 - [ ] Written: %^{Written Homework}
@@ -555,7 +528,7 @@ DEADLINE: %^t
  (file+headline "~/Dropbox/org/music.org" "Homework")
  "* TODO Conducting Homework
 DEADLINE: %^t
-- ")
+- %?")
 ("V" "Violin")
 ("Vc" "Create Practice Entry" entry
  (file+olp "~/Dropbox/org/violin.org" "Practice Log")
@@ -630,6 +603,28 @@ DEADLINE: %^t
 
 (setq org-export-async-init-file "~/.emacs.d/orgasyncinit.el")
 
+(require 'ox-publish)
+(setq org-publish-project-alist
+      '(("pages-notes"
+         :base-directory "~/Dropbox/org_publish/"
+         :base-extension "org"
+         :publishing-directory "~/Documents/Projects/Github/github_pages/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4             ; Just the default for this project.
+         ;; :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/style.css\"/>"
+         :auto-preamble t
+         )
+        ("pages-static"
+         :base-directory "~/Dropbox/org_publish/"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+         :publishing-directory "~/Documents/Projects/Github/github_pages/"
+         :recursive t
+         :publishing-function org-publish-attachment
+         )
+        ("pages" :components ("pages-notes" "pages-static"))
+        ))
+
 (setq TeX-engine 'xetex)
 (setq latex-run-command "xetex")
 
@@ -669,9 +664,14 @@ DEADLINE: %^t
 (define-key evil-motion-state-map (kbd "k") 'previous-line)
 (define-key evil-motion-state-map (kbd "j") 'next-line)
 
-(elpy-enable)
+(add-hook 'prog-mode-hook #'hs-minor-mode)
 
-(use-package python-docstring)
+(use-package python-docstring
+  :load-path "site-lisp/python-docstring-mode")
+
+(elpy-enable)
+(add-hook 'elpy-mode-hook
+          'python-docstring-mode)
 
 (setq auto-mode-alist
       (cons '("\\.m$" . octave-mode) auto-mode-alist))
@@ -776,17 +776,6 @@ If the input is non-empty, it is inserted at point."
       (evil-emacs-state)
       ))
 
-(add-hook 'artist-mode-hook
-    (lambda ()
-      (local-set-key (kbd "<f1>") 'org-mode)
-      (local-set-key (kbd "<f2>") 'artist-select-op-pen-line) ; f2 = pen mode
-      (local-set-key (kbd "<f3>") 'artist-select-op-line)     ; f3 = line
-      (local-set-key (kbd "<f4>") 'artist-select-op-square)   ; f4 = rectangle
-      (local-set-key (kbd "<f5>") 'artist-select-op-ellipse)  ; f5 = ellipse
-      (display-line-numbers-mode -1)
-      (evil-emacs-state)
-      ))
-
 (use-package tetris
   :bind (:map tetris-mode-map
               ("z" . tetris-rotate-prev)
@@ -817,6 +806,13 @@ If the input is non-empty, it is inserted at point."
 (global-set-key (kbd "H-c H-o") 'pgw/org-open-link-prop-at-point)
 
 (global-set-key (kbd "<f8>") 'insert-org-image)
+
+(use-package which-key
+  :config
+  (which-key-mode)
+  (setq which-key-popup-type 'side-window)
+  (setq which-key-side-window-location 'bottom)
+  )
 
 (defhydra hydra-windowmanage (global-map "H-c ^")
   "Hydra for window management."

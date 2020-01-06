@@ -286,6 +286,24 @@ I later discovered that I didn't need this as =C-c C-o= already opens the first 
     )
 #+end_src
 
+*** Elpy Docstring Arguments
+#+begin_src emacs-lisp
+  (defun elpy-snippet-docstring-assignments (arg-string)
+    "Return the typical docstring assignments for arguments in reST documentation."
+    (let ((indentation (make-string (save-excursion
+                                      (goto-char start-point)
+                                      (current-indentation))
+                                    ?\s)))
+      (mapconcat (lambda (arg)
+                   (if (string-match "^\\*" (car arg))
+                       ""
+                     (format ":param %s: \n%s"
+                             (car arg)
+                             indentation)))
+                 (elpy-snippet-split-args arg-string)
+                 "")))
+#+end_src
+
 ** Modifier Keys
 #+begin_src emacs-lisp
   (when (eq system-type 'darwin)
@@ -640,49 +658,17 @@ I copied mixed-pitch.el from [[https://gitlab.com/jabranham/mixed-pitch/][this]]
 
 #+begin_src emacs-lisp
   (use-package org)
-  ;(use-package org-agenda)
 #+end_src
 
 *** Setting orgmode directories:
 
 #+begin_src emacs-lisp
-  (setq org-directory "~/Dropbox/org/")
-  (setq org-agenda-files (list "~/Dropbox/org/school.org"
-                               "~/Dropbox/org/gtd.org"
-                               "~/Dropbox/org/violin.org"
-                               "~/Dropbox/org/inbox.org"
-                               "~/Dropbox/org/tickler.org"
-                               "~/Dropbox/org/gcal.org"
-                               "~/Dropbox/org/events.org"))
+  (setq org-directory "~/Dropbox/org")
+  (setq org-agenda-files (directory-files org-directory t "org$"))
   (setq org-default-notes-file (concat org-directory "/inbox.org"))
 #+end_src
 
-*** Export Publishing
-#+begin_src emacs-lisp
-  (require 'ox-publish)
-  (setq org-publish-project-alist
-        '(("pages-notes"
-           :base-directory "~/Dropbox/org_publish/"
-           :base-extension "org"
-           :publishing-directory "~/Documents/Projects/Github/github_pages/"
-           :recursive t
-           :publishing-function org-html-publish-to-html
-           :headline-levels 4             ; Just the default for this project.
-           :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/style.css\"/>"
-           :auto-preamble t
-           )
-          ("pages-static"
-           :base-directory "~/Dropbox/org_publish/"
-           :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
-           :publishing-directory "~/Documents/Projects/Github/github_pages/"
-           :recursive t
-           :publishing-function org-publish-attachment
-           )
-          ("pages" :components ("pages-notes" "pages-static"))
-          ))
-#+end_src
-
-*** Startup
+*** Startup Settings
 Make org-mode files automatically indent.
 #+begin_src emacs-lisp
   (setq org-startup-indented t)
@@ -805,19 +791,6 @@ Custom commands, testing sorting strategy variable
              '((agenda habit-down time-up deadline-up)))
             )
            )
-          ("qo" "OHS (Test)"
-           ((agenda "" ((org-agenda-span 1)
-                        (org-deadline-warning-days 3)
-                        ))
-            (tags-todo "gcal|class"
-                       ((org-agenda-span 5)
-                       )))
-           ((org-agenda-sorting-strategy '((agenda habit-down time-up deadline-up)
-                                           ;; (todo ts-up todo-state-down)
-                                           (tags ts-up todo-state-down) 
-                                           ;; (search timestamp-up)
-                                           )
-                                         )))
           )
         )
 #+end_src
@@ -936,28 +909,28 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
   " :kill-buffer t)
   ("S" "School")
   ("Se" "OE020B" entry
-   (file+headline "~/Dropbox/org/school.org" "_\\ *sOE020B* \\_")
+   (file+headline "~/Dropbox/org/school.org" "_sOE020B_")
    "* TODO %?
   DEADLINE: <%<%Y-%m-%d %a 13:30>>")
   ("Sp" "OP005" entry
-   (file+headline "~/Dropbox/org/school.org" "_\\ *sOP005* \\_")
+   (file+headline "~/Dropbox/org/school.org" "_sOP005_")
    "* TODO %?
   DEADLINE: <%<%Y-%m-%d %a 14:45>>")
   ("Sd" "ODFRL" entry
-   (file+headline "~/Dropbox/org/school.org" "_\\ *sODFRL* \\_")
+   (file+headline "~/Dropbox/org/school.org" "_sODFRL_")
    "* TODO %?
   DEADLINE: <%<%Y-%m-%d %a 16:00>>")
   ("Sh" "OH011A" entry
-   (file+headline "~/Dropbox/org/school.org" "_\\ *sOH011A* \\_")
+   (file+headline "~/Dropbox/org/school.org" "_sOH011A_")
    "* TODO %?
   DEADLINE: <%<%Y-%m-%d %a 08:30>>")
-  ("Sm" "UM52A" entry
-   (file+headline "~/Dropbox/org/school.org" "_\\ *sUM52A* \\_")
+  ("Sm" "UM52B" entry
+   (file+headline "~/Dropbox/org/school.org" "_sUM52B_")
    "**** TODO %?
   DEADLINE: <%<%Y-%m-%d %a 13:30>>")
   ("m" "Music")
   ("mM" "Musicianship Homework" entry
-   (file+headline "~/Dropbox/org/gtd.org" "Musicianship")
+   (file+headline "~/Dropbox/org/music.org" "Musicianship")
    "* TODO Musicianship Homework [/]
   DEADLINE: %^t
   - [ ] Written: %^{Written Homework}
@@ -968,7 +941,7 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
    (file+headline "~/Dropbox/org/music.org" "Homework")
    "* TODO Conducting Homework
   DEADLINE: %^t
-  - ")
+  - %?")
   ("V" "Violin")
   ("Vc" "Create Practice Entry" entry
    (file+olp "~/Dropbox/org/violin.org" "Practice Log")
@@ -1081,6 +1054,31 @@ Fix color handling in org-preview-latex-fragment
   (setq org-export-async-init-file "~/.emacs.d/orgasyncinit.el")
 #+end_src
 
+**** Export Publishing
+#+begin_src emacs-lisp
+  (require 'ox-publish)
+  (setq org-publish-project-alist
+        '(("pages-notes"
+           :base-directory "~/Dropbox/org_publish/"
+           :base-extension "org"
+           :publishing-directory "~/Documents/Projects/Github/github_pages/"
+           :recursive t
+           :publishing-function org-html-publish-to-html
+           :headline-levels 4             ; Just the default for this project.
+           ;; :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/style.css\"/>"
+           :auto-preamble t
+           )
+          ("pages-static"
+           :base-directory "~/Dropbox/org_publish/"
+           :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+           :publishing-directory "~/Documents/Projects/Github/github_pages/"
+           :recursive t
+           :publishing-function org-publish-attachment
+           )
+          ("pages" :components ("pages-notes" "pages-static"))
+          ))
+#+end_src
+
 ** LaTeX
 #+begin_src emacs-lisp
   (setq TeX-engine 'xetex)
@@ -1137,15 +1135,24 @@ Fix color handling in org-preview-latex-fragment
 #+end_src
 
 ** Programming Environments
-*** Python
-**** Elpy
+Hide-show minor mode for collapsing functions
 #+begin_src emacs-lisp
-  (elpy-enable)
+  (add-hook 'prog-mode-hook #'hs-minor-mode)
 #+end_src
+
+*** Python
 **** python-docstring
 Smart Python Docstring Formatting
 #+begin_src emacs-lisp
-  (use-package python-docstring)
+  (use-package python-docstring
+    :load-path "site-lisp/python-docstring-mode")
+#+end_src
+
+**** Elpy
+#+begin_src emacs-lisp
+  (elpy-enable)
+  (add-hook 'elpy-mode-hook
+            'python-docstring-mode)
 #+end_src
 
 *** Octave
@@ -1159,7 +1166,6 @@ Smart Python Docstring Formatting
               (if (eq window-system 'x)
                   (font-lock-mode 1))))
 #+end_src
-
 
 ** Macros
 #+begin_src emacs-lisp
@@ -1271,6 +1277,7 @@ For files changed by dropbox and also dired buffers.
 #+begin_src emacs-lisp
   (global-auto-revert-mode 1)
 #+end_src
+
 ** Calendar
 #+begin_src emacs-lisp
   (setq calendar-latitude 37.550201)
@@ -1283,17 +1290,17 @@ For files changed by dropbox and also dired buffers.
 #+end_src
 
 ** Artist Mode
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (add-hook 'artist-mode-hook
-      (lambda ()
-        (local-set-key (kbd "<f1>") 'org-mode)
-        (local-set-key (kbd "<f2>") 'artist-select-op-pen-line) ; f2 = pen mode
-        (local-set-key (kbd "<f3>") 'artist-select-op-line)     ; f3 = line
-        (local-set-key (kbd "<f4>") 'artist-select-op-square)   ; f4 = rectangle
-        (local-set-key (kbd "<f5>") 'artist-select-op-ellipse)  ; f5 = ellipse
-        (display-line-numbers-mode -1)
-        (evil-emacs-state)
-        ))
+            (lambda () (interactive)
+              (display-line-numbers-mode -1)
+              (evil-emacs-state))
+            )
+  (define-key artist-mode-map (kbd "<f1>") 'artist-select-op-poly-line)
+  (define-key artist-mode-map (kbd "<f2>") 'artist-select-op-pen-line)
+  (define-key artist-mode-map (kbd "<f3>") 'artist-select-op-line)
+  (define-key artist-mode-map (kbd "<f4>") 'artist-select-op-square)
+  (define-key artist-mode-map (kbd "<f5>") 'artist-select-op-ellipse)
 #+end_src
 
 ** Flyspell mode
@@ -1355,6 +1362,16 @@ This is for items created by my gcal script after having parsed assignments from
 Insert Org-mode Image
 #+begin_src emacs-lisp
   (global-set-key (kbd "<f8>") 'insert-org-image)
+#+end_src
+
+*** which-key
+#+begin_src emacs-lisp
+  (use-package which-key
+    :config
+    (which-key-mode)
+    (setq which-key-popup-type 'side-window)
+    (setq which-key-side-window-location 'bottom)
+    )
 #+end_src
 
 ** Resizing Windows

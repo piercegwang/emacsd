@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Columns Options Setup
+# key: <column
+# --
+#+COLUMNS: %25ITEM %TAGS %PRIORITY %TODO

@@ -68,7 +68,7 @@
        (or
         (name . "*Help*")
         (name . "*info*")
-        (name . "*GNU Emacs*")))))) t)
+        (name . "*GNU Emacs*")))))))
  '(ibuffer-saved-filters
    (quote
     (("programming"
@@ -110,7 +110,7 @@
     (org-bbdb org-bibtex org-docview org-gnus org-habit org-info org-irc org-mhe org-rmail org-w3m org-drill org-learn)))
  '(package-selected-packages
    (quote
-    (python-docstring markdown-mode epa-file framemove treemacs-magit treemacs-evil treemacs doom-themes org-bullets org htmlize lua-mode helm magit elpy exec-path-from-shell smart-mode-line latex auctex evil-visual-mark-mode)))
+    (which-key artist-mode python-docstring markdown-mode epa-file framemove treemacs-magit treemacs-evil treemacs doom-themes org-bullets org htmlize lua-mode helm magit elpy exec-path-from-shell smart-mode-line latex auctex evil-visual-mark-mode)))
  '(show-paren-mode nil)
  '(sml/pre-modes-separator (propertize " " (quote face) (quote sml/modes))))
 (custom-set-faces
