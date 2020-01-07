@@ -1087,7 +1087,9 @@ Fix color handling in org-preview-latex-fragment
     :ensure t
     :config
     (setq org-noter-default-notes-file-names '("notes.org")
-          org-noter-notes-search-path '("~/org/Research-Notes/notes")))
+          org-noter-notes-search-path '("~/org/Research-Notes/notes"))
+    ;; (advice-add 'org-noter :before 'org-indent-mode)
+    )
 #+end_src
 
 ** LaTeX
@@ -1303,15 +1305,15 @@ For files changed by dropbox and also dired buffers.
 ** Artist Mode
 #+begin_src emacs-lisp :tangle no
   (add-hook 'artist-mode-hook
-            (lambda () (interactive)
+            (lambda ()
               (display-line-numbers-mode -1)
               (evil-emacs-state))
+            (local-set-key (kbd "<f1>") 'artist-select-op-poly-line)
+            (local-set-key (kbd "<f2>") 'artist-select-op-pen-line)
+            (local-set-key (kbd "<f3>") 'artist-select-op-line)
+            (local-set-key (kbd "<f4>") 'artist-select-op-square)
+            (local-set-key (kbd "<f5>") 'artist-select-op-ellipse)
             )
-  (define-key artist-mode-map (kbd "<f1>") 'artist-select-op-poly-line)
-  (define-key artist-mode-map (kbd "<f2>") 'artist-select-op-pen-line)
-  (define-key artist-mode-map (kbd "<f3>") 'artist-select-op-line)
-  (define-key artist-mode-map (kbd "<f4>") 'artist-select-op-square)
-  (define-key artist-mode-map (kbd "<f5>") 'artist-select-op-ellipse)
 #+end_src
 
 ** Flyspell mode
@@ -1327,10 +1329,9 @@ Activate =flyspell-mode= automatically in all school files.
 ** Games
 *** Tetris
 #+begin_src emacs-lisp
-  (use-package tetris
-    :bind (:map tetris-mode-map
-                ("z" . tetris-rotate-prev)
-                ("x" . tetris-rotate-next)))
+  (require 'tetris)
+  (define-key tetris-mode-map (kbd "z") 'tetris-rotate-prev)
+  (define-key tetris-mode-map (kbd "x") 'tetris-rotate-next)
 #+end_src
 
 ** Desktop Save

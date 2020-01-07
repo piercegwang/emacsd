@@ -630,7 +630,9 @@ DEADLINE: %^t
   :ensure t
   :config
   (setq org-noter-default-notes-file-names '("notes.org")
-        org-noter-notes-search-path '("~/org/Research-Notes/notes")))
+        org-noter-notes-search-path '("~/org/Research-Notes/notes"))
+  ;; (advice-add 'org-noter :before 'org-indent-mode)
+  )
 
 (setq TeX-engine 'xetex)
 (setq latex-run-command "xetex")
@@ -783,10 +785,9 @@ If the input is non-empty, it is inserted at point."
       (evil-emacs-state)
       ))
 
-(use-package tetris
-  :bind (:map tetris-mode-map
-              ("z" . tetris-rotate-prev)
-              ("x" . tetris-rotate-next)))
+(require 'tetris)
+(define-key tetris-mode-map (kbd "z") 'tetris-rotate-prev)
+(define-key tetris-mode-map (kbd "x") 'tetris-rotate-next)
 
 (desktop-save-mode 1)
 (setq desktop-restore-frames nil)
