@@ -57,6 +57,10 @@ If you experience freezing, decrease this. If you experience stuttering, increas
 
 (setq use-package-always-ensure t)
 
+(eval-when-compile
+  (require 'use-package))
+(require 'bind-key)                ;; if you use any :bind variant
+
 (add-hook 'emacs-startup-hook
 	  (lambda ()
 	    (message "Emacs ready in %s with %d garbage collections."
@@ -175,7 +179,8 @@ The return value is the new value of LIST-VAR."
 (when (eq system-type 'gnu/linux)
   (with-no-warnings (setq x-super-keysym 'hyper)))
 
-(use-package exec-path-from-shell)
+(use-package exec-path-from-shell
+  :ensure t)
 
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
@@ -236,7 +241,7 @@ The return value is the new value of LIST-VAR."
   (doom-themes-visual-bell-config)
 
   ;; Enable custom neotree theme (all-the-icons must be installed!)
-  (doom-themes-neotree-config)
+  ;; (doom-themes-neotree-config)
   ;; or for treemacs users
   (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
   (doom-themes-treemacs-config)
@@ -337,8 +342,8 @@ other, future frames."
 
 (use-package smart-mode-line
   :config
-  ;; (setq sml/theme 'powerline)
-  ;(setq sml/theme 'dark)
+  ;; (setq sml/theme 'dark)
+  (setq rm-blacklist '(" hl-p" " WK" " yas" " Undo-Tree" " hs"))
   (add-to-list 'sml/replacer-regexp-list '("^~/Google Drive/OHS/\\([0-9]\\{2\\}\\)th Grade/Semester [0-9]\\{2\\}/\\([0-9A-Z]*\\)/" ":\\2:"))
   (add-hook 'after-init-hook 'sml/setup)
   )

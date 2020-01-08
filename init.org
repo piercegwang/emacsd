@@ -103,7 +103,7 @@ gc and minibuffer (also from doom)
   (add-hook 'minibuffer-exit-hook #'pgw/restore-garbage-collection-h)
 #+end_src
 
-** Use package
+** Package Setup
 Initialize package and add Melpa, GNU, and Org sources.
 #+begin_src emacs-lisp
   (require 'package)
@@ -115,6 +115,7 @@ Initialize package and add Melpa, GNU, and Org sources.
   (package-initialize)
 #+end_src
 
+** Use package
 Add custom load path:
 
 #+begin_src emacs-lisp
@@ -132,6 +133,13 @@ Install use-package.
 
   (setq use-package-always-ensure t)
 #+END_SRC
+
+use-package.el no longer needed at runtime
+#+begin_src emacs-lisp
+  (eval-when-compile
+    (require 'use-package))
+  (require 'bind-key)                ;; if you use any :bind variant
+#+end_src
 
 * Configurations
 ** Emacs Stuff
@@ -246,25 +254,6 @@ For some functions that I don't need to give errors:
   (set-keyboard-coding-system nil)
 #+end_src
 
-*** CANCELLED Open Link from =:LINK= Property                     :ARCHIVE:
-CLOSED: [2019-12-27 Fri 16:07]
-This is for items created by my gcal script after having parsed assignments from the ical file.
-
-
-#+begin_src emacs-lisp :tangle no
-  (defun pgw/org-open-link-prop-at-point ()
-    "This function opens the link pointed to by the link property \":LINK:\" at a given org node at point"
-    (interactive)
-    (let ((link (plist-get (org-element--get-node-properties) :LINK)))
-      (if (eq link nil)
-          (error "Not on a node with :LINK: property!")
-        (browse-url-firefox link)
-        ))
-    )
-#+end_src
-
-I later discovered that I didn't need this as =C-c C-o= already opens the first link under a headline if point is on the headline.
-
 *** Dired Open File
 #+begin_src emacs-lisp
   (defun pgw/dired-open-file ()
@@ -373,7 +362,7 @@ I later discovered that I didn't need this as =C-c C-o= already opens the first 
 #+end_src
 
 *** Doom Theme
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle yes
   (use-package doom-themes
     :config
     ;; Global settings (defaults)
@@ -389,7 +378,7 @@ I later discovered that I didn't need this as =C-c C-o= already opens the first 
     (doom-themes-visual-bell-config)
 
     ;; Enable custom neotree theme (all-the-icons must be installed!)
-    (doom-themes-neotree-config)
+    ;; (doom-themes-neotree-config)
     ;; or for treemacs users
     (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
     (doom-themes-treemacs-config)
@@ -624,8 +613,8 @@ I copied mixed-pitch.el from [[https://gitlab.com/jabranham/mixed-pitch/][this]]
 #+begin_src emacs-lisp
   (use-package smart-mode-line
     :config
-    ;; (setq sml/theme 'powerline)
-    ;(setq sml/theme 'dark)
+    ;; (setq sml/theme 'dark)
+    (setq rm-blacklist '(" hl-p" " WK" " yas" " Undo-Tree" " hs"))
     (add-to-list 'sml/replacer-regexp-list '("^~/Google Drive/OHS/\\([0-9]\\{2\\}\\)th Grade/Semester [0-9]\\{2\\}/\\([0-9A-Z]*\\)/" ":\\2:"))
     (add-hook 'after-init-hook 'sml/setup)
     )
