@@ -127,7 +127,7 @@ The return value is the new value of LIST-VAR."
   (interactive "P")
   (unless (not (eq system-type 'darwin))
     (let* ((outdir (concat (file-name-directory (buffer-file-name)) "/figures"))
-           (namefile (concat (read-string "Enter File Name: ") "_" (format-time-string "%Y%m%d%k%M%S.png")))
+           (namefile (concat (read-string "Enter File Name: ") "_" (format-time-string "%Y%m%d%k%M%S.jpeg")))
            (outfile (expand-file-name namefile outdir)))
       (unless (file-directory-p outdir)
         (make-directory outdir t))
@@ -135,7 +135,7 @@ The return value is the new value of LIST-VAR."
       (if swindow
           (call-process "screencapture" nil nil nil "-w" outfile)
         (call-process "screencapture" nil nil nil "-i" outfile))
-      (insert (concat (concat "[[file:figures/" (file-name-nondirectory outfile)) "]]"))))
+      (insert (concat (concat "[[file:./figures/" (file-name-nondirectory outfile)) "]]"))))
   )
 
 (set-keyboard-coding-system nil)
@@ -155,21 +155,6 @@ The return value is the new value of LIST-VAR."
   (copy-file "~/Dropbox/org/templates/school/MLA_OrgFile.org" default-directory)
   )
 
-(defun elpy-snippet-docstring-assignments (arg-string)
-  "Return the typical docstring assignments for arguments in reST documentation."
-  (let ((indentation (make-string (save-excursion
-                                    (goto-char start-point)
-                                    (current-indentation))
-                                  ?\s)))
-    (mapconcat (lambda (arg)
-                 (if (string-match "^\\*" (car arg))
-                     ""
-                   (format ":param %s: \n%s"
-                           (car arg)
-                           indentation)))
-               (elpy-snippet-split-args arg-string)
-               "")))
-
 (when (eq system-type 'darwin)
   (with-no-warnings
     (setq mac-option-modifier 'meta)
@@ -179,8 +164,7 @@ The return value is the new value of LIST-VAR."
 (when (eq system-type 'gnu/linux)
   (with-no-warnings (setq x-super-keysym 'hyper)))
 
-(use-package exec-path-from-shell
-  :ensure t)
+(use-package exec-path-from-shell)
 
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
@@ -342,8 +326,9 @@ other, future frames."
 
 (use-package smart-mode-line
   :config
-  ;; (setq sml/theme 'dark)
-  (setq rm-blacklist '(" hl-p" " WK" " yas" " Undo-Tree" " hs"))
+  (setq rm-blacklist '(" hl-p" " WK" " yas" " Undo-Tree" " hs")
+        sml/theme 'dark
+        sml/name-width 30)
   (add-to-list 'sml/replacer-regexp-list '("^~/Google Drive/OHS/\\([0-9]\\{2\\}\\)th Grade/Semester [0-9]\\{2\\}/\\([0-9A-Z]*\\)/" ":\\2:"))
   (add-hook 'after-init-hook 'sml/setup)
   )
@@ -630,6 +615,29 @@ DEADLINE: %^t
         ("pages" :components ("pages-notes" "pages-static"))
         ))
 
+(defvar yt-iframe-format
+  ;; You may want to change your width and height.
+  (concat "<iframe width=\"440\""
+          " height=\"335\""
+          " src=\"https://www.youtube.com/embed/%s\""
+          " frameborder=\"0\""
+          " allowfullscreen>%s</iframe>"))
+
+(org-link-set-parameters
+ "yt"
+ :follow
+ (lambda (handle)
+   (browse-url
+    (concat "https://www.youtube.com/embed/"
+            handle)))
+ :export
+ (lambda (path desc backend)
+   (cl-case backend
+     (html (format yt-iframe-format
+                   path (or desc "")))
+     (latex (format "\href{%s}{%s}"
+                    path (or desc "video"))))))
+
 (use-package org-noter
   :after org
   :ensure t
@@ -752,12 +760,6 @@ If the input is non-empty, it is inserted at point."
     (unless (string= "" input) (insert input))))
 (global-set-key "\C-xQ" 'my-macro-query)
 
-;; Auto close gpg buffers
-;(run-with-idle-timer 60 t (lambda ()
-;                         (let ((victim (get-buffer "orgjournal.org.gpg")))
-;                           (when (and victim (not (buffer-modified-p victim))) (message "Killing buffer %s" (buffer-name victim)
-;                                                                                        (kill-buffer victim))))))
-
 (use-package magit
   :config
   (global-set-key (kbd "C-x g") 'magit-status))
@@ -796,7 +798,7 @@ If the input is non-empty, it is inserted at point."
 
 (desktop-save-mode 1)
 (setq desktop-restore-frames nil)
-(setq desktop-restore-eager 20)
+(setq desktop-restore-eager 5)
 (setq desktop-path (list "~/emacs/desktopsave/"))
 
 (setq erc-log-channels-directory "~/logs/")
@@ -815,8 +817,6 @@ If the input is non-empty, it is inserted at point."
 
 ;;; Close window
 (global-set-key (kbd "s-0") 'delete-window)
-
-(global-set-key (kbd "H-c H-o") 'pgw/org-open-link-prop-at-point)
 
 (global-set-key (kbd "<f8>") 'insert-org-image)
 
