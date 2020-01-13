@@ -275,6 +275,20 @@ For some functions that I don't need to give errors:
     )
 #+end_src
 
+*** Lookup in Dictionary (Apple)
+#+begin_src emacs-lisp
+  (when (eq system-type 'darwin)
+    (defun pgw/lookup-dictionary ()
+      "Function to open a dictionary searching the highlighted word
+  No spaces are allowed in the input of this function"
+      (interactive)
+      (let ((word (read-from-minibuffer "Word query: ")))
+        (call-process "open" nil nil nil (concat "dict://" word)))
+      )
+    (global-set-key (kbd "M-#") 'pgw/lookup-dictionary)
+    )
+#+end_src
+
 ** Modifier Keys
 #+begin_src emacs-lisp
   (when (eq system-type 'darwin)
@@ -557,7 +571,7 @@ other, future frames."
 
 *** Variable Pitch Default Font
 #+begin_src emacs-lisp
-  (set-face-attribute 'variable-pitch nil :family "Avenir Book")
+  (set-face-attribute 'variable-pitch nil :family "Avenir Book" :slant 'oblique)
 #+end_src
 
 *** Mixed Pitch
@@ -1329,6 +1343,7 @@ Activate =flyspell-mode= automatically in all school files.
   (setq desktop-restore-frames nil)
   (setq desktop-restore-eager 5)
   (setq desktop-path (list "~/emacs/desktopsave/"))
+  (setq desktop-files-not-to-save "\\(^/[^/:]*:\\|(ftp)$\\|\.gpg$\\)")
 #+end_src
 
 ** ERC

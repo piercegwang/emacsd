@@ -107,6 +107,9 @@
        (mode . gnus-summary-mode)
        (mode . gnus-article-mode))))))
  '(indent-tabs-mode nil)
+ '(org-agenda-files
+   (quote
+    ("/Users/piercewang/Dropbox/org/draftemails.org" "/Users/piercewang/Dropbox/org/events.org" "/Users/piercewang/Dropbox/org/fun.org" "/Users/piercewang/Dropbox/org/gcal.org" "/Users/piercewang/Dropbox/org/gtd.org" "/Users/piercewang/Dropbox/org/inbox.org" "/Users/piercewang/Dropbox/org/init.org" "/Users/piercewang/Dropbox/org/journal_temp.org" "/Users/piercewang/Dropbox/org/links.org" "/Users/piercewang/Dropbox/org/music.org" "/Users/piercewang/Dropbox/org/notes.org" "/Users/piercewang/Dropbox/org/random_thoughts.org" "/Users/piercewang/Dropbox/org/school.org" "/Users/piercewang/Dropbox/org/sermon-notes.org" "/Users/piercewang/Dropbox/org/someday.org" "/Users/piercewang/Dropbox/org/tickler.org" "/Users/piercewang/Dropbox/org/violin.org")))
  '(org-modules
    (quote
     (org-bbdb org-bibtex org-docview org-gnus org-habit org-info org-irc org-mhe org-rmail org-w3m org-drill org-learn)))

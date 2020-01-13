@@ -156,6 +156,17 @@ The return value is the new value of LIST-VAR."
   )
 
 (when (eq system-type 'darwin)
+  (defun pgw/lookup-dictionary ()
+    "Function to open a dictionary searching the highlighted word
+No spaces are allowed in the input of this function"
+    (interactive)
+    (let ((word (read-from-minibuffer "Word query: ")))
+      (call-process "open" nil nil nil (concat "dict://" word)))
+    )
+  (global-set-key (kbd "M-#") 'pgw/lookup-dictionary)
+  )
+
+(when (eq system-type 'darwin)
   (with-no-warnings
     (setq mac-option-modifier 'meta)
     (setq mac-control-modifier 'control)
@@ -306,7 +317,7 @@ other, future frames."
 
 (pgw/reset-font-size)
 
-(set-face-attribute 'variable-pitch nil :family "Avenir Book")
+(set-face-attribute 'variable-pitch nil :family "Avenir Book" :slant 'oblique)
 
 (use-package mixed-pitch
   :load-path "custom_load"
@@ -800,6 +811,7 @@ If the input is non-empty, it is inserted at point."
 (setq desktop-restore-frames nil)
 (setq desktop-restore-eager 5)
 (setq desktop-path (list "~/emacs/desktopsave/"))
+(setq desktop-files-not-to-save "\\(^/[^/:]*:\\|(ftp)$\\|\.gpg$\\)")
 
 (setq erc-log-channels-directory "~/logs/")
 (setq erc-save-buffer-on-part t)
