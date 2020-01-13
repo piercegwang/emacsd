@@ -282,6 +282,7 @@ No spaces are allowed in the input of this function"
   "Set the font to `pgw/default-font' at `pgw/current-font-size'.
 Set that for the current frame, and also make it the default for
 other, future frames."
+  (interactive)
   (let ((font-code (pgw/font-code)))
     (if (assoc 'font default-frame-alist)
         (setcdr (assoc 'font default-frame-alist) font-code)
@@ -310,6 +311,7 @@ other, future frames."
   (pgw/set-font-size))
 
 (define-key global-map (kbd "C-)") 'pgw/reset-font-size)
+(define-key global-map (kbd "C-H-0") 'pgw/set-font-size)
 (define-key global-map (kbd "C-+") 'pgw/increase-font-size)
 (define-key global-map (kbd "C-=") 'pgw/increase-font-size)
 (define-key global-map (kbd "C-_") 'pgw/decrease-font-size)
@@ -433,12 +435,13 @@ other, future frames."
 
 (setq org-agenda-custom-commands
       '(("q" . "Custom Agenda Views")
-        ("qs" "General Agenda" agenda ""
-         ((org-agenda-span 1)
+        ("qa" "Aleksandra Class Schedule" agenda ""
+         ((org-agenda-span 7)
+          (org-agenda-files '("~/Dropbox/org/notes/people/aleksandra/"))))
+        ("A" "General Agenda" agenda ""
+         ((org-agenda-span 3)
           (org-agenda-sorting-strategy
-           '((agenda habit-down time-up deadline-up)))
-          )
-         )
+           '((agenda habit-down time-up deadline-up)))))
         )
       )
 
@@ -626,29 +629,6 @@ DEADLINE: %^t
         ("pages" :components ("pages-notes" "pages-static"))
         ))
 
-(defvar yt-iframe-format
-  ;; You may want to change your width and height.
-  (concat "<iframe width=\"440\""
-          " height=\"335\""
-          " src=\"https://www.youtube.com/embed/%s\""
-          " frameborder=\"0\""
-          " allowfullscreen>%s</iframe>"))
-
-(org-link-set-parameters
- "yt"
- :follow
- (lambda (handle)
-   (browse-url
-    (concat "https://www.youtube.com/embed/"
-            handle)))
- :export
- (lambda (path desc backend)
-   (cl-case backend
-     (html (format yt-iframe-format
-                   path (or desc "")))
-     (latex (format "\href{%s}{%s}"
-                    path (or desc "video"))))))
-
 (use-package org-noter
   :after org
   :ensure t
@@ -716,7 +696,7 @@ DEADLINE: %^t
                 (font-lock-mode 1))))
 
 (fset 'setupworkspace
-   [?\C-c ?a ?q ?s ?. ?\C-x ?0 ?\C-x ?3 ?\H-l ?\H-\C-x ?o ?\C-x ?2 ?\C-u ?7 ?\C-x ?^ ?\H-j ?\H-c ?i ?\H-h ?\H-c ?o ?\H-l])
+   [?\C-c ?a ?A ?. ?\C-x ?0 ?\C-x ?3 ?\H-l ?\H-\C-x ?o ?\C-x ?2 ?\C-u ?7 ?\C-x ?^ ?\H-j ?\H-c ?i ?\H-h ?\H-c ?o ?\H-l])
 (global-set-key (kbd "C-x C-k 1") 'setupworkspace)
 
 ;;(fset 'OHSFigureSave
