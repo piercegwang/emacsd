@@ -642,7 +642,7 @@ I copied mixed-pitch.el from [[https://gitlab.com/jabranham/mixed-pitch/][this]]
     )
 #+end_src
 
-** Orgmode
+** Org-mode
 
 #+begin_src emacs-lisp
   (use-package org)
@@ -1068,7 +1068,6 @@ Fix color handling in org-preview-latex-fragment
           ))
 #+end_src
 
-*** Custom Link Types
 *** org-noter: PDF Annotation
 
 #+begin_src emacs-lisp
@@ -1077,8 +1076,7 @@ Fix color handling in org-preview-latex-fragment
     :ensure t
     :config
     (setq org-noter-default-notes-file-names '("notes.org")
-          org-noter-notes-search-path '("~/org/Research-Notes/notes"))
-    ;; (advice-add 'org-noter :before 'org-indent-mode)
+          org-noter-notes-search-path '("~/Dropbox/org/notes"))
     )
 #+end_src
 
@@ -1288,12 +1286,12 @@ For files changed by dropbox and also dired buffers.
   (add-hook 'artist-mode-hook
             (lambda ()
               (display-line-numbers-mode -1)
-              (evil-emacs-state))
-            (local-set-key (kbd "<f1>") 'artist-select-op-poly-line)
-            (local-set-key (kbd "<f2>") 'artist-select-op-pen-line)
-            (local-set-key (kbd "<f3>") 'artist-select-op-line)
-            (local-set-key (kbd "<f4>") 'artist-select-op-square)
-            (local-set-key (kbd "<f5>") 'artist-select-op-ellipse)
+              (evil-emacs-state)
+              (local-set-key (kbd "<f1>") 'artist-select-op-poly-line)
+              (local-set-key (kbd "<f2>") 'artist-select-op-pen-line)
+              (local-set-key (kbd "<f3>") 'artist-select-op-line)
+              (local-set-key (kbd "<f4>") 'artist-select-op-square)
+              (local-set-key (kbd "<f5>") 'artist-select-op-ellipse))
             )
 #+end_src
 
@@ -1353,7 +1351,7 @@ Insert Org-mode Image
 #+end_src
 
 *** which-key
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (use-package which-key
     :config
     (which-key-mode)

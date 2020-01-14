@@ -634,8 +634,7 @@ DEADLINE: %^t
   :ensure t
   :config
   (setq org-noter-default-notes-file-names '("notes.org")
-        org-noter-notes-search-path '("~/org/Research-Notes/notes"))
-  ;; (advice-add 'org-noter :before 'org-indent-mode)
+        org-noter-notes-search-path '("~/Dropbox/org/notes"))
   )
 
 (setq TeX-engine 'xetex)
@@ -811,13 +810,6 @@ If the input is non-empty, it is inserted at point."
 (global-set-key (kbd "s-0") 'delete-window)
 
 (global-set-key (kbd "<f8>") 'insert-org-image)
-
-(use-package which-key
-  :config
-  (which-key-mode)
-  (setq which-key-popup-type 'side-window)
-  (setq which-key-side-window-location 'bottom)
-  )
 
 (defhydra hydra-windowmanage (global-map "H-c ^")
   "Hydra for window management."
