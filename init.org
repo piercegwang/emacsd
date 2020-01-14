@@ -8,9 +8,7 @@ Inspired by [[https://github.com/freetonik/emacs-dotfiles][freetonik]]'s setup. 
 * Installing
 This config works best with brew's emacs (26.1)
 #+begin_src sh :tangle no
-  brew install emacs --with-cocoa
-  brew linkapps emacs
-  brew ln emacs
+  brew cask install emacs
 #+end_src
 
 ** Dependencies
@@ -37,6 +35,7 @@ When this configuration is loaded for the first time, the =init.el= is the file 
   (byte-compile-file (concat user-emacs-directory "init.el"))
 #+END_SRC
 
+** Headers
 Lexical scoping for the init-file is needed, it can be specified in the header. This is the first line of the actual configuration:
 
 #+BEGIN_SRC emacs-lisp
@@ -233,7 +232,7 @@ For some functions that I don't need to give errors:
 *** Insert Org-mode Image
 #+begin_src emacs-lisp
   (defun insert-org-image (&optional swindow)
-    "Moves image from Dropbox folder to ./media, inserting org-mode link"
+    "Prompt user for name of file, append time and date string, then use the Mac OSX `screencapture` feature to take a photo and place it in the relative ./figures directory."
     (interactive "P")
     (unless (not (eq system-type 'darwin))
       (let* ((outdir (concat (file-name-directory (buffer-file-name)) "/figures"))
@@ -330,13 +329,13 @@ For some functions that I don't need to give errors:
   (setq display-line-numbers-type 'visual)
   (set-default 'truncate-lines t)
 
-  ;; Make title bar dark
   ;; (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
   (add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; assuming you are using a dark theme
-  ;;(setq ns-use-proxy-icon nil)
-  ;;(setq frame-title-format nil)
+  ;; (setq ns-use-proxy-icon nil)
+  ;; (setq frame-title-format nil)
   (menu-bar-mode -1)
   (tool-bar-mode -1)
+  (scroll-bar-mode -1)
 
   (setq visual-line-fringe-indicators '(left-curly-arrow hollow-square)) ;; '(left-curly-arrow right-curly-arrow) for both left and right
   ;; Testing freetonik's fringe indicator alist
@@ -358,7 +357,7 @@ For some functions that I don't need to give errors:
 #+end_src
 
 *** Doom Theme
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp
   (use-package doom-themes
     :config
     ;; Global settings (defaults)
@@ -384,7 +383,8 @@ For some functions that I don't need to give errors:
     )
 #+end_src
 
-**** Set Orgmode Agenda Stuff
+**** CANCELLED Set Orgmode Agenda Stuff
+CLOSED: [2020-01-13 Mon 17:16]
 #+begin_src emacs-lisp :tangle no
   ;; this must be used after loading the theme with (load-theme THEME-NAME t)
   (custom-set-faces
@@ -422,17 +422,12 @@ Windows and Frames are different than one would now intuitively think. Windows e
 
 ** Treemacs
 #+begin_src emacs-lisp
-  (use-package treemacs)
+  ;; (use-package treemacs)
   (use-package treemacs-evil)
   (use-package treemacs-magit)
 #+end_src
 
 ** Fonts
-#+begin_src emacs-lisp :tangle no
-  (add-to-list 'default-frame-alist
-               '(font . "Menlo-12"))
-#+end_src
-
 *** CANCELLED Chinese Font with English Font                      :ARCHIVE:
 CLOSED: [2019-12-22 Sun 18:44]
 Special Fonts config for ease of zooming chinese and english fonts at same rate.
@@ -573,7 +568,7 @@ Note that this overrides the default font-related keybindings from sensible-defa
 
 *** Variable Pitch Default Font
 #+begin_src emacs-lisp
-  (set-face-attribute 'variable-pitch nil :family "Avenir Book" :slant 'oblique)
+  (set-face-attribute 'variable-pitch nil :family "Avenir Book")
 #+end_src
 
 *** Mixed Pitch
@@ -644,10 +639,6 @@ I copied mixed-pitch.el from [[https://gitlab.com/jabranham/mixed-pitch/][this]]
 
 ** Org-mode
 
-#+begin_src emacs-lisp
-  (use-package org)
-#+end_src
-
 *** Setting orgmode directories:
 
 #+begin_src emacs-lisp
@@ -693,20 +684,17 @@ Make org-mode files automatically indent.
 #+end_src
 
 *** Tags
-
 #+begin_src emacs-lisp
   (setq org-tag-persistent-alist '(("OHS" . ?S)
 				   ("noexport" . ?N)))
 #+end_src
 
 *** Log when tasks are marked as done:
-
 #+begin_src emacs-lisp
   (setq org-log-done 'time) ; Log when task marked as done
 #+end_src
 
 *** Org Refile:
-
 #+begin_src emacs-lisp
   (setq pgw/refile-targets (file-expand-wildcards "~/Dropbox/org/*.org"))
   (setq org-refile-targets '((nil :maxlevel . 9)
@@ -1115,8 +1103,6 @@ Fix color handling in org-preview-latex-fragment
 
 ** Evil
 #+begin_src emacs-lisp
-  ;Probably not needed
-  ;(add-to-list 'load-path "~/.emacs.d/site-lisp/evil")
   (use-package evil
     :config
     (evil-mode t)
@@ -1129,8 +1115,8 @@ Fix color handling in org-preview-latex-fragment
 
 *** Normal Mode Keybinds
 #+begin_src emacs-lisp
-  (define-key evil-normal-state-map (kbd "<S-return>") [?m ?` ?o escape ?` ?`])
-  (define-key evil-normal-state-map (kbd "<s-S-return>") [?m ?` ?O escape ?` ?`])
+  ;; (define-key evil-normal-state-map (kbd "<S-return>") [?m ?` ?o escape ?` ?`])
+  ;; (define-key evil-normal-state-map (kbd "<s-S-return>") [?m ?` ?O escape ?` ?`])
   (define-key evil-motion-state-map (kbd "k") 'previous-line)
   (define-key evil-motion-state-map (kbd "j") 'next-line)
 #+end_src
@@ -1282,7 +1268,7 @@ For files changed by dropbox and also dired buffers.
 #+end_src
 
 ** Artist Mode
-#+begin_src emacs-lisp :tangle no
+#+begin_src emacs-lisp
   (add-hook 'artist-mode-hook
             (lambda ()
               (display-line-numbers-mode -1)
@@ -1350,14 +1336,20 @@ Insert Org-mode Image
   (global-set-key (kbd "<f8>") 'insert-org-image)
 #+end_src
 
-*** which-key
-#+begin_src emacs-lisp :tangle no
+*** WAITING which-key
+#+begin_src emacs-lisp
   (use-package which-key
     :config
     (which-key-mode)
     (setq which-key-popup-type 'side-window)
     (setq which-key-side-window-location 'bottom)
     )
+#+end_src
+
+*** Scrolling
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-v") (lambda () (interactive) (scroll-up-command 1)))
+  (global-set-key (kbd "M-v") (lambda () (interactive) (scroll-down-command 1)))
 #+end_src
 
 ** Resizing Windows
@@ -1418,7 +1410,8 @@ Functions to change:
 #+begin_src emacs-lisp
   (setq delete-by-moving-to-trash t)
   (setq trash-directory "~/.Trash")
-  (setq insert-directory-program "gls")
+  (setq insert-directory-program "/usr/local/bin/gls"
+        dired-use-ls-dired t)
 #+end_src
 
 Make moving files easier between two split buffers.
@@ -1437,7 +1430,6 @@ Custom dired open file function
 #+end_src
 
 *** dired-quick-sort.el
-Disabled because it relies on GNU core utils - will need to either install GNU ls or reconfigure file.
 #+begin_src emacs-lisp
   (use-package dired-quick-sort
     :load-path "custom_load"
@@ -1458,16 +1450,12 @@ Disabled because it relies on GNU core utils - will need to either install GNU l
   (put 'scroll-left 'disabled nil)
   (put 'dired-find-alternate-file 'disabled nil)
   (put 'narrow-to-page 'disabled nil)
+  (put 'narrow-to-region 'disabled nil)
 #+end_src
 
 ** browse-url-firefox-program
 Allow the function =browse-url-firefox= to open links in firefox using bin. One could probably also accomplish this using =brew='s version of firefox, but I didn't want to install firefox again.
 #+begin_src emacs-lisp
   (setq browse-url-firefox-program "/Applications/Firefox.app/Contents/MacOS/firefox-bin")
-#+end_src
-
-** Last Things
-#+begin_src emacs-lisp
-  (put 'narrow-to-region 'disabled nil)
 #+end_src
 

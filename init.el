@@ -123,7 +123,7 @@ The return value is the new value of LIST-VAR."
         (funcall fn)))))
 
 (defun insert-org-image (&optional swindow)
-  "Moves image from Dropbox folder to ./media, inserting org-mode link"
+  "Prompt user for name of file, append time and date string, then use the Mac OSX `screencapture` feature to take a photo and place it in the relative ./figures directory."
   (interactive "P")
   (unless (not (eq system-type 'darwin))
     (let* ((outdir (concat (file-name-directory (buffer-file-name)) "/figures"))
@@ -198,13 +198,13 @@ No spaces are allowed in the input of this function"
 (setq display-line-numbers-type 'visual)
 (set-default 'truncate-lines t)
 
-;; Make title bar dark
 ;; (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 (add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; assuming you are using a dark theme
-;;(setq ns-use-proxy-icon nil)
-;;(setq frame-title-format nil)
+;; (setq ns-use-proxy-icon nil)
+;; (setq frame-title-format nil)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
+(scroll-bar-mode -1)
 
 (setq visual-line-fringe-indicators '(left-curly-arrow hollow-square)) ;; '(left-curly-arrow right-curly-arrow) for both left and right
 ;; Testing freetonik's fringe indicator alist
@@ -264,7 +264,7 @@ No spaces are allowed in the input of this function"
 ;;   (setq framemove-hook-into-windmove t)
 ;;   )
 
-(use-package treemacs)
+;; (use-package treemacs)
 (use-package treemacs-evil)
 (use-package treemacs-magit)
 
@@ -319,7 +319,7 @@ other, future frames."
 
 (pgw/reset-font-size)
 
-(set-face-attribute 'variable-pitch nil :family "Avenir Book" :slant 'oblique)
+(set-face-attribute 'variable-pitch nil :family "Avenir Book")
 
 (use-package mixed-pitch
   :load-path "custom_load"
@@ -362,8 +362,6 @@ other, future frames."
     (define-key lisp-interaction-mode-map [remap completion-at-point] 'helm-lisp-completion-at-point)
     (define-key emacs-lisp-mode-map       [remap completion-at-point] 'helm-lisp-completion-at-point))
   )
-
-(use-package org)
 
 (setq org-directory "~/Dropbox/org")
 (setq org-agenda-files (directory-files org-directory t "org$"))
@@ -660,8 +658,6 @@ DEADLINE: %^t
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
-;Probably not needed
-;(add-to-list 'load-path "~/.emacs.d/site-lisp/evil")
 (use-package evil
   :config
   (evil-mode t)
@@ -671,8 +667,8 @@ DEADLINE: %^t
   (add-hook 'display-time-hook 'evil-emacs-state)
   )
 
-(define-key evil-normal-state-map (kbd "<S-return>") [?m ?` ?o escape ?` ?`])
-(define-key evil-normal-state-map (kbd "<s-S-return>") [?m ?` ?O escape ?` ?`])
+;; (define-key evil-normal-state-map (kbd "<S-return>") [?m ?` ?o escape ?` ?`])
+;; (define-key evil-normal-state-map (kbd "<s-S-return>") [?m ?` ?O escape ?` ?`])
 (define-key evil-motion-state-map (kbd "k") 'previous-line)
 (define-key evil-motion-state-map (kbd "j") 'next-line)
 
@@ -782,6 +778,17 @@ If the input is non-empty, it is inserted at point."
       (evil-emacs-state)
       ))
 
+(add-hook 'artist-mode-hook
+          (lambda ()
+            (display-line-numbers-mode -1)
+            (evil-emacs-state)
+            (local-set-key (kbd "<f1>") 'artist-select-op-poly-line)
+            (local-set-key (kbd "<f2>") 'artist-select-op-pen-line)
+            (local-set-key (kbd "<f3>") 'artist-select-op-line)
+            (local-set-key (kbd "<f4>") 'artist-select-op-square)
+            (local-set-key (kbd "<f5>") 'artist-select-op-ellipse))
+          )
+
 (require 'tetris)
 (define-key tetris-mode-map (kbd "z") 'tetris-rotate-prev)
 (define-key tetris-mode-map (kbd "x") 'tetris-rotate-next)
@@ -810,6 +817,16 @@ If the input is non-empty, it is inserted at point."
 (global-set-key (kbd "s-0") 'delete-window)
 
 (global-set-key (kbd "<f8>") 'insert-org-image)
+
+(use-package which-key
+  :config
+  (which-key-mode)
+  (setq which-key-popup-type 'side-window)
+  (setq which-key-side-window-location 'bottom)
+  )
+
+(global-set-key (kbd "C-v") (lambda () (interactive) (scroll-up-command 1)))
+(global-set-key (kbd "M-v") (lambda () (interactive) (scroll-down-command 1)))
 
 (defhydra hydra-windowmanage (global-map "H-c ^")
   "Hydra for window management."
@@ -851,7 +868,8 @@ If the input is non-empty, it is inserted at point."
 
 (setq delete-by-moving-to-trash t)
 (setq trash-directory "~/.Trash")
-(setq insert-directory-program "gls")
+(setq insert-directory-program "/usr/local/bin/gls"
+      dired-use-ls-dired t)
 
 (setq dired-dwim-target t)
 
@@ -872,10 +890,9 @@ If the input is non-empty, it is inserted at point."
 (put 'scroll-left 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)
 (put 'narrow-to-page 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
 
 (setq browse-url-firefox-program "/Applications/Firefox.app/Contents/MacOS/firefox-bin")
-
-(put 'narrow-to-region 'disabled nil)
 
 (defun pgw/turn-on-flyspell-hook ()
   (cond ((string-match "^/Users/piercewang/Google Drive/OHS/" (if (eq buffer-file-name nil) "" buffer-file-name))
