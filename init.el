@@ -43,7 +43,7 @@ If you experience freezing, decrease this. If you experience stuttering, increas
 (setq package-archives
     '(("melpa-stable" . "https://stable.melpa.org/packages/")
       ("gnu" . "https://elpa.gnu.org/packages/")
-      ("org" . "http://orgmode.org/elpa/")
+      ("org" . "https://orgmode.org/elpa/")
       ))
 (package-initialize)
 
@@ -245,6 +245,8 @@ No spaces are allowed in the input of this function"
   (doom-themes-org-config)
   )
 
+(setq frame-resize-pixelwise t)
+
 (when (fboundp 'windmove-default-keybindings)
   (global-set-key (kbd "H-h") (ignore-error-wrapper 'windmove-left))
   (global-set-key (kbd "H-l") (ignore-error-wrapper 'windmove-right))
@@ -317,7 +319,8 @@ other, future frames."
 (define-key global-map (kbd "C-_") 'pgw/decrease-font-size)
 (define-key global-map (kbd "C--") 'pgw/decrease-font-size)
 
-(pgw/reset-font-size)
+(add-hook 'emacs-startup-hook
+          (lambda () (interactive) (pgw/reset-font-size)))
 
 (set-face-attribute 'variable-pitch nil :family "Avenir Book")
 

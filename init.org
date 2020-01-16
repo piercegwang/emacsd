@@ -109,7 +109,7 @@ Initialize package and add Melpa, GNU, and Org sources.
   (setq package-archives
       '(("melpa-stable" . "https://stable.melpa.org/packages/")
         ("gnu" . "https://elpa.gnu.org/packages/")
-        ("org" . "http://orgmode.org/elpa/")
+        ("org" . "https://orgmode.org/elpa/")
         ))
   (package-initialize)
 #+end_src
@@ -349,6 +349,7 @@ For some functions that I don't need to give errors:
    (top-bottom left-bracket right-bracket top-right-angle top-left-angle)
    (empty-line . empty-line)
    (unknown . question-mark)))
+
 #+end_src
 
 *** All the Icons
@@ -394,6 +395,12 @@ CLOSED: [2020-01-13 Mon 17:16]
    `(org-habit-alert-face ((t (:foreground ,(doom-blend 'yellow 'fg 0.1)))))
    `(org-habit-overdue-face ((t (:foreground ,(doom-blend 'red 'fg 0.1)))))
    )
+#+end_src
+
+*** Frame Resize Pixelwise
+Make Emacs play nice with my window manager and resizing around other windows.
+#+begin_src emacs-lisp
+  (setq frame-resize-pixelwise t)
 #+end_src
 
 ** Movement between Windows and Frames
@@ -563,7 +570,8 @@ Note that this overrides the default font-related keybindings from sensible-defa
   (define-key global-map (kbd "C-_") 'pgw/decrease-font-size)
   (define-key global-map (kbd "C--") 'pgw/decrease-font-size)
 
-  (pgw/reset-font-size)
+  (add-hook 'emacs-startup-hook
+            (lambda () (interactive) (pgw/reset-font-size)))
 #+end_src
 
 *** Variable Pitch Default Font

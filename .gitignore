@@ -8,3 +8,4 @@ auto-save-list/
 bookmarks
 .cache/
 *.html
+__pycache__/
