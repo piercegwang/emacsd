@@ -9,3 +9,5 @@ bookmarks
 .cache/
 *.html
 __pycache__/
+elpy/
+mu4e/
