@@ -322,7 +322,7 @@ other, future frames."
 (add-hook 'emacs-startup-hook
           (lambda () (interactive) (pgw/reset-font-size)))
 
-(set-face-attribute 'variable-pitch nil :family "Avenir Book")
+(set-face-attribute 'variable-pitch nil :family "Avenir Next")
 
 (use-package mixed-pitch
   :load-path "custom_load"
@@ -344,13 +344,20 @@ other, future frames."
   :config
   (setq rm-blacklist '(" hl-p" " WK" " yas" " Undo-Tree" " hs")
         sml/theme 'dark
-        sml/name-width 30)
-  (add-to-list 'sml/replacer-regexp-list '("^~/Google Drive/OHS/\\([0-9]\\{2\\}\\)th Grade/Semester [0-9]\\{2\\}/\\([0-9A-Z]*\\)/" ":\\2:"))
+        sml/name-width 30
+        )
+  (add-to-list 'sml/replacer-regexp-list '("^~/Google Drive/OHS/\\([0-9]\\{2\\}\\)th Grade/Classes/Semester [0-9]/\\([0-9A-Z]*\\)/" ":\\2:"))
   (add-hook 'after-init-hook 'sml/setup)
   )
 
 (size-indication-mode 1)
 (line-number-mode -1)
+
+(setq display-time-format "%a %m/%d %H:%M")
+(display-time-mode)
+
+(setq battery-mode-line-format " [%b%p%%]")
+(display-battery-mode)
 
 (use-package helm
   :config
@@ -440,7 +447,7 @@ other, future frames."
          ((org-agenda-span 7)
           (org-agenda-files '("~/Dropbox/org/notes/people/aleksandra/"))))
         ("A" "General Agenda" agenda ""
-         ((org-agenda-span 3)
+         ((org-agenda-span 1)
           (org-agenda-sorting-strategy
            '((agenda habit-down time-up deadline-up)))))
         )
@@ -501,23 +508,23 @@ other, future frames."
 " :kill-buffer t)
 ("S" "School")
 ("Se" "OE020B" entry
- (file+headline "~/Dropbox/org/school.org" "_sOE020B_")
+ (file+headline "~/Dropbox/org/school.org" "_OE020B_")
  "* TODO %?
 DEADLINE: <%<%Y-%m-%d %a 13:30>>")
 ("Sp" "OP005" entry
- (file+headline "~/Dropbox/org/school.org" "_sOP005_")
+ (file+headline "~/Dropbox/org/school.org" "_OP005_")
  "* TODO %?
 DEADLINE: <%<%Y-%m-%d %a 14:45>>")
 ("Sd" "ODFRL" entry
- (file+headline "~/Dropbox/org/school.org" "_sODFRL_")
+ (file+headline "~/Dropbox/org/school.org" "_ODFRL_")
  "* TODO %?
 DEADLINE: <%<%Y-%m-%d %a 16:00>>")
 ("Sh" "OH011A" entry
- (file+headline "~/Dropbox/org/school.org" "_sOH011A_")
+ (file+headline "~/Dropbox/org/school.org" "_OH011A_")
  "* TODO %?
 DEADLINE: <%<%Y-%m-%d %a 08:30>>")
 ("Sm" "UM52B" entry
- (file+headline "~/Dropbox/org/school.org" "_sUM52B_")
+ (file+headline "~/Dropbox/org/school.org" "_UM52B_")
  "**** TODO %?
 DEADLINE: <%<%Y-%m-%d %a 13:30>>")
 ("m" "Music")
@@ -667,7 +674,6 @@ DEADLINE: %^t
   (add-hook 'dired-mode-hook 'evil-emacs-state)
   (add-hook 'calendar-mode-hook 'evil-emacs-state)
   (add-hook 'calendar-load-hook 'evil-emacs-state)
-  (add-hook 'display-time-hook 'evil-emacs-state)
   )
 
 ;; (define-key evil-normal-state-map (kbd "<S-return>") [?m ?` ?o escape ?` ?`])
@@ -796,11 +802,14 @@ If the input is non-empty, it is inserted at point."
 (define-key tetris-mode-map (kbd "z") 'tetris-rotate-prev)
 (define-key tetris-mode-map (kbd "x") 'tetris-rotate-next)
 
+(use-package retris
+  :load-path "site-lisp/retris")
+
 (desktop-save-mode 1)
 (setq desktop-restore-frames nil)
 (setq desktop-restore-eager 5)
 (setq desktop-path (list "~/emacs/desktopsave/"))
-(setq desktop-files-not-to-save "\\(^/[^/:]*:\\|(ftp)$\\|\.gpg$\\)")
+(setq desktop-files-not-to-save "\\(^/[^/:]*:\\|(ftp)$\\|\.gpg$\\|\.org_archive\\)")
 
 (setq erc-log-channels-directory "~/logs/")
 (setq erc-save-buffer-on-part t)
@@ -820,13 +829,6 @@ If the input is non-empty, it is inserted at point."
 (global-set-key (kbd "s-0") 'delete-window)
 
 (global-set-key (kbd "<f8>") 'insert-org-image)
-
-(use-package which-key
-  :config
-  (which-key-mode)
-  (setq which-key-popup-type 'side-window)
-  (setq which-key-side-window-location 'bottom)
-  )
 
 (global-set-key (kbd "C-v") (lambda () (interactive) (scroll-up-command 1)))
 (global-set-key (kbd "M-v") (lambda () (interactive) (scroll-down-command 1)))

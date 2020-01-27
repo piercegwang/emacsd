@@ -576,7 +576,7 @@ Note that this overrides the default font-related keybindings from sensible-defa
 
 *** Variable Pitch Default Font
 #+begin_src emacs-lisp
-  (set-face-attribute 'variable-pitch nil :family "Avenir Book")
+  (set-face-attribute 'variable-pitch nil :family "Avenir Next")
 #+end_src
 
 *** Mixed Pitch
@@ -616,8 +616,9 @@ I copied mixed-pitch.el from [[https://gitlab.com/jabranham/mixed-pitch/][this]]
     :config
     (setq rm-blacklist '(" hl-p" " WK" " yas" " Undo-Tree" " hs")
           sml/theme 'dark
-          sml/name-width 30)
-    (add-to-list 'sml/replacer-regexp-list '("^~/Google Drive/OHS/\\([0-9]\\{2\\}\\)th Grade/Semester [0-9]\\{2\\}/\\([0-9A-Z]*\\)/" ":\\2:"))
+          sml/name-width 30
+          )
+    (add-to-list 'sml/replacer-regexp-list '("^~/Google Drive/OHS/\\([0-9]\\{2\\}\\)th Grade/Classes/Semester [0-9]/\\([0-9A-Z]*\\)/" ":\\2:"))
     (add-hook 'after-init-hook 'sml/setup)
     )
 #+end_src
@@ -626,6 +627,18 @@ I copied mixed-pitch.el from [[https://gitlab.com/jabranham/mixed-pitch/][this]]
 #+begin_src emacs-lisp
   (size-indication-mode 1)
   (line-number-mode -1)
+#+end_src
+
+*** Time display
+#+begin_src emacs-lisp
+  (setq display-time-format "%a %m/%d %H:%M")
+  (display-time-mode)
+#+end_src
+
+*** Battery display
+#+begin_src emacs-lisp
+  (setq battery-mode-line-format " [%b%p%%]")
+  (display-battery-mode)
 #+end_src
 
 ** Helm
@@ -773,7 +786,7 @@ Custom commands, testing sorting strategy variable
            ((org-agenda-span 7)
             (org-agenda-files '("~/Dropbox/org/notes/people/aleksandra/"))))
           ("A" "General Agenda" agenda ""
-           ((org-agenda-span 3)
+           ((org-agenda-span 1)
             (org-agenda-sorting-strategy
              '((agenda habit-down time-up deadline-up)))))
           )
@@ -894,23 +907,23 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
   " :kill-buffer t)
   ("S" "School")
   ("Se" "OE020B" entry
-   (file+headline "~/Dropbox/org/school.org" "_sOE020B_")
+   (file+headline "~/Dropbox/org/school.org" "_OE020B_")
    "* TODO %?
   DEADLINE: <%<%Y-%m-%d %a 13:30>>")
   ("Sp" "OP005" entry
-   (file+headline "~/Dropbox/org/school.org" "_sOP005_")
+   (file+headline "~/Dropbox/org/school.org" "_OP005_")
    "* TODO %?
   DEADLINE: <%<%Y-%m-%d %a 14:45>>")
   ("Sd" "ODFRL" entry
-   (file+headline "~/Dropbox/org/school.org" "_sODFRL_")
+   (file+headline "~/Dropbox/org/school.org" "_ODFRL_")
    "* TODO %?
   DEADLINE: <%<%Y-%m-%d %a 16:00>>")
   ("Sh" "OH011A" entry
-   (file+headline "~/Dropbox/org/school.org" "_sOH011A_")
+   (file+headline "~/Dropbox/org/school.org" "_OH011A_")
    "* TODO %?
   DEADLINE: <%<%Y-%m-%d %a 08:30>>")
   ("Sm" "UM52B" entry
-   (file+headline "~/Dropbox/org/school.org" "_sUM52B_")
+   (file+headline "~/Dropbox/org/school.org" "_UM52B_")
    "**** TODO %?
   DEADLINE: <%<%Y-%m-%d %a 13:30>>")
   ("m" "Music")
@@ -1117,7 +1130,6 @@ Fix color handling in org-preview-latex-fragment
     (add-hook 'dired-mode-hook 'evil-emacs-state)
     (add-hook 'calendar-mode-hook 'evil-emacs-state)
     (add-hook 'calendar-load-hook 'evil-emacs-state)
-    (add-hook 'display-time-hook 'evil-emacs-state)
     )
 #+end_src
 
@@ -1307,13 +1319,19 @@ Activate =flyspell-mode= automatically in all school files.
   (define-key tetris-mode-map (kbd "x") 'tetris-rotate-next)
 #+end_src
 
+*** Retris
+#+begin_src emacs-lisp
+  (use-package retris
+    :load-path "site-lisp/retris")
+#+end_src
+
 ** Desktop Save
 #+begin_src emacs-lisp
   (desktop-save-mode 1)
   (setq desktop-restore-frames nil)
   (setq desktop-restore-eager 5)
   (setq desktop-path (list "~/emacs/desktopsave/"))
-  (setq desktop-files-not-to-save "\\(^/[^/:]*:\\|(ftp)$\\|\.gpg$\\)")
+  (setq desktop-files-not-to-save "\\(^/[^/:]*:\\|(ftp)$\\|\.gpg$\\|\.org_archive\\)")
 #+end_src
 
 ** ERC
@@ -1344,8 +1362,9 @@ Insert Org-mode Image
   (global-set-key (kbd "<f8>") 'insert-org-image)
 #+end_src
 
-*** WAITING which-key
-#+begin_src emacs-lisp
+*** CANCELLED which-key
+CLOSED: [2020-01-15 Wed 22:36]
+#+begin_src emacs-lisp :tangle no
   (use-package which-key
     :config
     (which-key-mode)
