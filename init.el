@@ -266,6 +266,9 @@ No spaces are allowed in the input of this function"
 ;;   (setq framemove-hook-into-windmove t)
 ;;   )
 
+(use-package rotate
+  :load-path "site-lisp")
+
 ;; (use-package treemacs)
 (use-package treemacs-evil)
 (use-package treemacs-magit)

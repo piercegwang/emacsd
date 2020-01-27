@@ -403,7 +403,8 @@ Make Emacs play nice with my window manager and resizing around other windows.
   (setq frame-resize-pixelwise t)
 #+end_src
 
-** Movement between Windows and Frames
+** Windows and Frames
+*** Movement Between Windows
 Windows and Frames are different than one would now intuitively think. Windows exist inside subdivided frames which we call windows now. The following code makes windows and frames easier to navigate:
 
 #+begin_src emacs-lisp
@@ -425,6 +426,12 @@ Windows and Frames are different than one would now intuitively think. Windows e
   ;;   (global-set-key (kbd "C-s-<right>") 'fm-right-frame)
   ;;   (setq framemove-hook-into-windmove t)
   ;;   )
+#+end_src
+
+*** Window Management
+#+begin_src emacs-lisp
+  (use-package rotate
+    :load-path "site-lisp")
 #+end_src
 
 ** Treemacs

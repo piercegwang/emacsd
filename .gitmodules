@@ -4,3 +4,6 @@
 [submodule "site-lisp/retris"]
 	path = site-lisp/retris
 	url = https://github.com/wasamasa/retris.git
+[submodule "emacs-rotate"]
+	path = site-lisp/emacs-rotate
+	url = https://github.com/daichirata/emacs-rotate.git
