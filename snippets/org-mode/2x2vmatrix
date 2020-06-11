@@ -3,4 +3,4 @@
 # key: 2x2v
 # condition: (org-inside-LaTeX-fragment-p)
 # --
-\begin{vmatrix} $1 & $2 \\\\ $3 & $4 \end{vmatrix} \\) \\( $0
+\begin{vmatrix} $0 &  \\\\  &  \end{vmatrix} 

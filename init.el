@@ -127,15 +127,19 @@ The return value is the new value of LIST-VAR."
   (interactive "P")
   (unless (not (eq system-type 'darwin))
     (let* ((outdir (concat (file-name-directory (buffer-file-name)) "/figures"))
-           (namefile (concat (read-string "Enter File Name: ") "_" (format-time-string "%Y%m%d%k%M%S.jpeg")))
-           (outfile (expand-file-name namefile outdir)))
-      (unless (file-directory-p outdir)
-        (make-directory outdir t))
-      (message "Argument: %s" swindow)
-      (if swindow
-          (call-process "screencapture" nil nil nil "-w" outfile)
-        (call-process "screencapture" nil nil nil "-i" outfile))
-      (insert (concat (concat "[[file:./figures/" (file-name-nondirectory outfile)) "]]"))))
+           (namefile (concat (read-string "Enter File Name: ") "_" (format-time-string "%Y%m%d_%H%M%S.jpeg"))))
+      (if (char-equal (aref namefile 0) ?_)
+          (setq namefile (substring namefile 1 (length namefile))))
+      (let* ((outfile (expand-file-name namefile outdir)))
+        (unless (file-directory-p outdir)
+          (make-directory outdir t))
+        (message "Argument: %s" swindow)
+        (if swindow
+            (call-process "screencapture" nil nil nil "-w" outfile)
+          (call-process "screencapture" nil nil nil "-i" outfile))
+        (message namefile)
+        (insert (concat (concat "[[file:./figures/" (file-name-nondirectory outfile)) "]]"))))
+    )
   )
 
 (set-keyboard-coding-system nil)
@@ -267,7 +271,7 @@ No spaces are allowed in the input of this function"
 ;;   )
 
 (use-package rotate
-  :load-path "site-lisp")
+  :load-path "site-lisp/emacs-rotate")
 
 ;; (use-package treemacs)
 (use-package treemacs-evil)
@@ -376,34 +380,43 @@ other, future frames."
     (define-key emacs-lisp-mode-map       [remap completion-at-point] 'helm-lisp-completion-at-point))
   )
 
+;(setq org-agenda-include-diary t)
+(setq diary-file "~/Dropbox/org/diary")
+
+(appt-activate 1)
+(setq appt-message-warning-time 15)
+(setq diary-comment-start "##")
+
 (setq org-directory "~/Dropbox/org")
-(setq org-agenda-files (directory-files org-directory t "org$"))
 (setq org-default-notes-file (concat org-directory "/inbox.org"))
 
 (setq org-startup-indented t)
 
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "IN-PROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
+      '((sequence "TODO(t)" "IN-PROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)" "DELEGATED(g)")))
 
 (define-key global-map "\C-cc" 'org-capture)
-(global-set-key (kbd "H-c o") 
-                (lambda () (interactive) (find-file (concat org-directory "/school.org"))))
-(global-set-key (kbd "H-c p") 
-                (lambda () (interactive) (dired "~/Google Drive/OHS/11th Grade/Semester 2/")))
-(global-set-key (kbd "H-c i") 
-                (lambda () (interactive) (find-file (concat org-directory "/gtd.org"))))
-(global-set-key (kbd "H-c v") 
-                (lambda () (interactive) (find-file (concat org-directory "/violin.org"))))
-(global-set-key (kbd "H-c m") 
-                (lambda () (interactive) (find-file (concat org-directory "/notes.org"))))
-(global-set-key (kbd "H-c k") 
-                (lambda () (interactive) (find-file (concat org-directory "/links.org"))))
+  (global-set-key (kbd "H-c o") 
+                  (lambda () (interactive) (find-file (concat org-directory "/school.org"))))
+  (global-set-key (kbd "H-c p") 
+                  (lambda () (interactive) (dired "~/Google Drive/OHS/11th Grade/Semester 2/")))
+  (global-set-key (kbd "H-c i") 
+                  (lambda () (interactive) (find-file (concat org-directory "/gtd.org"))))
+  (global-set-key (kbd "H-c v") 
+                  (lambda () (interactive) (find-file (concat org-directory "/violin.org"))))
+  (global-set-key (kbd "H-c m") 
+                  (lambda () (interactive) (find-file (concat org-directory "/notes.org"))))
+  (global-set-key (kbd "H-c k") 
+                  (lambda () (interactive) (find-file (concat org-directory "/links.org"))))
 
-;;; Agenda key (C-c a) and other settings
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cc" 'org-capture)
-(global-set-key "\C-cb" 'org-switchb)
+  ;;; Agenda key (C-c a) and other settings
+  (global-set-key "\C-cl" 'org-store-link)
+  (global-set-key "\C-ca" 'org-agenda)
+  (global-set-key "\C-cc" 'org-capture)
+  (global-set-key "\C-cb" 'org-switchb)
+
+  (evil-define-key 'normal org-mode-map "<<" 'org-promote-subtree)
+  (evil-define-key 'normal org-mode-map ">>" 'org-demote-subtree)
 
 (setq org-tag-persistent-alist '(("OHS" . ?S)
 				 ("noexport" . ?N)))
@@ -446,15 +459,14 @@ other, future frames."
 
 (setq org-agenda-custom-commands
       '(("q" . "Custom Agenda Views")
-        ("qa" "Aleksandra Class Schedule" agenda ""
-         ((org-agenda-span 7)
-          (org-agenda-files '("~/Dropbox/org/notes/people/aleksandra/"))))
         ("A" "General Agenda" agenda ""
          ((org-agenda-span 1)
           (org-agenda-sorting-strategy
            '((agenda habit-down time-up deadline-up)))))
         )
       )
+
+(setq org-agenda-files (file-expand-wildcards "~/Dropbox/org/*.org"))
 
 (defun pgw/year-month ()
   "Custom function to return date in format: YYYY-MM"
@@ -530,8 +542,8 @@ DEADLINE: <%<%Y-%m-%d %a 08:30>>")
  (file+headline "~/Dropbox/org/school.org" "_UM52B_")
  "**** TODO %?
 DEADLINE: <%<%Y-%m-%d %a 13:30>>")
-("m" "Music")
-("mM" "Musicianship Homework" entry
+("M" "Music")
+("MM" "Musicianship Homework" entry
  (file+headline "~/Dropbox/org/music.org" "Musicianship")
  "* TODO Musicianship Homework [/]
 DEADLINE: %^t
@@ -539,7 +551,7 @@ DEADLINE: %^t
 - [ ] Singing: %^{Singing}
 - [ ] Rhythm: %^{Rhythm}
 - [ ] Keyboard: %^{Keyboard}")
-("mc" "Conducting Homework" entry
+("Mc" "Conducting Homework" entry
  (file+headline "~/Dropbox/org/music.org" "Homework")
  "* TODO Conducting Homework
 DEADLINE: %^t
@@ -548,12 +560,10 @@ DEADLINE: %^t
 ("Vc" "Create Practice Entry" entry
  (file+olp "~/Dropbox/org/violin.org" "Practice Log")
  "* [%<%Y-%m-%d %a>]
-%t%?"
- :clock-in t :clock-keep t)
+%t%?")
 ("Vd" "Add practice details" item
  (file+function "~/Dropbox/org/violin.org" pgw/headline_date)
- "%?"
- :clock-in t)
+ "%?")
 ))
 
 ;; Set to the name of the file where new notes will be stored
@@ -675,7 +685,7 @@ DEADLINE: %^t
   :config
   (evil-mode t)
   (add-hook 'dired-mode-hook 'evil-emacs-state)
-  (add-hook 'calendar-mode-hook 'evil-emacs-state)
+  (add-hook 'calendar-today-visible-hook 'evil-emacs-state)
   (add-hook 'calendar-load-hook 'evil-emacs-state)
   )
 
@@ -683,6 +693,8 @@ DEADLINE: %^t
 ;; (define-key evil-normal-state-map (kbd "<s-S-return>") [?m ?` ?O escape ?` ?`])
 (define-key evil-motion-state-map (kbd "k") 'previous-line)
 (define-key evil-motion-state-map (kbd "j") 'next-line)
+(define-key evil-insert-state-map (kbd "C-a") 'beginning-of-visual-line)
+(define-key evil-insert-state-map (kbd "C-e") 'end-of-visual-line)
 
 (add-hook 'prog-mode-hook #'hs-minor-mode)
 
@@ -789,6 +801,8 @@ If the input is non-empty, it is inserted at point."
     (lambda ()
       (evil-emacs-state)
       ))
+
+(calendar-set-date-style 'iso)
 
 (add-hook 'artist-mode-hook
           (lambda ()
@@ -901,6 +915,48 @@ If the input is non-empty, it is inserted at point."
 (put 'narrow-to-region 'disabled nil)
 
 (setq browse-url-firefox-program "/Applications/Firefox.app/Contents/MacOS/firefox-bin")
+
+;; (let ((holidays '(((9 7 2020) . "Labor Day")
+;;                   ((9 11 2020) . "Back to School Night")
+;;                   ((10 28 2020 10 30 2020) . "Parent-Teacher Conferences (no classes)")
+;;                   ((11 25 2020 11 27 2020) . "Thanksgiving Holiday")
+;;                   ((12 9 2020 12 11 2020) . "Study Days (no classes)")
+;;                   ((12 14 2020 12 19 2020) . "Fall Semester Finals")
+;;                   ((12 19 2020 1 3 2021) . "Winter Closure")
+;;                   ((1 4 2021 1 8 2021) . "Reading Week")
+;;                   ((1 18 2021) . "MLK Holiday")
+;;                   ((2 15 2021) . "Presidents Day")
+;;                   ((2 16 2021) . "Reading Day (No classes)")
+;;                   ((3 22 2021 3 26 2021) . "Spring Break")
+;;                   ((5 17 2021 5 19 2021) . "Study Days")
+;;                   ((5 20 2021 5 21 2021) . "Spring Semester Finals")
+;;                   ((5 24 2021 5 27 2021) . "Spring Semester Finals")
+;;                   ((5 31 2021) . "Memorial Day Holiday")))
+;;       (class-block '((8 19 2020 5 13 2021) . "Class Period"))
+;;       (mon-on-fri '((1 22 2021) . "Monday on Friday (MLK Makeup)")))
+
+(defun pgw/ohs-schoolyear-class-block (date)
+  (let ((dayname (calendar-day-of-week date)))
+    (and (not (or (diary-date 9 7 2020) ;; Labor Day
+                  (diary-date 9 11 2020) ;; Back to School Night
+                  (diary-block 10 28 2020 10 30 2020) ;; Parent-Teacher Conferences (no classes)
+                  (diary-block 11 25 2020 11 27 2020) ;; Thanksgiving Holiday
+                  (diary-block 12 9 2020 12 11 2020) ;; Study Days (no classes)
+                  (diary-block 12 14 2020 12 19 2020) ;; Fall Semester Finals
+                  (diary-block 12 19 2020 1 3 2021) ;; Winter Closure
+                  (diary-block 1 4 2021 1 8 2021) ;; Reading Week
+                  (diary-date 1 18 2021) ;; MLK Holiday
+                  (diary-date 2 15 2021) ;; Presidents Day
+                  (diary-date 2 16 2021) ;; Reading Day (No classes)
+                  (diary-block 3 22 2021 3 26 2021) ;; Spring Break
+                  (diary-block 5 17 2021 5 19 2021) ;; Study Days
+                  (diary-block 5 20 2021 5 21 2021) ;; Spring Semester Finals
+                  (diary-block 5 24 2021 5 27 2021) ;; Spring Semester Finals
+                  (diary-date 5 31 2021))) ;; Memorial Day Holiday
+         (or (diary-block 2020 8 19 2021 5 13) ;; Class Period
+             (diary-date 1 22 2021)) ;; Monday on Friday (MLK Makeup))
+         (memq dayname '(1 2 3 4 5)))
+    ))
 
 (defun pgw/turn-on-flyspell-hook ()
   (cond ((string-match "^/Users/piercewang/Google Drive/OHS/" (if (eq buffer-file-name nil) "" buffer-file-name))

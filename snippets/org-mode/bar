@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Bar LaTeX
+# key: bar
+# condition: (org-inside-LaTeX-fragment-p)
+# --
+\bar{$0}

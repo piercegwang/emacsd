@@ -3,4 +3,4 @@
 # key: 2x2b
 # condition: (org-inside-LaTeX-fragment-p)
 # --
-\begin{bmatrix} $1 & $2 \\\\ $3 & $4 \end{bmatrix} \\) \\( $0
+\begin{bmatrix} $0 &  \\\\  &  \end{bmatrix} 

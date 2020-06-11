@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Boxed Display LaTeX Environment
+# key: Lavb
+# condition: (not (org-inside-LaTeX-fragment-p))
+# --
+\\[ \\boxed{ $0 } \\]
