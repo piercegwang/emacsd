@@ -70,7 +70,7 @@
        (or
         (name . "*Help*")
         (name . "*info*")
-        (name . "*GNU Emacs*")))))))
+        (name . "*GNU Emacs*")))))) t)
  '(ibuffer-saved-filters
    (quote
     (("programming"
@@ -107,12 +107,15 @@
        (mode . gnus-summary-mode)
        (mode . gnus-article-mode))))))
  '(indent-tabs-mode nil)
+ '(org-agenda-files
+   (quote
+    ("~/Dropbox/org/PGW_SummerGoals.org" "~/Dropbox/org/gcal.org" "~/Dropbox/org/gtd.org" "~/Dropbox/org/heifetz.org" "~/Dropbox/org/inbox.org" "~/Dropbox/org/init.org" "~/Dropbox/org/journal_temp.org" "~/Dropbox/org/links.org" "~/Dropbox/org/music.org" "~/Dropbox/org/notes.org" "~/Dropbox/org/packing.org" "~/Dropbox/org/people.org" "~/Dropbox/org/random_thoughts.org" "~/Dropbox/org/school.org" "~/Dropbox/org/someday.org" "~/Dropbox/org/tickler.org" "~/Dropbox/org/violin.org" "~/Dropbox/org/calendars/cal_gmail.org" "~/Dropbox/org/calendars/cal_music.org" "~/Dropbox/org/calendars/cal_personal.org")))
  '(org-modules
    (quote
     (org-bbdb org-bibtex org-docview org-gnus org-habit org-info org-irc org-mhe org-rmail org-w3m org-drill org-learn)))
  '(package-selected-packages
    (quote
-    (json-mode org-mode use-package cdlatex org-noter artist-mode python-docstring markdown-mode epa-file framemove treemacs-magit treemacs-evil treemacs doom-themes org-bullets org htmlize lua-mode helm magit elpy exec-path-from-shell smart-mode-line latex auctex evil-visual-mark-mode)))
+    (org-gcal json-mode org-mode use-package cdlatex org-noter artist-mode python-docstring markdown-mode epa-file framemove treemacs-magit treemacs-evil treemacs doom-themes org-bullets org htmlize lua-mode helm magit elpy exec-path-from-shell smart-mode-line latex auctex evil-visual-mark-mode)))
  '(show-paren-mode nil)
  '(sml/pre-modes-separator (propertize " " (quote face) (quote sml/modes))))
 (custom-set-faces

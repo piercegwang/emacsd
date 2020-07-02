@@ -466,7 +466,12 @@ other, future frames."
         )
       )
 
-(setq org-agenda-files (file-expand-wildcards "~/Dropbox/org/*.org"))
+(setq org-agenda-files (append (file-expand-wildcards "~/Dropbox/org/*.org")
+                               (file-expand-wildcards "~/Dropbox/org/calendars/*.org")))
+
+(setq org-agenda-time-grid '((daily today require-timed)
+                             (600 700 800 900 1000 1100 1200 1300 1400 1500 1600 1700 1800 1900 2000 2100 2200 2300 2400)
+                             "......" "----------------"))
 
 (defun pgw/year-month ()
   "Custom function to return date in format: YYYY-MM"
@@ -657,6 +662,13 @@ DEADLINE: %^t
   (setq org-noter-default-notes-file-names '("notes.org")
         org-noter-notes-search-path '("~/Dropbox/org/notes"))
   )
+
+(use-package org-gcal
+  :ensure t
+  :config
+  (setq org-gcal-client-id "439150530674-aab9ti8n7t80r001qmccgb2i52005f18.apps.googleusercontent.com"
+        org-gcal-client-secret "5gUN_ML-yaAgdS6eg4hAZ9qo"
+        org-gcal-file-alist '(("pierce.g.wang@gmail.com" .  "~/Dropbox/org/calendars/cal_gmail.org"))))
 
 (setq TeX-engine 'xetex)
 (setq latex-run-command "xetex")
@@ -935,28 +947,30 @@ If the input is non-empty, it is inserted at point."
 ;;       (class-block '((8 19 2020 5 13 2021) . "Class Period"))
 ;;       (mon-on-fri '((1 22 2021) . "Monday on Friday (MLK Makeup)")))
 
-(defun pgw/ohs-schoolyear-class-block (date)
+(defun pgw/ohs-schoolyear-class-sched (date event days time)
   (let ((dayname (calendar-day-of-week date)))
-    (and (not (or (diary-date 9 7 2020) ;; Labor Day
-                  (diary-date 9 11 2020) ;; Back to School Night
-                  (diary-block 10 28 2020 10 30 2020) ;; Parent-Teacher Conferences (no classes)
-                  (diary-block 11 25 2020 11 27 2020) ;; Thanksgiving Holiday
-                  (diary-block 12 9 2020 12 11 2020) ;; Study Days (no classes)
-                  (diary-block 12 14 2020 12 19 2020) ;; Fall Semester Finals
-                  (diary-block 12 19 2020 1 3 2021) ;; Winter Closure
-                  (diary-block 1 4 2021 1 8 2021) ;; Reading Week
-                  (diary-date 1 18 2021) ;; MLK Holiday
-                  (diary-date 2 15 2021) ;; Presidents Day
-                  (diary-date 2 16 2021) ;; Reading Day (No classes)
-                  (diary-block 3 22 2021 3 26 2021) ;; Spring Break
-                  (diary-block 5 17 2021 5 19 2021) ;; Study Days
-                  (diary-block 5 20 2021 5 21 2021) ;; Spring Semester Finals
-                  (diary-block 5 24 2021 5 27 2021) ;; Spring Semester Finals
-                  (diary-date 5 31 2021))) ;; Memorial Day Holiday
-         (or (diary-block 2020 8 19 2021 5 13) ;; Class Period
-             (diary-date 1 22 2021)) ;; Monday on Friday (MLK Makeup))
-         (memq dayname '(1 2 3 4 5)))
-    ))
+    (when (and (if (equal days 1)
+                   (or (memq dayname '(1 3))
+                       (diary-date 2021 1 22)) ;; Monday on Friday (MLK Makeup)
+                 (memq dayname '(2 4)))
+               (diary-block 2020 8 19 2021 5 13)) ;; Class Period
+      (when (not (or (diary-date 2020 9 7) ;; Labor Day
+                     (diary-date 2020 9 11) ;; Back to School Night
+                     (diary-block 2020 10 28 2020 10 30) ;; Parent-Teacher Conferences (no classes)
+                     (diary-block 2020 11 25 2020 11 27) ;; Thanksgiving Holiday
+                     (diary-block 2020 12 9 2020 12 11) ;; Study Days (no classes)
+                     (diary-block 2020 12 14 2020 12 19) ;; Fall Semester Finals
+                     (diary-block 2020 12 19 2021 1 3) ;; Winter Closure
+                     (diary-block 2021 1 4 2021 1 8) ;; Reading Week
+                     (diary-date 2021 1 18) ;; MLK Holiday
+                     (diary-date 2021 2 15) ;; Presidents Day
+                     (diary-date 2021 2 16) ;; Reading Day (No classes)
+                     (diary-block 2021 3 22 2021 3 26) ;; Spring Break
+                     (diary-block 2021 5 17 2021 5 19) ;; Study Days
+                     (diary-block 2021 5 20 2021 5 21) ;; Spring Semester Finals
+                     (diary-block 2021 5 24 2021 5 27) ;; Spring Semester Finals
+                     (diary-date 2021 5 31))) ;; Memorial Day Holiday
+        (format "%s %s" time event)))))
 
 (defun pgw/turn-on-flyspell-hook ()
   (cond ((string-match "^/Users/piercewang/Google Drive/OHS/" (if (eq buffer-file-name nil) "" buffer-file-name))

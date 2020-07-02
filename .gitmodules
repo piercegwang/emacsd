@@ -7,3 +7,6 @@
 [submodule "emacs-rotate"]
 	path = site-lisp/emacs-rotate
 	url = https://github.com/daichirata/emacs-rotate.git
+[submodule "org-gca"]
+	path = site-lisp/org-gcal
+	url = https://github.com/kidd/org-gcal.el.git
