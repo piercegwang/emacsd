@@ -664,7 +664,9 @@ DEADLINE: %^t
   )
 
 (use-package org-gcal
+  :load-path "site-lisp/org-gcal"
   :ensure t
+  :demand t
   :config
   (setq org-gcal-client-id "439150530674-aab9ti8n7t80r001qmccgb2i52005f18.apps.googleusercontent.com"
         org-gcal-client-secret "5gUN_ML-yaAgdS6eg4hAZ9qo"
