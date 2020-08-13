@@ -41,7 +41,7 @@ If you experience freezing, decrease this. If you experience stuttering, increas
 
 (require 'package)
 (setq package-archives
-    '(("melpa-stable" . "https://stable.melpa.org/packages/")
+    '(("melpa" . "https://melpa.org/packages/")
       ("gnu" . "https://elpa.gnu.org/packages/")
       ("org" . "https://orgmode.org/elpa/")
       ))
@@ -60,6 +60,8 @@ If you experience freezing, decrease this. If you experience stuttering, increas
 (eval-when-compile
   (require 'use-package))
 (require 'bind-key)                ;; if you use any :bind variant
+
+(setq byte-compile-warnings '(cl-functions))
 
 (add-hook 'emacs-startup-hook
 	  (lambda ()
@@ -233,8 +235,7 @@ No spaces are allowed in the input of this function"
 
   ;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
   ;; may have their own settings.
-  ;; (load-theme 'doom-solarized-light t)
-  (load-theme 'doom-molokai t)
+  (load-theme 'doom-outrun-electric t)
 
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
@@ -244,6 +245,10 @@ No spaces are allowed in the input of this function"
   ;; or for treemacs users
   (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
   (doom-themes-treemacs-config)
+
+  ;; Doom themes fontifies #hashtags and @at-tags by default.
+  ;; To disable this:
+  (setq doom-org-special-tags nil)
 
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config)
@@ -273,7 +278,7 @@ No spaces are allowed in the input of this function"
 (use-package rotate
   :load-path "site-lisp/emacs-rotate")
 
-;; (use-package treemacs)
+(use-package treemacs)
 (use-package treemacs-evil)
 (use-package treemacs-magit)
 
@@ -350,7 +355,7 @@ other, future frames."
 (use-package smart-mode-line
   :config
   (setq rm-blacklist '(" hl-p" " WK" " yas" " Undo-Tree" " hs")
-        sml/theme 'dark
+        ;; sml/theme 'light
         sml/name-width 30
         )
   (add-to-list 'sml/replacer-regexp-list '("^~/Google Drive/OHS/\\([0-9]\\{2\\}\\)th Grade/Classes/Semester [0-9]/\\([0-9A-Z]*\\)/" ":\\2:"))
@@ -388,7 +393,7 @@ other, future frames."
 (setq diary-comment-start "##")
 
 (setq org-directory "~/Dropbox/org")
-(setq org-default-notes-file (concat org-directory "/inbox.org"))
+(setq org-default-notes-file (concat org-directory "/a_inbox.org"))
 
 (setq org-startup-indented t)
 
@@ -397,15 +402,17 @@ other, future frames."
 
 (define-key global-map "\C-cc" 'org-capture)
   (global-set-key (kbd "H-c o") 
-                  (lambda () (interactive) (find-file (concat org-directory "/school.org"))))
+                  (lambda () (interactive) (find-file (concat org-directory "/a_school.org"))))
   (global-set-key (kbd "H-c p") 
                   (lambda () (interactive) (dired "~/Google Drive/OHS/11th Grade/Semester 2/")))
   (global-set-key (kbd "H-c i") 
-                  (lambda () (interactive) (find-file (concat org-directory "/gtd.org"))))
+                  (lambda () (interactive) (find-file (concat org-directory "/a_projects.org"))))
   (global-set-key (kbd "H-c v") 
-                  (lambda () (interactive) (find-file (concat org-directory "/violin.org"))))
-  (global-set-key (kbd "H-c m") 
+                  (lambda () (interactive) (find-file (concat org-directory "/a_violin.org"))))
+  (global-set-key (kbd "H-c n") 
                   (lambda () (interactive) (find-file (concat org-directory "/notes.org"))))
+  (global-set-key (kbd "H-c m") 
+                  (lambda () (interactive) (find-file (concat org-directory "/a_music.org"))))
   (global-set-key (kbd "H-c k") 
                   (lambda () (interactive) (find-file (concat org-directory "/links.org"))))
 
@@ -466,11 +473,11 @@ other, future frames."
         )
       )
 
-(setq org-agenda-files (append (file-expand-wildcards "~/Dropbox/org/*.org")
+(setq org-agenda-files (append (file-expand-wildcards "~/Dropbox/org/a_*.org")
                                (file-expand-wildcards "~/Dropbox/org/calendars/*.org")))
 
 (setq org-agenda-time-grid '((daily today require-timed)
-                             (600 700 800 900 1000 1100 1200 1300 1400 1500 1600 1700 1800 1900 2000 2100 2200 2300 2400)
+                             (600 700 800 900 1000 1100 1200 1300 1400 1500 1600 1700 1800 1900 2000 2100 2200 2300)
                              "......" "----------------"))
 
 (defun pgw/year-month ()
@@ -498,15 +505,16 @@ other, future frames."
 
 (setq org-capture-templates
       '(
-("i" "Inbox" entry (file "~/Dropbox/org/inbox.org")
+("i" "Inbox" entry (file "~/Dropbox/org/a_inbox.org")
 "* TODO %?")
 ("n" "Quick Note" entry
- (file "~/Dropbox/org/inbox.org")
+ (file "~/Dropbox/org/a_inbox.org")
  "* %?
 %U")
-("e" "Event" entry (file "~/Dropbox/org/events.org")
-"* %?
-%^t")
+("e" "Event" entry (file "~/Dropbox/org/a_events.org")
+ "* %?")
+("s" "Schedule task time" item (file "~/Dropbox/org/a_events.org")
+ "- %^T")
 ("L" "Link" entry (file+headline "~/Dropbox/org/links.org" "!Inbox")
 "* [[%?%:link][%:description]]
 :PROPERTIES:
@@ -549,7 +557,7 @@ DEADLINE: <%<%Y-%m-%d %a 08:30>>")
 DEADLINE: <%<%Y-%m-%d %a 13:30>>")
 ("M" "Music")
 ("MM" "Musicianship Homework" entry
- (file+headline "~/Dropbox/org/music.org" "Musicianship")
+ (file+headline "~/Dropbox/org/a_music.org" "Musicianship")
  "* TODO Musicianship Homework [/]
 DEADLINE: %^t
 - [ ] Written: %^{Written Homework}
@@ -557,17 +565,17 @@ DEADLINE: %^t
 - [ ] Rhythm: %^{Rhythm}
 - [ ] Keyboard: %^{Keyboard}")
 ("Mc" "Conducting Homework" entry
- (file+headline "~/Dropbox/org/music.org" "Homework")
+ (file+headline "~/Dropbox/org/a_music.org" "Homework")
  "* TODO Conducting Homework
 DEADLINE: %^t
 - %?")
 ("V" "Violin")
 ("Vc" "Create Practice Entry" entry
- (file+olp "~/Dropbox/org/violin.org" "Practice Log")
+ (file+olp "~/Dropbox/org/a_violin.org" "Practice Log")
  "* [%<%Y-%m-%d %a>]
 %t%?")
 ("Vd" "Add practice details" item
- (file+function "~/Dropbox/org/violin.org" pgw/headline_date)
+ (file+function "~/Dropbox/org/a_violin.org" pgw/headline_date)
  "%?")
 ))
 
@@ -628,8 +636,10 @@ DEADLINE: %^t
   (plist-put dvipng--plist :use-xcolor t)
   (plist-put dvipng--plist :image-converter '("dvipng -D %D -T tight -o %O %f")))
 
-(use-package org-bullets
-    :hook (org-mode . org-bullets-mode))
+(use-package org-superstar
+  :config
+  (setq org-superstar-prettify-item-bullets 'nil)
+  :hook (org-mode . org-superstar-mode))
 
 (setq org-export-async-init-file "~/.emacs.d/orgasyncinit.el")
 
@@ -647,7 +657,7 @@ DEADLINE: %^t
          )
         ("pages-static"
          :base-directory "~/Dropbox/org_publish/"
-         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|jpeg"
          :publishing-directory "~/Documents/Projects/Github/github_pages/"
          :recursive t
          :publishing-function org-publish-attachment
@@ -664,13 +674,14 @@ DEADLINE: %^t
   )
 
 (use-package org-gcal
-  :load-path "site-lisp/org-gcal"
   :ensure t
   :demand t
   :config
   (setq org-gcal-client-id "439150530674-aab9ti8n7t80r001qmccgb2i52005f18.apps.googleusercontent.com"
         org-gcal-client-secret "5gUN_ML-yaAgdS6eg4hAZ9qo"
-        org-gcal-file-alist '(("pierce.g.wang@gmail.com" .  "~/Dropbox/org/calendars/cal_gmail.org"))))
+        org-gcal-file-alist '(("pierce.g.wang@gmail.com" .  "~/Dropbox/org/calendars/cal_gmail.org")
+                              ("ihfv2u5n9uf5ksj5484vbe7mj4@group.calendar.google.com" . "~/Dropbox/org/calendars/cal_emacs.org")
+                              ("k2rdebtvuv4oudcu0vc7k18l79vr4cde@import.calendar.google.com" . "~/Dropbox/org/calendars/cal_ohs.org"))))
 
 (setq TeX-engine 'xetex)
 (setq latex-run-command "xetex")
@@ -829,6 +840,12 @@ If the input is non-empty, it is inserted at point."
             (local-set-key (kbd "<f5>") 'artist-select-op-ellipse))
           )
 
+(add-hook 'image-mode-hook
+          (lambda ()
+            (display-line-numbers-mode -1)
+            (evil-emacs-state))
+          )
+
 (require 'tetris)
 (define-key tetris-mode-map (kbd "z") 'tetris-rotate-prev)
 (define-key tetris-mode-map (kbd "x") 'tetris-rotate-next)
@@ -929,25 +946,6 @@ If the input is non-empty, it is inserted at point."
 (put 'narrow-to-region 'disabled nil)
 
 (setq browse-url-firefox-program "/Applications/Firefox.app/Contents/MacOS/firefox-bin")
-
-;; (let ((holidays '(((9 7 2020) . "Labor Day")
-;;                   ((9 11 2020) . "Back to School Night")
-;;                   ((10 28 2020 10 30 2020) . "Parent-Teacher Conferences (no classes)")
-;;                   ((11 25 2020 11 27 2020) . "Thanksgiving Holiday")
-;;                   ((12 9 2020 12 11 2020) . "Study Days (no classes)")
-;;                   ((12 14 2020 12 19 2020) . "Fall Semester Finals")
-;;                   ((12 19 2020 1 3 2021) . "Winter Closure")
-;;                   ((1 4 2021 1 8 2021) . "Reading Week")
-;;                   ((1 18 2021) . "MLK Holiday")
-;;                   ((2 15 2021) . "Presidents Day")
-;;                   ((2 16 2021) . "Reading Day (No classes)")
-;;                   ((3 22 2021 3 26 2021) . "Spring Break")
-;;                   ((5 17 2021 5 19 2021) . "Study Days")
-;;                   ((5 20 2021 5 21 2021) . "Spring Semester Finals")
-;;                   ((5 24 2021 5 27 2021) . "Spring Semester Finals")
-;;                   ((5 31 2021) . "Memorial Day Holiday")))
-;;       (class-block '((8 19 2020 5 13 2021) . "Class Period"))
-;;       (mon-on-fri '((1 22 2021) . "Monday on Friday (MLK Makeup)")))
 
 (defun pgw/ohs-schoolyear-class-sched (date event days time)
   (let ((dayname (calendar-day-of-week date)))
