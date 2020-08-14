@@ -403,7 +403,8 @@ CALENDAR-ID-FILE is a cons in ‘org-gcal-fetch-file-alist’, for which see."
    :params
    (append
     `(("access_token" . ,(org-gcal--get-access-token))
-      ("singleEvents" . "True"))
+      ("singleEvents" . "True")
+      ("timeZone" . "America/Los_Angeles"))
     (seq-let [expires sync-token]
         ;; Ensure ‘org-gcal--sync-tokens-get’ return value is actually a list
         ;; before passing to ‘seq-let’.

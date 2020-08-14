@@ -639,7 +639,7 @@
 		   ("Eric Abrahamsen" . "eric@ericabrahamsen.net"))
 		  (:maintainer "Eric Abrahamsen" . "eric@ericabrahamsen.net"))])
  (ediprolog .
-	    [(1 2)
+	    [(2 1)
 	     nil "Emacs Does Interactive Prolog" single
 	     ((:keywords "languages" "processes")
 	      (:authors

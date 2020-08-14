@@ -398,7 +398,7 @@ other, future frames."
 (setq org-startup-indented t)
 
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "IN-PROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)" "DELEGATED(g)")))
+      '((sequence "NEXT(n) TODO(t)" "IN-PROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)" "DELEGATED(g)")))
 
 (define-key global-map "\C-cc" 'org-capture)
   (global-set-key (kbd "H-c o") 
@@ -511,10 +511,25 @@ other, future frames."
  (file "~/Dropbox/org/a_inbox.org")
  "* %?
 %U")
-("e" "Event" entry (file "~/Dropbox/org/a_events.org")
+("e" "Events")
+("ef" "Emacs Event (Not synced)" entry (file "~/Dropbox/org/a_events.org")
  "* %?")
-("s" "Schedule task time" item (file "~/Dropbox/org/a_events.org")
- "- %^T")
+("ee" "Emacs Calendar" entry (file "~/Dropbox/org/calendars/cal_emacs.org")
+ "* %?
+SCHEDULED: %^{Scheduled time + duration}T
+:PROPERTIES:
+:calendar-id: ihfv2u5n9uf5ksj5484vbe7mj4@group.calendar.google.com
+:END:
+:org-gcal:
+:END:" :jump-to-captured t)
+("ep" "Emacs Personal Calendar" entry (file "~/Dropbox/org/calendars/cal_gmail.org")
+ "* %?
+SCHEDULED: %^{Scheduled time + duration}T
+:PROPERTIES:
+:calendar-id: pierce.g.wang@gmail.com
+:END:
+:org-gcal:
+:END:" :jump-to-captured t)
 ("L" "Link" entry (file+headline "~/Dropbox/org/links.org" "!Inbox")
 "* [[%?%:link][%:description]]
 :PROPERTIES:
@@ -535,35 +550,27 @@ other, future frames."
 :END:
 " :kill-buffer t)
 ("S" "School")
-("Se" "OE020B" entry
- (file+headline "~/Dropbox/org/school.org" "_OE020B_")
+("Sj" "OCS15 - T/Th" entry
+ (file+headline "~/Dropbox/org/school.org" "_OCS15_")
  "* TODO %?
-DEADLINE: <%<%Y-%m-%d %a 13:30>>")
-("Sp" "OP005" entry
- (file+headline "~/Dropbox/org/school.org" "_OP005_")
+DEADLINE: <%<%Y-%m-%d %a 07:15>>")
+("Sm" "UM51A - T/Th" entry
+ (file+headline "~/Dropbox/org/school.org" "_UM51A_")
+ "**** TODO %?
+DEADLINE: <%<%Y-%m-%d %a 08:30>>")
+("Ss" "OPS10 - M/W" entry
+ (file+headline "~/Dropbox/org/school.org" "_OPS10_")
+ "* TODO %?
+DEADLINE: <%<%Y-%m-%d %a 11:00>>")
+("Sp" "OP051 - M/W" entry
+ (file+headline "~/Dropbox/org/school.org" "_OP051_")
  "* TODO %?
 DEADLINE: <%<%Y-%m-%d %a 14:45>>")
-("Sd" "ODFRL" entry
- (file+headline "~/Dropbox/org/school.org" "_ODFRL_")
+("Sc" "OCRA1 - M/W" entry
+ (file+headline "~/Dropbox/org/school.org" "_OCRA1_")
  "* TODO %?
-DEADLINE: <%<%Y-%m-%d %a 16:00>>")
-("Sh" "OH011A" entry
- (file+headline "~/Dropbox/org/school.org" "_OH011A_")
- "* TODO %?
-DEADLINE: <%<%Y-%m-%d %a 08:30>>")
-("Sm" "UM52B" entry
- (file+headline "~/Dropbox/org/school.org" "_UM52B_")
- "**** TODO %?
-DEADLINE: <%<%Y-%m-%d %a 13:30>>")
+DEADLINE: <%<%Y-%m-%d %a 09:45>>")
 ("M" "Music")
-("MM" "Musicianship Homework" entry
- (file+headline "~/Dropbox/org/a_music.org" "Musicianship")
- "* TODO Musicianship Homework [/]
-DEADLINE: %^t
-- [ ] Written: %^{Written Homework}
-- [ ] Singing: %^{Singing}
-- [ ] Rhythm: %^{Rhythm}
-- [ ] Keyboard: %^{Keyboard}")
 ("Mc" "Conducting Homework" entry
  (file+headline "~/Dropbox/org/a_music.org" "Homework")
  "* TODO Conducting Homework
@@ -607,7 +614,8 @@ DEADLINE: %^t
 
 (org-babel-do-load-languages
  'org-babel-load-languages
- '((python . t)))
+ '((python . t)
+   (java . t)))
 
 ;;; org-drill
 (use-package org-drill
@@ -676,12 +684,15 @@ DEADLINE: %^t
 (use-package org-gcal
   :ensure t
   :demand t
+  :bind (("C-c s-g p" . org-gcal-post-at-point)
+         ("C-c s-g s" . org-gcal-sync)
+         ("C-c s-g f" . org-gcal-fetch)
+         ("C-c s-g d" . org-gcal-delete-at-point))
   :config
   (setq org-gcal-client-id "439150530674-aab9ti8n7t80r001qmccgb2i52005f18.apps.googleusercontent.com"
         org-gcal-client-secret "5gUN_ML-yaAgdS6eg4hAZ9qo"
         org-gcal-file-alist '(("pierce.g.wang@gmail.com" .  "~/Dropbox/org/calendars/cal_gmail.org")
-                              ("ihfv2u5n9uf5ksj5484vbe7mj4@group.calendar.google.com" . "~/Dropbox/org/calendars/cal_emacs.org")
-                              ("k2rdebtvuv4oudcu0vc7k18l79vr4cde@import.calendar.google.com" . "~/Dropbox/org/calendars/cal_ohs.org"))))
+                              ("ihfv2u5n9uf5ksj5484vbe7mj4@group.calendar.google.com" . "~/Dropbox/org/calendars/cal_emacs.org"))))
 
 (setq TeX-engine 'xetex)
 (setq latex-run-command "xetex")
