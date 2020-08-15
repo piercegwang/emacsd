@@ -313,14 +313,14 @@ For some functions that I don't need to give errors:
     "Check for equality of date"
     (equal absolute (calendar-absolute-from-gregorian (diary-make-date year month day))))
 
-  (defun pgw/check-ohs-class (absolute classname days period)
+  (defun pgw/check-ohs-class (absolute classname semesters days period fallstart fallend springstart mononfri springend holidays)
     "Returns a list with formatted strings: (classname curdate
   headline). These can then be used to create the headline. The curdate
   is in the form of a list"
     (let ((dayname (calendar-day-of-week (calendar-gregorian-from-absolute absolute)))
           (curdate (calendar-gregorian-from-absolute absolute))
           (time nil))
-      (cond ((equal period 1) (setq time "06:00-07:15"))
+      (cond ((equal period 1) (setq time "06:00-07:15")) ;; Period times in PST/PDT
             ((equal period 2) (setq time "07:15-08:30"))
             ((equal period 3) (setq time "08:30-09:45"))
             ((equal period 4) (setq time "09:45-11:00"))
@@ -333,35 +333,35 @@ For some functions that I don't need to give errors:
             ((equal period 11) (setq time "18:30-19:45"))
             ((equal period 12) (setq time "19:45-21:00"))
             ((equal period 13) (setq time "21:00-22:15")))
-      (when (and (cond ((equal days '(1 3)) (or (memq dayname '(1 3)) (pgw/date-date absolute 2021 1 22)))
+      (when (and (cond ((equal days '(1 3)) (or (memq dayname '(1 3)) (pgw/date-date absolute (nth 0 mononfri) (nth 1 mononfri) (nth 2 mononfri)))) ;; Account for MLK Monday on Friday
                        (t (memq dayname days)))
-                 (pgw/date-block absolute 2020 8 19 2021 5 13)) ;; Class Period
-        (when (not (or (pgw/date-date absolute 2020 9 7) ;; Labor Day
-                       (pgw/date-date absolute 2020 9 11) ;; Back to School Night
-                       (pgw/date-block absolute 2020 10 28 2020 10 30) ;; Parent-Teacher Conferences (no classes)
-                       (pgw/date-block absolute 2020 11 25 2020 11 27) ;; Thanksgiving Holiday
-                       (pgw/date-block absolute 2020 12 9 2020 12 11) ;; Study Days (no classes)
-                       (pgw/date-block absolute 2020 12 14 2020 12 19) ;; Fall Semester Finals
-                       (pgw/date-block absolute 2020 12 19 2021 1 3) ;; Winter Closure
-                       (pgw/date-block absolute 2021 1 4 2021 1 8) ;; Reading Week
-                       (pgw/date-date absolute 2021 1 18) ;; MLK Holiday
-                       (pgw/date-date absolute 2021 2 15) ;; Presidents Day
-                       (pgw/date-date absolute 2021 2 16) ;; Reading Day (No classes)
-                       (pgw/date-block absolute 2021 3 22 2021 3 26) ;; Spring Break
-                       (pgw/date-block absolute 2021 5 17 2021 5 19) ;; Study Days
-                       (pgw/date-block absolute 2021 5 20 2021 5 21) ;; Spring Semester Finals
-                       (pgw/date-block absolute 2021 5 24 2021 5 27) ;; Spring Semester Finals
-                       (pgw/date-date absolute 2021 5 31))) ;; Memorial Day Holiday
+                 (or (if (memq 1 semesters) (pgw/date-block absolute (nth 0 fallstart) (nth 1 fallstart) (nth 2 fallstart)
+                                                           (nth 0 fallend) (nth 1 fallend) (nth 2 fallend)))
+                     (if (memq 2 semesters) (pgw/date-block absolute (nth 0 springstart) (nth 1 springstart) (nth 2 springstart)
+                                                           (nth 0 springend) (nth 1 springend) (nth 2 springend)))))
+        (when (not (memq 't (mapcar (lambda (holiday) (if (> (length holiday) 3)
+                                                          (pgw/date-block absolute (nth 0 holiday) (nth 1 holiday) (nth 2 holiday) (nth 3 holiday) (nth 4 holiday) (nth 5 holiday))
+                                                        (pgw/date-date absolute (nth 0 holiday) (nth 1 holiday) (nth 2 holiday))))
+                                    holidays)))
           (list classname curdate time)))))
 
-  (defun pgw/create-class (classname days period)
+    ;; (mapcar (lambda (x) (if (> (length x) 3) (pgw/date-block absolute (nth 0 x) (nth 1 x) (nth 2 x) (nth 3 x) (nth 4 x) (nth 5 x)) (pgw/date-date absolute (nth 0 x) (nth 1 x) (nth 2 x)))) holidays)
+
+  (defun pgw/create-class (classname semesters days period)
     "Creates headlines for class schedule First date is start of
   school. Second date is end of school. classname is the name of the
   class (to display as headline) days is an integer, either 1, 2 or
   3. The three integers represent M/W, T/Th, and F respectively"
-    (let ((current (calendar-absolute-from-gregorian (diary-make-date 2020 8 19))))
-      (while (pgw/date-block current 2020 8 19 2021 5 13) ; Make sure we're within starting and ending dates of school
-        (let ((info (pgw/check-ohs-class current classname days period)))
+    (let ((current (calendar-absolute-from-gregorian (diary-make-date 2020 8 19)))
+          (fallstart (gethash "fallstart" pgw/ohs-schoolyear-dates))
+          (fallend (gethash "fallend" pgw/ohs-schoolyear-dates))
+          (springstart (gethash "springstart" pgw/ohs-schoolyear-dates))
+          (mononfri (gethash "mononfri" pgw/ohs-schoolyear-dates))
+          (springend (gethash "springend" pgw/ohs-schoolyear-dates))
+          (holidays (gethash "holidays" pgw/ohs-schoolyear-dates)))
+      (while (pgw/date-block current (nth 0 fallstart) (nth 1 fallstart) (nth 2 fallstart)
+                             (nth 0 springend) (nth 1 springend) (nth 2 springend)) ; Make sure we're within starting and ending dates of school
+        (let ((info (pgw/check-ohs-class current classname semesters days period fallstart fallend springstart mononfri springend holidays)))
           (when info
             (let* ((headline (nth 0 info))
                    (days-of-week '("Sun" "Mon" "Tue" "Wed" "Thu" "Fri" "Sat"))
@@ -377,6 +377,32 @@ For some functions that I don't need to give errors:
         (setq current (+ current 1))
         (message (format "Current count: %s" current)))))
 
+  (setq pgw/ohs-schoolyear-dates
+        #s(hash-table
+           size 6
+           test equal
+           data (
+                 "fallstart" (2020 8 19)
+                 "fallend" (2020 12 19)
+                 "springstart" (2021 1 4)
+                 "mononfri" (2021 1 22)
+                 "springend" (2021 5 13)
+                 "holidays" ((2020 9 7) ;; Labor Day
+                             (2020 9 11) ;; Back to School Night
+                             (2020 10 28 2020 10 30) ;; Parent-Teacher Conferences (no classes)
+                             (2020 11 25 2020 11 27) ;; Thanksgiving Holiday
+                             (2020 12 9 2020 12 11) ;; Study Days (no classes)
+                             (2020 12 14 2020 12 19) ;; Fall Semester Finals
+                             (2020 12 19 2021 1 3) ;; Winter Closure
+                             (2021 1 4 2021 1 8) ;; Reading Week
+                             (2021 1 18) ;; MLK Holiday
+                             (2021 2 15) ;; Presidents Day
+                             (2021 2 16) ;; Reading Day (No classes)
+                             (2021 3 22 2021 3 26) ;; Spring Break
+                             (2021 5 17 2021 5 19) ;; Study Days
+                             (2021 5 20 2021 5 21) ;; Spring Semester Finals
+                             (2021 5 24 2021 5 27) ;; Spring Semester Finals
+                             (2021 5 31))))) ;; Memorial Day Holiday
 #+end_src
 
 Example usage (run in a dedicated file)
@@ -812,7 +838,7 @@ Make org-mode files automatically indent.
 
 #+begin_src emacs-lisp
   (setq org-todo-keywords
-        '((sequence "NEXT(n) TODO(t)" "IN-PROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)" "DELEGATED(g)")))
+        '((sequence "NEXT(n)" "TODO(t)" "IN-PROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)" "DELEGATED(g)")))
 #+end_src
 
 *** Keybinds
@@ -846,8 +872,8 @@ Make org-mode files automatically indent.
 
 *** Tags
 #+begin_src emacs-lisp
-  (setq org-tag-persistent-alist '(("OHS" . ?S)
-				   ("noexport" . ?N)))
+  (setq org-tag-persistent-alist '(("email" . ?e)
+                                   ("noexport" . ?N)))
 #+end_src
 
 *** Log when tasks are marked as done:
