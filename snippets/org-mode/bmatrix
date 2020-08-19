@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Latex bMatrix
+# key: matb
+# condition: (org-inside-LaTeX-fragment-p)
+# --
+\begin{bmatrix} $0  \end{bmatrix} 

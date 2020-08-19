@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Latex mathbf
+# key: bf
+# condition: (org-inside-LaTeX-fragment-p)
+# --
+\mathbf{$0}

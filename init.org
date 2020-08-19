@@ -296,124 +296,6 @@ For some functions that I don't need to give errors:
     )
 #+end_src
 
-*** Generate OHS Class Calendar
-
-#+begin_src emacs-lisp :results silent
-  (defun pgw/date-block (absolute y1 m1 d1 y2 m2 d2)
-    "Block date entry. An adapted version of the `diary-block'
-  function from the diary-lib."
-    (let ((date1 (calendar-absolute-from-gregorian
-                  (diary-make-date y1 m1 d1)))
-          (date2 (calendar-absolute-from-gregorian
-                  (diary-make-date y2 m2 d2)))
-          (d absolute))
-      (and (<= date1 d) (<= d date2))))
-
-  (defun pgw/date-date (absolute year month day)
-    "Check for equality of date"
-    (equal absolute (calendar-absolute-from-gregorian (diary-make-date year month day))))
-
-  (defun pgw/check-ohs-class (absolute classname semesters days period fallstart fallend springstart mononfri springend holidays)
-    "Returns a list with formatted strings: (classname curdate
-  headline). These can then be used to create the headline. The curdate
-  is in the form of a list"
-    (let ((dayname (calendar-day-of-week (calendar-gregorian-from-absolute absolute)))
-          (curdate (calendar-gregorian-from-absolute absolute))
-          (time nil))
-      (cond ((equal period 1) (setq time "06:00-07:15")) ;; Period times in PST/PDT
-            ((equal period 2) (setq time "07:15-08:30"))
-            ((equal period 3) (setq time "08:30-09:45"))
-            ((equal period 4) (setq time "09:45-11:00"))
-            ((equal period 5) (setq time "11:00-12:15"))
-            ((equal period 6) (setq time "12:15-13:30"))
-            ((equal period 7) (setq time "13:30-14:45"))
-            ((equal period 8) (setq time "14:45-16:00"))
-            ((equal period 9) (setq time "16:00-17:15"))
-            ((equal period 10) (setq time "17:15-18:30"))
-            ((equal period 11) (setq time "18:30-19:45"))
-            ((equal period 12) (setq time "19:45-21:00"))
-            ((equal period 13) (setq time "21:00-22:15")))
-      (when (and (cond ((equal days '(1 3)) (or (memq dayname '(1 3)) (pgw/date-date absolute (nth 0 mononfri) (nth 1 mononfri) (nth 2 mononfri)))) ;; Account for MLK Monday on Friday
-                       (t (memq dayname days)))
-                 (or (if (memq 1 semesters) (pgw/date-block absolute (nth 0 fallstart) (nth 1 fallstart) (nth 2 fallstart)
-                                                           (nth 0 fallend) (nth 1 fallend) (nth 2 fallend)))
-                     (if (memq 2 semesters) (pgw/date-block absolute (nth 0 springstart) (nth 1 springstart) (nth 2 springstart)
-                                                           (nth 0 springend) (nth 1 springend) (nth 2 springend)))))
-        (when (not (memq 't (mapcar (lambda (holiday) (if (> (length holiday) 3)
-                                                          (pgw/date-block absolute (nth 0 holiday) (nth 1 holiday) (nth 2 holiday) (nth 3 holiday) (nth 4 holiday) (nth 5 holiday))
-                                                        (pgw/date-date absolute (nth 0 holiday) (nth 1 holiday) (nth 2 holiday))))
-                                    holidays)))
-          (list classname curdate time)))))
-
-    ;; (mapcar (lambda (x) (if (> (length x) 3) (pgw/date-block absolute (nth 0 x) (nth 1 x) (nth 2 x) (nth 3 x) (nth 4 x) (nth 5 x)) (pgw/date-date absolute (nth 0 x) (nth 1 x) (nth 2 x)))) holidays)
-
-  (defun pgw/create-class (classname semesters days period)
-    "Creates headlines for class schedule First date is start of
-  school. Second date is end of school. classname is the name of the
-  class (to display as headline) days is an integer, either 1, 2 or
-  3. The three integers represent M/W, T/Th, and F respectively"
-    (let ((current (calendar-absolute-from-gregorian (diary-make-date 2020 8 19)))
-          (fallstart (gethash "fallstart" pgw/ohs-schoolyear-dates))
-          (fallend (gethash "fallend" pgw/ohs-schoolyear-dates))
-          (springstart (gethash "springstart" pgw/ohs-schoolyear-dates))
-          (mononfri (gethash "mononfri" pgw/ohs-schoolyear-dates))
-          (springend (gethash "springend" pgw/ohs-schoolyear-dates))
-          (holidays (gethash "holidays" pgw/ohs-schoolyear-dates)))
-      (while (pgw/date-block current (nth 0 fallstart) (nth 1 fallstart) (nth 2 fallstart)
-                             (nth 0 springend) (nth 1 springend) (nth 2 springend)) ; Make sure we're within starting and ending dates of school
-        (let ((info (pgw/check-ohs-class current classname semesters days period fallstart fallend springstart mononfri springend holidays)))
-          (when info
-            (let* ((headline (nth 0 info))
-                   (days-of-week '("Sun" "Mon" "Tue" "Wed" "Thu" "Fri" "Sat"))
-                   (fulldate (nth 1 info))
-                   (year (nth 2 fulldate))
-                   (month (nth 0 fulldate))
-                   (day (nth 1 fulldate))
-                   (dayofweek (nth (calendar-day-of-week fulldate) days-of-week))
-                   (time (nth 2 info)))
-              (goto-char (point-max))
-              (insert (format "\n* %s\n:PROPERTIES:\n:TIMEZONE: UTC\n:END:\n:org-gcal:\n<%d-%02d-%02d %s %s>\n:END:"
-                              headline year month day dayofweek time)))))
-        (setq current (+ current 1))
-        (message (format "Current count: %s" current)))))
-
-  (setq pgw/ohs-schoolyear-dates
-        #s(hash-table
-           size 6
-           test equal
-           data (
-                 "fallstart" (2020 8 19)
-                 "fallend" (2020 12 19)
-                 "springstart" (2021 1 4)
-                 "mononfri" (2021 1 22)
-                 "springend" (2021 5 13)
-                 "holidays" ((2020 9 7) ;; Labor Day
-                             (2020 9 11) ;; Back to School Night
-                             (2020 10 28 2020 10 30) ;; Parent-Teacher Conferences (no classes)
-                             (2020 11 25 2020 11 27) ;; Thanksgiving Holiday
-                             (2020 12 9 2020 12 11) ;; Study Days (no classes)
-                             (2020 12 14 2020 12 19) ;; Fall Semester Finals
-                             (2020 12 19 2021 1 3) ;; Winter Closure
-                             (2021 1 4 2021 1 8) ;; Reading Week
-                             (2021 1 18) ;; MLK Holiday
-                             (2021 2 15) ;; Presidents Day
-                             (2021 2 16) ;; Reading Day (No classes)
-                             (2021 3 22 2021 3 26) ;; Spring Break
-                             (2021 5 17 2021 5 19) ;; Study Days
-                             (2021 5 20 2021 5 21) ;; Spring Semester Finals
-                             (2021 5 24 2021 5 27) ;; Spring Semester Finals
-                             (2021 5 31))))) ;; Memorial Day Holiday
-#+end_src
-
-Example usage (run in a dedicated file)
-#+begin_src emacs-lisp :tangle no
-  (pgw/create-class "OCS15: AP Computer Science A" 1 "07:15-08:30")
-  (pgw/create-class "UM51A: Linear Algebra" 1 "08:30-09:45")
-  (pgw/create-class "OP051: AP Physics C Mechanics" 1 "14:45-16:00")
-  (pgw/create-class "OPS10: Psychology, Neuroscience, and Philosophy" 2 "11:00-12:15")
-  (pgw/create-class "OCRA1: Core: Critical Reading & Argumentation" 2 "09:45-11:00")
-#+end_src
-
 ** Modifier Keys
 #+begin_src emacs-lisp
   (when (eq system-type 'darwin)
@@ -579,6 +461,11 @@ Windows and Frames are different than one would now intuitively think. Windows e
   (use-package treemacs)
   (use-package treemacs-evil)
   (use-package treemacs-magit)
+#+end_src
+
+** ztree (Tool for diffing and merging directories)
+#+begin_src emacs-lisp
+  (use-package ztree)
 #+end_src
 
 ** Fonts
@@ -1063,21 +950,21 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
   ("e" "Events")
   ("ef" "Emacs Event (Not synced)" entry (file "~/Dropbox/org/a_events.org")
    "* %?")
-  ("ee" "Emacs Calendar" entry (file "~/Dropbox/org/calendars/cal_emacs.org")
+  ("ee" "Emacs Calendar (Limbo)" entry (file "~/Dropbox/org/a_events.org")
    "* %?
-  SCHEDULED: %^{Scheduled time + duration}T
   :PROPERTIES:
   :calendar-id: ihfv2u5n9uf5ksj5484vbe7mj4@group.calendar.google.com
   :END:
   :org-gcal:
+  %^{Scheduled time + duration}T
   :END:" :jump-to-captured t)
-  ("ep" "Emacs Personal Calendar" entry (file "~/Dropbox/org/calendars/cal_gmail.org")
+  ("ep" "Gmail Calendar (Limbo)" entry (file "~/Dropbox/org/a_events.org")
    "* %?
-  SCHEDULED: %^{Scheduled time + duration}T
   :PROPERTIES:
   :calendar-id: pierce.g.wang@gmail.com
   :END:
   :org-gcal:
+  %^{Scheduled time + duration}T
   :END:" :jump-to-captured t)
   ("L" "Link" entry (file+headline "~/Dropbox/org/links.org" "!Inbox")
   "* [[%?%:link][%:description]]
@@ -1100,23 +987,23 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
   " :kill-buffer t)
   ("S" "School")
   ("Sj" "OCS15 - T/Th" entry
-   (file+headline "~/Dropbox/org/school.org" "_OCS15_")
+   (file+headline "~/Dropbox/org/a_school.org" "_OCS15_")
    "* TODO %?
   DEADLINE: <%<%Y-%m-%d %a 07:15>>")
   ("Sm" "UM51A - T/Th" entry
-   (file+headline "~/Dropbox/org/school.org" "_UM51A_")
+   (file+headline "~/Dropbox/org/a_school.org" "_UM51A_")
    "**** TODO %?
   DEADLINE: <%<%Y-%m-%d %a 08:30>>")
   ("Ss" "OPS10 - M/W" entry
-   (file+headline "~/Dropbox/org/school.org" "_OPS10_")
+   (file+headline "~/Dropbox/org/a_school.org" "_OPS10_")
    "* TODO %?
   DEADLINE: <%<%Y-%m-%d %a 11:00>>")
   ("Sp" "OP051 - M/W" entry
-   (file+headline "~/Dropbox/org/school.org" "_OP051_")
+   (file+headline "~/Dropbox/org/a_school.org" "_OP051_")
    "* TODO %?
   DEADLINE: <%<%Y-%m-%d %a 14:45>>")
   ("Sc" "OCRA1 - M/W" entry
-   (file+headline "~/Dropbox/org/school.org" "_OCRA1_")
+   (file+headline "~/Dropbox/org/a_school.org" "_OCRA1_")
    "* TODO %?
   DEADLINE: <%<%Y-%m-%d %a 09:45>>")
   ("M" "Music")
@@ -1175,8 +1062,7 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
 #+begin_src emacs-lisp
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((python . t)
-     (java . t)))
+   '((python . t)))
 #+end_src
 
 *** Org-drill
@@ -1716,10 +1602,10 @@ Allow the function =browse-url-firefox= to open links in firefox using bin. One 
   (setq browse-url-firefox-program "/Applications/Firefox.app/Contents/MacOS/firefox-bin")
 #+end_src
 ** OHS
-*** Schoolyear Calculation
+*** Schoolyear Calculation for sexp Diary Entries                 :ARCHIVE:
 
 Attempt two: macro to make and statements
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (defun pgw/ohs-schoolyear-class-sched (date event days time)
     (let ((dayname (calendar-day-of-week date)))
       (when (and (if (equal days 1)
@@ -1745,3 +1631,140 @@ Attempt two: macro to make and statements
                        (diary-date 2021 5 31))) ;; Memorial Day Holiday
           (format "%s %s" time event)))))
 #+end_src
+*** Generate OHS Class Calendar
+
+#+begin_src emacs-lisp :results silent
+  (defun pgw/date-block (absolute y1 m1 d1 y2 m2 d2)
+    "Block date entry. An adapted version of the `diary-block'
+  function from the diary-lib."
+    (let ((date1 (calendar-absolute-from-gregorian
+                  (diary-make-date y1 m1 d1)))
+          (date2 (calendar-absolute-from-gregorian
+                  (diary-make-date y2 m2 d2)))
+          (d absolute))
+      (and (<= date1 d) (<= d date2))))
+
+  (defun pgw/date-date (absolute year month day)
+    "Check for equality of date"
+    (equal absolute (calendar-absolute-from-gregorian (diary-make-date year month day))))
+
+  (defun pgw/check-ohs-class (absolute classname semesters days times fallstart fallend springstart mononfri springend holidays noclasses)
+    "Returns a list with formatted strings: (classname curdate
+  headline). These can then be used to create the headline. The curdate
+  is in the form of a list"
+    (let* ((dayname (calendar-day-of-week (calendar-gregorian-from-absolute absolute)))
+           (curdate (calendar-gregorian-from-absolute absolute))
+           (periods '("06:00-07:15"
+                      "07:15-08:30"
+                      "08:30-09:45"
+                      "09:45-11:00"
+                      "11:00-12:15"
+                      "12:15-13:30"
+                      "13:30-14:45"
+                      "14:45-16:00"
+                      "16:00-17:15"
+                      "17:15-18:30"
+                      "18:30-19:45"
+                      "19:45-21:00"
+                      "21:00-22:15"))
+           (time (if (equal (type-of times) 'integer) ;; Checks if the times argument is an integer or list of times as strings
+                     (nth (1- times) periods)
+                 (nth (- (length days) (length (memq dayname days))) times))))
+      (when (and (cond ((equal days '(1 3)) (or (memq dayname '(1 3)) (pgw/date-date absolute (nth 0 mononfri) (nth 1 mononfri) (nth 2 mononfri)))) ;; Account for MLK Monday on Friday
+                       (t (memq dayname days)))
+                 (or (if (memq 1 semesters) (pgw/date-block absolute (nth 0 fallstart) (nth 1 fallstart) (nth 2 fallstart)
+                                                           (nth 0 fallend) (nth 1 fallend) (nth 2 fallend)))
+                     (if (memq 2 semesters) (pgw/date-block absolute (nth 0 springstart) (nth 1 springstart) (nth 2 springstart)
+                                                            (nth 0 springend) (nth 1 springend) (nth 2 springend)))))
+        (if (equal (type-of times) 'integer) ;; Classes will always be in periods, OH and other events will not
+            (when (and (not (memq 't
+                                  (mapcar (lambda (holiday) (if (> (length holiday) 3)
+                                                                (pgw/date-block absolute (nth 0 holiday) (nth 1 holiday) (nth 2 holiday) (nth 3 holiday) (nth 4 holiday) (nth 5 holiday))
+                                                              (pgw/date-date absolute (nth 0 holiday) (nth 1 holiday) (nth 2 holiday))))
+                                          holidays)))
+                       (not (memq 't
+                                  (mapcar (lambda (noclass) (if (> (length noclass) 3)
+                                                                (pgw/date-block absolute (nth 0 noclass) (nth 1 noclass) (nth 2 noclass) (nth 3 noclass) (nth 4 noclass) (nth 5 noclass))
+                                                              (pgw/date-date absolute (nth 0 noclass) (nth 1 noclass) (nth 2 noclass))))
+                                          noclasses))))
+              (list classname curdate time))
+          (when (not (memq 't
+                           (mapcar (lambda (holiday) (if (> (length holiday) 3)
+                                                         (pgw/date-block absolute (nth 0 holiday) (nth 1 holiday) (nth 2 holiday) (nth 3 holiday) (nth 4 holiday) (nth 5 holiday))
+                                                       (pgw/date-date absolute (nth 0 holiday) (nth 1 holiday) (nth 2 holiday))))
+                                   holidays)))
+            (list classname curdate time))))))
+
+  (defun pgw/create-entry (classname semesters days times &optional desc)
+    "Creates headlines for class schedule.
+  CLASSNAME: a string with the class name (to appear on agenda)
+  SEMESTERS: a list of integers. e.g. for both just a first semester:
+  '(1) or for both semesters '(1 2)
+  DAYS: the days of the class. Normally it will be M/W or T/Th but in
+  order to have flexibility, the function takes an input of another list
+  of integers representing days of the week. Monday starts on 1 and
+  Sunday is 0
+  TIMES: Either an integer with the period number or a cons list
+  containing a list of the times which should be the same length as the
+  list of days
+
+  optional DESC: string containing a description for the event
+
+  This function uses the variable `pgw/ohs-schoolyear-dates' for the value of holidays"
+    (let ((current (calendar-absolute-from-gregorian (diary-make-date 2020 8 19)))
+          (desc (if desc (setq desc (format "\n%s\n" desc)) (setq desc "")))
+          (fallstart (gethash "fallstart" pgw/ohs-schoolyear-dates))
+          (fallend (gethash "fallend" pgw/ohs-schoolyear-dates))
+          (springstart (gethash "springstart" pgw/ohs-schoolyear-dates))
+          (mononfri (gethash "mononfri" pgw/ohs-schoolyear-dates))
+          (springend (gethash "springend" pgw/ohs-schoolyear-dates))
+          (holidays (gethash "holidays" pgw/ohs-schoolyear-dates))
+          (noclasses (gethash "noclasses" pgw/ohs-schoolyear-dates)))
+      (goto-char (point-max))
+      (insert (format "\n* %s" classname))
+      (while (pgw/date-block current (nth 0 fallstart) (nth 1 fallstart) (nth 2 fallstart)
+                             (nth 0 springend) (nth 1 springend) (nth 2 springend)) ; Make sure we're within starting and ending dates of school
+        (let ((info (pgw/check-ohs-class current classname semesters days times fallstart fallend springstart mononfri springend holidays noclasses)))
+          (when info
+            (let* ((headline (nth 0 info))
+                   (days-of-week '("Sun" "Mon" "Tue" "Wed" "Thu" "Fri" "Sat"))
+                   (fulldate (nth 1 info))
+                   (year (nth 2 fulldate))
+                   (month (nth 0 fulldate))
+                   (day (nth 1 fulldate))
+                   (dayofweek (nth (calendar-day-of-week fulldate) days-of-week))
+                   (time (nth 2 info)))
+              (goto-char (point-max))
+              (insert (format "\n** %s\n:PROPERTIES:\n:TIMEZONE: UTC\n:END:\n<%d-%02d-%02d %s %s>\n%s"
+                              headline year month day dayofweek time desc)))))
+        (setq current (+ current 1)))))
+
+  (setq pgw/ohs-schoolyear-dates
+        #s(hash-table
+           size 7
+           test equal
+           data ("fallstart" (2020 8 19)
+                 "fallend" (2020 12 19)
+                 "springstart" (2021 1 4)
+                 "mononfri" (2021 1 22)
+                 "springend" (2021 5 13)
+                 "holidays" ((2020 9 7) ;; Labor Day
+                             (2020 11 25 2020 11 27) ;; Thanksgiving Holiday
+                             (2020 12 19 2021 1 3) ;; Winter Closure
+                             (2021 1 18) ;; MLK Holiday
+                             (2021 2 15) ;; Presidents Day
+                             (2021 2 16) ;; Reading Day (No classes)
+                             (2021 3 22 2021 3 26) ;; Spring Break
+                             (2021 5 31)) ;; Memorial Day Holiday
+                 "noclass" (((2020 10 28 2020 10 30) ;; Parent-Teacher Conferences (no classes)
+                             (2020 12 9 2020 12 11) ;; Study Days (no classes)
+                             (2020 12 14 2020 12 19) ;; Fall Semester Finals
+                             (2021 1 4 2021 1 8) ;; Reading Week
+                             (2021 5 17 2021 5 19) ;; Study Days
+                             (2021 5 20 2021 5 21) ;; Spring Semester Finals
+                             (2021 5 24 2021 5 27) ;; Spring Semester Finals
+                             )))))
+#+end_src
+
+Example usage (run in a dedicated file)
+
