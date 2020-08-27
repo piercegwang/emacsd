@@ -171,6 +171,7 @@ Make Emacs confirm when quitting:
 #+begin_src emacs-lisp
   (setq confirm-kill-emacs 'yes-or-no-p)
 #+end_src
+
 ** Custom Functions
 *** append-to-list
 #+begin_src emacs-lisp
@@ -663,14 +664,16 @@ I copied mixed-pitch.el from [[https://gitlab.com/jabranham/mixed-pitch/][this]]
   (line-number-mode -1)
 #+end_src
 
-*** Time display
-#+begin_src emacs-lisp
+*** CANCELLED Time display
+CLOSED: [2020-08-21 Fri 11:35]
+#+begin_src emacs-lisp :tangle no
   (setq display-time-format "%a %m/%d %H:%M")
   (display-time-mode)
 #+end_src
 
-*** Battery display
-#+begin_src emacs-lisp
+*** CANCELLED Battery display
+CLOSED: [2020-08-26 Wed 11:28]
+#+begin_src emacs-lisp :tangle no
   (setq battery-mode-line-format " [%b%p%%]")
   (display-battery-mode)
 #+end_src
@@ -853,7 +856,7 @@ Custom commands, testing sorting strategy variable
 
 #+begin_src emacs-lisp
   (setq org-agenda-time-grid '((daily today require-timed)
-                               (600 700 800 900 1000 1100 1200 1300 1400 1500 1600 1700 1800 1900 2000 2100 2200 2300)
+                               (600 800 1000 1200 1400 1600 1800 2000 2200)
                                "......" "----------------"))
 #+end_src
 
@@ -951,20 +954,28 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
   ("ef" "Emacs Event (Not synced)" entry (file "~/Dropbox/org/a_events.org")
    "* %?")
   ("ee" "Emacs Calendar (Limbo)" entry (file "~/Dropbox/org/a_events.org")
-   "* %?
+   "* %^{Title of event}
+  SCHEDULED: %^{Scheduled time + duration}T
   :PROPERTIES:
   :calendar-id: ihfv2u5n9uf5ksj5484vbe7mj4@group.calendar.google.com
   :END:
-  :org-gcal:
-  %^{Scheduled time + duration}T
+  :org-gcal:%?
   :END:" :jump-to-captured t)
   ("ep" "Gmail Calendar (Limbo)" entry (file "~/Dropbox/org/a_events.org")
-   "* %?
+   "* %^{Title of event}
+  SCHEDULED: %^{Scheduled time + duration}T
   :PROPERTIES:
   :calendar-id: pierce.g.wang@gmail.com
   :END:
-  :org-gcal:
-  %^{Scheduled time + duration}T
+  :org-gcal:%?
+  :END:" :jump-to-captured t)
+  ("es" "SFCM Calendar (Limbo)" entry (file "~/Dropbox/org/a_sfcm.org")
+   "* %^{Title of event}
+  SCHEDULED: %^{Scheduled time + duration}T
+  :PROPERTIES:
+  :calendar-id: taiu2dsr8o29c09m7nn1n21t9o@group.calendar.google.com
+  :END:
+  :org-gcal:%?
   :END:" :jump-to-captured t)
   ("L" "Link" entry (file+headline "~/Dropbox/org/links.org" "!Inbox")
   "* [[%?%:link][%:description]]
@@ -986,25 +997,47 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
   :END:
   " :kill-buffer t)
   ("S" "School")
-  ("Sj" "OCS15 - T/Th" entry
+  ("St" "School Tasks")
+  ("Stj" "OCS15 - T/Th" entry
    (file+headline "~/Dropbox/org/a_school.org" "_OCS15_")
-   "* TODO %?
-  DEADLINE: <%<%Y-%m-%d %a 07:15>>")
-  ("Sm" "UM51A - T/Th" entry
+   "* NEXT %?
+  DEADLINE: %^{Deadline}T")
+  ("Stm" "UM51A - T/Th" entry
    (file+headline "~/Dropbox/org/a_school.org" "_UM51A_")
-   "**** TODO %?
-  DEADLINE: <%<%Y-%m-%d %a 08:30>>")
-  ("Ss" "OPS10 - M/W" entry
+   "**** NEXT %?
+  DEADLINE: %^{Deadline}T")
+  ("Sts" "OPS10 - M/W" entry
    (file+headline "~/Dropbox/org/a_school.org" "_OPS10_")
-   "* TODO %?
-  DEADLINE: <%<%Y-%m-%d %a 11:00>>")
-  ("Sp" "OP051 - M/W" entry
+   "* NEXT %?
+  DEADLINE: %^{Deadline}T")
+  ("Stp" "OP051 - M/W" entry
    (file+headline "~/Dropbox/org/a_school.org" "_OP051_")
-   "* TODO %?
-  DEADLINE: <%<%Y-%m-%d %a 14:45>>")
-  ("Sc" "OCRA1 - M/W" entry
+   "* NEXT %?
+  DEADLINE: %^{Deadline}T")
+  ("Stc" "OCRA1 - M/W" entry
    (file+headline "~/Dropbox/org/a_school.org" "_OCRA1_")
-   "* TODO %?
+   "* NEXT %?
+  DEADLINE: %^{Deadline}T")
+  ("Sr" "School Readings")
+  ("Srj" "OCS15 - T/Th" entry
+   (file+headline "~/Dropbox/org/a_school.org" "_OCS15_")
+   "* NEXT %?
+  DEADLINE: <%<%Y-%m-%d %a 07:15>>")
+  ("Srm" "UM51A - T/Th" entry
+   (file+headline "~/Dropbox/org/a_school.org" "_UM51A_")
+   "**** NEXT %?
+  DEADLINE: <%<%Y-%m-%d %a 08:30>>")
+  ("Srs" "OPS10 - M/W" entry
+   (file+headline "~/Dropbox/org/a_school.org" "_OPS10_")
+   "* NEXT %?
+  DEADLINE: <%<%Y-%m-%d %a 11:00>>")
+  ("Srp" "OP051 - M/W" entry
+   (file+headline "~/Dropbox/org/a_school.org" "_OP051_")
+   "* NEXT %?
+  DEADLINE: <%<%Y-%m-%d %a 14:45>>")
+  ("Src" "OCRA1 - M/W" entry
+   (file+headline "~/Dropbox/org/a_school.org" "_OCRA1_")
+   "* NEXT %?
   DEADLINE: <%<%Y-%m-%d %a 09:45>>")
   ("M" "Music")
   ("Mc" "Conducting Homework" entry
@@ -1060,9 +1093,11 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
 *** Babel
 
 #+begin_src emacs-lisp
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((python . t)))
+  (with-eval-after-load 'org
+    (org-babel-do-load-languages 'org-babel-load-languages
+                                 '((python . t)
+                                   (java . t)
+                                   )))
 #+end_src
 
 *** Org-drill
@@ -1183,7 +1218,8 @@ Calendar Setup:
     (setq org-gcal-client-id "439150530674-aab9ti8n7t80r001qmccgb2i52005f18.apps.googleusercontent.com"
           org-gcal-client-secret "5gUN_ML-yaAgdS6eg4hAZ9qo"
           org-gcal-file-alist '(("pierce.g.wang@gmail.com" .  "~/Dropbox/org/calendars/cal_gmail.org")
-                                ("ihfv2u5n9uf5ksj5484vbe7mj4@group.calendar.google.com" . "~/Dropbox/org/calendars/cal_emacs.org"))))
+                                ("ihfv2u5n9uf5ksj5484vbe7mj4@group.calendar.google.com" . "~/Dropbox/org/calendars/cal_emacs.org")
+                                ("taiu2dsr8o29c09m7nn1n21t9o@group.calendar.google.com" . "~/Dropbox/org/calendars/cal_sfcm.org"))))
 #+end_src
 
 
@@ -1272,6 +1308,13 @@ Smart Python Docstring Formatting
               (auto-fill-mode 1)
               (if (eq window-system 'x)
                   (font-lock-mode 1))))
+#+end_src
+
+*** Java
+#+begin_src emacs-lisp
+  (use-package lsp-java
+    :config
+    (add-hook 'java-mode-hook #'lsp))
 #+end_src
 
 ** Macros
@@ -1601,6 +1644,7 @@ Allow the function =browse-url-firefox= to open links in firefox using bin. One 
 #+begin_src emacs-lisp
   (setq browse-url-firefox-program "/Applications/Firefox.app/Contents/MacOS/firefox-bin")
 #+end_src
+
 ** OHS
 *** Schoolyear Calculation for sexp Diary Entries                 :ARCHIVE:
 
@@ -1631,6 +1675,7 @@ Attempt two: macro to make and statements
                        (diary-date 2021 5 31))) ;; Memorial Day Holiday
           (format "%s %s" time event)))))
 #+end_src
+
 *** Generate OHS Class Calendar
 
 #+begin_src emacs-lisp :results silent
@@ -1767,4 +1812,8 @@ Attempt two: macro to make and statements
 #+end_src
 
 Example usage (run in a dedicated file)
+*** Sync gcal Bash Script
+#+begin_src emacs-lisp :results silent
+  (global-set-key (kbd "C-c s-g o") (lambda () (interactive) (shell-command "bash ~/QScripts/syncgcal.sh")))
+#+end_src
 

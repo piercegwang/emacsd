@@ -367,12 +367,6 @@ other, future frames."
 (size-indication-mode 1)
 (line-number-mode -1)
 
-(setq display-time-format "%a %m/%d %H:%M")
-(display-time-mode)
-
-(setq battery-mode-line-format " [%b%p%%]")
-(display-battery-mode)
-
 (use-package helm
   :config
   (require 'helm-config)
@@ -479,7 +473,7 @@ other, future frames."
                                (file-expand-wildcards "~/Dropbox/org/calendars/*.org")))
 
 (setq org-agenda-time-grid '((daily today require-timed)
-                             (600 700 800 900 1000 1100 1200 1300 1400 1500 1600 1700 1800 1900 2000 2100 2200 2300)
+                             (600 800 1000 1200 1400 1600 1800 2000 2200)
                              "......" "----------------"))
 
 (defun pgw/year-month ()
@@ -517,20 +511,28 @@ other, future frames."
 ("ef" "Emacs Event (Not synced)" entry (file "~/Dropbox/org/a_events.org")
  "* %?")
 ("ee" "Emacs Calendar (Limbo)" entry (file "~/Dropbox/org/a_events.org")
- "* %?
+ "* %^{Title of event}
+SCHEDULED: %^{Scheduled time + duration}T
 :PROPERTIES:
 :calendar-id: ihfv2u5n9uf5ksj5484vbe7mj4@group.calendar.google.com
 :END:
-:org-gcal:
-%^{Scheduled time + duration}T
+:org-gcal:%?
 :END:" :jump-to-captured t)
 ("ep" "Gmail Calendar (Limbo)" entry (file "~/Dropbox/org/a_events.org")
- "* %?
+ "* %^{Title of event}
+SCHEDULED: %^{Scheduled time + duration}T
 :PROPERTIES:
 :calendar-id: pierce.g.wang@gmail.com
 :END:
-:org-gcal:
-%^{Scheduled time + duration}T
+:org-gcal:%?
+:END:" :jump-to-captured t)
+("es" "SFCM Calendar (Limbo)" entry (file "~/Dropbox/org/a_sfcm.org")
+ "* %^{Title of event}
+SCHEDULED: %^{Scheduled time + duration}T
+:PROPERTIES:
+:calendar-id: taiu2dsr8o29c09m7nn1n21t9o@group.calendar.google.com
+:END:
+:org-gcal:%?
 :END:" :jump-to-captured t)
 ("L" "Link" entry (file+headline "~/Dropbox/org/links.org" "!Inbox")
 "* [[%?%:link][%:description]]
@@ -552,25 +554,47 @@ other, future frames."
 :END:
 " :kill-buffer t)
 ("S" "School")
-("Sj" "OCS15 - T/Th" entry
+("St" "School Tasks")
+("Stj" "OCS15 - T/Th" entry
  (file+headline "~/Dropbox/org/a_school.org" "_OCS15_")
- "* TODO %?
-DEADLINE: <%<%Y-%m-%d %a 07:15>>")
-("Sm" "UM51A - T/Th" entry
+ "* NEXT %?
+DEADLINE: %^{Deadline}T")
+("Stm" "UM51A - T/Th" entry
  (file+headline "~/Dropbox/org/a_school.org" "_UM51A_")
- "**** TODO %?
-DEADLINE: <%<%Y-%m-%d %a 08:30>>")
-("Ss" "OPS10 - M/W" entry
+ "**** NEXT %?
+DEADLINE: %^{Deadline}T")
+("Sts" "OPS10 - M/W" entry
  (file+headline "~/Dropbox/org/a_school.org" "_OPS10_")
- "* TODO %?
-DEADLINE: <%<%Y-%m-%d %a 11:00>>")
-("Sp" "OP051 - M/W" entry
+ "* NEXT %?
+DEADLINE: %^{Deadline}T")
+("Stp" "OP051 - M/W" entry
  (file+headline "~/Dropbox/org/a_school.org" "_OP051_")
- "* TODO %?
-DEADLINE: <%<%Y-%m-%d %a 14:45>>")
-("Sc" "OCRA1 - M/W" entry
+ "* NEXT %?
+DEADLINE: %^{Deadline}T")
+("Stc" "OCRA1 - M/W" entry
  (file+headline "~/Dropbox/org/a_school.org" "_OCRA1_")
- "* TODO %?
+ "* NEXT %?
+DEADLINE: %^{Deadline}T")
+("Sr" "School Readings")
+("Srj" "OCS15 - T/Th" entry
+ (file+headline "~/Dropbox/org/a_school.org" "_OCS15_")
+ "* NEXT %?
+DEADLINE: <%<%Y-%m-%d %a 07:15>>")
+("Srm" "UM51A - T/Th" entry
+ (file+headline "~/Dropbox/org/a_school.org" "_UM51A_")
+ "**** NEXT %?
+DEADLINE: <%<%Y-%m-%d %a 08:30>>")
+("Srs" "OPS10 - M/W" entry
+ (file+headline "~/Dropbox/org/a_school.org" "_OPS10_")
+ "* NEXT %?
+DEADLINE: <%<%Y-%m-%d %a 11:00>>")
+("Srp" "OP051 - M/W" entry
+ (file+headline "~/Dropbox/org/a_school.org" "_OP051_")
+ "* NEXT %?
+DEADLINE: <%<%Y-%m-%d %a 14:45>>")
+("Src" "OCRA1 - M/W" entry
+ (file+headline "~/Dropbox/org/a_school.org" "_OCRA1_")
+ "* NEXT %?
 DEADLINE: <%<%Y-%m-%d %a 09:45>>")
 ("M" "Music")
 ("Mc" "Conducting Homework" entry
@@ -614,9 +638,11 @@ DEADLINE: %^t
   ;; # -*- buffer-auto-save-file-name: nil; -*-
   )
 
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((python . t)))
+(with-eval-after-load 'org
+  (org-babel-do-load-languages 'org-babel-load-languages
+                               '((python . t)
+                                 (java . t)
+                                 )))
 
 ;;; org-drill
 (use-package org-drill
@@ -693,7 +719,8 @@ DEADLINE: %^t
   (setq org-gcal-client-id "439150530674-aab9ti8n7t80r001qmccgb2i52005f18.apps.googleusercontent.com"
         org-gcal-client-secret "5gUN_ML-yaAgdS6eg4hAZ9qo"
         org-gcal-file-alist '(("pierce.g.wang@gmail.com" .  "~/Dropbox/org/calendars/cal_gmail.org")
-                              ("ihfv2u5n9uf5ksj5484vbe7mj4@group.calendar.google.com" . "~/Dropbox/org/calendars/cal_emacs.org"))))
+                              ("ihfv2u5n9uf5ksj5484vbe7mj4@group.calendar.google.com" . "~/Dropbox/org/calendars/cal_emacs.org")
+                              ("taiu2dsr8o29c09m7nn1n21t9o@group.calendar.google.com" . "~/Dropbox/org/calendars/cal_sfcm.org"))))
 
 (setq TeX-engine 'xetex)
 (setq latex-run-command "xetex")
@@ -750,6 +777,10 @@ DEADLINE: %^t
             (auto-fill-mode 1)
             (if (eq window-system 'x)
                 (font-lock-mode 1))))
+
+(use-package lsp-java
+  :config
+  (add-hook 'java-mode-hook #'lsp))
 
 (fset 'setupworkspace
    [?\C-c ?a ?A ?. ?\C-x ?0 ?\C-x ?3 ?\H-l ?\H-\C-x ?o ?\C-x ?2 ?\C-u ?7 ?\C-x ?^ ?\H-j ?\H-c ?i ?\H-h ?\H-c ?o ?\H-l])
@@ -1089,6 +1120,8 @@ This function uses the variable `pgw/ohs-schoolyear-dates' for the value of holi
                            (2021 5 20 2021 5 21) ;; Spring Semester Finals
                            (2021 5 24 2021 5 27) ;; Spring Semester Finals
                            )))))
+
+(global-set-key (kbd "C-c s-g o") (lambda () (interactive) (shell-command "bash ~/QScripts/syncgcal.sh")))
 
 (defun pgw/turn-on-flyspell-hook ()
   (cond ((string-match "^/Users/piercewang/Google Drive/OHS/" (if (eq buffer-file-name nil) "" buffer-file-name))

@@ -106,7 +106,7 @@
  '(org-modules
    '(org-bbdb org-bibtex org-docview org-gnus org-habit org-info org-irc org-mhe org-rmail org-w3m org-drill org-learn))
  '(package-selected-packages
-   '(ztree org-superstar treemacs-magit treemacs-evil treemacs tramp org-gcal json-mode org-mode use-package cdlatex org-noter artist-mode python-docstring markdown-mode epa-file framemove doom-themes org htmlize lua-mode helm magit elpy exec-path-from-shell smart-mode-line latex auctex evil-visual-mark-mode))
+   '(lsp-java ztree org-superstar treemacs-magit treemacs-evil treemacs tramp org-gcal json-mode org-mode use-package cdlatex org-noter artist-mode python-docstring markdown-mode epa-file framemove doom-themes org htmlize lua-mode helm magit elpy exec-path-from-shell smart-mode-line latex auctex evil-visual-mark-mode))
  '(show-paren-mode nil)
  '(sml/pre-modes-separator (propertize " " 'face 'sml/modes)))
 (custom-set-faces
@@ -114,4 +114,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(line-number ((t (:inherit default :foreground "gray40" :strike-through nil :underline nil :slant normal :weight normal)))))

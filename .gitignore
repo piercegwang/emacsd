@@ -12,3 +12,6 @@ __pycache__/
 elpy/
 mu4e/
 org-gcal/
+persist/
+elpa/
+eshell/
