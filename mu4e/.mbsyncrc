@@ -1,0 +1,171 @@
+# mbsyncrc based on
+# http://www.ict4g.net/adolfo/notes/2014/12/27/EmacsIMAP.html
+# ACCOUNT INFORMATION
+IMAPAccount pierce.g.wang-gmail
+# Address to connect to
+Host imap.gmail.com
+User pierce.g.wang@gmail.com
+PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/.emacs.d/mu4e/.mbsyncpass-pierce.g.wang.gpg"
+AuthMechs LOGIN
+SSLType IMAPS
+SSLVersions TLSv1.2
+CertificateFile /Users/piercewang/Documents/projects/emacs/mu4e/gmail.crt
+
+IMAPStore pierce.g.wang-gmail-remote
+Account pierce.g.wang-gmail
+
+MaildirStore pierce.g.wang-gmail-local
+Path ~/Maildir/pierce.g.wang/
+Inbox ~/Maildir/pierce.g.wang/INBOX
+# SubFolders Verbatim
+
+Channel pierce.g.wang-gmail-inbox
+Master :pierce.g.wang-gmail-remote:
+Slave :pierce.g.wang-gmail-local:
+Patterns "INBOX"
+Create Both
+Expunge Both
+SyncState *
+
+Channel pierce.g.wang-gmail-sent
+Master :pierce.g.wang-gmail-remote:"[Gmail]/Sent Mail"
+Slave :pierce.g.wang-gmail-local:"[pierce.g.wang].Sent Mail"
+Create Both
+Expunge Both
+SyncState *
+
+Channel pierce.g.wang-gmail-all
+Master :pierce.g.wang-gmail-remote:"[Gmail]/All Mail"
+Slave :pierce.g.wang-gmail-local:"[pierce.g.wang].All Mail"
+Create Both
+Expunge Both
+SyncState *
+
+Channel pierce.g.wang-gmail-starred
+Master :pierce.g.wang-gmail-remote:"[Gmail]/Starred"
+Slave :pierce.g.wang-gmail-local:"[pierce.g.wang].Starred"
+Create Both
+Expunge Both
+SyncState *
+
+Channel pierce.g.wang-gmail-drafts
+Master :pierce.g.wang-gmail-remote:"[Gmail]/Drafts"
+Slave :pierce.g.wang-gmail-local:"[pierce.g.wang].drafts"
+Create Both
+Expunge Both
+SyncState *
+
+Channel pierce.g.wang-gmail-trash
+Master :pierce.g.wang-gmail-remote:"[Gmail]/Trash"
+Slave :pierce.g.wang-gmail-local:"[pierce.g.wang].Trash"
+Create Both
+Expunge Both
+SyncState *
+
+Channel pierce.g.wang-gmail-spam
+Master :pierce.g.wang-gmail-remote:"[Gmail]/Spam"
+Slave :pierce.g.wang-gmail-local:"[pierce.g.wang].Spam"
+Create Both
+Expunge Both
+SyncState *
+
+# GROUPS PUT TOGETHER CHANNELS, SO THAT WE CAN INVOKE
+# MBSYNC ON A GROUP TO SYNC ALL CHANNELS
+#
+# FOR INSTANCE: "mbsync gmail" GETS MAIL FROM
+# "gmail-inbox", "gmail-sent", and "gmail-trash"
+#
+Group pierce.g.wang-gmail
+Channel pierce.g.wang-gmail-inbox
+Channel pierce.g.wang-gmail-sent
+Channel pierce.g.wang-gmail-trash
+Channel pierce.g.wang-gmail-all
+Channel pierce.g.wang-gmail-starred
+
+
+# ================================================================================
+
+# ACCOUNT INFORMATION
+IMAPAccount pierce.wang.violin-gmail
+# Address to connect to
+Host imap.gmail.com
+User pierce.wang.violin@gmail.com
+PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/.emacs.d/mu4e/.mbsyncpass-pierce.wang.violin.gpg"
+AuthMechs LOGIN
+SSLType IMAPS
+SSLVersions TLSv1.2
+CertificateFile /Users/piercewang/Documents/projects/emacs/mu4e/gmail.crt
+
+IMAPStore pierce.wang.violin-gmail-remote
+Account pierce.wang.violin-gmail
+
+MaildirStore pierce.wang.violin-gmail-local
+Path ~/Maildir/pierce.wang.violin/
+Inbox ~/Maildir/pierce.wang.violin/INBOX
+# SubFolders Verbatim
+
+Channel pierce.wang.violin-gmail-inbox
+Master :pierce.wang.violin-gmail-remote:
+Slave :pierce.wang.violin-gmail-local:
+Patterns "INBOX"
+Create Both
+Expunge Both
+SyncState *
+
+Channel pierce.wang.violin-gmail-sent
+Master :pierce.wang.violin-gmail-remote:"[Gmail]/Sent Mail"
+Slave :pierce.wang.violin-gmail-local:"[pierce.wang.violin].Sent Mail"
+Create Both
+Expunge Both
+SyncState *
+
+Channel pierce.wang.violin-gmail-all
+Master :pierce.wang.violin-gmail-remote:"[Gmail]/All Mail"
+Slave :pierce.wang.violin-gmail-local:"[pierce.wang.violin].All Mail"
+Create Both
+Expunge Both
+SyncState *
+
+Channel pierce.wang.violin-gmail-starred
+Master :pierce.wang.violin-gmail-remote:"[Gmail]/Starred"
+Slave :pierce.wang.violin-gmail-local:"[pierce.wang.violin].Starred"
+Create Both
+Expunge Both
+SyncState *
+
+Channel pierce.wang.violin-gmail-drafts
+Master :pierce.wang.violin-gmail-remote:"[Gmail]/Drafts"
+Slave :pierce.wang.violin-gmail-local:"[pierce.g.wang].drafts"
+Create Both
+Expunge Both
+SyncState *
+
+Channel pierce.wang.violin-gmail-trash
+Master :pierce.wang.violin-gmail-remote:"[Gmail]/Trash"
+Slave :pierce.wang.violin-gmail-local:"[pierce.wang.violin].Trash"
+Create Both
+Expunge Both
+SyncState *
+
+Channel pierce.wang.violin-gmail-spam
+Master :pierce.wang.violin-gmail-remote:"[Gmail]/Spam"
+Slave :pierce.wang.violin-gmail-local:"[pierce.wang.violin].Spam"
+Create Both
+Expunge Both
+SyncState *
+
+# GROUPS PUT TOGETHER CHANNELS, SO THAT WE CAN INVOKE
+# MBSYNC ON A GROUP TO SYNC ALL CHANNELS
+#
+# FOR INSTANCE: "mbsync gmail" GETS MAIL FROM
+# "gmail-inbox", "gmail-sent", and "gmail-trash"
+#
+Group pierce.wang.violin-gmail
+Channel pierce.wang.violin-gmail-inbox
+Channel pierce.wang.violin-gmail-sent
+Channel pierce.wang.violin-gmail-trash
+Channel pierce.wang.violin-gmail-all
+Channel pierce.wang.violin-gmail-starred
+
+
+# ================================================================================

@@ -10,7 +10,7 @@ bookmarks
 *.html
 __pycache__/
 elpy/
-mu4e/
+*.gpg
 org-gcal/
 persist/
 elpa/
