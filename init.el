@@ -62,6 +62,7 @@ If you experience freezing, decrease this. If you experience stuttering, increas
 (require 'bind-key)                ;; if you use any :bind variant
 
 (setq byte-compile-warnings '(cl-functions))
+(require 'cl-lib)
 
 (add-hook 'emacs-startup-hook
 	  (lambda ()
@@ -656,7 +657,6 @@ DEADLINE: %^t
 (with-eval-after-load 'org
   (org-babel-do-load-languages 'org-babel-load-languages
                                '((python . t)
-                                 (java . t)
                                  )))
 
 ;;; org-drill
@@ -792,10 +792,6 @@ DEADLINE: %^t
             (auto-fill-mode 1)
             (if (eq window-system 'x)
                 (font-lock-mode 1))))
-
-(use-package lsp-java
-  :config
-  (add-hook 'java-mode-hook #'lsp))
 
 (fset 'setupworkspace
    [?\C-c ?a ?A ?. ?\C-x ?0 ?\C-x ?3 ?\H-l ?\H-\C-x ?o ?\C-x ?2 ?\C-u ?7 ?\C-x ?^ ?\H-j ?\H-c ?i ?\H-h ?\H-c ?o ?\H-l])
@@ -1010,7 +1006,6 @@ If the input is non-empty, it is inserted at point."
 
 ; require mu4e
 (require 'mu4e)
-(global-set-key (kbd "H-m") 'mu4e)
 
 (setq mu4e-maildir (expand-file-name "~/Maildir"))
 
@@ -1056,7 +1051,7 @@ If the input is non-empty, it is inserted at point."
 
 ;; spell check
 (add-hook 'mu4e-compose-mode-hook
-    (defun my-do-compose-stuff ()
+(defun pgw/do-compose-stuff ()
        "My settings for message composition."
        (visual-line-mode)
        (org-mu4e-compose-org-mode)
@@ -1115,6 +1110,7 @@ If the input is non-empty, it is inserted at point."
             (mu4e-sent-folder . "/pierce.g.wang/[pierce.g.wang].Sent Mail")
             (mu4e-drafts-folder . "/pierce.g.wang/[pierce.g.wang].drafts")
             (mu4e-trash-folder . "/pierce.g.wang/[pierce.g.wang].Trash")
+            (mu4e-refile-folder . "/pierce.g.wang/[pierce.g.wang].All Mail")
             (mu4e-compose-signature . (concat "Formal Signature\n" "Emacs 27, org-mode 9, mu4e 1.14\n"))
             (mu4e-compose-format-flowed . t)
             (smtpmail-queue-dir . "~/Maildir/pierce.g.wang/queue/cur")
@@ -1129,15 +1125,15 @@ If the input is non-empty, it is inserted at point."
             (smtpmail-debug-verbose . t)
             (mu4e-maildir-shortcuts . ( ("/pierce.g.wang/INBOX"            . ?i)
                                         ("/pierce.g.wang/[pierce.g.wang].Sent Mail" . ?s)
-                                        ("/pierce.g.wang/[pierce.g.wang].Bin"       . ?t)
+                                        ("/pierce.g.wang/[pierce.g.wang].Trash"     . ?t)
                                         ("/pierce.g.wang/[pierce.g.wang].All Mail"  . ?a)
                                         ("/pierce.g.wang/[pierce.g.wang].Starred"   . ?r)
                                         ("/pierce.g.wang/[pierce.g.wang].drafts"    . ?d)
                                         ))))
       (make-mu4e-context
        :name "work" ;;for pierce.wang.violin
-       :enter-func (lambda () (mu4e-message "Entering context personal"))
-       :leave-func (lambda () (mu4e-message "Leaving context personal"))
+       :enter-func (lambda () (mu4e-message "Entering context work"))
+       :leave-func (lambda () (mu4e-message "Leaving context work"))
        :match-func (lambda (msg)
                      (when msg
                        (mu4e-message-contact-field-matches
@@ -1147,6 +1143,7 @@ If the input is non-empty, it is inserted at point."
                (mu4e-sent-folder . "/pierce.wang.violin/[pierce.wang.violin].Sent Mail")
                (mu4e-drafts-folder . "/pierce.wang.violin/[pierce.wang.violin].drafts")
                (mu4e-trash-folder . "/pierce.wang.violin/[pierce.wang.violin].Trash")
+               (mu4e-refile-folder . "/pierce.wang.violin/[pierce.wang.violin].All Mail")
                (mu4e-compose-signature . (concat "Formal Signature\n" "Emacs 27, org-mode 9, mu4e 1.14\n"))
                (mu4e-compose-format-flowed . t)
                (smtpmail-queue-dir . "~/Maildir/pierce.wang.violin/queue/cur")
@@ -1161,7 +1158,7 @@ If the input is non-empty, it is inserted at point."
                (smtpmail-debug-verbose . t)
                (mu4e-maildir-shortcuts . ( ("/pierce.wang.violin/INBOX"            . ?i)
                                            ("/pierce.wang.violin/[pierce.wang.violin].Sent Mail" . ?s)
-                                           ("/pierce.wang.violin/[pierce.wang.violin].Bin"       . ?t)
+                                           ("/pierce.wang.violin/[pierce.wang.violin].Trash"     . ?t)
                                            ("/pierce.wang.violin/[pierce.wang.violin].All Mail"  . ?a)
                                            ("/pierce.wang.violin/[pierce.wang.violin].Starred"   . ?r)
                                            ("/pierce.wang.violin/[pierce.wang.violin].drafts"    . ?d)
@@ -1174,18 +1171,26 @@ If the input is non-empty, it is inserted at point."
   :init
   (setq mu4e-alert-interesting-mail-query
         (concat
-         "flag:unread maildir:/Exchange/INBOX "
+         "flag:unread maildir:/pierce.wang.violin/INBOX "
          "OR "
-         "flag:unread maildir:/Gmail/INBOX"
+         "flag:unread maildir:/pierce.g.wang/INBOX"
          ))
-  (mu4e-alert-enable-mode-line-display)
-  (defun pgw/refresh-mu4e-alert-mode-line ()
-    (interactive)
-    (mu4e~proc-kill)
-    (mu4e-alert-enable-mode-line-display)
-    )
-  (run-with-timer 0 60 'pgw/refresh-mu4e-alert-mode-line)
+  (mu4e-alert-set-default-style 'notifier)
+  (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
+  (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)
+  ;; (defun pgw/refresh-mu4e-alert-mode-line ()
+  ;;   (interactive)
+  ;;   (mu4e~proc-kill)
+  ;;   (mu4e-alert-enable-mode-line-display)
+  ;;   )
+  ;; (run-with-timer 0 60 'pgw/refresh-mu4e-alert-mode-line)
   )
+
+(global-unset-key (kbd "C-x m"))
+(global-set-key (kbd "C-x m n") (lambda () "Open mu4e in a new frame" (interactive) (make-frame '((name . "Mail: mu4e"))) (mu4e)))
+(global-set-key (kbd "C-x m b") (lambda () "Open mu4e in the background" (interactive) (mu4e t)))
+(global-set-key (kbd "C-x m m") 'mu4e)
+(global-set-key (kbd "C-x m c") 'mu4e-compose-new)
 
 (defun pgw/date-block (absolute y1 m1 d1 y2 m2 d2)
   "Block date entry. An adapted version of the `diary-block'
@@ -1301,14 +1306,14 @@ This function uses the variable `pgw/ohs-schoolyear-dates' for the value of holi
                "springstart" (2021 1 4)
                "mononfri" (2021 1 22)
                "springend" (2021 5 13)
-               "holidays" ((2020 9 7) ;; Labor Day
+               "holidays" ((2020 9 7 2020 9 8) ;; Labor Day
                            (2020 11 25 2020 11 27) ;; Thanksgiving Holiday
                            (2020 12 19 2021 1 3) ;; Winter Closure
                            (2021 1 18) ;; MLK Holiday
-                           (2021 2 15) ;; Presidents Day
+                           (2021 2 15 2021 2 16) ;; Presidents Day
                            (2021 2 16) ;; Reading Day (No classes)
                            (2021 3 22 2021 3 26) ;; Spring Break
-                           (2021 5 31)) ;; Memorial Day Holiday
+                           (2021 5 31 2021 6 1)) ;; Memorial Day Holiday
                "noclass" (((2020 10 28 2020 10 30) ;; Parent-Teacher Conferences (no classes)
                            (2020 12 9 2020 12 11) ;; Study Days (no classes)
                            (2020 12 14 2020 12 19) ;; Fall Semester Finals

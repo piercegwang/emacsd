@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Latex Array
+# key: mata
+# --
+\begin{array} $0 \end{array}

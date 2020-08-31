@@ -773,7 +773,7 @@ When not in LaTeX math environment, _{} and ^{} will have dollars."
       ;; Quoted
       (insert (event-basic-type last-command-event))
     ;; Check if we need to switch to math mode
-    (if (not (texmathp)) (cdlatex-dollar))
+    ;; (if (not (texmathp)) (cdlatex-dollar)) ;; pgw/ custom disabled, not having intended effect
     (if (string= (buffer-substring (max (point-min) (- (point) 2)) (point))
                  (concat (char-to-string (event-basic-type last-command-event))
 			 "{"))

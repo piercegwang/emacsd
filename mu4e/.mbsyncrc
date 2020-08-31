@@ -17,6 +17,7 @@ Account pierce.g.wang-gmail
 MaildirStore pierce.g.wang-gmail-local
 Path ~/Maildir/pierce.g.wang/
 Inbox ~/Maildir/pierce.g.wang/INBOX
+Trash [pierce.g.wang].Trash
 # SubFolders Verbatim
 
 Channel pierce.g.wang-gmail-inbox
@@ -102,6 +103,7 @@ Account pierce.wang.violin-gmail
 MaildirStore pierce.wang.violin-gmail-local
 Path ~/Maildir/pierce.wang.violin/
 Inbox ~/Maildir/pierce.wang.violin/INBOX
+Trash [pierce.wang.violin].Trash
 # SubFolders Verbatim
 
 Channel pierce.wang.violin-gmail-inbox
