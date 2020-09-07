@@ -298,6 +298,28 @@ For some functions that I don't need to give errors:
     )
 #+end_src
 
+*** Test network (internet-up-p)
+Test if network is up and running
+#+begin_src emacs-lisp
+  (defun internet-up-p (&optional host)
+    (= 0 (call-process "ping" nil nil nil "-c" "1" "-W" "1"
+                       (if host host "1.1.1.1"))))
+#+end_src
+
+*** Get org link                                                 :keybinds:
+#+begin_src emacs-lisp
+  (defun pgw/org-get-link-at-point ()
+    "Get the link from an org heading"
+    (interactive)
+    (let* ((context (org-element-context))
+           (link (if (eq (car context) 'link)
+                     (org-element-property :path context)
+                   nil)))
+      (if link (kill-new (concat (org-element-property :type context) ":" link)))))
+
+  (global-set-key (kbd "C-c s-l") 'pgw/org-get-link-at-point)
+#+end_src
+
 ** Modifier Keys
 #+begin_src emacs-lisp
   (when (eq system-type 'darwin)
@@ -838,18 +860,24 @@ Custom commands, testing sorting strategy variable
 
 #+begin_src emacs-lisp
   (setq org-agenda-custom-commands
-        '(("q" . "Custom Agenda Views")
+        '(("o" . "OHS")
+          ("of" "OHS Friend Schedules" agenda ""
+           ((org-agenda-span 7)
+            (org-agenda-files
+             (file-expand-wildcards "~/Dropbox/org/notes/OHS/202021/*.org"))))
+          ("l" "Logging View" agenda ""
+           ((org-agenda-span 1)
+            (org-agenda-files
+             (file-expand-wildcards "~/Dropbox/org/*.org"))))
           ("A" "General Agenda" agenda ""
            ((org-agenda-span 1)
             (org-agenda-sorting-strategy
-             '((agenda habit-down time-up deadline-up)))))
-          )
-        )
+             '((agenda habit-down time-up deadline-up)))))))
 #+end_src
 
 **** Files
 #+begin_src emacs-lisp
-  (setq org-agenda-files (append (file-expand-wildcards "~/Dropbox/org/a_*.org")
+  (setq org-agenda-files (append (file-expand-wildcards "~/Dropbox/org/*.org")
                                  (file-expand-wildcards "~/Dropbox/org/calendars/*.org")))
 #+end_src
 
@@ -946,7 +974,9 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
   (setq org-capture-templates
         '(
   ("i" "Inbox" entry (file "~/Dropbox/org/a_inbox.org")
-  "* TODO %?")
+  "* TODO %?
+  %a
+  ")
   ("n" "Quick Note" entry
    (file "~/Dropbox/org/a_inbox.org")
    "* %?
@@ -983,7 +1013,7 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
   :PROPERTIES:
   :CREATED: %U
   :END:" :prepend t)
-  ("m" "Manual" entry (file "~/Dropbox/org/notes.org")
+  ("g" "Manual" entry (file "~/Dropbox/org/notes.org")
   "* %?
   :PROPERTIES:
   :CREATED: %U
@@ -1017,44 +1047,44 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
   ("Stj" "OCS15 - T/Th" entry
    (file+headline "~/Dropbox/org/a_school.org" "_OCS15_")
    "* NEXT %?
-  DEADLINE: %^{Deadline}T")
+  DEADLINE: %^{Deadline}T\n")
   ("Stm" "UM51A - T/Th" entry
    (file+headline "~/Dropbox/org/a_school.org" "_UM51A_")
    "**** NEXT %?
-  DEADLINE: %^{Deadline}T")
+  DEADLINE: %^{Deadline}T\n")
   ("Sts" "OPS10 - M/W" entry
    (file+headline "~/Dropbox/org/a_school.org" "_OPS10_")
    "* NEXT %?
-  DEADLINE: %^{Deadline}T")
+  DEADLINE: %^{Deadline}T\n")
   ("Stp" "OP051 - M/W" entry
    (file+headline "~/Dropbox/org/a_school.org" "_OP051_")
    "* NEXT %?
-  DEADLINE: %^{Deadline}T")
+  DEADLINE: %^{Deadline}T\n")
   ("Stc" "OCRA1 - M/W" entry
    (file+headline "~/Dropbox/org/a_school.org" "_OCRA1_")
    "* NEXT %?
-  DEADLINE: %^{Deadline}T")
+  DEADLINE: %^{Deadline}T\n")
   ("Sr" "School Readings")
   ("Srj" "OCS15 - T/Th" entry
    (file+headline "~/Dropbox/org/a_school.org" "_OCS15_")
    "* NEXT %?
-  DEADLINE: <%<%Y-%m-%d %a 07:15>>")
+  DEADLINE: <%<%Y-%m-%d %a 07:15>>\n")
   ("Srm" "UM51A - T/Th" entry
    (file+headline "~/Dropbox/org/a_school.org" "_UM51A_")
    "**** NEXT %?
-  DEADLINE: <%<%Y-%m-%d %a 08:30>>")
+  DEADLINE: <%<%Y-%m-%d %a 08:30>>\n")
   ("Srs" "OPS10 - M/W" entry
    (file+headline "~/Dropbox/org/a_school.org" "_OPS10_")
    "* NEXT %?
-  DEADLINE: <%<%Y-%m-%d %a 11:00>>")
+  DEADLINE: <%<%Y-%m-%d %a 11:00>>\n")
   ("Srp" "OP051 - M/W" entry
    (file+headline "~/Dropbox/org/a_school.org" "_OP051_")
    "* NEXT %?
-  DEADLINE: <%<%Y-%m-%d %a 14:45>>")
+  DEADLINE: <%<%Y-%m-%d %a 14:45>>\n")
   ("Src" "OCRA1 - M/W" entry
    (file+headline "~/Dropbox/org/a_school.org" "_OCRA1_")
    "* NEXT %?
-  DEADLINE: <%<%Y-%m-%d %a 09:45>>")
+  DEADLINE: <%<%Y-%m-%d %a 09:45>>\n")
   ("M" "Music")
   ("Mc" "Conducting Homework" entry
    (file+headline "~/Dropbox/org/a_music.org" "Homework")
@@ -1234,7 +1264,8 @@ Calendar Setup:
           org-gcal-client-secret "5gUN_ML-yaAgdS6eg4hAZ9qo"
           org-gcal-file-alist '(("pierce.g.wang@gmail.com" .  "~/Dropbox/org/calendars/cal_gmail.org")
                                 ("ihfv2u5n9uf5ksj5484vbe7mj4@group.calendar.google.com" . "~/Dropbox/org/calendars/cal_emacs.org")
-                                ("taiu2dsr8o29c09m7nn1n21t9o@group.calendar.google.com" . "~/Dropbox/org/calendars/cal_sfcm.org"))))
+                                ("taiu2dsr8o29c09m7nn1n21t9o@group.calendar.google.com" . "~/Dropbox/org/calendars/cal_sfcm.org")))
+    (setq org-gcal-notify-p nil))
 #+end_src
 
 
@@ -1276,9 +1307,7 @@ Calendar Setup:
   (use-package evil
     :config
     (evil-mode t)
-    (add-hook 'dired-mode-hook 'evil-emacs-state)
-    (add-hook 'calendar-today-visible-hook 'evil-emacs-state)
-    (add-hook 'calendar-load-hook 'evil-emacs-state)
+    (setq evil-emacs-state-modes (append (default-value 'evil-emacs-state-modes) '(dired-mode calendar-mode image-mode timer-list-mode messages-buffer-mode)))
     )
 #+end_src
 
@@ -1325,7 +1354,6 @@ Smart Python Docstring Formatting
                   (font-lock-mode 1))))
 #+end_src
 
-
 ** Macros
 #+begin_src emacs-lisp
   (fset 'setupworkspace
@@ -1360,10 +1388,6 @@ Smart Python Docstring Formatting
   (fset 'convert_time_to_clock
      [?f ?\[ ?f ?\[ ?d ?0 ?I tab ?C ?L ?O ?C ?K ?: ?  escape ?j ?d ?0 ?i backspace ?- ?- ?\C-c ?\C-c escape ?0 ?j])
   (global-set-key (kbd "C-x C-k 3") 'convert_time_to_clock)
-
-  (fset 'getLink
-     [?\C-c ?\C-l ?\C-  ?\C-a ?\M-w return return])
-  (global-set-key (kbd "C-c s-l") 'getLink)
 
   (fset 'journal_convert
      [?\C-  ?\M-f ?\M-f ?\M-f ?\M-w ?\M-! ?e ?c ?h ?o ?  ?\" ?* ?  ?\s-v ?\" ?  ?> ?> ?  ?j ?o ?u ?r ?n ?a ?l ?. ?o ?r ?g return ?! ?p ?a ?n ?d ?o ?c ?  ?- ?f ?  ?d ?o ?c ?x ?  ?- ?t ?  ?o ?r ?g ?  ?? ?  ?> ?> ?  ?j ?o ?u ?r ?n ?a ?l ?. ?o ?r ?g return ?g ?n])
@@ -1645,6 +1669,7 @@ Custom dired open file function
   (put 'dired-find-alternate-file 'disabled nil)
   (put 'narrow-to-page 'disabled nil)
   (put 'narrow-to-region 'disabled nil)
+  (put 'list-timers 'disabled nil)
 #+end_src
 
 ** browse-url-firefox-program
@@ -1785,6 +1810,39 @@ Allow the function =browse-url-firefox= to open links in firefox using bin. One 
                                           ("/pierce.g.wang/[pierce.g.wang].Starred"   . ?r)
                                           ("/pierce.g.wang/[pierce.g.wang].drafts"    . ?d)
                                           ))))
+     (make-mu4e-context
+      :name "OHS" ;;for pgwang@ohs.stanford.edu
+      :enter-func (lambda () (mu4e-message "Entering context, OHS"))
+      :leave-func (lambda () (mu4e-message "Leaving context, OHS"))
+      :match-func (lambda (msg)
+                    (when msg
+                  (mu4e-message-contact-field-matches
+                   msg '(:from :to :cc :bcc) "pgwang@ohs.stanford.edu")))
+      :vars '((user-mail-address . "pgwang@ohs.stanford.edu")
+              (user-full-name . "Pierce Wang")
+              (mu4e-sent-folder . "/pierce.g.wang/[pierce.g.wang].Sent Mail")
+              (mu4e-drafts-folder . "/pierce.g.wang/[pierce.g.wang].drafts")
+              (mu4e-trash-folder . "/pierce.g.wang/[pierce.g.wang].Trash")
+              (mu4e-refile-folder . "/pierce.g.wang/[pierce.g.wang].All Mail")
+              (mu4e-compose-signature . (concat "Formal Signature\n" "Emacs 27, org-mode 9, mu4e 1.14\n"))
+              (mu4e-compose-format-flowed . t)
+              (smtpmail-queue-dir . "~/Maildir/pierce.g.wang/queue/cur")
+              (message-send-mail-function . smtpmail-send-it)
+              (smtpmail-smtp-user . "pierce.g.wang")
+              (smtpmail-starttls-credentials . (("smtp.gmail.com" 587 nil nil)))
+              (smtpmail-auth-credentials . (expand-file-name "~/.authinfo.gpg"))
+              (smtpmail-default-smtp-server . "smtp.gmail.com")
+              (smtpmail-smtp-server . "smtp.gmail.com")
+              (smtpmail-smtp-service . 587)
+              (smtpmail-debug-info . t)
+              (smtpmail-debug-verbose . t)
+              (mu4e-maildir-shortcuts . ( ("/pierce.g.wang/INBOX"            . ?i)
+                                          ("/pierce.g.wang/[pierce.g.wang].Sent Mail" . ?s)
+                                          ("/pierce.g.wang/[pierce.g.wang].Trash"     . ?t)
+                                          ("/pierce.g.wang/[pierce.g.wang].All Mail"  . ?a)
+                                          ("/pierce.g.wang/[pierce.g.wang].Starred"   . ?r)
+                                          ("/pierce.g.wang/[pierce.g.wang].drafts"    . ?d)
+                                          ))))
         (make-mu4e-context
          :name "work" ;;for pierce.wang.violin
          :enter-func (lambda () (mu4e-message "Entering context work"))
@@ -1836,12 +1894,12 @@ Allow the function =browse-url-firefox= to open links in firefox using bin. One 
     (mu4e-alert-set-default-style 'notifier)
     (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
     (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)
-    ;; (defun pgw/refresh-mu4e-alert-mode-line ()
-    ;;   (interactive)
-    ;;   (mu4e~proc-kill)
-    ;;   (mu4e-alert-enable-mode-line-display)
-    ;;   )
-    ;; (run-with-timer 0 60 'pgw/refresh-mu4e-alert-mode-line)
+    (defun pgw/fetch-mail-and-mu4e ()
+      (interactive)
+      (if (internet-up-p)
+          (mu4e-update-mail-and-index t))
+      )
+    (run-with-timer 60 300 'pgw/fetch-mail-and-mu4e)
     )
 #+end_src
 
@@ -1991,7 +2049,9 @@ Attempt two: macro to make and statements
                    (dayofweek (nth (calendar-day-of-week fulldate) days-of-week))
                    (time (nth 2 info)))
               (goto-char (point-max))
-              (insert (format "\n** %s\n:PROPERTIES:\n:TIMEZONE: UTC\n:END:\n<%d-%02d-%02d %s %s>\n%s"
+              ;; (insert (format "\n** %s\n:PROPERTIES:\n:TIMEZONE: UTC\n:END:\n<%d-%02d-%02d %s %s>\n%s"
+              ;;                 headline year month day dayofweek time desc)))))
+              (insert (format "\n** %s\n<%d-%02d-%02d %s %s>\n%s"
                               headline year month day dayofweek time desc)))))
         (setq current (+ current 1)))))
 
@@ -2025,6 +2085,6 @@ Attempt two: macro to make and statements
 Example usage (run in a dedicated file)
 *** Sync gcal Bash Script
 #+begin_src emacs-lisp :results silent
-  (global-set-key (kbd "C-c s-g o") (lambda () (interactive) (shell-command "bash ~/QScripts/syncgcal.sh")))
+  (global-set-key (kbd "C-c s-g o") (lambda () (interactive) (start-process-shell-command "Running ~/QScripts/syncgcal.sh" nil "bash ~/QScripts/syncgcal.sh")))
 #+end_src
 
