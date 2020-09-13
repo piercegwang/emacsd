@@ -647,8 +647,7 @@ I copied mixed-pitch.el from [[https://gitlab.com/jabranham/mixed-pitch/][this]]
     :load-path "custom_load"
     :config
     ;; (set-face-attribute 'variable-pitch :height 160)
-    (setq mixed-pitch-fixed-pitch-faces '(diff-added diff-context diff-file-header diff-function diff-header diff-hunk-header diff-removed font-latex-math-face font-latex-sedate-face font-latex-warning-face font-latex-sectioning-5-face font-lock-builtin-face font-lock-comment-delimiter-face font-lock-constant-face font-lock-doc-face font-lock-function-name-face font-lock-keyword-face font-lock-negation-char-face font-lock-preprocessor-face font-lock-regexp-grouping-backslash font-lock-regexp-grouping-construct font-lock-string-face font-lock-type-face font-lock-variable-name-face markdown-code-face markdown-gfm-checkbox-face markdown-inline-code-face markdown-language-info-face markdown-language-keyword-face markdown-math-face message-header-name message-header-to message-header-cc message-header-newsgroups message-header-xheader message-header-subject message-header-other mu4e-header-key-face mu4e-header-value-face mu4e-link-face mu4e-contact-face mu4e-compose-separator-face mu4e-compose-header-face org-block org-block-begin-line org-block-end-line org-document-info-keyword org-code org-latex-and-related org-checkbox org-meta-line org-table org-verbatim))
-    (append-to-list 'mixed-pitch-fixed-pitch-faces '(line-number line-number-current-line org-list-dt org-link))
+    (dolist (face '(line-number line-number-current-line org-list-dt org-link)) (add-to-list 'mixed-pitch-fixed-pitch-faces face))
     ;; (add-hook 'text-mode-hook 'mixed-pitch-mode)
     (global-set-key (kbd "C-x v f") 'mixed-pitch-mode)
     )
@@ -973,18 +972,18 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
 
   (setq org-capture-templates
         '(
-  ("i" "Inbox" entry (file "~/Dropbox/org/a_inbox.org")
+  ("i" "Inbox" entry (file "~/Dropbox/org/inbox.org")
   "* TODO %?
   %a
   ")
   ("n" "Quick Note" entry
-   (file "~/Dropbox/org/a_inbox.org")
+   (file "~/Dropbox/org/inbox.org")
    "* %?
   %U")
   ("e" "Events")
-  ("ef" "Emacs Event (Not synced)" entry (file "~/Dropbox/org/a_events.org")
+  ("ef" "Emacs Event (Not synced)" entry (file "~/Dropbox/org/events.org")
    "* %?")
-  ("ee" "Emacs Calendar (Limbo)" entry (file "~/Dropbox/org/a_events.org")
+  ("ee" "Emacs Calendar (Limbo)" entry (file "~/Dropbox/org/events.org")
    "* %^{Title of event}
   SCHEDULED: %^{Scheduled time + duration}T
   :PROPERTIES:
@@ -992,7 +991,7 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
   :END:
   :org-gcal:%?
   :END:" :jump-to-captured t)
-  ("ep" "Gmail Calendar (Limbo)" entry (file "~/Dropbox/org/a_events.org")
+  ("ep" "Gmail Calendar (Limbo)" entry (file "~/Dropbox/org/events.org")
    "* %^{Title of event}
   SCHEDULED: %^{Scheduled time + duration}T
   :PROPERTIES:
@@ -1000,7 +999,7 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
   :END:
   :org-gcal:%?
   :END:" :jump-to-captured t)
-  ("es" "SFCM Calendar (Limbo)" entry (file "~/Dropbox/org/a_sfcm.org")
+  ("es" "SFCM Calendar (Limbo)" entry (file "~/Dropbox/org/sfcm.org")
    "* %^{Title of event}
   SCHEDULED: %^{Scheduled time + duration}T
   :PROPERTIES:
@@ -1029,14 +1028,14 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
   " :kill-buffer t)
   ("m" "Mail")
   ("mt" "Mail task" entry
-   (file "~/Dropbox/org/a_inbox.org")
+   (file "~/Dropbox/org/inbox.org")
    "* NEXT %? :email:
   :PROPERTIES:
   :EMAIL: %a
   :SENDER: %:from
   :END:\n")
   ("mn" "Mail note" entry
-   (file "~/Dropbox/org/a_inbox.org")
+   (file "~/Dropbox/org/inbox.org")
    "* %? :email:
   :PROPERTIES:
   :EMAIL: %a
@@ -1045,59 +1044,59 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
   ("S" "School")
   ("St" "School Tasks")
   ("Stj" "OCS15 - T/Th" entry
-   (file+headline "~/Dropbox/org/a_school.org" "_OCS15_")
+   (file+headline "~/Dropbox/org/school.org" "_OCS15_")
    "* NEXT %?
   DEADLINE: %^{Deadline}T\n")
   ("Stm" "UM51A - T/Th" entry
-   (file+headline "~/Dropbox/org/a_school.org" "_UM51A_")
+   (file+headline "~/Dropbox/org/school.org" "_UM51A_")
    "**** NEXT %?
   DEADLINE: %^{Deadline}T\n")
   ("Sts" "OPS10 - M/W" entry
-   (file+headline "~/Dropbox/org/a_school.org" "_OPS10_")
+   (file+headline "~/Dropbox/org/school.org" "_OPS10_")
    "* NEXT %?
   DEADLINE: %^{Deadline}T\n")
   ("Stp" "OP051 - M/W" entry
-   (file+headline "~/Dropbox/org/a_school.org" "_OP051_")
+   (file+headline "~/Dropbox/org/school.org" "_OP051_")
    "* NEXT %?
   DEADLINE: %^{Deadline}T\n")
   ("Stc" "OCRA1 - M/W" entry
-   (file+headline "~/Dropbox/org/a_school.org" "_OCRA1_")
+   (file+headline "~/Dropbox/org/school.org" "_OCRA1_")
    "* NEXT %?
   DEADLINE: %^{Deadline}T\n")
   ("Sr" "School Readings")
   ("Srj" "OCS15 - T/Th" entry
-   (file+headline "~/Dropbox/org/a_school.org" "_OCS15_")
+   (file+headline "~/Dropbox/org/school.org" "_OCS15_")
    "* NEXT %?
   DEADLINE: <%<%Y-%m-%d %a 07:15>>\n")
   ("Srm" "UM51A - T/Th" entry
-   (file+headline "~/Dropbox/org/a_school.org" "_UM51A_")
+   (file+headline "~/Dropbox/org/school.org" "_UM51A_")
    "**** NEXT %?
   DEADLINE: <%<%Y-%m-%d %a 08:30>>\n")
   ("Srs" "OPS10 - M/W" entry
-   (file+headline "~/Dropbox/org/a_school.org" "_OPS10_")
+   (file+headline "~/Dropbox/org/school.org" "_OPS10_")
    "* NEXT %?
   DEADLINE: <%<%Y-%m-%d %a 11:00>>\n")
   ("Srp" "OP051 - M/W" entry
-   (file+headline "~/Dropbox/org/a_school.org" "_OP051_")
+   (file+headline "~/Dropbox/org/school.org" "_OP051_")
    "* NEXT %?
   DEADLINE: <%<%Y-%m-%d %a 14:45>>\n")
   ("Src" "OCRA1 - M/W" entry
-   (file+headline "~/Dropbox/org/a_school.org" "_OCRA1_")
+   (file+headline "~/Dropbox/org/school.org" "_OCRA1_")
    "* NEXT %?
   DEADLINE: <%<%Y-%m-%d %a 09:45>>\n")
   ("M" "Music")
   ("Mc" "Conducting Homework" entry
-   (file+headline "~/Dropbox/org/a_music.org" "Homework")
+   (file+headline "~/Dropbox/org/music.org" "Homework")
    "* TODO Conducting Homework
   DEADLINE: %^t
   - %?")
   ("V" "Violin")
   ("Vc" "Create Practice Entry" entry
-   (file+olp "~/Dropbox/org/a_violin.org" "Practice Log")
+   (file+olp "~/Dropbox/org/violin.org" "Practice Log")
    "* [%<%Y-%m-%d %a>]
   %t%?")
   ("Vd" "Add practice details" item
-   (file+function "~/Dropbox/org/a_violin.org" pgw/headline_date)
+   (file+function "~/Dropbox/org/violin.org" pgw/headline_date)
    "%?")
   ))
 #+end_src
@@ -1164,10 +1163,7 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
     :config
     (define-key org-cdlatex-mode-map (kbd "H-d") 'cdlatex-dollar)
     (define-key cdlatex-mode-map (kbd "H-d") 'cdlatex-dollar)
-    (add-hook 'org-mode-hook
-              (lambda ()
-                (org-cdlatex-mode)
-                ))
+    (add-hook 'org-mode-hook #'org-cdlatex-mode)
     )
 #+end_src
 
@@ -1307,7 +1303,7 @@ Calendar Setup:
   (use-package evil
     :config
     (evil-mode t)
-    (setq evil-emacs-state-modes (append (default-value 'evil-emacs-state-modes) '(dired-mode calendar-mode image-mode timer-list-mode messages-buffer-mode)))
+    (dolist (mode '(dired-mode calendar-mode image-mode timer-list-mode messages-buffer-mode)) (add-to-list 'evil-emacs-state-modes mode))
     )
 #+end_src
 
@@ -1315,8 +1311,10 @@ Calendar Setup:
 #+begin_src emacs-lisp
   ;; (define-key evil-normal-state-map (kbd "<S-return>") [?m ?` ?o escape ?` ?`])
   ;; (define-key evil-normal-state-map (kbd "<s-S-return>") [?m ?` ?O escape ?` ?`])
-  (define-key evil-motion-state-map (kbd "k") 'previous-line)
-  (define-key evil-motion-state-map (kbd "j") 'next-line)
+  (define-key evil-motion-state-map (kbd "k") 'evil-previous-visual-line)
+  (define-key evil-motion-state-map (kbd "j") 'evil-next-visual-line)
+  (define-key evil-motion-state-map (kbd "g k") 'evil-previous-line)
+  (define-key evil-motion-state-map (kbd "g j") 'evil-next-line)
   (define-key evil-insert-state-map (kbd "C-a") 'beginning-of-visual-line)
   (define-key evil-insert-state-map (kbd "C-e") 'end-of-visual-line)
 #+end_src
