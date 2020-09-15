@@ -67,7 +67,7 @@
        (or
         (name . "*Help*")
         (name . "*info*")
-        (name . "*GNU Emacs*"))))))
+        (name . "*GNU Emacs*"))))) t)
  '(ibuffer-saved-filters
    '(("programming"
       (or
@@ -103,10 +103,12 @@
        (mode . gnus-summary-mode)
        (mode . gnus-article-mode)))))
  '(indent-tabs-mode nil)
+ '(org-agenda-files
+   '("~/Dropbox/org/classes.org" "~/Dropbox/org/events.org" "~/Dropbox/org/inbox.org" "~/Dropbox/org/init.org" "~/Dropbox/org/journal_temp.org" "~/Dropbox/org/links.org" "~/Dropbox/org/music.org" "~/Dropbox/org/notes.org" "~/Dropbox/org/ohs_gcal.org" "~/Dropbox/org/packing.org" "~/Dropbox/org/people.org" "~/Dropbox/org/projects.org" "~/Dropbox/org/random_thoughts.org" "~/Dropbox/org/school.org" "~/Dropbox/org/someday.org" "~/Dropbox/org/tickler.org" "~/Dropbox/org/violin.org" "~/Dropbox/org/calendars/a_event.org" "~/Dropbox/org/calendars/cal_emacs.org" "~/Dropbox/org/calendars/cal_gmail.org" "~/Dropbox/org/calendars/cal_music.org" "~/Dropbox/org/calendars/cal_sfcm.org"))
  '(org-modules
    '(org-bbdb org-bibtex org-docview org-gnus org-habit org-info org-irc org-mhe org-rmail org-w3m org-drill org-learn))
  '(package-selected-packages
-   '(gnuplot all-the-icons mu4e-alert ztree org-superstar treemacs-magit treemacs-evil treemacs tramp org-gcal json-mode org-mode use-package cdlatex org-noter artist-mode python-docstring markdown-mode epa-file framemove doom-themes htmlize lua-mode helm magit elpy exec-path-from-shell smart-mode-line latex auctex evil-visual-mark-mode))
+   '(counsel "ivy" ivy gnuplot all-the-icons mu4e-alert ztree org-superstar treemacs-magit treemacs-evil treemacs tramp org-gcal json-mode org-mode use-package cdlatex org-noter artist-mode python-docstring markdown-mode epa-file framemove doom-themes htmlize lua-mode magit elpy exec-path-from-shell smart-mode-line latex auctex evil-visual-mark-mode))
  '(show-paren-mode nil)
  '(sml/pre-modes-separator (propertize " " 'face 'sml/modes)))
 (custom-set-faces
@@ -114,4 +116,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ivy-current-match ((t (:extend t :background "gray21"))))
  '(line-number ((t (:inherit default :foreground "gray40" :strike-through nil :underline nil :slant normal :weight normal)))))

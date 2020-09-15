@@ -1,4 +1,4 @@
-#+TITLE: Emacs configuration file
+#+TITLE: Emacs Doom configuration file
 #+AUTHOR: Pierce Wang
 #+BABEL: :cache yes
 #+PROPERTY: header-args :tangle yes :results silent
@@ -701,7 +701,7 @@ CLOSED: [2020-08-26 Wed 11:28]
 #+end_src
 
 ** Helm
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (use-package helm
     :config
     (require 'helm-config)
@@ -715,6 +715,34 @@ CLOSED: [2020-08-26 Wed 11:28]
       (define-key lisp-interaction-mode-map [remap completion-at-point] 'helm-lisp-completion-at-point)
       (define-key emacs-lisp-mode-map       [remap completion-at-point] 'helm-lisp-completion-at-point))
     )
+#+end_src
+
+** Ivy
+#+begin_src emacs-lisp :tangle yes
+  (use-package ivy
+    :config
+    (ivy-mode 1)
+    (setq ivy-use-virtual-buffers t)
+    (setq enable-recursive-minibuffers t)
+    ;; enable this if you want `swiper' to use it
+    ;; (setq search-default-mode #'char-fold-to-regexp)
+    (global-set-key "\C-s" 'swiper)
+    (global-set-key (kbd "C-c C-r") 'ivy-resume)
+    (global-set-key (kbd "<f6>") 'ivy-resume)
+    (global-set-key (kbd "M-x") 'counsel-M-x)
+    (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+    (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+    (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+    (global-set-key (kbd "<f1> o") 'counsel-describe-symbol)
+    (global-set-key (kbd "<f1> l") 'counsel-find-library)
+    (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+    (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+    (global-set-key (kbd "C-c g") 'counsel-git)
+    (global-set-key (kbd "C-c j") 'counsel-git-grep)
+    (global-set-key (kbd "C-c k") 'counsel-ag)
+    (global-set-key (kbd "C-x l") 'counsel-locate)
+    (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+    (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history))
 #+end_src
 
 ** Diary
@@ -737,7 +765,7 @@ CLOSED: [2020-08-26 Wed 11:28]
 
 #+begin_src emacs-lisp
   (setq org-directory "~/Dropbox/org")
-  (setq org-default-notes-file (concat org-directory "/a_inbox.org"))
+  (setq org-default-notes-file (concat org-directory "/inbox.org"))
 #+end_src
 
 *** Startup Settings
@@ -758,17 +786,17 @@ Make org-mode files automatically indent.
 
 (define-key global-map "\C-cc" 'org-capture)
   (global-set-key (kbd "H-c o") 
-                  (lambda () (interactive) (find-file (concat org-directory "/a_school.org"))))
+                  (lambda () (interactive) (find-file (concat org-directory "/school.org"))))
   (global-set-key (kbd "H-c p") 
                   (lambda () (interactive) (dired "~/Google Drive/OHS/11th Grade/Semester 2/")))
   (global-set-key (kbd "H-c i") 
-                  (lambda () (interactive) (find-file (concat org-directory "/a_projects.org"))))
+                  (lambda () (interactive) (find-file (concat org-directory "/projects.org"))))
   (global-set-key (kbd "H-c v") 
-                  (lambda () (interactive) (find-file (concat org-directory "/a_violin.org"))))
+                  (lambda () (interactive) (find-file (concat org-directory "/violin.org"))))
   (global-set-key (kbd "H-c n") 
                   (lambda () (interactive) (find-file (concat org-directory "/notes.org"))))
   (global-set-key (kbd "H-c m") 
-                  (lambda () (interactive) (find-file (concat org-directory "/a_music.org"))))
+                  (lambda () (interactive) (find-file (concat org-directory "/music.org"))))
   (global-set-key (kbd "H-c k") 
                   (lambda () (interactive) (find-file (concat org-directory "/links.org"))))
 
@@ -860,10 +888,15 @@ Custom commands, testing sorting strategy variable
 #+begin_src emacs-lisp
   (setq org-agenda-custom-commands
         '(("o" . "OHS")
-          ("of" "OHS Friend Schedules" agenda ""
+          ("of" . "OHS Friend Schedules")
+          ("ofa" "Audrey's Schedule" agenda ""
            ((org-agenda-span 7)
             (org-agenda-files
-             (file-expand-wildcards "~/Dropbox/org/notes/OHS/202021/*.org"))))
+             (file-expand-wildcards "~/Dropbox/org/notes/OHS/202021/audrey_classes.org"))))
+          ("ofj" "Josie's Schedule" agenda ""
+           ((org-agenda-span 7)
+            (org-agenda-files
+             (file-expand-wildcards "~/Dropbox/org/notes/OHS/202021/josie_classes.org"))))
           ("l" "Logging View" agenda ""
            ((org-agenda-span 1)
             (org-agenda-files
@@ -972,13 +1005,17 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
 
   (setq org-capture-templates
         '(
-  ("i" "Inbox" entry (file "~/Dropbox/org/inbox.org")
-  "* TODO %?
+  ("i" "Inbox")
+  ("ii" "Inbox Entry" entry (file "~/Dropbox/org/inbox.org")
+  "* NEXT %?
   %a
   ")
-  ("n" "Quick Note" entry
-   (file "~/Dropbox/org/inbox.org")
-   "* %?
+  ("il" "Inbox w/ Link" entry (file "~/Dropbox/org/inbox.org")
+  "* NEXT %?
+  %a
+  ")
+  ("in" "Quick Note" entry (file "~/Dropbox/org/inbox.org")
+  "* %?
   %U")
   ("e" "Events")
   ("ef" "Emacs Event (Not synced)" entry (file "~/Dropbox/org/events.org")
@@ -1098,7 +1135,13 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
   ("Vd" "Add practice details" item
    (file+function "~/Dropbox/org/violin.org" pgw/headline_date)
    "%?")
-  ))
+  ("f" "Fun")
+  ("fc" "Cookie Clicker Save" entry
+   (file+olp "~/Dropbox/org/notes.org" "Cookie Clicker Run [2020-09-14 Mon]")
+   "* %U
+  ,#+begin_export ascii
+  %?
+  ,#+end_export")))
 #+end_src
 
 *** MobileOrg
@@ -1362,18 +1405,19 @@ Smart Python Docstring Formatting
   ;;   [?# ?+ ?C ?A ?P ?T ?I ?O ?N ?: ?  ?\C-x ?Q return return tab ?\[ ?\[ ?f ?i ?l ?e ?: ?. ?/ ?W ?e ?e ?k ?  ?\C-x ?Q return ?/ ?\C-x ?Q return ?_ ?\C-u ?\M-! ?d ?a ?t ?e ?  ?+ ?% ?H ?% ?M ?% ?S return escape ?e ?a ?. ?p ?n ?g escape ?v ?B ?F ?/ ?l ?y escape ?A ?\] ?\] return escape ?p ?0 ?i ?\M-x ?i ?n ?s ?e ?r ?t ?d ?i ?r ?e ?c ?t ?o ?r ?y return escape ?V ?d ?i ?\C-x ?\C-f ?\C-  ?\C-a backspace ?/ ?U ?s ?e ?r ?s ?/ ?p ?i ?e ?r ?c ?e ?w ?a ?n ?g ?/ ?S ?c ?r ?e ?e ?n ?s ?h ?o ?t ?s return ?s ?\M-< ?\C-z ?/ ?S ?c ?r ?e ?e ?n ?  ?S ?h ?o ?t return ?R ?\C-  ?\C-a backspace ?\s-v backspace return ?\C-x ?k return])
   ;;(global-set-key (kbd "<f9>") 'OHSFigureSave)
 
-  (defun pgw/disable-helm ()
-    "Disable Helm"
-    (interactive)
-    (helm-mode 0))
-  (defun pgw/enable-helm ()
-    "Enable Helm"
-    (interactive)
-    (helm-mode))
-  (global-set-key (kbd "H-x H-h d") 'pgw/disable-helm)
-  (global-set-key (kbd "H-x H-h e") 'pgw/enable-helm)
+  ;; (defun pgw/disable-helm ()
+  ;;   "Disable Helm"
+  ;;   (interactive)
+  ;;   (helm-mode 0))
+  ;; (defun pgw/enable-helm ()
+  ;;   "Enable Helm"
+  ;;   (interactive)
+  ;;   (helm-mode))
+  ;; (global-set-key (kbd "H-x H-h d") 'pgw/disable-helm)
+  ;; (global-set-key (kbd "H-x H-h e") 'pgw/enable-helm)
 
-  ;(fset 'importChineseFlashcards
+  ;; ;(fset 'importChine
+  seFlashcards
   ;   [return ?\C-p ?* ?* ?  ?I ?t ?e ?m ?\C-c ?\C-c ?d ?r ?i ?l ?l return ?\C-n ?\C-a ?\C-z ?f ?= ?x ?x ?\C-z ?\C-k ?\C-n ?\C-a return return ?\C-p ?* ?* ?  ?A ?n ?s ?w ?e ?r ?\C-a ?* ?\C-n ?\C-a ?\C-y ?\; ?  ?\C-a ?\C-n ?\C-n])
   (fset 'convertQuizlet
      [?I ?* ?* ?\S-  ?I ?t ?e ?m ?  ?: ?d ?r ?i ?l ?l ?: return escape ?/ ?= ?= return ?x ?x ?i return return ?* ?* ?* ?  ?A ?n ?s ?w ?e ?r return escape ?\M-\}])
@@ -1590,8 +1634,8 @@ Functions to change:
 
 ** User Configuration
 #+begin_src emacs-lisp
-  (setq user-full-name "Pierce Wang")
-  (setq user-mail-address "pierce.g.wang@gmail.com")
+(setq user-full-name "Pierce Wang"
+      user-mail-address "pierce.g.wang@gmail.com")
 #+end_src
 
 ** IBuffer
@@ -1609,7 +1653,7 @@ Functions to change:
                       (name . "\*Calendar\*")
                       (name . "\*Org Agenda\*")
                       (name . "^diary$")))
-           ("Helm" (name . "\*helm.*"))
+           ;; ("Helm" (name . "\*helm.*"))
            ("Magit" (mode . Magit))
            ("ERC" (mode . erc-mode))
            ("Help" (or (name . "\*Help\*")
