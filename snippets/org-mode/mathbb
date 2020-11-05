@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: SI Unit Single
-# key: si
+# name: Latex mathbb
+# key: bb
 # condition: (org-inside-LaTeX-fragment-p)
 # --
-\si{$0}
+\mathbb{$0}

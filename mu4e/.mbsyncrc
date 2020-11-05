@@ -49,12 +49,12 @@ Create Both
 Expunge Both
 SyncState *
 
-Channel pierce.g.wang-gmail-drafts
-Master :pierce.g.wang-gmail-remote:"[Gmail]/Drafts"
-Slave :pierce.g.wang-gmail-local:"[pierce.g.wang].drafts"
-Create Both
-Expunge Both
-SyncState *
+# Channel pierce.g.wang-gmail-drafts
+# Master :pierce.g.wang-gmail-remote:"[Gmail]/Drafts"
+# Slave :pierce.g.wang-gmail-local:"[pierce.g.wang].drafts"
+# Create Both
+# Expunge Both
+# SyncState *
 
 Channel pierce.g.wang-gmail-trash
 Master :pierce.g.wang-gmail-remote:"[Gmail]/Trash"
@@ -135,12 +135,12 @@ Create Both
 Expunge Both
 SyncState *
 
-Channel pierce.wang.violin-gmail-drafts
-Master :pierce.wang.violin-gmail-remote:"[Gmail]/Drafts"
-Slave :pierce.wang.violin-gmail-local:"[pierce.g.wang].drafts"
-Create Both
-Expunge Both
-SyncState *
+# Channel pierce.wang.violin-gmail-drafts
+# Master :pierce.wang.violin-gmail-remote:"[Gmail]/Drafts"
+# Slave :pierce.wang.violin-gmail-local:"[pierce.g.wang].drafts"
+# Create Both
+# Expunge Both
+# SyncState *
 
 Channel pierce.wang.violin-gmail-trash
 Master :pierce.wang.violin-gmail-remote:"[Gmail]/Trash"

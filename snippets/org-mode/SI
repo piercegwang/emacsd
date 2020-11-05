@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: SI Unit
-# key: SI
+# key: Si
 # condition: (org-inside-LaTeX-fragment-p)
 # --
 \SI{$0}{}

@@ -410,7 +410,7 @@ other, future frames."
 ;(setq org-agenda-include-diary t)
 (setq diary-file "~/Dropbox/org/diary")
 
-(appt-activate 1)
+(appt-activate -1)
 (setq appt-message-warning-time 15)
 (setq diary-comment-start "##")
 
@@ -497,6 +497,10 @@ other, future frames."
          ((org-agenda-span 7)
           (org-agenda-files
            (file-expand-wildcards "~/Dropbox/org/notes/OHS/202021/josie_classes.org"))))
+        ("ofA" "Ariana Schedule" agenda ""
+         ((org-agenda-span 7)
+          (org-agenda-files
+           (file-expand-wildcards "~/Dropbox/org/notes/OHS/202021/ariana_classes.org"))))
         ("l" "Logging View" agenda ""
          ((org-agenda-span 1)
           (org-agenda-files
@@ -504,7 +508,15 @@ other, future frames."
         ("A" "General Agenda" agenda ""
          ((org-agenda-span 1)
           (org-agenda-sorting-strategy
-           '((agenda habit-down time-up deadline-up)))))))
+           '((agenda habit-down time-up deadline-up)))))
+        ("D" "College Deadlines" tags-todo "+collegeapps")
+        ("Q" . "Custom queries")
+        ("Qa" "Query all (Archive included)" search ""
+         ((org-agenda-files (append (file-expand-wildcards (concat org-directory "/*.org"))
+                                    (file-expand-wildcards (concat org-directory "/*.org_archive"))))))
+        ("Ql" "Query Links" search ""
+         ((org-agenda-files (list (concat org-directory "/links.org")
+                                  (concat org-directory "/links.org_archive")))))))
 
 (setq org-agenda-files (append (file-expand-wildcards "~/Dropbox/org/*.org")
                                (file-expand-wildcards "~/Dropbox/org/calendars/*.org")))
@@ -541,7 +553,6 @@ other, future frames."
 ("i" "Inbox")
 ("ii" "Inbox Entry" entry (file "~/Dropbox/org/inbox.org")
 "* NEXT %?
-%a
 ")
 ("il" "Inbox w/ Link" entry (file "~/Dropbox/org/inbox.org")
 "* NEXT %?
@@ -580,12 +591,12 @@ SCHEDULED: %^{Scheduled time + duration}T
 ("L" "Link" entry (file+headline "~/Dropbox/org/links.org" "!Inbox")
 "* [[%?%:link][%:description]]
 :PROPERTIES:
-:CREATED: %U
+:CREATED:  %U
 :END:" :prepend t)
 ("g" "Manual" entry (file "~/Dropbox/org/notes.org")
 "* %?
 :PROPERTIES:
-:CREATED: %U
+:CREATED:  %U
 :END:" :empty-lines 1)
 ("b" "Book" entry (file+headline "~/Dropbox/org/notes.org" "Books")
  "* %^{RATING}p%^{Book Title}")
@@ -672,9 +683,17 @@ DEADLINE: %^t
 ("fc" "Cookie Clicker Save" entry
  (file+olp "~/Dropbox/org/notes.org" "Cookie Clicker Run [2020-09-14 Mon]")
  "* %U
-#+begin_export ascii
 %?
-#+end_export")))
+: %c
+")
+("q" "Quotes" entry
+ (file+olp "~/Dropbox/org/notes.org" "Quotes")
+ "* %?
+:PROPERTIES:
+:DATE:     %U
+:END:
+%^{FROM}p
+")))
 
 ;; Set to the name of the file where new notes will be stored
 (setq org-mobile-inbox-for-pull "~/Dropbox/Apps/MobileOrg/index.org")
@@ -700,6 +719,8 @@ DEADLINE: %^t
   ;; To turn it off only locally, you can insert this:
   ;;
   ;; # -*- buffer-auto-save-file-name: nil; -*-
+  :bind (("C-c s-d e" . org-encrypt-entry)
+         ("C-c s-d d" . org-decrypt-entry))
   )
 
 (with-eval-after-load 'org
@@ -714,6 +735,7 @@ DEADLINE: %^t
 (require 'ox-latex)
 
 (use-package cdlatex
+  :after org
   :config
   (define-key org-cdlatex-mode-map (kbd "H-d") 'cdlatex-dollar)
   (define-key cdlatex-mode-map (kbd "H-d") 'cdlatex-dollar)
@@ -760,6 +782,8 @@ DEADLINE: %^t
         ("pages" :components ("pages-notes" "pages-static"))
         ))
 
+(setq org-html-validation-link nil)
+
 (use-package org-noter
   :after org
   :ensure t
@@ -774,14 +798,17 @@ DEADLINE: %^t
   :bind (("C-c s-g p" . org-gcal-post-at-point)
          ("C-c s-g s" . org-gcal-sync)
          ("C-c s-g f" . org-gcal-fetch)
-         ("C-c s-g d" . org-gcal-delete-at-point))
+         ("C-c s-g d" . org-gcal-delete-at-point)
+         ("C-c s-g b s" . org-gcal-sync-buffer)
+         ("C-c s-g b f" . org-gcal-sync-buffer))
   :config
   (setq org-gcal-client-id "439150530674-aab9ti8n7t80r001qmccgb2i52005f18.apps.googleusercontent.com"
         org-gcal-client-secret "5gUN_ML-yaAgdS6eg4hAZ9qo"
         org-gcal-file-alist '(("pierce.g.wang@gmail.com" .  "~/Dropbox/org/calendars/cal_gmail.org")
                               ("ihfv2u5n9uf5ksj5484vbe7mj4@group.calendar.google.com" . "~/Dropbox/org/calendars/cal_emacs.org")
                               ("taiu2dsr8o29c09m7nn1n21t9o@group.calendar.google.com" . "~/Dropbox/org/calendars/cal_sfcm.org")))
-  (setq org-gcal-notify-p nil))
+  (setq org-gcal-notify-p nil)
+  (setq org-gcal-remove-api-cancelled-events t))
 
 (setq TeX-engine 'xetex)
 (setq latex-run-command "xetex")
@@ -822,6 +849,7 @@ DEADLINE: %^t
 (define-key evil-insert-state-map (kbd "C-e") 'end-of-visual-line)
 
 (add-hook 'prog-mode-hook #'hs-minor-mode)
+(electric-pair-mode)
 
 (use-package python-docstring
   :load-path "site-lisp/python-docstring-mode")
@@ -829,6 +857,7 @@ DEADLINE: %^t
 (elpy-enable)
 (add-hook 'elpy-mode-hook
           'python-docstring-mode)
+(setq elpy-rpc-backend "jedi")
 
 (setq auto-mode-alist
       (cons '("\\.m$" . octave-mode) auto-mode-alist))
@@ -1062,6 +1091,9 @@ If the input is non-empty, it is inserted at point."
   mu4e-compose-signature-auto-include nil
   mu4e-compose-format-flowed t); tell mu4e to use w3m for html rendering
 
+;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+(setq mu4e-sent-messages-behavior 'delete)
+
 ;; enable inline images
 (setq mu4e-view-show-images t)
 
@@ -1105,7 +1137,7 @@ If the input is non-empty, it is inserted at point."
 (add-hook 'mu4e-view-mode-hook #'visual-line-mode)
 
 ;; every new email composition gets its own frame!
-(setq mu4e-compose-in-new-frame t)
+(setq mu4e-compose-in-new-frame nil)
 
 (require 'smtpmail)
 
@@ -1260,7 +1292,7 @@ If the input is non-empty, it is inserted at point."
     (if (internet-up-p)
         (mu4e-update-mail-and-index t))
     )
-  (run-with-timer 60 300 'pgw/fetch-mail-and-mu4e)
+  ;; (run-with-timer 60 300 'pgw/fetch-mail-and-mu4e)
   )
 
 (global-unset-key (kbd "C-x m"))
@@ -1383,24 +1415,24 @@ This function uses the variable `pgw/ohs-schoolyear-dates' for the value of holi
          data ("fallstart" (2020 8 19)
                "fallend" (2020 12 19)
                "springstart" (2021 1 4)
-               "mononfri" (2021 1 22)
+               "mononfri" (2021 1 19)
                "springend" (2021 5 13)
                "holidays" ((2020 9 7 2020 9 8) ;; Labor Day
                            (2020 11 25 2020 11 27) ;; Thanksgiving Holiday
                            (2020 12 19 2021 1 3) ;; Winter Closure
-                           (2021 1 18) ;; MLK Holiday
-                           (2021 2 15 2021 2 16) ;; Presidents Day
+                           (2021 1 18 2021 1 19) ;; MLK Holiday
+                           (2021 2 15) ;; Presidents Day
                            (2021 2 16) ;; Reading Day (No classes)
                            (2021 3 22 2021 3 26) ;; Spring Break
                            (2021 5 31 2021 6 1)) ;; Memorial Day Holiday
-               "noclass" (((2020 10 28 2020 10 30) ;; Parent-Teacher Conferences (no classes)
-                           (2020 12 9 2020 12 11) ;; Study Days (no classes)
-                           (2020 12 14 2020 12 19) ;; Fall Semester Finals
-                           (2021 1 4 2021 1 8) ;; Reading Week
-                           (2021 5 17 2021 5 19) ;; Study Days
-                           (2021 5 20 2021 5 21) ;; Spring Semester Finals
-                           (2021 5 24 2021 5 27) ;; Spring Semester Finals
-                           )))))
+               "noclasses" ((2020 10 28 2020 10 30) ;; Parent-Teacher Conferences (no classes)
+                            (2020 12 9 2020 12 11) ;; Study Days (no classes)
+                            (2020 12 14 2020 12 19) ;; Fall Semester Finals
+                            (2021 1 4 2021 1 8) ;; Reading Week
+                            (2021 5 17 2021 5 19) ;; Study Days
+                            (2021 5 20 2021 5 21) ;; Spring Semester Finals
+                            (2021 5 24 2021 5 27) ;; Spring Semester Finals
+                            ))))
 
 (global-set-key (kbd "C-c s-g o") (lambda () (interactive) (start-process-shell-command "Running ~/QScripts/syncgcal.sh" nil "bash ~/QScripts/syncgcal.sh")))
 

@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: SI Unit Single
-# key: si
+# name: Latex rm
+# key: rm
 # condition: (org-inside-LaTeX-fragment-p)
 # --
-\si{$0}
+\rm $0
