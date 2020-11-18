@@ -320,6 +320,20 @@ Test if network is up and running
   (global-set-key (kbd "C-c s-l") 'pgw/org-get-link-at-point)
 #+end_src
 
+*** Make-shell
+
+Make a shell instance with name
+https://stackoverflow.com/questions/2540997/create-more-than-one-eshell-instance-in-emacs/2541530#2541530
+
+#+begin_src emacs-lisp
+  (defun make-shell (name)
+    "Create a shell buffer named NAME."
+    (interactive "sName: ")
+    (setq name (concat "$" name))
+    (eshell 4)
+    (rename-buffer name))
+#+end_src
+
 ** Modifier Keys
 #+begin_src emacs-lisp
   (when (eq system-type 'darwin)
@@ -389,7 +403,8 @@ Test if network is up and running
   (use-package all-the-icons)
 #+end_src
 
-*** Doom Theme
+*** CANCELLED Doom Theme
+CLOSED: [2020-11-17 Tue 22:39]
 Favorite themes:
 
 1. outrun-electric
@@ -401,7 +416,7 @@ Light themes:
 - solarized-light
 - doom-acario-light
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (use-package doom-themes
     :config
     ;; Global settings (defaults)
@@ -441,6 +456,12 @@ CLOSED: [2020-01-13 Mon 17:16]
    `(org-habit-alert-face ((t (:foreground ,(doom-blend 'yellow 'fg 0.1)))))
    `(org-habit-overdue-face ((t (:foreground ,(doom-blend 'red 'fg 0.1)))))
    )
+#+end_src
+
+*** Theme
+
+#+begin_src emacs-lisp
+  (load-theme 'modus-operandi)
 #+end_src
 
 *** Frame Resize Pixelwise
@@ -1069,7 +1090,7 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
    "* %^{RATING}p%^{Book Title}")
   ("j" "Journal" entry
   (file+olp+datetree "~/Dropbox/org/orgjournal.org.gpg")
-  "* %^{RATING}p%?
+  "* %?
   :PROPERTIES:
   :LOGGED: %^{Logged Time}U
   :END:
@@ -1236,7 +1257,7 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
 
 #+begin_src emacs-lisp
   (setq org-format-latex-options
-        '(:foreground "#d6d6d4" :background default 
+        '(:foreground "#000000" :background default 
                       :scale 1.4
                       :html-foreground "Black" :html-background "Transparent"
                       :html-scale 1.0 
@@ -1426,6 +1447,25 @@ Smart Python Docstring Formatting
               (auto-fill-mode 1)
               (if (eq window-system 'x)
                   (font-lock-mode 1))))
+#+end_src
+
+*** Java
+
+#+begin_src emacs-lisp
+  (use-package projectile)
+  (use-package flycheck)
+  (use-package yasnippet :config (yas-global-mode))
+  (use-package lsp-mode :hook ((lsp-mode . lsp-enable-which-key-integration))
+    :config (setq lsp-completion-enable-additional-text-edit nil))
+  (use-package hydra)
+  (use-package company)
+  (use-package lsp-ui)
+  (use-package which-key :config (which-key-mode))
+  (use-package lsp-java :config (add-hook 'java-mode-hook 'lsp))
+  (use-package dap-mode :after lsp-mode :config (dap-auto-configure-mode))
+  (use-package dap-java :ensure nil)
+  (use-package lsp-ivy)
+  (use-package lsp-treemacs)
 #+end_src
 
 ** Macros

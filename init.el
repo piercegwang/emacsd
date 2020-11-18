@@ -188,6 +188,13 @@ No spaces are allowed in the input of this function"
 
 (global-set-key (kbd "C-c s-l") 'pgw/org-get-link-at-point)
 
+(defun make-shell (name)
+  "Create a shell buffer named NAME."
+  (interactive "sName: ")
+  (setq name (concat "$" name))
+  (eshell 4)
+  (rename-buffer name))
+
 (when (eq system-type 'darwin)
   (with-no-warnings
     (setq mac-option-modifier 'meta)
@@ -243,32 +250,7 @@ No spaces are allowed in the input of this function"
 
 (use-package all-the-icons)
 
-(use-package doom-themes
-  :config
-  ;; Global settings (defaults)
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-      doom-themes-enable-italic t) ; if nil, italics is universally disabled
-
-  ;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
-  ;; may have their own settings.
-  (load-theme 'doom-outrun-electric t)
-
-  ;; Enable flashing mode-line on errors
-  (doom-themes-visual-bell-config)
-
-  ;; Enable custom neotree theme (all-the-icons must be installed!)
-  ;; (doom-themes-neotree-config)
-  ;; or for treemacs users
-  (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
-  (doom-themes-treemacs-config)
-
-  ;; Doom themes fontifies #hashtags and @at-tags by default.
-  ;; To disable this:
-  (setq doom-org-special-tags nil)
-
-  ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config)
-  )
+(load-theme 'modus-operandi)
 
 (setq frame-resize-pixelwise t)
 
@@ -602,7 +584,7 @@ SCHEDULED: %^{Scheduled time + duration}T
  "* %^{RATING}p%^{Book Title}")
 ("j" "Journal" entry
 (file+olp+datetree "~/Dropbox/org/orgjournal.org.gpg")
-"* %^{RATING}p%?
+"* %?
 :PROPERTIES:
 :LOGGED: %^{Logged Time}U
 :END:
@@ -743,7 +725,7 @@ DEADLINE: %^t
   )
 
 (setq org-format-latex-options
-      '(:foreground "#d6d6d4" :background default 
+      '(:foreground "#000000" :background default 
                     :scale 1.4
                     :html-foreground "Black" :html-background "Transparent"
                     :html-scale 1.0 
@@ -867,6 +849,21 @@ DEADLINE: %^t
             (auto-fill-mode 1)
             (if (eq window-system 'x)
                 (font-lock-mode 1))))
+
+(use-package projectile)
+(use-package flycheck)
+(use-package yasnippet :config (yas-global-mode))
+(use-package lsp-mode :hook ((lsp-mode . lsp-enable-which-key-integration))
+  :config (setq lsp-completion-enable-additional-text-edit nil))
+(use-package hydra)
+(use-package company)
+(use-package lsp-ui)
+(use-package which-key :config (which-key-mode))
+(use-package lsp-java :config (add-hook 'java-mode-hook 'lsp))
+(use-package dap-mode :after lsp-mode :config (dap-auto-configure-mode))
+(use-package dap-java :ensure nil)
+(use-package lsp-ivy)
+(use-package lsp-treemacs)
 
 (fset 'setupworkspace
    [?\C-c ?a ?A ?. ?\C-x ?0 ?\C-x ?3 ?\H-l ?\H-\C-x ?o ?\C-x ?2 ?\C-u ?7 ?\C-x ?^ ?\H-j ?\H-c ?i ?\H-h ?\H-c ?o ?\H-l])
