@@ -4,6 +4,7 @@
 #+PROPERTY: header-args :tangle yes :results silent
 #+STARTUP: content indent
 #+TODO: TODO(t) | DISABLED(d)
+#+SETUPFILE: /Users/piercewang/Dropbox/org/templates/general/web.org
 * Credits
 Inspired by [[https://github.com/freetonik/emacs-dotfiles][freetonik]]'s setup. Check out his podcast!
 * Installing
@@ -461,7 +462,6 @@ Light themes:
 
 *** DISABLED Light Theme
 CLOSED: [2020-11-29 Sun 11:28]
-*Disabled*
 
 #+begin_src emacs-lisp :tangle no
   (load-theme 'modus-operandi)
@@ -519,7 +519,6 @@ Windows and Frames are different than one would now intuitively think. Windows e
 ** Fonts
 *** DISABLED Chinese Font with English Font             :ARCHIVE:
 CLOSED: [2020-11-29 Sun 11:28]
-*Disabled*
 Special Fonts config for ease of zooming chinese and english fonts at same rate.
 
 #+begin_src emacs-lisp :tangle no
@@ -697,7 +696,6 @@ Still figuring this out, just switched to powerline!
 
 *** DISABLED Smart Mode Line
 CLOSED: [2020-11-29 Sun 11:30]
-*Disabled*
 #+begin_src emacs-lisp :tangle no
   (use-package smart-mode-line
     :config
@@ -726,7 +724,6 @@ CLOSED: [2020-11-29 Sun 11:30]
 
 *** DISABLED Time display
 CLOSED: [2020-11-29 Sun 11:30]
-*Disabled*
 #+begin_src emacs-lisp :tangle no
   (setq display-time-format "%a %m/%d %H:%M")
   (display-time-mode)
@@ -734,7 +731,6 @@ CLOSED: [2020-11-29 Sun 11:30]
 
 *** DISABLED Battery display
 CLOSED: [2020-11-29 Sun 11:30]
-*Disabled*
 #+begin_src emacs-lisp :tangle no
   (setq battery-mode-line-format " [%b%p%%]")
   (display-battery-mode)
@@ -743,7 +739,6 @@ CLOSED: [2020-11-29 Sun 11:30]
 ** Narrowing Frameworks
 *** DISABLED Helm
 CLOSED: [2020-11-29 Sun 11:31]
-*Disabled*
 #+begin_src emacs-lisp :tangle no
   (use-package helm
     :config
@@ -907,7 +902,6 @@ Make org-mode files automatically indent.
 
 **** DISABLED Hydra for Filtering                                :ARCHIVE:
 CLOSED: [2020-11-29 Sun 11:31]
-*Disabled*
 A hydra to quickly use different filter presets.
 Presents:
 - School-related items
@@ -979,7 +973,6 @@ Custom commands, testing sorting strategy variable
 
 *** DISABLED org-super-agenda
 CLOSED: [2019-10-08 Tue 19:00]
-*Disabled*
 Testing out org-super-agenda. Code kept here in case I want to experiemnt in the future. However, for now, I've decided that tags and filtering is the best option for me.
 #+begin_src emacs-lisp :tangle no
   (use-package org-super-agenda
@@ -1753,7 +1746,6 @@ Functions to change:
 
 *** DISABLED IBuffer
 CLOSED: [2020-11-24 Tue 00:50]
-*Disabled*
 #+begin_src emacs-lisp :tangle no
   (use-package ibuffer
     :config
@@ -2160,7 +2152,6 @@ Unset default compose message and set personal keybinds.
 ** OHS
 *** DISABLED Schoolyear Calculation for sexp Diary Entries        :ARCHIVE:
 CLOSED: [2020-11-29 Sun 11:41]
-*Disabled*
 
 Attempt two: macro to make and statements
 #+begin_src emacs-lisp :tangle no
