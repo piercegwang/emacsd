@@ -7,9 +7,11 @@
 * Credits
 Inspired by [[https://github.com/freetonik/emacs-dotfiles][freetonik]]'s setup. Check out his podcast!
 * Installing
-This config works best with brew's emacs (26.1)
+This config works best with [[https://github.com/d12frosted/homebrew-emacs-plus][emacs-plus]] (27.1)
 #+begin_src sh :tangle no
-  brew cask install emacs
+  brew tap d12frosted/emacs-plus
+  brew install emacs-plus
+  ln -s /usr/local/opt/emacs-plus/Emacs.app /Applications/Emacs.app
 #+end_src
 
 ** Dependencies
