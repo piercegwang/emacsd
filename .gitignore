@@ -22,3 +22,5 @@ image-dired/
 recentf
 workspace/
 transient/
+init.elc
+init.el
