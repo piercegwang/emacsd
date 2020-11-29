@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: method documentation
+# key: /**m
+# --
+/**
+ * @param 
+ * @return 
+ */

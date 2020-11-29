@@ -15,3 +15,10 @@ org-gcal/
 persist/
 elpa/
 eshell/
+.dap-breakpoints
+.lsp-session-v1
+eclipse.jdt.ls/
+image-dired/
+recentf
+workspace/
+transient/

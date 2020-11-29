@@ -3,6 +3,7 @@
 #+BABEL: :cache yes
 #+PROPERTY: header-args :tangle yes :results silent
 #+STARTUP: content indent
+#+TODO: TODO(t) | DISABLED(d)
 * Credits
 Inspired by [[https://github.com/freetonik/emacs-dotfiles][freetonik]]'s setup. Check out his podcast!
 * Installing
@@ -403,8 +404,7 @@ https://stackoverflow.com/questions/2540997/create-more-than-one-eshell-instance
   (use-package all-the-icons)
 #+end_src
 
-*** CANCELLED Doom Theme
-CLOSED: [2020-11-17 Tue 22:39]
+*** Doom Theme
 Favorite themes:
 
 1. outrun-electric
@@ -416,7 +416,7 @@ Light themes:
 - solarized-light
 - doom-acario-light
 
-#+begin_src emacs-lisp :tangle no
+#+begin_src emacs-lisp
   (use-package doom-themes
     :config
     ;; Global settings (defaults)
@@ -445,8 +445,8 @@ Light themes:
     )
 #+end_src
 
-**** CANCELLED Set Orgmode Agenda Stuff
-CLOSED: [2020-01-13 Mon 17:16]
+**** DISABLED Set Orgmode Agenda Stuff
+CLOSED: [2020-11-29 Sun 11:26]
 #+begin_src emacs-lisp :tangle no
   ;; this must be used after loading the theme with (load-theme THEME-NAME t)
   (custom-set-faces
@@ -458,9 +458,10 @@ CLOSED: [2020-01-13 Mon 17:16]
    )
 #+end_src
 
-*** Theme
+*** DISABLED Light Theme
+CLOSED: [2020-11-29 Sun 11:28]
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (load-theme 'modus-operandi)
 #+end_src
 
@@ -514,8 +515,8 @@ Windows and Frames are different than one would now intuitively think. Windows e
 #+end_src
 
 ** Fonts
-*** CANCELLED Chinese Font with English Font                      :ARCHIVE:
-CLOSED: [2019-12-22 Sun 18:44]
+*** DISABLED Chinese Font with English Font             :ARCHIVE:
+CLOSED: [2020-11-29 Sun 11:28]
 Special Fonts config for ease of zooming chinese and english fonts at same rate.
 
 #+begin_src emacs-lisp :tangle no
@@ -689,7 +690,11 @@ I copied mixed-pitch.el from [[https://gitlab.com/jabranham/mixed-pitch/][this]]
 
 ** Mode Line
 
-#+begin_src emacs-lisp
+Still figuring this out, just switched to powerline!
+
+*** DISABLED Smart Mode Line
+CLOSED: [2020-11-29 Sun 11:30]
+#+begin_src emacs-lisp :tangle no
   (use-package smart-mode-line
     :config
     (setq rm-blacklist '(" hl-p" " WK" " yas" " Undo-Tree" " hs")
@@ -701,27 +706,37 @@ I copied mixed-pitch.el from [[https://gitlab.com/jabranham/mixed-pitch/][this]]
     )
 #+end_src
 
+*** Powerline
+
+#+begin_src emacs-lisp
+  (use-package powerline
+    :ensure t
+    :config (powerline-default-theme))
+#+end_src
+
 *** Other Configuration
 #+begin_src emacs-lisp
   (size-indication-mode 1)
   (line-number-mode -1)
 #+end_src
 
-*** CANCELLED Time display
-CLOSED: [2020-08-21 Fri 11:35]
+*** DISABLED Time display
+CLOSED: [2020-11-29 Sun 11:30]
 #+begin_src emacs-lisp :tangle no
   (setq display-time-format "%a %m/%d %H:%M")
   (display-time-mode)
 #+end_src
 
-*** CANCELLED Battery display
-CLOSED: [2020-08-26 Wed 11:28]
+*** DISABLED Battery display
+CLOSED: [2020-11-29 Sun 11:30]
 #+begin_src emacs-lisp :tangle no
   (setq battery-mode-line-format " [%b%p%%]")
   (display-battery-mode)
 #+end_src
 
-** Helm
+** Narrowing Frameworks
+*** DISABLED Helm
+CLOSED: [2020-11-29 Sun 11:31]
 #+begin_src emacs-lisp :tangle no
   (use-package helm
     :config
@@ -738,7 +753,7 @@ CLOSED: [2020-08-26 Wed 11:28]
     )
 #+end_src
 
-** Ivy
+*** Ivy
 #+begin_src emacs-lisp :tangle yes
   (use-package ivy
     :config
@@ -799,7 +814,7 @@ Make org-mode files automatically indent.
 
 #+begin_src emacs-lisp
   (setq org-todo-keywords
-        '((sequence "NEXT(n)" "TODO(t)" "IN-PROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)" "DELEGATED(g)")))
+        '((sequence "NEXT(n)" "TODO(t)" "IN-PROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "DISABLED(c)" "DELEGATED(g)")))
 #+end_src
 
 *** Keybinds
@@ -883,8 +898,8 @@ Make org-mode files automatically indent.
   (setq org-agenda-max-entries nil)
 #+end_src
 
-**** CANCELLED Hydra for Filtering                               :ARCHIVE:
-CLOSED: [2019-10-08 Tue 20:17]
+**** DISABLED Hydra for Filtering                                :ARCHIVE:
+CLOSED: [2020-11-29 Sun 11:31]
 A hydra to quickly use different filter presets.
 Presents:
 - School-related items
@@ -954,7 +969,7 @@ Custom commands, testing sorting strategy variable
                                "......" "----------------"))
 #+end_src
 
-*** CANCELLED org-super-agenda
+*** DISABLED org-super-agenda
 CLOSED: [2019-10-08 Tue 19:00]
 Testing out org-super-agenda. Code kept here in case I want to experiemnt in the future. However, for now, I've decided that tags and filtering is the best option for me.
 #+begin_src emacs-lisp :tangle no
@@ -1255,9 +1270,12 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
 
 **** Fragments
 
+
+
 #+begin_src emacs-lisp
   (setq org-format-latex-options
-        '(:foreground "#000000" :background default 
+        ;; '(:foreground "#000000" :background default ;; light theme
+        '(:foreground "#d6d6d4" :background default ;; dark theme
                       :scale 1.4
                       :html-foreground "Black" :html-background "Transparent"
                       :html-scale 1.0 
@@ -1359,6 +1377,11 @@ Calendar Setup:
     (setq org-gcal-remove-api-cancelled-events t))
 #+end_src
 
+*** org-reveal
+
+#+begin_src emacs-lisp
+  (setq org-reveal-root "file:///Users/piercewang/Documents/projects/revealjs/reveal.js-4.1.0")
+#+end_src
 
 ** LaTeX
 #+begin_src emacs-lisp
@@ -1398,8 +1421,7 @@ Calendar Setup:
   (use-package evil
     :config
     (evil-mode t)
-    (dolist (mode '(dired-mode calendar-mode image-mode timer-list-mode messages-buffer-mode)) (add-to-list 'evil-emacs-state-modes mode))
-    )
+    (dolist (mode '(dired-mode calendar-mode image-mode timer-list-mode messages-buffer-mode bufler-list-mode)) (add-to-list 'evil-emacs-state-modes mode)))
 #+end_src
 
 *** Normal Mode Keybinds
@@ -1460,7 +1482,6 @@ Smart Python Docstring Formatting
   (use-package hydra)
   (use-package company)
   (use-package lsp-ui)
-  (use-package which-key :config (which-key-mode))
   (use-package lsp-java :config (add-hook 'java-mode-hook 'lsp))
   (use-package dap-mode :after lsp-mode :config (dap-auto-configure-mode))
   (use-package dap-java :ensure nil)
@@ -1569,8 +1590,8 @@ For files changed by dropbox and also dired buffers.
 
 ** Calendar
 #+begin_src emacs-lisp
-  (setq calendar-latitude 37.550201)
-  (setq calendar-longitude -121.980827)
+  (setq calendar-latitude 37.759995)
+  (setq calendar-longitude -122.427046)
   (setq calendar-location-name "Fremont, CA")
   (add-hook 'calendar-mode-hook
       (lambda ()
@@ -1585,6 +1606,8 @@ Set date style to ISO
 #+end_src
 
 ** Artist Mode
+
+Artist mode is amazing! Configure some quick keybinds...
 #+begin_src emacs-lisp
   (add-hook 'artist-mode-hook
             (lambda ()
@@ -1597,6 +1620,8 @@ Set date style to ISO
               (local-set-key (kbd "<f5>") 'artist-select-op-ellipse))
             )
 #+end_src
+
+Also remember, can use <middle mouse button> to see ht emenu of options.
 
 ** Image Mode
 #+begin_src emacs-lisp
@@ -1611,14 +1636,18 @@ Set date style to ISO
 Activate =flyspell-mode= automatically in all school files.
 #+begin_src elisp
   (defun pgw/turn-on-flyspell-hook ()
-    (cond ((string-match "^/Users/piercewang/Google Drive/OHS/" (if (eq buffer-file-name nil) "" buffer-file-name))
-           (flyspell-mode 1))))
+    (if (or (string-match "^/Users/piercewang/Google Drive/OHS/" (if (eq buffer-file-name nil) "" buffer-file-name))
+            (string-match "^/Users/piercewang/Dropbox/org/notes/college/" (if (eq buffer-file-name nil) "" buffer-file-name)))
+        (flyspell-mode 1)))
 
   (add-hook 'text-mode-hook 'pgw/turn-on-flyspell-hook)
 #+end_src
 
 ** Games
 *** Tetris
+
+I love Emacs Tetris!
+
 #+begin_src emacs-lisp
   (require 'tetris)
   (define-key tetris-mode-map (kbd "z") 'tetris-rotate-prev)
@@ -1626,6 +1655,8 @@ Activate =flyspell-mode= automatically in all school files.
 #+end_src
 
 *** Retris
+
+Doesn't work as of Emacs 27.1 :( maybe someday...
 #+begin_src emacs-lisp
   (use-package retris
     :load-path "site-lisp/retris")
@@ -1668,9 +1699,8 @@ Insert Org-mode Image
   (global-set-key (kbd "<f8>") 'insert-org-image)
 #+end_src
 
-*** CANCELLED which-key
-CLOSED: [2020-01-15 Wed 22:36]
-#+begin_src emacs-lisp :tangle no
+*** which-key
+#+begin_src emacs-lisp
   (use-package which-key
     :config
     (which-key-mode)
@@ -1685,13 +1715,12 @@ CLOSED: [2020-01-15 Wed 22:36]
   (global-set-key (kbd "M-v") (lambda () (interactive) (scroll-down-command 1)))
 #+end_src
 
-** Resizing Windows
-Hydra for resizing windows.
+** Hydra for Resizing Windows
 
 Functions to change:
-(enlarge-window)
-(shrink-window-horizontally)
-(enlarge-window-horizontally)
+~(enlarge-window)~
+~(shrink-window-horizontally)~
+~(enlarge-window-horizontally)~
 
 #+begin_src emacs-lisp
   (defhydra hydra-windowmanage (global-map "H-c ^")
@@ -1711,8 +1740,11 @@ Functions to change:
       user-mail-address "pierce.g.wang@gmail.com")
 #+end_src
 
-** IBuffer
-#+begin_src emacs-lisp
+** Buffer Mangement
+
+*** DISABLED IBuffer
+CLOSED: [2020-11-24 Tue 00:50]
+#+begin_src emacs-lisp :tangle no
   (use-package ibuffer
     :config
     (global-set-key (kbd "C-x C-b") 'ibuffer))
@@ -1737,6 +1769,85 @@ Functions to change:
             (lambda ()
               (ibuffer-switch-to-saved-filter-groups "default")))
   (define-key ibuffer-mode-map (kbd "P") nil)
+#+end_src
+
+*** Bufler - Alphapapa
+
+#+begin_src emacs-lisp
+  (use-package bufler
+    :bind (("C-x C-b" . bufler)
+           ("C-x b" . bufler-switch-buffer))
+    :config
+    (setf bufler-groups
+          (bufler-defgroups
+            (group
+             ;; Subgroup collecting all named workspaces.
+             (auto-workspace))
+            (group
+             ;; Subgroup collecting all `help-mode' and `info-mode' buffers.
+             (group-or "*Help/Info*"
+                       (mode-match "*Help*" (rx bos "help-"))
+                       (mode-match "*Info*" (rx bos "info-"))))
+            (group
+             ;; Subgroup collecting all special buffers (i.e. ones that are not
+             ;; file-backed), except `magit-status-mode' buffers (which are allowed to fall
+             ;; through to other groups, so they end up grouped with their project buffers).
+             (group-and "*Special*"
+                        (lambda (buffer)
+                          (unless (or (funcall (mode-match "Magit" (rx bos "magit-status"))
+                                               buffer)
+                                      (funcall (mode-match "Dired" (rx bos "dired"))
+                                               buffer)
+                                      (funcall (auto-file) buffer))
+                            "*Special*")))
+             (group
+              ;; Subgroup collecting these "special special" buffers
+              ;; separately for convenience.
+              (name-match "**Special**"
+                          (rx bos "*" (or "Messages" "Warnings" "scratch" "Backtrace") "*")))
+             (group
+              ;; Subgroup collecting all other Magit buffers, grouped by directory.
+              (mode-match "*Magit* (non-status)" (rx bos (or "magit" "forge") "-"))
+              (auto-directory))
+             ;; Remaining special buffers are grouped automatically by mode.
+             (auto-mode))
+            ;; All buffers under "~/.emacs.d" (or wherever it is).
+            (dir user-emacs-directory)
+            (group
+             ;; Subgroup collecting buffers in `org-directory' (or "~/org" if
+             ;; `org-directory' is not yet defined).
+             (dir (if (bound-and-true-p org-directory)
+                      org-directory
+                    "~/org"))
+             (dir "~/Dropbox/org/notes/")
+             (dir "~/Dropbox/org/notes/college/essays/" 1)
+             (group
+              ;; Subgroup collecting indirect Org buffers, grouping them by file.
+              ;; This is very useful when used with `org-tree-to-indirect-buffer'.
+              (auto-indirect)
+              (auto-file))
+             ;; Group remaining buffers by whether they're file backed, then by mode.
+             (group-not "*special*" (auto-file))
+             (auto-mode))
+            (group
+             ;; Subgroup for OHS things
+             (dir "~/Google Drive/OHS/")
+             (dir "~/Google Drive/OHS/12th Grade/Classes/" 1)
+             (dir "~/Google Drive/OHS/11th Grade/" 2)
+             ;; Group remaining buffers by whether they're file backed, then by mode.
+             (group-not "*special*" (auto-file))
+             (auto-mode))
+            (dir "/Volumes/" 1)
+            (group
+             ;; Subgroup collecting buffers in a projectile project.
+             (auto-projectile))
+            (group
+             ;; Subgroup collecting buffers in a version-control project,
+             ;; grouping them by directory.
+             (auto-project))
+            ;; Group remaining buffers by directory, then major mode.
+            (auto-directory)
+            (auto-mode))))
 #+end_src
 
 ** Dired
@@ -1777,6 +1888,7 @@ Custom dired open file function
 #+end_src
 
 ** Disabled Functions
+Gotta sort this out later...
 #+begin_src emacs-lisp
   (put 'upcase-region 'disabled nil)
   (put 'downcase-region 'disabled nil)
@@ -1795,6 +1907,9 @@ Allow the function =browse-url-firefox= to open links in firefox using bin. One 
 #+end_src
 
 ** mu4e
+
+I love email in Emacs <3
+
 #+begin_src emacs-lisp
   ; add the source shipped with mu to load-path
   (add-to-list 'load-path (expand-file-name "/usr/local/Cellar/mu/1.4.13/share/emacs/site-lisp/mu/mu4e/"))
@@ -1808,7 +1923,7 @@ Allow the function =browse-url-firefox= to open links in firefox using bin. One 
   (setq mu4e-get-mail-command "mbsync -c ~/.emacs.d/mu4e/.mbsyncrc -a"
     ;; mu4e-html2text-command "w3m -T text/html" ;;using the default mu4e-shr2text
     mu4e-view-prefer-html t
-    mu4e-update-interval 180
+    mu4e-update-interval 300
     mu4e-headers-auto-update t
     mu4e-compose-signature-auto-include nil
     mu4e-compose-format-flowed t); tell mu4e to use w3m for html rendering
@@ -2033,7 +2148,8 @@ Unset default compose message and set personal keybinds.
 #+end_src
 
 ** OHS
-*** Schoolyear Calculation for sexp Diary Entries                 :ARCHIVE:
+*** DISABLED Schoolyear Calculation for sexp Diary Entries        :ARCHIVE:
+CLOSED: [2020-11-29 Sun 11:41]
 
 Attempt two: macro to make and statements
 #+begin_src emacs-lisp :tangle no
@@ -2064,6 +2180,10 @@ Attempt two: macro to make and statements
 #+end_src
 
 *** Generate OHS Class Calendar
+
+This is super messy, any tips on making this kind of code cleaner?
+
+The identified problem was that in general, for class schedules, I've used a repeating event. However, repeating events (in =org-mode= or otherwise) are not holiday-aware. So, the point of this code is to generate a list of scheduled org headlines for all of my classes which is 100% accurate and does not put classes on holidays or no-class study week days.
 
 #+begin_src emacs-lisp :results silent
   (defun pgw/date-block (absolute y1 m1 d1 y2 m2 d2)
@@ -2201,7 +2321,17 @@ Attempt two: macro to make and statements
 #+end_src
 
 Example usage (run in a dedicated file)
+#+begin_src emacs-lisp
+  (pgw/create-entry "UM51A: Linear Algebra" '(1 2) '(1 3) 3 "Adobe connect class link")
+#+end_src
+
 *** Sync gcal Bash Script
+
+This runs a bash script which in turn
+1. curls the calendar file from the Canvas website
+2. runs a python program which parses the calendar file into =ohs_gcal.org= according to the class. In doing so, it takes into account whether the timestamp should be a deadline or not.
+
+See [[https://github.com/piercegwang/ohsics_to_org][https://github.com/piercegwang/ohsics_to_org]] for more info.
 #+begin_src emacs-lisp :results silent
   (global-set-key (kbd "C-c s-g o") (lambda () (interactive) (start-process-shell-command "Running ~/QScripts/syncgcal.sh" nil "bash ~/QScripts/syncgcal.sh")))
 #+end_src

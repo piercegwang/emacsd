@@ -250,7 +250,32 @@ No spaces are allowed in the input of this function"
 
 (use-package all-the-icons)
 
-(load-theme 'modus-operandi)
+(use-package doom-themes
+  :config
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+      doom-themes-enable-italic t) ; if nil, italics is universally disabled
+
+  ;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
+  ;; may have their own settings.
+  (load-theme 'doom-outrun-electric t)
+
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+
+  ;; Enable custom neotree theme (all-the-icons must be installed!)
+  ;; (doom-themes-neotree-config)
+  ;; or for treemacs users
+  (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
+  (doom-themes-treemacs-config)
+
+  ;; Doom themes fontifies #hashtags and @at-tags by default.
+  ;; To disable this:
+  (setq doom-org-special-tags nil)
+
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config)
+  )
 
 (setq frame-resize-pixelwise t)
 
@@ -351,15 +376,9 @@ other, future frames."
 
 (load-file "~/.passwords.el")
 
-(use-package smart-mode-line
-  :config
-  (setq rm-blacklist '(" hl-p" " WK" " yas" " Undo-Tree" " hs")
-        ;; sml/theme 'light
-        sml/name-width 30
-        )
-  (add-to-list 'sml/replacer-regexp-list '("^~/Google Drive/OHS/\\([0-9]\\{2\\}\\)th Grade/Classes/Semester [0-9]/\\([0-9A-Z]*\\)/" ":\\2:"))
-  (add-hook 'after-init-hook 'sml/setup)
-  )
+(use-package powerline
+  :ensure t
+  :config (powerline-default-theme))
 
 (size-indication-mode 1)
 (line-number-mode -1)
@@ -402,7 +421,7 @@ other, future frames."
 (setq org-startup-indented t)
 
 (setq org-todo-keywords
-      '((sequence "NEXT(n)" "TODO(t)" "IN-PROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)" "DELEGATED(g)")))
+      '((sequence "NEXT(n)" "TODO(t)" "IN-PROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "DISABLED(c)" "DELEGATED(g)")))
 
 (define-key global-map "\C-cc" 'org-capture)
   (global-set-key (kbd "H-c o") 
@@ -725,7 +744,8 @@ DEADLINE: %^t
   )
 
 (setq org-format-latex-options
-      '(:foreground "#000000" :background default 
+      ;; '(:foreground "#000000" :background default ;; light theme
+      '(:foreground "#d6d6d4" :background default ;; dark theme
                     :scale 1.4
                     :html-foreground "Black" :html-background "Transparent"
                     :html-scale 1.0 
@@ -792,6 +812,8 @@ DEADLINE: %^t
   (setq org-gcal-notify-p nil)
   (setq org-gcal-remove-api-cancelled-events t))
 
+(setq org-reveal-root "file:///Users/piercewang/Documents/projects/revealjs/reveal.js-4.1.0")
+
 (setq TeX-engine 'xetex)
 (setq latex-run-command "xetex")
 
@@ -818,8 +840,7 @@ DEADLINE: %^t
 (use-package evil
   :config
   (evil-mode t)
-  (dolist (mode '(dired-mode calendar-mode image-mode timer-list-mode messages-buffer-mode)) (add-to-list 'evil-emacs-state-modes mode))
-  )
+  (dolist (mode '(dired-mode calendar-mode image-mode timer-list-mode messages-buffer-mode bufler-list-mode)) (add-to-list 'evil-emacs-state-modes mode)))
 
 ;; (define-key evil-normal-state-map (kbd "<S-return>") [?m ?` ?o escape ?` ?`])
 ;; (define-key evil-normal-state-map (kbd "<s-S-return>") [?m ?` ?O escape ?` ?`])
@@ -858,7 +879,6 @@ DEADLINE: %^t
 (use-package hydra)
 (use-package company)
 (use-package lsp-ui)
-(use-package which-key :config (which-key-mode))
 (use-package lsp-java :config (add-hook 'java-mode-hook 'lsp))
 (use-package dap-mode :after lsp-mode :config (dap-auto-configure-mode))
 (use-package dap-java :ensure nil)
@@ -942,8 +962,8 @@ If the input is non-empty, it is inserted at point."
 
 (global-auto-revert-mode 1)
 
-(setq calendar-latitude 37.550201)
-(setq calendar-longitude -121.980827)
+(setq calendar-latitude 37.759995)
+(setq calendar-longitude -122.427046)
 (setq calendar-location-name "Fremont, CA")
 (add-hook 'calendar-mode-hook
     (lambda ()
@@ -1001,6 +1021,13 @@ If the input is non-empty, it is inserted at point."
 
 (global-set-key (kbd "<f8>") 'insert-org-image)
 
+(use-package which-key
+  :config
+  (which-key-mode)
+  (setq which-key-popup-type 'side-window)
+  (setq which-key-side-window-location 'bottom)
+  )
+
 (global-set-key (kbd "C-v") (lambda () (interactive) (scroll-up-command 1)))
 (global-set-key (kbd "M-v") (lambda () (interactive) (scroll-down-command 1)))
 
@@ -1017,30 +1044,80 @@ If the input is non-empty, it is inserted at point."
 (setq user-full-name "Pierce Wang"
       user-mail-address "pierce.g.wang@gmail.com")
 
-(use-package ibuffer
+(use-package bufler
+  :bind (("C-x C-b" . bufler)
+         ("C-x b" . bufler-switch-buffer))
   :config
-  (global-set-key (kbd "C-x C-b") 'ibuffer))
-(setq ibuffer-saved-filter-groups
-      '(("default"
-         ("emacs-config" (or (filename . "/.emacs.d/")
-                             (filename . ".emacs.d/init.el")))
-         ("OHS" (filename . "/Google Drive/OHS/"))
-         ("Org" (filename . "/Dropbox/org/"))
-         ("planner" (or
-                    (name . "\*Calendar\*")
-                    (name . "\*Org Agenda\*")
-                    (name . "^diary$")))
-         ;; ("Helm" (name . "\*helm.*"))
-         ("Magit" (mode . Magit))
-         ("ERC" (mode . erc-mode))
-         ("Help" (or (name . "\*Help\*")
-                     (name . "\*info\*")
-                     (name . "\*GNU Emacs\*"))))))
-
-(add-hook 'ibuffer-mode-hook
-          (lambda ()
-            (ibuffer-switch-to-saved-filter-groups "default")))
-(define-key ibuffer-mode-map (kbd "P") nil)
+  (setf bufler-groups
+        (bufler-defgroups
+          (group
+           ;; Subgroup collecting all named workspaces.
+           (auto-workspace))
+          (group
+           ;; Subgroup collecting all `help-mode' and `info-mode' buffers.
+           (group-or "*Help/Info*"
+                     (mode-match "*Help*" (rx bos "help-"))
+                     (mode-match "*Info*" (rx bos "info-"))))
+          (group
+           ;; Subgroup collecting all special buffers (i.e. ones that are not
+           ;; file-backed), except `magit-status-mode' buffers (which are allowed to fall
+           ;; through to other groups, so they end up grouped with their project buffers).
+           (group-and "*Special*"
+                      (lambda (buffer)
+                        (unless (or (funcall (mode-match "Magit" (rx bos "magit-status"))
+                                             buffer)
+                                    (funcall (mode-match "Dired" (rx bos "dired"))
+                                             buffer)
+                                    (funcall (auto-file) buffer))
+                          "*Special*")))
+           (group
+            ;; Subgroup collecting these "special special" buffers
+            ;; separately for convenience.
+            (name-match "**Special**"
+                        (rx bos "*" (or "Messages" "Warnings" "scratch" "Backtrace") "*")))
+           (group
+            ;; Subgroup collecting all other Magit buffers, grouped by directory.
+            (mode-match "*Magit* (non-status)" (rx bos (or "magit" "forge") "-"))
+            (auto-directory))
+           ;; Remaining special buffers are grouped automatically by mode.
+           (auto-mode))
+          ;; All buffers under "~/.emacs.d" (or wherever it is).
+          (dir user-emacs-directory)
+          (group
+           ;; Subgroup collecting buffers in `org-directory' (or "~/org" if
+           ;; `org-directory' is not yet defined).
+           (dir (if (bound-and-true-p org-directory)
+                    org-directory
+                  "~/org"))
+           (dir "~/Dropbox/org/notes/")
+           (dir "~/Dropbox/org/notes/college/essays/" 1)
+           (group
+            ;; Subgroup collecting indirect Org buffers, grouping them by file.
+            ;; This is very useful when used with `org-tree-to-indirect-buffer'.
+            (auto-indirect)
+            (auto-file))
+           ;; Group remaining buffers by whether they're file backed, then by mode.
+           (group-not "*special*" (auto-file))
+           (auto-mode))
+          (group
+           ;; Subgroup for OHS things
+           (dir "~/Google Drive/OHS/")
+           (dir "~/Google Drive/OHS/12th Grade/Classes/" 1)
+           (dir "~/Google Drive/OHS/11th Grade/" 2)
+           ;; Group remaining buffers by whether they're file backed, then by mode.
+           (group-not "*special*" (auto-file))
+           (auto-mode))
+          (dir "/Volumes/" 1)
+          (group
+           ;; Subgroup collecting buffers in a projectile project.
+           (auto-projectile))
+          (group
+           ;; Subgroup collecting buffers in a version-control project,
+           ;; grouping them by directory.
+           (auto-project))
+          ;; Group remaining buffers by directory, then major mode.
+          (auto-directory)
+          (auto-mode))))
 
 (setq delete-by-moving-to-trash t)
 (setq trash-directory "~/.Trash")
@@ -1083,7 +1160,7 @@ If the input is non-empty, it is inserted at point."
 (setq mu4e-get-mail-command "mbsync -c ~/.emacs.d/mu4e/.mbsyncrc -a"
   ;; mu4e-html2text-command "w3m -T text/html" ;;using the default mu4e-shr2text
   mu4e-view-prefer-html t
-  mu4e-update-interval 180
+  mu4e-update-interval 300
   mu4e-headers-auto-update t
   mu4e-compose-signature-auto-include nil
   mu4e-compose-format-flowed t); tell mu4e to use w3m for html rendering
@@ -1431,10 +1508,13 @@ This function uses the variable `pgw/ohs-schoolyear-dates' for the value of holi
                             (2021 5 24 2021 5 27) ;; Spring Semester Finals
                             ))))
 
+(pgw/create-entry "UM51A: Linear Algebra" '(1 2) '(1 3) 3 "Adobe connect class link")
+
 (global-set-key (kbd "C-c s-g o") (lambda () (interactive) (start-process-shell-command "Running ~/QScripts/syncgcal.sh" nil "bash ~/QScripts/syncgcal.sh")))
 
 (defun pgw/turn-on-flyspell-hook ()
-  (cond ((string-match "^/Users/piercewang/Google Drive/OHS/" (if (eq buffer-file-name nil) "" buffer-file-name))
-         (flyspell-mode 1))))
+  (if (or (string-match "^/Users/piercewang/Google Drive/OHS/" (if (eq buffer-file-name nil) "" buffer-file-name))
+          (string-match "^/Users/piercewang/Dropbox/org/notes/college/" (if (eq buffer-file-name nil) "" buffer-file-name)))
+      (flyspell-mode 1)))
 
 (add-hook 'text-mode-hook 'pgw/turn-on-flyspell-hook)
