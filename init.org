@@ -445,9 +445,8 @@ Light themes:
     )
 #+end_src
 
-**** DISABLED Set Orgmode Agenda Stuff
-CLOSED: [2020-11-29 Sun 11:26]
-#+begin_src emacs-lisp :tangle no
+**** Set Orgmode Agenda Stuff
+#+begin_src emacs-lisp
   ;; this must be used after loading the theme with (load-theme THEME-NAME t)
   (custom-set-faces
    `(org-time-grid ((t (:foreground ,(doom-blend 'yellow 'fg 0.6)))))
@@ -814,7 +813,7 @@ Make org-mode files automatically indent.
 
 #+begin_src emacs-lisp
   (setq org-todo-keywords
-        '((sequence "NEXT(n)" "TODO(t)" "IN-PROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "DISABLED(c)" "DELEGATED(g)")))
+        '((sequence "NEXT(n)" "TODO(t)" "IN-PROGRESS(i)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)" "DELEGATED(g)")))
 #+end_src
 
 *** Keybinds
