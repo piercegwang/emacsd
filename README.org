@@ -2,5 +2,5 @@
 
 This set of configuration files is made for Mac OSX 10.14. It is very much subject to change and will likely have a few bugs. This is also private as of now, so I'm not sure if anyone will see this.
 
-See my init file at [[https://piercegwang.github.io/emacsd/init.html]]!
+See my init file at [[https://piercegwang.github.io/emacsd/init]]!
 
