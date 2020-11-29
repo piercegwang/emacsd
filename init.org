@@ -1,4 +1,4 @@
-#+TITLE: Emacs Doom configuration file
+#+TITLE: Emacs Configuration File
 #+AUTHOR: Pierce Wang
 #+BABEL: :cache yes
 #+PROPERTY: header-args :tangle yes :results silent
