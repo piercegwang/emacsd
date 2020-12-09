@@ -1,0 +1,2 @@
+#+LATEX_HEADER: \usepackage[margin=1in]{geometry}
+#+LATEX_COMPILER: xelatex

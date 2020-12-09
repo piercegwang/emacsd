@@ -1,0 +1,2 @@
+#+LATEX_HEADER: \usepackage{CJKutf8}
+#+LaTeX_HEADER: \begin{CJK}{UTF8}{gbsn}

@@ -1,0 +1,75 @@
+#+SETUPFILE: /Users/piercewang/Dropbox/org/templates/general/note.org
+#+options: num:nil toc:nil
+* Org File Setup Templates
+This file is the readme for the directory tree containing my org-mode file setup templates (For org-mode's =#+SETUPFILE:= feature).
+
+The tree with its files and descriptions is contained below. Headings are directories, bullets with ~-~ are setup files, and bullets with ~*~ are features in files.
+
+* templates
+** general
+- ~note.org~
+  Default export config for note-related files. Also contains a startup config for "content" and "indent"
+  * Default export settings except
+    * \n:t
+    * email:t
+    * author:t
+  * startup: content indent
+- ~todo.org~
+  Default export config for todo-related files. Not configured too carefully just yet.
+  * \n:t
+  * author:t
+  * startup: content
+  * Effort settings: 0 0:10 0:30 1:00 2:00 3:00 4:00 5:00 6:00 7:00
+- ~web.org~
+  Includes a simple but elegant css stylesheet for easy and pretty org-mode export
+- ~infojs.org~
+  Activates built-in infojs in org-mode html export.
+- ~beamer.org~
+  Settings for beamer. *Does not set theme* Find a theme for your presentation here: https://hartwork.org/beamer-theme-matrix/
+- ~lists.org~
+  * Set linespread to 0.5 to make lists more compact
+- ~pdfs.org~
+  Minimum export options for a pdf.
+  * Margins (1 in)
+  * xelatex compiler
+** personal
+- ~name_email.org~
+  Name and email for personal stuff
+- ~git_pages.org~
+  Setup for git pages export. This references a css stylesheet which should be included in the directory of the html file.
+** school
+- ~name_email.org~
+  Name and email for school stuff
+- ~math.org~
+  Latex and other export options for math-related class files.
+  * tikz package
+  * amsmath package
+  * no paragraph indents
+  * vector redefinition to bold (for OHS's Multivariable Calculus)
+- ~physics.org~
+  Latex and other export options for physics-related class files.
+  * tikz package
+  * amsmath package
+  * siunitx package
+  * no paragraph indents
+- ~school_todo.org~
+  Tags, priorities, todo keywords, column setup, and file tags for the school.org file.
+- ~writing_setup.org~
+  Latex and other export options for writing related class files.
+  * Margins
+  * Custom "Times" LaTeX Class
+  * xelatex as compiler
+  * 12pt font
+- ~writing_essay.org~
+  * Double spacing
+  * No table of contents
+  * Smart quotes
+- ~writing_text.org~
+  For less writing-related things. Useful for informal writing assignments or things that you don't want indented.
+  * No paragraph indent
+- ~MLA_OrgFile.org~
+  *Not a setup file!* This is a template file made to allow pasting in of an essay and filling in of information for accurate MLA formatting.
+  * In order to use: =C-c C-e C-b l o=
+    * In other words, export body only to LaTeX
+- ~chinese.org~
+  Includes CJKutf8 package for LaTeX to render Chinese characters correctly.

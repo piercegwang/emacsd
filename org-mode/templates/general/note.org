@@ -1,0 +1,13 @@
+#+options: ':nil *:t -:t ::t <:t H:4 \n:t ^:t arch:headline
+#+options: author:t broken-links:nil c:nil creator:nil
+#+options: d:(not "LOGBOOK") date:nil e:t email:t f:t inline:t num:t
+#+options: p:nil pri:t prop:nil stat:t tags:t tasks:t tex:t
+#+options: timestamp:t title:t toc:t todo:t |:t
+#+language: en
+#+select_tags: export
+#+exclude_tags: noexport
+#+STARTUP: content indent
+#+PRIORITIES: A G C
+# #+LATEX_HEADER: \linespread{0}
+# #+LATEX_HEADER: \usepackage{enumitem}
+# #+LATEX_HEADER: \setlist{noitemsep}

@@ -1,0 +1,5 @@
+#+latex_class: Times
+#+LATEX_CLASS_OPTIONS: [12pt]
+#+LATEX_COMPILER: xelatex
+#+LATEX_HEADER: \usepackage[margin=1in]{geometry}
+#+LATEX_HEADER: \usepackage{setspace}

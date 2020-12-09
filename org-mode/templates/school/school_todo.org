@@ -1,0 +1,5 @@
+#+TAGS: [ reading(R) : text lecture movie review ] [ ac(A) : officehours(O) classes(C) ]
+#+TAGS: [ homework(H) : RQ(r) essay(e) MP(m) quiz(q) briefanalysis(b) WP(w) problemset(p) other(o) ]
+# #+TODO: NEXT(n) TODO(t) WAITING(w) IN-PROGRESS(i) SUBMIT(s) | DONE(d) CANCELLED(c) DELEGATED(g)
+#+FILETAGS: OHS
+#+STARTUP: logdrawer
