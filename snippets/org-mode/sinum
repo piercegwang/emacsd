@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: SIunit Number
+# key: num
+# condition: (org-inside-LaTeX-fragment-p)
+# --
+\num{$0}

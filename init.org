@@ -3,7 +3,7 @@
 #+BABEL: :cache yes
 #+PROPERTY: header-args :tangle yes :results silent
 #+STARTUP: content indent
-#+TODO: TODO(t) | DISABLED(d)
+#+SEQ_TODO: TODO(t) | DISABLED(D)
 #+SETUPFILE: /Users/piercewang/Dropbox/org/templates/general/web.org
 * Credits
 Inspired by [[https://github.com/freetonik/emacs-dotfiles][freetonik]]'s setup. Check out his podcast!
@@ -449,7 +449,7 @@ Light themes:
 #+end_src
 
 **** Set Orgmode Agenda Stuff
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   ;; this must be used after loading the theme with (load-theme THEME-NAME t)
   (custom-set-faces
    `(org-time-grid ((t (:foreground ,(doom-blend 'yellow 'fg 0.6)))))
@@ -1370,11 +1370,9 @@ Calendar Setup:
            ("C-c s-g b s" . org-gcal-sync-buffer)
            ("C-c s-g b f" . org-gcal-sync-buffer))
     :config
-    (setq org-gcal-client-id "439150530674-aab9ti8n7t80r001qmccgb2i52005f18.apps.googleusercontent.com"
-          org-gcal-client-secret "5gUN_ML-yaAgdS6eg4hAZ9qo"
-          org-gcal-file-alist '(("pierce.g.wang@gmail.com" .  "~/Dropbox/org/calendars/cal_gmail.org")
-                                ("ihfv2u5n9uf5ksj5484vbe7mj4@group.calendar.google.com" . "~/Dropbox/org/calendars/cal_emacs.org")
-                                ("taiu2dsr8o29c09m7nn1n21t9o@group.calendar.google.com" . "~/Dropbox/org/calendars/cal_sfcm.org")))
+    (setq org-gcal-client-id pgw/org-gcal-client-id
+          org-gcal-client-secret pgw/org-gcal-client-secret
+          org-gcal-file-alist pgw/org-gcal-file-alist)
     (setq org-gcal-notify-p nil)
     (setq org-gcal-remove-api-cancelled-events t))
 #+end_src
@@ -1423,7 +1421,7 @@ Calendar Setup:
   (use-package evil
     :config
     (evil-mode t)
-    (dolist (mode '(dired-mode calendar-mode image-mode timer-list-mode messages-buffer-mode bufler-list-mode)) (add-to-list 'evil-emacs-state-modes mode)))
+    (dolist (mode '(dired-mode calendar-mode image-mode timer-list-mode messages-buffer-mode bufler-list-mode 2048-mode)) (add-to-list 'evil-emacs-state-modes mode)))
 #+end_src
 
 *** Normal Mode Keybinds
@@ -1594,7 +1592,7 @@ For files changed by dropbox and also dired buffers.
 #+begin_src emacs-lisp
   (setq calendar-latitude 37.759995)
   (setq calendar-longitude -122.427046)
-  (setq calendar-location-name "Fremont, CA")
+  (setq calendar-location-name "San Francisco, CA")
   (add-hook 'calendar-mode-hook
       (lambda ()
         (evil-emacs-state)
@@ -1623,7 +1621,7 @@ Artist mode is amazing! Configure some quick keybinds...
             )
 #+end_src
 
-Also remember, can use <middle mouse button> to see ht emenu of options.
+Also remember, can use <middle mouse button> to see the menu of options.
 
 ** Image Mode
 #+begin_src emacs-lisp
@@ -1655,13 +1653,23 @@ I love Emacs Tetris!
   (define-key tetris-mode-map (kbd "z") 'tetris-rotate-prev)
   (define-key tetris-mode-map (kbd "x") 'tetris-rotate-next)
 #+end_src
-
 *** Retris
 
 Doesn't work as of Emacs 27.1 :( maybe someday...
 #+begin_src emacs-lisp
   (use-package retris
     :load-path "site-lisp/retris")
+#+end_src
+
+*** 2048
+
+#+begin_src emacs-lisp
+  (use-package 2048-game
+    :bind (:map 2048-mode-map
+                ("h" . 2048-left)
+                ("j" . 2048-down)
+                ("k" . 2048-up)
+                ("l" . 2048-right)))
 #+end_src
 
 ** Desktop Save
@@ -1777,8 +1785,8 @@ CLOSED: [2020-11-24 Tue 00:50]
 
 #+begin_src emacs-lisp
   (use-package bufler
-    :bind (("C-x C-b" . bufler)
-           ("C-x b" . bufler-switch-buffer))
+    :bind (("C-x C-b" . bufler))
+           ;; ("C-x b" . bufler-switch-buffer))
     :config
     (setf bufler-groups
           (bufler-defgroups
@@ -2323,7 +2331,7 @@ The identified problem was that in general, for class schedules, I've used a rep
 #+end_src
 
 Example usage (run in a dedicated file)
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (pgw/create-entry "UM51A: Linear Algebra" '(1 2) '(1 3) 3 "Adobe connect class link")
 #+end_src
 
