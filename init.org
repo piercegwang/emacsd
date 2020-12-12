@@ -5,8 +5,10 @@
 #+STARTUP: content indent
 #+SEQ_TODO: TODO(t) | DISABLED(D)
 #+SETUPFILE: /Users/piercewang/Dropbox/org/templates/general/web.org
-* Credits
+* Credits and Notes
 Inspired by [[https://github.com/freetonik/emacs-dotfiles][freetonik]]'s setup. Check out his podcast!
+
+*See the original =org-mode= file that this website was generated from [[https://raw.githubusercontent.com/piercegwang/emacsd/master/init.org][here]].*
 * Installing
 This config works best with [[https://github.com/d12frosted/homebrew-emacs-plus][emacs-plus]] (27.1)
 #+begin_src sh :tangle no
