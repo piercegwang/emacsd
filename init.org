@@ -4,7 +4,7 @@
 #+PROPERTY: header-args :tangle yes :results silent
 #+STARTUP: content indent
 #+SEQ_TODO: TODO(t) | DISABLED(D)
-#+SETUPFILE: /Users/piercewang/Dropbox/org/templates/general/web.org
+#+SETUPFILE: ~/.emacs.d/org-mode/templates/general/web.org
 * Credits and Notes
 Inspired by [[https://github.com/freetonik/emacs-dotfiles][freetonik]]'s setup. Check out his podcast!
 
@@ -150,9 +150,21 @@ No need for "Package cl deprecated" warning on startup.
 #+begin_src emacs-lisp
   (setq byte-compile-warnings '(cl-functions))
   (require 'cl-lib)
+  (eval-when-compile (require 'cl))
 #+end_src
 
+** OS Integration
+#+begin_src emacs-lisp :tangle no
+  (use-package exec-path-from-shell)
+
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize))
+
+  ;;; Change shell process (from bash to zsh)
+  ;; (setq shell-file-name "/bin/zsh")
+#+end_src
 * Configurations
+
 ** Emacs Stuff
 *** Startup Time Test
 
@@ -248,7 +260,8 @@ For some functions that I don't need to give errors:
     (interactive "P")
     (unless (not (eq system-type 'darwin))
       (let* ((outdir (concat (file-name-directory (buffer-file-name)) "/figures"))
-             (namefile (concat (read-string "Enter File Name: ") "_" (format-time-string "%Y%m%d_%H%M%S.jpeg"))))
+             (givenname (read-string "Enter File Name: "))
+             (namefile (concat (format-time-string "%Y%m%d_%H%M%S") (if (not (string= givenname "")) (concat "_" givenname) "") ".jpeg")))
         (if (char-equal (aref namefile 0) ?_)
             (setq namefile (substring namefile 1 (length namefile))))
         (let* ((outfile (expand-file-name namefile outdir)))
@@ -277,7 +290,10 @@ For some functions that I don't need to give errors:
     (let ((file (dired-get-filename nil t)) ; Full path
           (filename (dired-get-filename t t))) ; File name for display
       (message "Opening %s..." filename)
-      (call-process "open" nil 0 nil file)
+      (cond ((memq window-system '(mac ns))
+             (call-process "open" nil 0 nil file))
+            ((memq window-system '(x))
+             (call-process "xdg-open" nil 0 nil file)))
       (message "Opening %s done" filename)))
 #+end_src
 
@@ -350,17 +366,6 @@ https://stackoverflow.com/questions/2540997/create-more-than-one-eshell-instance
 
   (when (eq system-type 'gnu/linux)
     (with-no-warnings (setq x-super-keysym 'hyper)))
-#+end_src
-
-** OS Integration
-#+begin_src emacs-lisp
-  (use-package exec-path-from-shell)
-
-  (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-initialize))
-
-  ;;; Change shell process (from bash to zsh)
-  (setq shell-file-name "/bin/zsh")
 #+end_src
 
 ** Visuals
@@ -502,8 +507,7 @@ Windows and Frames are different than one would now intuitively think. Windows e
 
 *** Window Management
 #+begin_src emacs-lisp
-  (use-package rotate
-    :load-path "site-lisp/emacs-rotate")
+  (use-package rotate)
 #+end_src
 
 ** Treemacs
@@ -605,7 +609,10 @@ The standard =text-scale-= functions just resize the text in the current buffer;
 Note that this overrides the default font-related keybindings from sensible-defaults.
 
 #+begin_src emacs-lisp
-  (setq pgw/default-font "Menlo")
+  (cond ((memq system-type '(gnu/linux gnu))
+         (setq pgw/default-font "Monoid"))
+        ((memq system-type '(darwin))
+         (setq pgw/default-font "Menlo")))
   (setq pgw/default-font-size 12)
   (setq pgw/current-font-size pgw/default-font-size)
 
@@ -962,7 +969,17 @@ Custom commands, testing sorting strategy variable
 **** Files
 #+begin_src emacs-lisp
   (setq org-agenda-files (append (file-expand-wildcards "~/Dropbox/org/*.org")
-                                 (file-expand-wildcards "~/Dropbox/org/calendars/*.org")))
+                                 (file-expand-wildcards "~/Dropbox/org/calendars/*.org")
+                                 (file-expand-wildcards "~/Dropbox/org-roam/*.org")
+                                 (file-expand-wildcards "~/Dropbox/org-roam/*.org.gpg")))
+
+  ;; (define-key org-agenda-mode-map (kbd "s-r") 'pgw/org-agenda-reload-files)
+  (defun pgw/org-agenda-reload-files ()
+    (interactive)
+    (setq org-agenda-files (append (file-expand-wildcards "~/Dropbox/org/*.org")
+                                 (file-expand-wildcards "~/Dropbox/org/calendars/*.org")
+                                 (file-expand-wildcards "~/Dropbox/org-roam/*.org")
+                                 (file-expand-wildcards "~/Dropbox/org-roam/*.org.gpg"))))
 #+end_src
 
 **** Time Grid Variable
@@ -1385,6 +1402,118 @@ Calendar Setup:
   (setq org-reveal-root "file:///Users/piercewang/Documents/projects/revealjs/reveal.js-4.1.0")
 #+end_src
 
+*** org-roam
+
+#+begin_src emacs-lisp
+    (use-package org-roam
+        :ensure t
+        ;;:hook
+        ;;(after-init . org-roam-mode)
+        :bind ((("C-c n I" . org-roam-insert-immediate))
+               :map org-roam-mode-map
+                    (("C-c n l" . org-roam)
+                     ("C-c n f" . org-roam-find-file)
+                     ("C-c n g" . org-roam-graph)
+                     ("C-c n d ." . org-roam-dailies-capture-today)
+                     ("C-c n d p" . org-roam-dailies-capture-yesterday)
+                     ("C-c n d n" . org-roam-dailies-capture-tomorrow)
+                     ("C-c n d j" . org-roam-dailies-capture-date)
+                     ("C-c n d g" . org-roam-dailies-find-date)
+                     ("C-c n d f" . org-roam-dailies-find-next-note)
+                     ("C-c n d b" . org-roam-dailies-find-previous-note)
+                     ("C-c n c" . org-roam-capture)
+                     ("C-c n !" . pgw/org-roam-refresh))
+                    :map org-mode-map
+                    (("C-c n i" . org-roam-insert)))
+        :config
+        (setq org-roam-directory "~/Dropbox/org-roam/"
+              org-roam-db-location "~/Dropbox/org-roam/org-roam.db"
+              org-roam-dailies-directory "daily/"
+              org-roam-db-update-method 'immediate ;; could change later if it gets slow
+              org-roam-tag-sources '(prop vanilla)
+              org-roam-encrypt-files t
+              org-roam-graph-viewer "/Applications/Firefox.app/Contents/MacOS/firefox-bin"
+              org-roam-dailies-capture-templates
+              '(("j" "Journal" entry
+                 #'org-roam-capture--get-point
+                 "* %?\n:PROPERTIES:\n:LOGGED: %U\n:END:"
+                 :file-name "daily/daily-%<%Y-%m-%d>"
+                 :head "#+title: [%<%Y-%m-%d>]\n\n")
+                ("s" "Sermon" plain
+                 #'org-roam-capture--get-point
+                 "* %? :faith:\n:PROPERTIES:\n:CATEGORY: faith\n:PASSAGE: \n:END:"
+                 :file-name "daily/daily-%<%Y-%m-%d>"
+                 :head "#+setupfile: ~/.emacs.d/org-mode/templates/general/note.org
+    ,#+setupfile: ~/.emacs.d/org-mode/templates/school/name_email.org
+    ,#+setupfile: ~/.emacs.d/org-mode/templates/general/web.org
+    ,#+roam_tags: 
+    ,#+category: 
+    ,#+title: [%<%Y-%m-%d>]\n\n")
+                ("c" "Conducting Lesson" plain
+                 #'org-roam-capture--get-point
+                 "* %? :conducting:"
+                 :file-name "daily/daily-%<%Y-%m-%d>"
+                 :head "#+setupfile: ~/.emacs.d/org-mode/templates/general/note.org
+    ,#+setupfile: ~/.emacs.d/org-mode/templates/school/name_email.org
+    ,#+setupfile: ~/.emacs.d/org-mode/templates/general/web.org
+    ,#+title: [%<%Y-%m-%d>]\n\n")
+                ("v" "Violin" entry
+                 #'org-roam-capture--get-point
+                 "* %?\n:PROPERTIES:\n:CATEGORY: %^{Category}\n:END:"
+                 :file-name "daily/daily-%<Y-%m-%d>"
+                 :head "#+title: [%<%Y-%m-%d>]\n\n"
+                 :olp ("Violin")))
+              org-roam-capture-templates
+              '(("d" "Default" plain
+                 #'org-roam-capture--get-point
+                 "%?"
+                 :file-name "%<%Y%m%d%H%M%S>-${slug}"
+                 :head "#+setupfile: ~/.emacs.d/org-mode/templates/general/note.org
+    ,#+setupfile: ~/.emacs.d/org-mode/templates/school/name_email.org
+    ,#+setupfile: ~/.emacs.d/org-mode/templates/general/web.org
+    ,#+roam_tags: 
+    ,#+title: ${title}\n#+category: \n"
+                 :unnarrowed t)
+                ("e" "Entry" entry
+                 #'org-roam-capture--get-point
+                 "* %?\n%U\n"
+                 :file-name "%<%Y%m%d%H%M%S>-${slug}"
+                 :head "#+setupfile: ~/.emacs.d/org-mode/templates/general/note.org
+    ,#+setupfile: ~/.emacs.d/org-mode/templates/school/name_email.org
+    ,#+setupfile: ~/.emacs.d/org-mode/templates/general/web.org
+    ,#+roam_tags: 
+    ,#+title: ${title}\n#+category: \n"
+                 :unnarrowed t)))
+        (org-roam-mode 1)
+        (defun pgw/org-roam-refresh ()
+          (interactive)
+          (org-roam-db-build-cache :force)
+          (org-roam-buffer--update-maybe :redisplay)))
+#+end_src
+
+Simpler setup
+#+begin_src emacs-lisp :tangle no
+  (use-package org-roam
+      :ensure t
+      :hook
+      (after-init . org-roam-mode)
+      :bind (:map org-roam-mode-map
+                  (("C-c n l" . org-roam)
+                   ("C-c n f" . org-roam-find-file)
+                   ("C-c n g" . org-roam-graph)
+                   ("C-c n d ." . org-roam-dailies-capture-today)
+                   ("C-c n d p" . org-roam-dailies-capture-yesterday)
+                   ("C-c n d n" . org-roam-dailies-capture-tomorrow)
+                   ("C-c n d j" . org-roam-dailies-capture-date)
+                   ("C-c n d g" . org-roam-dailies-find-date)
+                   ("C-c n d f" . org-roam-dailies-find-next-note)
+                   ("C-c n d b" . org-roam-dailies-find-previous-note)
+                   ("C-c n c" . org-roam-capture)
+                   ("C-c n !" . pgw/org-roam-refresh))
+                  :map org-mode-map
+                  (("C-c n i" . org-roam-insert))
+                  (("C-c n I" . org-roam-insert-immediate))))
+#+end_src
 ** LaTeX
 #+begin_src emacs-lisp
   (setq TeX-engine 'xetex)
@@ -1455,10 +1584,12 @@ Smart Python Docstring Formatting
 
 **** Elpy
 #+begin_src emacs-lisp
-  (elpy-enable)
-  (add-hook 'elpy-mode-hook
+  (use-package elpy
+    :config
+    (elpy-enable)
+    (add-hook 'elpy-mode-hook
             'python-docstring-mode)
-  (setq elpy-rpc-backend "jedi")
+    (setq elpy-rpc-backend "jedi"))
 #+end_src
 
 *** Octave
@@ -1513,7 +1644,6 @@ Smart Python Docstring Formatting
   ;; (global-set-key (kbd "H-x H-h e") 'pgw/enable-helm)
 
   ;; ;(fset 'importChine
-  seFlashcards
   ;   [return ?\C-p ?* ?* ?  ?I ?t ?e ?m ?\C-c ?\C-c ?d ?r ?i ?l ?l return ?\C-n ?\C-a ?\C-z ?f ?= ?x ?x ?\C-z ?\C-k ?\C-n ?\C-a return return ?\C-p ?* ?* ?  ?A ?n ?s ?w ?e ?r ?\C-a ?* ?\C-n ?\C-a ?\C-y ?\; ?  ?\C-a ?\C-n ?\C-n])
   (fset 'convertQuizlet
      [?I ?* ?* ?\S-  ?I ?t ?e ?m ?  ?: ?d ?r ?i ?l ?l ?: return escape ?/ ?= ?= return ?x ?x ?i return return ?* ?* ?* ?  ?A ?n ?s ?w ?e ?r return escape ?\M-\}])
@@ -1655,10 +1785,11 @@ I love Emacs Tetris!
   (define-key tetris-mode-map (kbd "z") 'tetris-rotate-prev)
   (define-key tetris-mode-map (kbd "x") 'tetris-rotate-next)
 #+end_src
-*** Retris
+*** DISABLED Retris
+CLOSED: [2021-04-10 Sat 22:54]
 
 Doesn't work as of Emacs 27.1 :( maybe someday...
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (use-package retris
     :load-path "site-lisp/retris")
 #+end_src
@@ -1679,7 +1810,7 @@ Doesn't work as of Emacs 27.1 :( maybe someday...
   (desktop-save-mode 1)
   (setq desktop-restore-frames nil)
   (setq desktop-restore-eager 5)
-  (setq desktop-path (list "~/emacs/desktopsave/"))
+  (setq desktop-path (list "~/.emacs.d/desktopsave/"))
   (setq desktop-files-not-to-save "\\(^/[^/:]*:\\|(ftp)$\\|\.gpg$\\|\.org_archive\\)")
 #+end_src
 
@@ -1866,7 +1997,7 @@ CLOSED: [2020-11-24 Tue 00:50]
 #+begin_src emacs-lisp
   (setq delete-by-moving-to-trash t)
   (setq trash-directory "~/.Trash")
-  (setq insert-directory-program "/usr/local/bin/gls"
+  (setq insert-directory-program "/bin/ls"
         dired-use-ls-dired t)
 #+end_src
 
@@ -1918,11 +2049,12 @@ Allow the function =browse-url-firefox= to open links in firefox using bin. One 
   (setq browse-url-firefox-program "/Applications/Firefox.app/Contents/MacOS/firefox-bin")
 #+end_src
 
-** mu4e
+** DISABLED mu4e
+CLOSED: [2021-04-10 Sat 21:26]
 
 I love email in Emacs <3
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   ; add the source shipped with mu to load-path
   (add-to-list 'load-path (expand-file-name "/usr/local/Cellar/mu/1.4.13/share/emacs/site-lisp/mu/mu4e/"))
 
@@ -2125,7 +2257,7 @@ I love email in Emacs <3
 #+end_src
 
 *** mu4e-alert
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (use-package mu4e-alert
     :ensure t
     :after mu4e
@@ -2151,7 +2283,7 @@ I love email in Emacs <3
 *** mu4e keybinds                                                :keybinds:
 Unset default compose message and set personal keybinds.
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
   (global-unset-key (kbd "C-x m"))
   (global-set-key (kbd "C-x m n") (lambda () "Open mu4e in a new frame" (interactive) (make-frame '((name . "Mail: mu4e"))) (mu4e)))
   (global-set-key (kbd "C-x m b") (lambda () "Open mu4e in the background" (interactive) (mu4e t)))
@@ -2345,6 +2477,10 @@ This runs a bash script which in turn
 
 See [[https://github.com/piercegwang/ohsics_to_org][https://github.com/piercegwang/ohsics_to_org]] for more info.
 #+begin_src emacs-lisp :results silent
-  (global-set-key (kbd "C-c s-g o") (lambda () (interactive) (start-process-shell-command "Running ~/QScripts/syncgcal.sh" nil "bash ~/QScripts/syncgcal.sh")))
+  (defun pgw/sync-ohs-cal ()
+    (interactive)
+    (start-process-shell-command "Running ~/QScripts/syncgcal.sh" nil "bash ~/QScripts/syncgcal.sh"))
+
+  (global-set-key (kbd "C-c s-g o") 'pgw/sync-ohs-cal)
 #+end_src
 

@@ -2,4 +2,4 @@
 # name: Insert SETUPFILE
 # key: <setup
 # --
-#+SETUPFILE: /Users/piercewang/Dropbox/org/templates/$0
+#+SETUPFILE: ~/.emacs.d/org-mode/templates/$0
