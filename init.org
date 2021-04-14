@@ -190,6 +190,17 @@ Make Emacs confirm when quitting:
 #+begin_src emacs-lisp
   (setq confirm-kill-emacs 'yes-or-no-p)
 #+end_src
+** =tab-bar-mode=
+
+#+begin_src emacs-lisp
+  (tab-bar-mode 1)
+#+end_src
+*** Tab Switching Keybinds                                       :keybinds:
+#+begin_src emacs-lisp
+  (global-set-key (kbd "s-{") (lambda () (interactive) (tab-next -1)))
+  (global-set-key (kbd "s-}") (lambda () (interactive) (tab-next 1)))
+#+end_src
+
 
 ** Custom Functions
 *** append-to-list
@@ -258,23 +269,23 @@ For some functions that I don't need to give errors:
   (defun insert-org-image (&optional swindow)
     "Prompt user for name of file, append time and date string, then use the Mac OSX `screencapture` feature to take a photo and place it in the relative ./figures directory."
     (interactive "P")
-    (unless (not (eq system-type 'darwin))
-      (let* ((outdir (concat (file-name-directory (buffer-file-name)) "/figures"))
-             (givenname (read-string "Enter File Name: "))
-             (namefile (concat (format-time-string "%Y%m%d_%H%M%S") (if (not (string= givenname "")) (concat "_" givenname) "") ".jpeg")))
-        (if (char-equal (aref namefile 0) ?_)
-            (setq namefile (substring namefile 1 (length namefile))))
-        (let* ((outfile (expand-file-name namefile outdir)))
-          (unless (file-directory-p outdir)
-            (make-directory outdir t))
-          (message "Argument: %s" swindow)
-          (if swindow
-              (call-process "screencapture" nil nil nil "-w" outfile)
-            (call-process "screencapture" nil nil nil "-i" outfile))
-          (message namefile)
-          (insert (concat (concat "[[file:./figures/" (file-name-nondirectory outfile)) "]]"))))
-      )
-    )
+    (unless (not (memq system-type '(gnu gnu/linux darwin)))
+           (let* ((outdir "figures")
+                  (givenname (read-string "Enter File Name: "))
+                  (namefile (concat (format-time-string "%Y%m%d_%H%M%S") (if (not (string= givenname "")) (concat "_" givenname) "") ".jpeg"))
+                  (program (cond ((if (memq system-type '(gnu gnu/linux)) "gnome-screenshot" ""))
+                                 ((if (eq system-type 'darwin) "screencapture" ""))))
+                  (argument (cond ((string= program "screencapture") (if swindow "-w" "-i"))
+                                  ((string= program "gnome-screenshot") (if swindow "-w" "-a"))))
+                  (outfile (concat outdir "/" namefile)))
+             (unless (file-directory-p outdir)
+               (make-directory outdir t))
+             (if (memq system-type '(gnu gnu/linux))
+                 (setq outfile (concat "--file=" outfile)))
+             (message "Program: %s\nArgument: %s\nOutfile: %s" program argument outfile)
+             (call-process program nil nil nil argument outfile)
+             (message namefile)
+             (insert (concat (concat "[[file:./figures/" (file-name-nondirectory outfile)) "]]")))))
 #+end_src
 
 *** Keyboard Coding System
