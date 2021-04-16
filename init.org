@@ -193,7 +193,8 @@ Make Emacs confirm when quitting:
 ** =tab-bar-mode=
 
 #+begin_src emacs-lisp
-  (tab-bar-mode 1)
+  ;; (tab-bar-mode 1)
+  (setq tab-bar-show nil)
 #+end_src
 *** Tab Switching Keybinds                                       :keybinds:
 #+begin_src emacs-lisp
@@ -946,6 +947,10 @@ Custom commands, testing sorting strategy variable
 #+begin_src emacs-lisp
   (setq org-agenda-custom-commands
         '(("o" . "OHS")
+          ("oA" "OHS/General Tasks (-roam)" agenda ""
+           ((org-agenda-span 1)
+            (org-agenda-files (append (file-expand-wildcards "~/Dropbox/org/*.org")
+                                      (file-expand-wildcards "~/Dropbox/org/calendars/*.org")))))
           ("of" . "OHS Friend Schedules")
           ("ofa" "Audrey's Schedule" agenda ""
            ((org-agenda-span 7)
@@ -988,9 +993,9 @@ Custom commands, testing sorting strategy variable
   (defun pgw/org-agenda-reload-files ()
     (interactive)
     (setq org-agenda-files (append (file-expand-wildcards "~/Dropbox/org/*.org")
-                                 (file-expand-wildcards "~/Dropbox/org/calendars/*.org")
-                                 (file-expand-wildcards "~/Dropbox/org-roam/*.org")
-                                 (file-expand-wildcards "~/Dropbox/org-roam/*.org.gpg"))))
+                                   (file-expand-wildcards "~/Dropbox/org/calendars/*.org")
+                                   (file-expand-wildcards "~/Dropbox/org-roam/*.org")
+                                   (file-expand-wildcards "~/Dropbox/org-roam/*.org.gpg"))))
 #+end_src
 
 **** Time Grid Variable
@@ -1163,16 +1168,16 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
    (file+headline "~/Dropbox/org/school.org" "_OCS15_")
    "* NEXT %?
   DEADLINE: %^{Deadline}T\n")
-  ("Stm" "UM51A - T/Th" entry
-   (file+headline "~/Dropbox/org/school.org" "_UM51A_")
+  ("Stm" "UM53A - T/Th" entry
+   (file+headline "~/Dropbox/org/school.org" "_UM53A_")
    "**** NEXT %?
   DEADLINE: %^{Deadline}T\n")
   ("Sts" "OPS10 - M/W" entry
    (file+headline "~/Dropbox/org/school.org" "_OPS10_")
    "* NEXT %?
   DEADLINE: %^{Deadline}T\n")
-  ("Stp" "OP051 - M/W" entry
-   (file+headline "~/Dropbox/org/school.org" "_OP051_")
+  ("Stp" "OP053 - M/W" entry
+   (file+headline "~/Dropbox/org/school.org" "_OP053_")
    "* NEXT %?
   DEADLINE: %^{Deadline}T\n")
   ("Stc" "OCRA1 - M/W" entry
@@ -1184,16 +1189,16 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
    (file+headline "~/Dropbox/org/school.org" "_OCS15_")
    "* NEXT %?
   DEADLINE: <%<%Y-%m-%d %a 07:15>>\n")
-  ("Srm" "UM51A - T/Th" entry
-   (file+headline "~/Dropbox/org/school.org" "_UM51A_")
+  ("Srm" "UM53A - T/Th" entry
+   (file+headline "~/Dropbox/org/school.org" "_UM53A_")
    "**** NEXT %?
   DEADLINE: <%<%Y-%m-%d %a 08:30>>\n")
   ("Srs" "OPS10 - M/W" entry
    (file+headline "~/Dropbox/org/school.org" "_OPS10_")
    "* NEXT %?
   DEADLINE: <%<%Y-%m-%d %a 11:00>>\n")
-  ("Srp" "OP051 - M/W" entry
-   (file+headline "~/Dropbox/org/school.org" "_OP051_")
+  ("Srp" "OP053 - M/W" entry
+   (file+headline "~/Dropbox/org/school.org" "_OP053_")
    "* NEXT %?
   DEADLINE: <%<%Y-%m-%d %a 14:45>>\n")
   ("Src" "OCRA1 - M/W" entry
