@@ -1,6 +1,7 @@
 history
 network-security.data
 url/
+var/
 .org-id-locations
 network-security.data
 request/
@@ -25,3 +26,4 @@ init.elc
 init.el
 name_email.org
 desktopsave/
+.org-generic-id-locations

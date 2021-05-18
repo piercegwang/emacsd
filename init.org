@@ -120,6 +120,8 @@ Initialize package and add Melpa, GNU, and Org sources.
   (package-initialize)
 #+end_src
 
+Sometimes, if there's an error refreshing packages, you just need to re-run this code segment.
+
 ** Use package
 Add custom load path:
 
@@ -154,7 +156,7 @@ No need for "Package cl deprecated" warning on startup.
 #+end_src
 
 ** OS Integration
-#+begin_src emacs-lisp :tangle no
+#+begin_src emacs-lisp
   (use-package exec-path-from-shell)
 
   (when (memq window-system '(mac ns x))
@@ -163,6 +165,7 @@ No need for "Package cl deprecated" warning on startup.
   ;;; Change shell process (from bash to zsh)
   ;; (setq shell-file-name "/bin/zsh")
 #+end_src
+
 * Configurations
 
 ** Emacs Stuff
@@ -190,18 +193,19 @@ Make Emacs confirm when quitting:
 #+begin_src emacs-lisp
   (setq confirm-kill-emacs 'yes-or-no-p)
 #+end_src
+
 ** =tab-bar-mode=
 
 #+begin_src emacs-lisp
   ;; (tab-bar-mode 1)
   (setq tab-bar-show nil)
 #+end_src
+
 *** Tab Switching Keybinds                                       :keybinds:
 #+begin_src emacs-lisp
   (global-set-key (kbd "s-{") (lambda () (interactive) (tab-next -1)))
   (global-set-key (kbd "s-}") (lambda () (interactive) (tab-next 1)))
 #+end_src
-
 
 ** Custom Functions
 *** append-to-list
@@ -274,7 +278,7 @@ For some functions that I don't need to give errors:
            (let* ((outdir "figures")
                   (givenname (read-string "Enter File Name: "))
                   (namefile (concat (format-time-string "%Y%m%d_%H%M%S") (if (not (string= givenname "")) (concat "_" givenname) "") ".jpeg"))
-                  (program (cond ((if (memq system-type '(gnu gnu/linux)) "gnome-screenshot" ""))
+                  (program (cond ((if (memq system-type '(gnu gnu/linux)) "gnome-screenshot" nil))
                                  ((if (eq system-type 'darwin) "screencapture" ""))))
                   (argument (cond ((string= program "screencapture") (if swindow "-w" "-i"))
                                   ((string= program "gnome-screenshot") (if swindow "-w" "-a"))))
@@ -621,10 +625,11 @@ The standard =text-scale-= functions just resize the text in the current buffer;
 Note that this overrides the default font-related keybindings from sensible-defaults.
 
 #+begin_src emacs-lisp
-  (cond ((memq system-type '(gnu/linux gnu))
-         (setq pgw/default-font "Monoid"))
-        ((memq system-type '(darwin))
-         (setq pgw/default-font "Menlo")))
+  ;; (cond ((memq system-type '(gnu/linux gnu))
+  ;;        (setq pgw/default-font "Monoid"))
+  ;;       ((memq system-type '(darwin))
+  ;;        (setq pgw/default-font "Menlo")))
+  (setq pgw/default-font "Monoid")
   (setq pgw/default-font-size 12)
   (setq pgw/current-font-size pgw/default-font-size)
 
@@ -696,6 +701,17 @@ I copied mixed-pitch.el from [[https://gitlab.com/jabranham/mixed-pitch/][this]]
     ;; (add-hook 'text-mode-hook 'mixed-pitch-mode)
     (global-set-key (kbd "C-x v f") 'mixed-pitch-mode)
     )
+#+end_src
+
+*** Unicode-fonts Setup
+
+Can add a few seconds to startup time, may want to check "Startup Speed" on this page: [[https://github.com/rolandwalker/unicode-fonts/tree/e3942fe40b418bfb2dc4e73633e09195437fef01#customization][unicode fonts github]]
+
+#+begin_src emacs-lisp
+  (use-package unicode-fonts
+    :ensure t
+    :config
+    (unicode-fonts-setup))
 #+end_src
 
 ** GPG
@@ -776,6 +792,12 @@ CLOSED: [2020-11-29 Sun 11:31]
     )
 #+end_src
 
+*** Counsel
+Dependency for ~ivy~
+#+begin_src emacs-lisp
+  (use-package counsel)
+#+end_src
+
 *** Ivy
 #+begin_src emacs-lisp :tangle yes
   (use-package ivy
@@ -810,6 +832,7 @@ CLOSED: [2020-11-29 Sun 11:31]
 ;(setq org-agenda-include-diary t)
 (setq diary-file "~/Dropbox/org/diary")
 #+end_src
+
 *** Appointments Setup
 #+begin_src emacs-lisp
 (appt-activate -1)
@@ -872,7 +895,8 @@ Make org-mode files automatically indent.
 *** Tags
 #+begin_src emacs-lisp
   (setq org-tag-persistent-alist '(("email" . ?e)
-                                   ("noexport" . ?N)))
+                                   ("noexport" . ?N))
+        org-complete-tags-always-offer-all-agenda-tags nil)
 #+end_src
 
 *** Log when tasks are marked as done:
@@ -1104,14 +1128,14 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
   ("e" "Events")
   ("ef" "Emacs Event (Not synced)" entry (file "~/Dropbox/org/events.org")
    "* %?")
-  ("ee" "Emacs Calendar (Limbo)" entry (file "~/Dropbox/org/events.org")
+  ("ee" "Emacs Calendar" entry (file "~/Dropbox/org/calendars/cal_emacs.org")
    "* %^{Title of event}
   SCHEDULED: %^{Scheduled time + duration}T
   :PROPERTIES:
   :calendar-id: ihfv2u5n9uf5ksj5484vbe7mj4@group.calendar.google.com
   :END:
   :org-gcal:%?
-  :END:" :jump-to-captured t)
+  :END:" :jump-to-captured nil)
   ("ep" "Gmail Calendar (Limbo)" entry (file "~/Dropbox/org/events.org")
    "* %^{Title of event}
   SCHEDULED: %^{Scheduled time + duration}T
@@ -1421,90 +1445,93 @@ Calendar Setup:
 *** org-roam
 
 #+begin_src emacs-lisp
-    (use-package org-roam
-        :ensure t
-        ;;:hook
-        ;;(after-init . org-roam-mode)
-        :bind ((("C-c n I" . org-roam-insert-immediate))
-               :map org-roam-mode-map
-                    (("C-c n l" . org-roam)
-                     ("C-c n f" . org-roam-find-file)
-                     ("C-c n g" . org-roam-graph)
-                     ("C-c n d ." . org-roam-dailies-capture-today)
-                     ("C-c n d p" . org-roam-dailies-capture-yesterday)
-                     ("C-c n d n" . org-roam-dailies-capture-tomorrow)
-                     ("C-c n d j" . org-roam-dailies-capture-date)
-                     ("C-c n d g" . org-roam-dailies-find-date)
-                     ("C-c n d f" . org-roam-dailies-find-next-note)
-                     ("C-c n d b" . org-roam-dailies-find-previous-note)
-                     ("C-c n c" . org-roam-capture)
-                     ("C-c n !" . pgw/org-roam-refresh))
-                    :map org-mode-map
-                    (("C-c n i" . org-roam-insert)))
-        :config
-        (setq org-roam-directory "~/Dropbox/org-roam/"
-              org-roam-db-location "~/Dropbox/org-roam/org-roam.db"
-              org-roam-dailies-directory "daily/"
-              org-roam-db-update-method 'immediate ;; could change later if it gets slow
-              org-roam-tag-sources '(prop vanilla)
-              org-roam-encrypt-files t
-              org-roam-graph-viewer "/Applications/Firefox.app/Contents/MacOS/firefox-bin"
-              org-roam-dailies-capture-templates
-              '(("j" "Journal" entry
-                 #'org-roam-capture--get-point
-                 "* %?\n:PROPERTIES:\n:LOGGED: %U\n:END:"
-                 :file-name "daily/daily-%<%Y-%m-%d>"
-                 :head "#+title: [%<%Y-%m-%d>]\n\n")
-                ("s" "Sermon" plain
-                 #'org-roam-capture--get-point
-                 "* %? :faith:\n:PROPERTIES:\n:CATEGORY: faith\n:PASSAGE: \n:END:"
-                 :file-name "daily/daily-%<%Y-%m-%d>"
-                 :head "#+setupfile: ~/.emacs.d/org-mode/templates/general/note.org
-    ,#+setupfile: ~/.emacs.d/org-mode/templates/school/name_email.org
-    ,#+setupfile: ~/.emacs.d/org-mode/templates/general/web.org
-    ,#+roam_tags: 
-    ,#+category: 
-    ,#+title: [%<%Y-%m-%d>]\n\n")
-                ("c" "Conducting Lesson" plain
-                 #'org-roam-capture--get-point
-                 "* %? :conducting:"
-                 :file-name "daily/daily-%<%Y-%m-%d>"
-                 :head "#+setupfile: ~/.emacs.d/org-mode/templates/general/note.org
-    ,#+setupfile: ~/.emacs.d/org-mode/templates/school/name_email.org
-    ,#+setupfile: ~/.emacs.d/org-mode/templates/general/web.org
-    ,#+title: [%<%Y-%m-%d>]\n\n")
-                ("v" "Violin" entry
-                 #'org-roam-capture--get-point
-                 "* %?\n:PROPERTIES:\n:CATEGORY: %^{Category}\n:END:"
-                 :file-name "daily/daily-%<Y-%m-%d>"
-                 :head "#+title: [%<%Y-%m-%d>]\n\n"
-                 :olp ("Violin")))
-              org-roam-capture-templates
-              '(("d" "Default" plain
-                 #'org-roam-capture--get-point
-                 "%?"
-                 :file-name "%<%Y%m%d%H%M%S>-${slug}"
-                 :head "#+setupfile: ~/.emacs.d/org-mode/templates/general/note.org
-    ,#+setupfile: ~/.emacs.d/org-mode/templates/school/name_email.org
-    ,#+setupfile: ~/.emacs.d/org-mode/templates/general/web.org
-    ,#+roam_tags: 
-    ,#+title: ${title}\n#+category: \n"
-                 :unnarrowed t)
-                ("e" "Entry" entry
-                 #'org-roam-capture--get-point
-                 "* %?\n%U\n"
-                 :file-name "%<%Y%m%d%H%M%S>-${slug}"
-                 :head "#+setupfile: ~/.emacs.d/org-mode/templates/general/note.org
-    ,#+setupfile: ~/.emacs.d/org-mode/templates/school/name_email.org
-    ,#+setupfile: ~/.emacs.d/org-mode/templates/general/web.org
-    ,#+roam_tags: 
-    ,#+title: ${title}\n#+category: \n"
-                 :unnarrowed t)))
-        (org-roam-mode 1)
-        (defun pgw/org-roam-refresh ()
-          (interactive)
-          (org-roam-db-build-cache :force)
-          (org-roam-buffer--update-maybe :redisplay)))
+  (use-package org-roam
+      :ensure t
+      :hook
+      (after-init . org-roam-mode)
+      :bind ((("C-c n I" . org-roam-insert-immediate))
+             :map org-roam-mode-map
+                  (("C-c n l" . org-roam)
+                   ("C-c n f" . org-roam-find-file)
+                   ("C-c n g" . org-roam-graph)
+                   ("C-c n d ." . org-roam-dailies-capture-today)
+                   ("C-c n d p" . org-roam-dailies-capture-yesterday)
+                   ("C-c n d n" . org-roam-dailies-capture-tomorrow)
+                   ("C-c n d j" . org-roam-dailies-capture-date)
+                   ("C-c n d g" . org-roam-dailies-find-date)
+                   ("C-c n d f" . org-roam-dailies-find-next-note)
+                   ("C-c n d b" . org-roam-dailies-find-previous-note)
+                   ("C-c n c" . org-roam-capture)
+                   ("C-c n !" . pgw/org-roam-refresh))
+                  :map org-mode-map
+                  (("C-c n i" . org-roam-insert)))
+      :config
+      (setq org-roam-directory "~/Dropbox/org-roam/"
+            org-roam-db-location "~/Dropbox/org-roam/org-roam.db"
+            org-roam-dailies-directory "daily/"
+            org-roam-db-update-method 'immediate ;; could change later if it gets slow
+            org-roam-tag-sources '(prop vanilla)
+            org-roam-encrypt-files t
+            org-roam-graph-viewer "/Applications/Firefox.app/Contents/MacOS/firefox-bin"
+            org-roam-dailies-capture-templates
+            '(("j" "Journal" entry
+               #'org-roam-capture--get-point
+               "* %?\n:PROPERTIES:\n:LOGGED: %U\n:END:"
+               :file-name "daily/daily-%<%Y-%m-%d>"
+               :head "#+setupfile: ~/.emacs.d/org-mode/templates/school/name_email.org
+  ,#+setupfile: ~/.emacs.d/org-mode/templates/general/web.org
+  ,#+roam_tags: 
+  ,#+category: 
+  ,#+title: [%<%Y-%m-%d %a>]\n\n")
+              ("s" "Sermon" plain
+               #'org-roam-capture--get-point
+               "* %? :faith:\n:PROPERTIES:\n:CATEGORY: faith\n:PASSAGE: \n:END:"
+               :file-name "daily/daily-%<%Y-%m-%d>"
+               :head "#+setupfile: ~/.emacs.d/org-mode/templates/school/name_email.org
+  ,#+setupfile: ~/.emacs.d/org-mode/templates/general/web.org
+  ,#+roam_tags: 
+  ,#+category: 
+  ,#+title: [%<%Y-%m-%d %a>]\n\n")
+              ("c" "Conducting Lesson" plain
+               #'org-roam-capture--get-point
+               "* %? :conducting:"
+               :file-name "daily/daily-%<%Y-%m-%d>"
+               :head "#+setupfile: ~/.emacs.d/org-mode/templates/general/note.org
+  ,#+setupfile: ~/.emacs.d/org-mode/templates/school/name_email.org
+  ,#+setupfile: ~/.emacs.d/org-mode/templates/general/web.org
+  ,#+title: [%<%Y-%m-%d>]\n\n")
+              ("v" "Violin" entry
+               #'org-roam-capture--get-point
+               "* %?\n:PROPERTIES:\n:CATEGORY: %^{Category}\n:END:"
+               :file-name "daily/daily-%<Y-%m-%d>"
+               :head "#+title: [%<%Y-%m-%d>]\n\n"
+               :olp ("Violin")))
+            org-roam-capture-templates
+            '(("d" "Default" plain
+               #'org-roam-capture--get-point
+               "%?"
+               :file-name "%<%Y%m%d%H%M%S>-${slug}"
+               :head "#+setupfile: ~/.emacs.d/org-mode/templates/general/note.org
+  ,#+setupfile: ~/.emacs.d/org-mode/templates/school/name_email.org
+  ,#+setupfile: ~/.emacs.d/org-mode/templates/general/web.org
+  ,#+roam_tags: 
+  ,#+title: ${title}\n#+category: \n"
+               :unnarrowed t)
+              ("e" "Entry" entry
+               #'org-roam-capture--get-point
+               "* %?\n%U\n"
+               :file-name "%<%Y%m%d%H%M%S>-${slug}"
+               :head "#+setupfile: ~/.emacs.d/org-mode/templates/general/note.org
+  ,#+setupfile: ~/.emacs.d/org-mode/templates/school/name_email.org
+  ,#+setupfile: ~/.emacs.d/org-mode/templates/general/web.org
+  ,#+roam_tags: 
+  ,#+title: ${title}\n#+category: \n"
+               :unnarrowed t)))
+      (org-roam-mode 1)
+      (defun pgw/org-roam-refresh ()
+        (interactive)
+        (org-roam-db-build-cache :force)
+        (org-roam-buffer--update-maybe :redisplay)))
 #+end_src
 
 Simpler setup
@@ -1530,6 +1557,7 @@ Simpler setup
                   (("C-c n i" . org-roam-insert))
                   (("C-c n I" . org-roam-insert-immediate))))
 #+end_src
+
 ** LaTeX
 #+begin_src emacs-lisp
   (setq TeX-engine 'xetex)
@@ -1800,7 +1828,12 @@ I love Emacs Tetris!
   (require 'tetris)
   (define-key tetris-mode-map (kbd "z") 'tetris-rotate-prev)
   (define-key tetris-mode-map (kbd "x") 'tetris-rotate-next)
+  (define-key tetris-mode-map (kbd "k") 'tetris-move-bottom)
+  (define-key tetris-mode-map (kbd "h") 'tetris-move-left)
+  (define-key tetris-mode-map (kbd "j") 'tetris-move-down)
+  (define-key tetris-mode-map (kbd "l") 'tetris-move-right)
 #+end_src
+
 *** DISABLED Retris
 CLOSED: [2021-04-10 Sat 22:54]
 
@@ -1826,6 +1859,7 @@ Doesn't work as of Emacs 27.1 :( maybe someday...
   (desktop-save-mode 1)
   (setq desktop-restore-frames nil)
   (setq desktop-restore-eager 5)
+  (setq desktop-dirname "~/.emacs.d/desktopsave/")
   (setq desktop-path (list "~/.emacs.d/desktopsave/"))
   (setq desktop-files-not-to-save "\\(^/[^/:]*:\\|(ftp)$\\|\.gpg$\\|\.org_archive\\)")
 #+end_src
@@ -1865,7 +1899,7 @@ Insert Org-mode Image
     (which-key-mode)
     (setq which-key-popup-type 'side-window)
     (setq which-key-side-window-location 'bottom)
-    )
+    (setq which-key-idle-delay 8.0))
 #+end_src
 
 *** Scrolling
@@ -2013,7 +2047,7 @@ CLOSED: [2020-11-24 Tue 00:50]
 #+begin_src emacs-lisp
   (setq delete-by-moving-to-trash t)
   (setq trash-directory "~/.Trash")
-  (setq insert-directory-program "/bin/ls"
+  (setq insert-directory-program "/usr/local/bin/gls"
         dired-use-ls-dired t)
 #+end_src
 
@@ -2032,6 +2066,11 @@ Custom dired open file function
   (define-key dired-mode-map (kbd "O") 'pgw/dired-open-file)
 #+end_src
 
+Symlinking
+#+begin_src emacs-lisp
+  (define-key dired-mode-map (kbd "Y") 'dired-do-symlink)
+#+end_src
+
 *** dired-quick-sort.el
 #+begin_src emacs-lisp
   (use-package dired-quick-sort
@@ -2045,6 +2084,7 @@ Custom dired open file function
 #+begin_src emacs-lisp
   (setq dired-listing-switches "-alh")
 #+end_src
+
 
 ** Disabled Functions
 Gotta sort this out later...
@@ -2066,7 +2106,7 @@ Allow the function =browse-url-firefox= to open links in firefox using bin. One 
 #+end_src
 
 ** DISABLED mu4e
-CLOSED: [2021-04-10 Sat 21:26]
+CLOSED: [2021-04-25 Sun 23:53]
 
 I love email in Emacs <3
 
@@ -2087,6 +2127,11 @@ I love email in Emacs <3
     mu4e-headers-auto-update t
     mu4e-compose-signature-auto-include nil
     mu4e-compose-format-flowed t); tell mu4e to use w3m for html rendering
+
+  ;; Speed up indexing
+  (setq
+    mu4e-index-cleanup nil      ;; don't do a full cleanup check
+    mu4e-index-lazy-check t)    ;; don't consider up-to-date dirs
 
   ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
   (setq mu4e-sent-messages-behavior 'delete)

@@ -10,7 +10,8 @@
 #+BEAMER_HEADER:
 #+OPTIONS: ':nil *:t -:t ::t <:t H:2 \n:t ^:{} arch:headline
 #+OPTIONS: author:t broken-links:nil c:nil creator:nil
-#+OPTIONS: d:(not "LOGBOOK") date:t e:t email:t f:t inline:t num:t
+#+OPTIONS: d:(not "LOGBOOK") date:t e:t email:nil f:t inline:t num:t
 #+OPTIONS: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
 #+OPTIONS: timestamp:t title:t toc:t todo:t |:t
 #+STARTUP: beamer indent content
+#+latex_compiler: lualatex

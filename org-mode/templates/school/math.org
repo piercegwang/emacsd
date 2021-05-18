@@ -4,6 +4,7 @@
 #+LATEX_HEADER: \DeclareMathOperator{\proj}{proj}
 #+LATEX_HEADER: \newcommand{\vctproj}[2][]{\proj_{\vec{#1}}\vec{#2}}
 #+LATEX_HEADER: \renewcommand{\vec}[1]{\mathbf{#1}}
+# #+LATEX_HEADER: \newcommand{\mat}[1]{\mathbf{#1}}
 #+LATEX_HEADER: \usepackage{rotating}
 # #+html_mathjax: \( \def\vec#1{\mathbf#1} \)
 #+OPTIONS: \n:t

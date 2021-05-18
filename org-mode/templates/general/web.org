@@ -1,3 +1,7 @@
-#+HTML_HEAD: <link rel="stylesheet" href="https://sandyuraz.com/styles/org.min.css">
+#+HTML_HEAD: <link rel="stylesheet" href="https://piercegwang.github.io/org-stylesheets/org.min.css">
+# #+HTML_HEAD: <link rel="stylesheet" href="https://piercegwang.github.io/org-stylesheets/vanilla.css">
+
+-----
+# #+HTML_HEAD: <link rel="stylesheet" href="https://sandyuraz.com/styles/org.min.css">
 # Option 2
 # #+HTML_HEAD: <link rel="stylesheet" href="https://vanillacss.com/vanilla.css">
