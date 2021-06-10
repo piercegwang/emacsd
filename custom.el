@@ -13,6 +13,7 @@
  '(epg-gpg-program "/usr/local/bin/gpg")
  '(erc-modules
    '(autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands readonly ring stamp track))
+ '(global-font-lock-mode t)
  '(helm-mode t)
  '(ibuffer-saved-filter-groups
    '(("Coursera"

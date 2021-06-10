@@ -10,6 +10,3 @@
 [submodule "site-lisp/darkroom"]
 	path = site-lisp/darkroom
 	url = https://github.com/joaotavora/darkroom.git
-[submodule "site-lisp/monokai-emacs"]
-	path = site-lisp/monokai-emacs
-	url = https://github.com/oneKelvinSmith/monokai-emacs.git
