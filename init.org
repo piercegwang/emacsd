@@ -168,6 +168,11 @@ No need for "Package cl deprecated" warning on startup.
 
 * Configurations
 
+** Bookmarks
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-x r D") 'bookmark-delete)
+#+end_src
+
 ** Emacs Stuff
 *** Startup Time Test
 
@@ -395,6 +400,9 @@ https://stackoverflow.com/questions/2540997/create-more-than-one-eshell-instance
   ;;; Visual line mode (for text wrapping)
   (global-set-key (kbd "C-x v v") 'visual-line-mode)
 
+  ;; Darkroom-tentative-mode
+  (global-set-key (kbd "C-x v d") 'darkroom-tentative-mode)
+
   ;(global-visual-line-mode t)
   (global-linum-mode 0)
   (global-display-line-numbers-mode 1)
@@ -442,7 +450,7 @@ Light themes:
 - solarized-light
 - doom-acario-light
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle yes
   (use-package doom-themes
     :config
     ;; Global settings (defaults)
@@ -452,6 +460,7 @@ Light themes:
     ;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
     ;; may have their own settings.
     (load-theme 'doom-outrun-electric t)
+    ;; (load-theme 'modus-operandi)
 
     ;; Enable flashing mode-line on errors
     (doom-themes-visual-bell-config)
@@ -483,11 +492,19 @@ Light themes:
    )
 #+end_src
 
+
 *** DISABLED Light Theme
 CLOSED: [2020-11-29 Sun 11:28]
 
 #+begin_src emacs-lisp :tangle no
   (load-theme 'modus-operandi)
+#+end_src
+
+*** DISABLED Regular Theme
+CLOSED: [2021-05-20 Thu 21:32]
+
+#+begin_src emacs-lisp :tangle no
+  (load-theme 'tango-dark)
 #+end_src
 
 *** Frame Resize Pixelwise
@@ -823,7 +840,9 @@ Dependency for ~ivy~
     (global-set-key (kbd "C-c k") 'counsel-ag)
     (global-set-key (kbd "C-x l") 'counsel-locate)
     (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-    (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history))
+    (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
+    (define-key ivy-minibuffer-map (kbd "S-SPC") (insert " "))
+    (define-key ivy-minibuffer-map (kbd "S-C-SPC") 'ivy-restrict-to-matches))
 #+end_src
 
 ** Diary
@@ -853,7 +872,123 @@ Dependency for ~ivy~
 *** Startup Settings
 Make org-mode files automatically indent.
 #+begin_src emacs-lisp
-  (setq org-startup-indented t)
+  (setq org-startup-indented nil)
+#+end_src
+
+*** org-roam
+
+#+begin_src emacs-lisp
+  (use-package org-roam
+      :ensure t
+      :hook
+      (after-init . org-roam-mode)
+      :bind ((("C-c n I" . org-roam-insert-immediate))
+             :map org-roam-mode-map
+                  (("C-c n l" . org-roam)
+                   ("C-c n f" . org-roam-find-file)
+                   ("C-c n g" . org-roam-graph)
+                   ("C-c n d ." . org-roam-dailies-capture-today)
+                   ("C-c n d p" . org-roam-dailies-capture-yesterday)
+                   ("C-c n d n" . org-roam-dailies-capture-tomorrow)
+                   ("C-c n d j" . org-roam-dailies-capture-date)
+                   ("C-c n d g" . org-roam-dailies-find-date)
+                   ("C-c n d f" . org-roam-dailies-find-next-note)
+                   ("C-c n d b" . org-roam-dailies-find-previous-note)
+                   ("C-c n c" . org-roam-capture)
+                   ("C-c n !" . pgw/org-roam-refresh))
+                  :map org-mode-map
+                  (("C-c n i" . org-roam-insert)))
+      :config
+      (setq org-roam-directory "~/Dropbox/org-roam/"
+            org-roam-db-location "~/Dropbox/org-roam/org-roam.db"
+            org-roam-dailies-directory "daily/"
+            org-roam-db-update-method 'immediate ;; could change later if it gets slow
+            org-roam-tag-sources '(prop vanilla)
+            org-roam-encrypt-files t
+            org-roam-graph-viewer "/Applications/Firefox.app/Contents/MacOS/firefox-bin"
+            org-roam-dailies-capture-templates
+            '(("j" "Journal" entry
+               #'org-roam-capture--get-point
+               "* %?\n:PROPERTIES:\n:LOGGED: %U\n:END:"
+               :file-name "daily/daily-%<%Y-%m-%d>"
+               :head "#+setupfile: ~/.emacs.d/org-mode/templates/school/name_email.org
+  ,#+setupfile: ~/.emacs.d/org-mode/templates/general/web.org
+  ,#+roam_tags: 
+  ,#+category: 
+  ,#+title: [%<%Y-%m-%d %a>]\n\n")
+              ("s" "Sermon" plain
+               #'org-roam-capture--get-point
+               "* %? :faith:\n:PROPERTIES:\n:CATEGORY: faith\n:PASSAGE: \n:END:"
+               :file-name "daily/daily-%<%Y-%m-%d>"
+               :head "#+setupfile: ~/.emacs.d/org-mode/templates/school/name_email.org
+  ,#+setupfile: ~/.emacs.d/org-mode/templates/general/web.org
+  ,#+roam_tags: 
+  ,#+category: 
+  ,#+title: [%<%Y-%m-%d %a>]\n\n")
+              ("c" "Conducting Lesson" plain
+               #'org-roam-capture--get-point
+               "* %? :conducting:"
+               :file-name "daily/daily-%<%Y-%m-%d>"
+               :head "#+setupfile: ~/.emacs.d/org-mode/templates/general/note.org
+  ,#+setupfile: ~/.emacs.d/org-mode/templates/school/name_email.org
+  ,#+setupfile: ~/.emacs.d/org-mode/templates/general/web.org
+  ,#+title: [%<%Y-%m-%d>]\n\n")
+              ("v" "Violin" entry
+               #'org-roam-capture--get-point
+               "* %?\n:PROPERTIES:\n:CATEGORY: %^{Category}\n:END:"
+               :file-name "daily/daily-%<Y-%m-%d>"
+               :head "#+title: [%<%Y-%m-%d>]\n\n"
+               :olp ("Violin")))
+            org-roam-capture-templates
+            '(("d" "Default" plain
+               #'org-roam-capture--get-point
+               "%?"
+               :file-name "%<%Y%m%d%H%M%S>-${slug}"
+               :head "#+setupfile: ~/.emacs.d/org-mode/templates/general/note.org
+  ,#+setupfile: ~/.emacs.d/org-mode/templates/school/name_email.org
+  ,#+setupfile: ~/.emacs.d/org-mode/templates/general/web.org
+  ,#+roam_tags: 
+  ,#+title: ${title}\n#+category: \n"
+               :unnarrowed t)
+              ("e" "Entry" entry
+               #'org-roam-capture--get-point
+               "* %?\n%U\n"
+               :file-name "%<%Y%m%d%H%M%S>-${slug}"
+               :head "#+setupfile: ~/.emacs.d/org-mode/templates/general/note.org
+  ,#+setupfile: ~/.emacs.d/org-mode/templates/school/name_email.org
+  ,#+setupfile: ~/.emacs.d/org-mode/templates/general/web.org
+  ,#+roam_tags: 
+  ,#+title: ${title}\n#+category: \n"
+               :unnarrowed t)))
+      (org-roam-mode 1)
+      (defun pgw/org-roam-refresh ()
+        (interactive)
+        (org-roam-db-build-cache :force)
+        (org-roam-buffer--update-maybe :redisplay)))
+#+end_src
+
+Simpler setup
+#+begin_src emacs-lisp :tangle no
+  (use-package org-roam
+      :ensure t
+      :hook
+      (after-init . org-roam-mode)
+      :bind (:map org-roam-mode-map
+                  (("C-c n l" . org-roam)
+                   ("C-c n f" . org-roam-find-file)
+                   ("C-c n g" . org-roam-graph)
+                   ("C-c n d ." . org-roam-dailies-capture-today)
+                   ("C-c n d p" . org-roam-dailies-capture-yesterday)
+                   ("C-c n d n" . org-roam-dailies-capture-tomorrow)
+                   ("C-c n d j" . org-roam-dailies-capture-date)
+                   ("C-c n d g" . org-roam-dailies-find-date)
+                   ("C-c n d f" . org-roam-dailies-find-next-note)
+                   ("C-c n d b" . org-roam-dailies-find-previous-note)
+                   ("C-c n c" . org-roam-capture)
+                   ("C-c n !" . pgw/org-roam-refresh))
+                  :map org-mode-map
+                  (("C-c n i" . org-roam-insert))
+                  (("C-c n I" . org-roam-insert-immediate))))
 #+end_src
 
 *** Todo keywords
@@ -1009,17 +1144,17 @@ Custom commands, testing sorting strategy variable
 **** Files
 #+begin_src emacs-lisp
   (setq org-agenda-files (append (file-expand-wildcards "~/Dropbox/org/*.org")
-                                 (file-expand-wildcards "~/Dropbox/org/calendars/*.org")
-                                 (file-expand-wildcards "~/Dropbox/org-roam/*.org")
-                                 (file-expand-wildcards "~/Dropbox/org-roam/*.org.gpg")))
+                                 (file-expand-wildcards "~/Dropbox/org/*.org.gpg")
+                                 (file-expand-wildcards "~/Dropbox/org/calendars/*.org")))
 
   ;; (define-key org-agenda-mode-map (kbd "s-r") 'pgw/org-agenda-reload-files)
+
   (defun pgw/org-agenda-reload-files ()
     (interactive)
     (setq org-agenda-files (append (file-expand-wildcards "~/Dropbox/org/*.org")
-                                   (file-expand-wildcards "~/Dropbox/org/calendars/*.org")
-                                   (file-expand-wildcards "~/Dropbox/org-roam/*.org")
-                                   (file-expand-wildcards "~/Dropbox/org-roam/*.org.gpg"))))
+                                   (file-expand-wildcards "~/Dropbox/org/*.org.gpg")
+                                   (file-expand-wildcards "~/Dropbox/org/calendars/*.org"))))
+
 #+end_src
 
 **** Time Grid Variable
@@ -1359,7 +1494,7 @@ Fix color handling in org-preview-latex-fragment
 #+begin_src emacs-lisp
   (use-package org-superstar
     :config
-    (setq org-superstar-prettify-item-bullets 'nil)
+    (setq org-superstar-prettify-item-bullets t)
     :hook (org-mode . org-superstar-mode))
 
 #+end_src
@@ -1442,120 +1577,10 @@ Calendar Setup:
   (setq org-reveal-root "file:///Users/piercewang/Documents/projects/revealjs/reveal.js-4.1.0")
 #+end_src
 
-*** org-roam
-
+*** ~Darkroom~ for Writing
 #+begin_src emacs-lisp
-  (use-package org-roam
-      :ensure t
-      :hook
-      (after-init . org-roam-mode)
-      :bind ((("C-c n I" . org-roam-insert-immediate))
-             :map org-roam-mode-map
-                  (("C-c n l" . org-roam)
-                   ("C-c n f" . org-roam-find-file)
-                   ("C-c n g" . org-roam-graph)
-                   ("C-c n d ." . org-roam-dailies-capture-today)
-                   ("C-c n d p" . org-roam-dailies-capture-yesterday)
-                   ("C-c n d n" . org-roam-dailies-capture-tomorrow)
-                   ("C-c n d j" . org-roam-dailies-capture-date)
-                   ("C-c n d g" . org-roam-dailies-find-date)
-                   ("C-c n d f" . org-roam-dailies-find-next-note)
-                   ("C-c n d b" . org-roam-dailies-find-previous-note)
-                   ("C-c n c" . org-roam-capture)
-                   ("C-c n !" . pgw/org-roam-refresh))
-                  :map org-mode-map
-                  (("C-c n i" . org-roam-insert)))
-      :config
-      (setq org-roam-directory "~/Dropbox/org-roam/"
-            org-roam-db-location "~/Dropbox/org-roam/org-roam.db"
-            org-roam-dailies-directory "daily/"
-            org-roam-db-update-method 'immediate ;; could change later if it gets slow
-            org-roam-tag-sources '(prop vanilla)
-            org-roam-encrypt-files t
-            org-roam-graph-viewer "/Applications/Firefox.app/Contents/MacOS/firefox-bin"
-            org-roam-dailies-capture-templates
-            '(("j" "Journal" entry
-               #'org-roam-capture--get-point
-               "* %?\n:PROPERTIES:\n:LOGGED: %U\n:END:"
-               :file-name "daily/daily-%<%Y-%m-%d>"
-               :head "#+setupfile: ~/.emacs.d/org-mode/templates/school/name_email.org
-  ,#+setupfile: ~/.emacs.d/org-mode/templates/general/web.org
-  ,#+roam_tags: 
-  ,#+category: 
-  ,#+title: [%<%Y-%m-%d %a>]\n\n")
-              ("s" "Sermon" plain
-               #'org-roam-capture--get-point
-               "* %? :faith:\n:PROPERTIES:\n:CATEGORY: faith\n:PASSAGE: \n:END:"
-               :file-name "daily/daily-%<%Y-%m-%d>"
-               :head "#+setupfile: ~/.emacs.d/org-mode/templates/school/name_email.org
-  ,#+setupfile: ~/.emacs.d/org-mode/templates/general/web.org
-  ,#+roam_tags: 
-  ,#+category: 
-  ,#+title: [%<%Y-%m-%d %a>]\n\n")
-              ("c" "Conducting Lesson" plain
-               #'org-roam-capture--get-point
-               "* %? :conducting:"
-               :file-name "daily/daily-%<%Y-%m-%d>"
-               :head "#+setupfile: ~/.emacs.d/org-mode/templates/general/note.org
-  ,#+setupfile: ~/.emacs.d/org-mode/templates/school/name_email.org
-  ,#+setupfile: ~/.emacs.d/org-mode/templates/general/web.org
-  ,#+title: [%<%Y-%m-%d>]\n\n")
-              ("v" "Violin" entry
-               #'org-roam-capture--get-point
-               "* %?\n:PROPERTIES:\n:CATEGORY: %^{Category}\n:END:"
-               :file-name "daily/daily-%<Y-%m-%d>"
-               :head "#+title: [%<%Y-%m-%d>]\n\n"
-               :olp ("Violin")))
-            org-roam-capture-templates
-            '(("d" "Default" plain
-               #'org-roam-capture--get-point
-               "%?"
-               :file-name "%<%Y%m%d%H%M%S>-${slug}"
-               :head "#+setupfile: ~/.emacs.d/org-mode/templates/general/note.org
-  ,#+setupfile: ~/.emacs.d/org-mode/templates/school/name_email.org
-  ,#+setupfile: ~/.emacs.d/org-mode/templates/general/web.org
-  ,#+roam_tags: 
-  ,#+title: ${title}\n#+category: \n"
-               :unnarrowed t)
-              ("e" "Entry" entry
-               #'org-roam-capture--get-point
-               "* %?\n%U\n"
-               :file-name "%<%Y%m%d%H%M%S>-${slug}"
-               :head "#+setupfile: ~/.emacs.d/org-mode/templates/general/note.org
-  ,#+setupfile: ~/.emacs.d/org-mode/templates/school/name_email.org
-  ,#+setupfile: ~/.emacs.d/org-mode/templates/general/web.org
-  ,#+roam_tags: 
-  ,#+title: ${title}\n#+category: \n"
-               :unnarrowed t)))
-      (org-roam-mode 1)
-      (defun pgw/org-roam-refresh ()
-        (interactive)
-        (org-roam-db-build-cache :force)
-        (org-roam-buffer--update-maybe :redisplay)))
-#+end_src
-
-Simpler setup
-#+begin_src emacs-lisp :tangle no
-  (use-package org-roam
-      :ensure t
-      :hook
-      (after-init . org-roam-mode)
-      :bind (:map org-roam-mode-map
-                  (("C-c n l" . org-roam)
-                   ("C-c n f" . org-roam-find-file)
-                   ("C-c n g" . org-roam-graph)
-                   ("C-c n d ." . org-roam-dailies-capture-today)
-                   ("C-c n d p" . org-roam-dailies-capture-yesterday)
-                   ("C-c n d n" . org-roam-dailies-capture-tomorrow)
-                   ("C-c n d j" . org-roam-dailies-capture-date)
-                   ("C-c n d g" . org-roam-dailies-find-date)
-                   ("C-c n d f" . org-roam-dailies-find-next-note)
-                   ("C-c n d b" . org-roam-dailies-find-previous-note)
-                   ("C-c n c" . org-roam-capture)
-                   ("C-c n !" . pgw/org-roam-refresh))
-                  :map org-mode-map
-                  (("C-c n i" . org-roam-insert))
-                  (("C-c n I" . org-roam-insert-immediate))))
+  (use-package darkroom
+    :load-path "site-lisp/darkroom")
 #+end_src
 
 ** LaTeX
@@ -2070,6 +2095,8 @@ Symlinking
 #+begin_src emacs-lisp
   (define-key dired-mode-map (kbd "Y") 'dired-do-symlink)
 #+end_src
+
+Move 
 
 *** dired-quick-sort.el
 #+begin_src emacs-lisp

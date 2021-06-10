@@ -6,7 +6,7 @@
 #+language: en
 #+select_tags: export
 #+exclude_tags: noexport
-#+STARTUP: content indent
+#+STARTUP: content
 # #+PRIORITIES: A G C
 # #+LATEX_HEADER: \linespread{0}
 # #+LATEX_HEADER: \usepackage{enumitem}
