@@ -2,7 +2,7 @@
 #+AUTHOR: Pierce Wang
 #+BABEL: :cache yes
 #+PROPERTY: header-args :tangle yes :results silent
-#+STARTUP: content
+#+STARTUP: content indent
 #+SEQ_TODO: TODO(t) | DISABLED(D)
 #+SETUPFILE: ~/.emacs.d/org-mode/templates/general/web.org
 * Credits and Notes
@@ -393,8 +393,9 @@ https://stackoverflow.com/questions/2540997/create-more-than-one-eshell-instance
 
 #+begin_src emacs-lisp
   ;(load-theme 'tango-dark t)
-  (load-theme 'monokai)
-  ;;; Frame
+  ;; (load-theme 'monokai)
+  ;; ;
+  ;; Frame
   (add-to-list 'default-frame-alist '(height . 46))
   (add-to-list 'default-frame-alist '(width . 146))
 
@@ -403,13 +404,6 @@ https://stackoverflow.com/questions/2540997/create-more-than-one-eshell-instance
 
   ;; Darkroom-tentative-mode
   (global-set-key (kbd "C-x v d") 'darkroom-tentative-mode)
-
-  ;(global-visual-line-mode t)
-  (global-linum-mode 0)
-  (global-display-line-numbers-mode 1)
-  (setq-default display-line-numbers 'visual)
-  (setq display-line-numbers-type 'visual)
-  (set-default 'truncate-lines t)
 
   ;; (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
   (add-to-list 'default-frame-alist '(ns-appearance . dark)) ;; assuming you are using a dark theme
@@ -444,12 +438,14 @@ Favorite themes:
 
 1. outrun-electric
 2. challenger-deep
-3. molokai
-4. solarized-dark
+3. snazzy
+4. molokai
+5. solarized-dark
 
 Light themes:
 - solarized-light
 - doom-acario-light
+- gruvbox-light
 
 #+begin_src emacs-lisp :tangle yes
   (use-package doom-themes
@@ -460,7 +456,7 @@ Light themes:
 
     ;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
     ;; may have their own settings.
-    (load-theme 'doom-monokai-pro t)
+    (load-theme 'doom-snazzy t)
     ;; (load-theme 'modus-operandi)
 
     ;; Enable flashing mode-line on errors
@@ -512,6 +508,16 @@ CLOSED: [2021-05-20 Thu 21:32]
 Make Emacs play nice with my window manager and resizing around other windows.
 #+begin_src emacs-lisp
   (setq frame-resize-pixelwise t)
+#+end_src
+
+*** Line Numbers
+
+#+begin_src emacs-lisp
+  ;; (global-visual-line-mode t)
+  (setq display-line-numbers-type 'visual)
+  (global-display-line-numbers-mode 1)
+  ;; (setq-default display-line-numbers 'visual)
+  (set-default 'truncate-lines t)
 #+end_src
 
 ** Windows and Frames
@@ -873,7 +879,7 @@ Dependency for ~ivy~
 *** Startup Settings
 Make org-mode files automatically indent.
 #+begin_src emacs-lisp
-  (setq org-startup-indented nil)
+  (setq org-startup-indented t)
 #+end_src
 
 *** org-roam
@@ -919,7 +925,7 @@ Make org-mode files automatically indent.
   ,#+title: [%<%Y-%m-%d %a>]\n\n")
               ("s" "Sermon" plain
                #'org-roam-capture--get-point
-               "* %? :faith:\n:PROPERTIES:\n:CATEGORY: faith\n:PASSAGE: \n:END:"
+               "* %? :sermon:faith:\n:PROPERTIES:\n:CATEGORY: faith\n:PASSAGE: \n:END:"
                :file-name "daily/daily-%<%Y-%m-%d>"
                :head "#+setupfile: ~/.emacs.d/org-mode/templates/school/name_email.org
   ,#+setupfile: ~/.emacs.d/org-mode/templates/general/web.org
@@ -1393,7 +1399,13 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
   :DATE:     %U
   :END:
   %^{FROM}p
+  ")
+  ("s" "Stuff")
+  ("si" "Inbox" entry (file "/Users/piercewang/Dropbox/org/notes/stuff_and_things/organizing_temp.org")
+   "* DECIDE %?
+  %U
   ")))
+
 #+end_src
 
 *** MobileOrg
@@ -1445,8 +1457,7 @@ Testing out org-super-agenda. Code kept here in case I want to experiemnt in the
 
 #+begin_src emacs-lisp
   ;;; org-drill
-  (use-package org-drill
-    :load-path "custom_load")
+  (use-package org-drill)
 #+end_src
 
 *** Latex
@@ -2111,6 +2122,7 @@ Move
 *** Human readable format for ls switches (=-h=)
 #+begin_src emacs-lisp
   (setq dired-listing-switches "-alh")
+  (setq dired-actual-switches "-alh")
 #+end_src
 
 

@@ -6,7 +6,7 @@
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(custom-safe-themes
-   '("730a87ed3dc2bf318f3ea3626ce21fb054cd3a1471dcd59c81a4071df02cb601" "7b3ce93a17ce4fc6389bba8ecb9fee9a1e4e01027a5f3532cc47d160fe303d5a" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "b9e9ba5aeedcc5ba8be99f1cc9301f6679912910ff92fdf7980929c2fc83ab4d" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))
+   '("7a994c16aa550678846e82edc8c9d6a7d39cc6564baaaacc305a3fdc0bd8725f" "aaa4c36ce00e572784d424554dcc9641c82d1155370770e231e10c649b59a074" "730a87ed3dc2bf318f3ea3626ce21fb054cd3a1471dcd59c81a4071df02cb601" "7b3ce93a17ce4fc6389bba8ecb9fee9a1e4e01027a5f3532cc47d160fe303d5a" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "b9e9ba5aeedcc5ba8be99f1cc9301f6679912910ff92fdf7980929c2fc83ab4d" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))
  '(debug-on-error nil)
  '(default-input-method "TeX")
  '(elpy-rpc-python-command "python3")
@@ -108,10 +108,19 @@
  '(org-modules
    '(ol-bbdb ol-bibtex ol-docview ol-eww ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m))
  '(package-selected-packages
-   '(unicode-fonts org-roam lsp-treemacs dap-mode yasnippet rotate 2048-game bufler powerline ox-reveal modus-operandi-theme lsp-ivy lsp-java which-key lsp-ui lsp-mode flycheck projectile company-jedi jedi company counsel "ivy" ivy gnuplot all-the-icons ztree org-superstar treemacs-magit treemacs-evil treemacs tramp org-gcal json-mode org-mode use-package cdlatex org-noter artist-mode python-docstring markdown-mode epa-file framemove doom-themes htmlize lua-mode magit elpy exec-path-from-shell smart-mode-line latex auctex evil-visual-mark-mode))
+   '(org-drill-table org-drill unicode-fonts org-roam lsp-treemacs dap-mode yasnippet rotate 2048-game bufler powerline ox-reveal modus-operandi-theme lsp-ivy lsp-java which-key lsp-ui lsp-mode flycheck projectile company-jedi jedi company counsel "ivy" ivy gnuplot all-the-icons ztree org-superstar treemacs-magit treemacs-evil treemacs tramp org-gcal json-mode org-mode use-package cdlatex org-noter artist-mode python-docstring markdown-mode epa-file framemove doom-themes htmlize lua-mode magit elpy exec-path-from-shell smart-mode-line latex auctex evil-visual-mark-mode))
  '(python-shell-interpreter "python3")
  '(safe-local-variable-values
-   '((org-roam-db-location . "/Users/piercewang/Google Drive/OHS/12th Grade/Classes/OCRA1/notes/org-roam.db")
+   '((org-refile-targets
+      (("organizing_temp.org")
+       :maxlevel . 9))
+     (org-refile-targets "~/Dropbox/org/notes/stuff_and_things/organizing_temp.org")
+     (org-todo-keywords
+      (sequence "DECIDE(d)" "WAITING(w)" "TRASH(t)" "|" "TRASHD(D)" "KEPT(k)"))
+     (org-todo-keywords
+      (sequence "DECIDE(d)" "WAITING(w)" "TRASH(t)" "|" "TRASHD" "KEPT"))
+     (org-refile-targets file-expand-wildcards "~/Dropbox/org/notes/stuff_and_things/*.org")
+     (org-roam-db-location . "/Users/piercewang/Google Drive/OHS/12th Grade/Classes/OCRA1/notes/org-roam.db")
      (org-roam-directory . "/Users/piercewang/Google Drive/OHS/12th Grade/Classes/OCRA1/notes/")
      (org-roam-encrypt-files)
      (org-roam-db-update-method . immediate)
